@@ -9,25 +9,33 @@
         body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; padding: 20px; }
         .card { background: white; border-radius: 20px; padding: 24px; border: 1px solid #e2e8f0; }
         label { display: block; font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; margin-bottom: 4px; }
-        input { width: 100%; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-weight: 700; outline: none; transition: all 0.2s; }
-        input:focus { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1); }
-        .section-title { font-weight: 900; text-transform: uppercase; border-left: 4px solid #ef4444; padding-left: 12px; margin: 30px 0 15px 0; color: #1e293b; font-size: 14px; letter-spacing: 0.05em; }
+        input { width: 100%; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 10px; font-weight: 700; outline: none; transition: all 0.2s; }
+        input:focus { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1); background-color: #fffafb; }
+        .section-title { font-weight: 900; text-transform: uppercase; border-left: 5px solid #ef4444; padding-left: 12px; margin: 35px 0 15px 0; color: #1e293b; font-size: 15px; letter-spacing: 0.05em; }
+        .table-header { font-size: 10px; font-weight: 800; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em; }
     </style>
 </head>
 <body>
-    <div class="max-w-4xl mx-auto">
-        <div class="card border-t-4 border-red-500 shadow-lg">
+    <div class="max-w-5xl mx-auto">
+        <div class="card border-t-4 border-red-500 shadow-xl">
             <div class="flex justify-between items-center mb-6 sticky top-0 bg-white py-4 z-10 border-b">
                 <div>
-                    <h3 class="font-black text-slate-800 uppercase tracking-tighter text-lg">Nhập liệu 34 Chỉ tiêu (Năm 2026)</h3>
-                    <p class="text-[10px] text-slate-400 font-bold uppercase italic">Cập nhật số thực hiện (TH) vào hệ thống Real-time</p>
+                    <h3 class="font-black text-slate-800 uppercase tracking-tighter text-lg">Cập nhật 34 Chỉ tiêu (Năm 2026)</h3>
+                    <p class="text-[10px] text-slate-400 font-bold uppercase italic">Hệ thống nhập liệu số thực hiện (TH) độc lập</p>
                 </div>
                 <button onclick="saveChiTieu()" class="bg-red-600 text-white font-black px-8 py-3 rounded-xl hover:bg-red-700 transition-all shadow-lg active:scale-95 text-xs tracking-widest">
                     💾 LƯU SỐ LIỆU
                 </button>
             </div>
             
-            <div id="input-container" class="space-y-6">
+            <div class="hidden md:grid grid-cols-12 gap-4 px-4 mb-2 table-header">
+                <div class="col-span-1">Mã</div>
+                <div class="col-span-7">Nội dung chỉ tiêu</div>
+                <div class="col-span-2 text-center">ĐVT</div>
+                <div class="col-span-2 text-center">Số thực hiện</div>
+            </div>
+
+            <div id="input-container" class="space-y-3">
                 </div>
         </div>
     </div>
@@ -47,7 +55,7 @@
         const db = getDatabase(initializeApp(firebaseConfig));
         const rootRef = ref(db, 'dashboard_binhhung/chi_tieu_2026');
 
-        // Danh sách 34 chỉ tiêu theo Phụ lục mới
+        // Danh sách 34 chỉ tiêu từ PDF 
         const indicators = [
             {id: "1", nhom: "I", ten: "Tốc độ tăng tổng giá trị sản phẩm trên địa bàn", dv: "%"},
             {id: "2", nhom: "I", ten: "Tổng thu ngân sách nhà nước (so dự toán)", dv: "%"},
@@ -55,7 +63,6 @@
             {id: "4", nhom: "I", ten: "Tăng thu nhập bình quân đầu người", dv: "%"},
             {id: "5", nhom: "I", ten: "Số doanh nghiệp thành lập mới", dv: "DN"},
             {id: "6", nhom: "I", ten: "Số hộ kinh doanh thành lập mới", dv: "Hộ"},
-            
             {id: "7", nhom: "II", ten: "Tỷ lệ dân số tham gia bảo hiểm y tế", dv: "%"},
             {id: "8", nhom: "II", ten: "Tỷ lệ LĐ trong độ tuổi tham gia BHXH", dv: "%"},
             {id: "9", nhom: "II", ten: "Tỷ lệ trường Mầm non đạt chuẩn Quốc gia", dv: "%"},
@@ -70,23 +77,20 @@
             {id: "18", nhom: "II", ten: "Tỷ lệ trẻ dưới 1 tuổi tiêm chủng đầy đủ", dv: "%"},
             {id: "19", nhom: "II", ten: "Số lao động được giới thiệu việc làm", dv: "Người"},
             {id: "20", nhom: "II", ten: "Xây dựng mô hình/chương trình du lịch", dv: "Mô hình"},
-
             {id: "21", nhom: "III", ten: "Tỷ lệ dân số sử dụng nước sạch", dv: "%"},
             {id: "22", nhom: "III", ten: "Tỷ lệ thu gom chất thải rắn sinh hoạt", dv: "%"},
             {id: "23", nhom: "III", ten: "Tỷ lệ chất thải y tế được xử lý đạt chuẩn", dv: "%"},
             {id: "24", nhom: "III", ten: "Tỷ lệ xử lý nước thải công nghiệp", dv: "%"},
             {id: "25", nhom: "III", ten: "Cơ sở SXKD đạt tiêu chuẩn môi trường", dv: "%"},
-
             {id: "26", nhom: "IV", ten: "Tỷ lệ giải quyết hồ sơ hành chính đúng hạn", dv: "%"},
             {id: "27", nhom: "IV", ten: "Tỷ lệ CBCC sử dụng chữ ký số cá nhân", dv: "%"},
             {id: "28", nhom: "IV", ten: "Tỷ lệ xử lý phản ánh, kiến nghị đúng hạn", dv: "%"},
-
             {id: "29", nhom: "V", ten: "Chỉ tiêu tuyển chọn gọi công dân nhập ngũ", dv: "Người"},
             {id: "30", nhom: "V", ten: "Kéo giảm tội phạm trật tự xã hội", dv: "%"},
             {id: "31", nhom: "V", ten: "Tỷ lệ khám phá án hình sự", dv: "%"},
             {id: "32", nhom: "V", ten: "Kéo giảm tai nạn giao thông (3 tiêu chí)", dv: "%"},
             {id: "33", nhom: "V", ten: "Số vụ cháy nổ gây thiệt hại nghiêm trọng", dv: "Vụ"},
-            {id: "34", nhom: "V", ten: "Địa phương không phức tạp về ma túy", dv: "1=Đạt/0=K"}
+            {id: "34", nhom: "V", nhom_ten: "Quốc phòng", ten: "Địa phương không phức tạp về ma túy", dv: "Đạt/K"}
         ];
 
         const groupNames = {
@@ -100,37 +104,40 @@
         const container = document.getElementById('input-container');
         let currentGroup = "";
 
-        // Render form theo nhóm
+        // Render bảng nhập liệu
         indicators.forEach(it => {
             if (it.nhom !== currentGroup) {
                 currentGroup = it.nhom;
                 container.innerHTML += `<div class="section-title">${it.nhom}. ${groupNames[it.nhom]}</div>`;
             }
             container.innerHTML += `
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center bg-slate-50 p-4 rounded-xl border border-slate-100 hover:bg-white hover:shadow-sm transition-all">
-                    <div class="md:col-span-3">
-                        <span class="text-[10px] font-black text-red-500 mr-2">${it.id}.</span>
-                        <label class="inline">${it.ten} <span class="text-slate-400 normal-case">(${it.dv})</span></label>
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-center bg-slate-50 p-3 rounded-xl border border-slate-100 hover:bg-white hover:shadow-md transition-all">
+                    <div class="col-span-1 text-[11px] font-black text-slate-400 text-center">${it.id}</div>
+                    <div class="col-span-1 md:col-span-7">
+                        <label class="text-[13px] font-bold text-slate-700 normal-case leading-snug">${it.ten}</label>
                     </div>
-                    <div>
-                        <input type="text" id="ct_${it.id}" placeholder="Kết quả..." class="bg-white">
+                    <div class="col-span-1 md:col-span-2 text-center">
+                        <span class="text-[11px] font-black text-blue-500 bg-blue-50 px-3 py-1 rounded-full uppercase">${it.dv}</span>
+                    </div>
+                    <div class="col-span-1 md:col-span-2">
+                        <input type="text" id="ct_${it.id}" placeholder="Kết quả..." class="text-center text-red-600">
                     </div>
                 </div>
             `;
         });
 
-        // Load dữ liệu thực hiện (th) từ Firebase
+        // Load dữ liệu cũ
         onValue(rootRef, (snap) => {
             const d = snap.val();
             if(d) {
                 Object.keys(d).forEach(k => {
-                    const inputElement = document.getElementById(`ct_${k}`);
-                    if(inputElement) inputElement.value = d[k].th || 0;
+                    const el = document.getElementById(`ct_${k}`);
+                    if(el) el.value = d[k].th || 0;
                 });
             }
         }, { onlyOnce: true });
 
-        // Hàm lưu dữ liệu (Chỉ update trường 'th')
+        // Lưu dữ liệu
         window.saveChiTieu = () => {
             const updates = {};
             indicators.forEach(it => {
@@ -139,8 +146,8 @@
             });
 
             update(rootRef, updates)
-                .then(() => alert("✅ Đã lưu số liệu thực hiện 34 chỉ tiêu!"))
-                .catch(e => alert("❌ Lỗi: " + e));
+                .then(() => alert("✅ Đã cập nhật số liệu thành công!"))
+                .catch(e => alert("❌ Lỗi hệ thống: " + e));
         };
     </script>
 </body>
