@@ -2,27 +2,32 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; padding: 20px; }
         .card { background: white; border-radius: 20px; padding: 24px; border: 1px solid #e2e8f0; }
         label { display: block; font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; margin-bottom: 4px; }
-        input { width: 100%; padding: 8px 12px; border: 1px solid #cbd5e1; border-radius: 8px; font-weight: 600; outline: none; margin-bottom: 12px; }
-        .section-title { font-weight: 900; text-transform: uppercase; border-left: 4px solid #ef4444; padding-left: 12px; margin-bottom: 20px; color: #1e293b; font-size: 14px; }
+        input { width: 100%; padding: 10px 14px; border: 1px solid #cbd5e1; border-radius: 8px; font-weight: 700; outline: none; transition: all 0.2s; }
+        input:focus { border-color: #ef4444; box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.1); }
+        .section-title { font-weight: 900; text-transform: uppercase; border-left: 4px solid #ef4444; padding-left: 12px; margin: 30px 0 15px 0; color: #1e293b; font-size: 14px; letter-spacing: 0.05em; }
     </style>
 </head>
 <body>
     <div class="max-w-4xl mx-auto">
         <div class="card border-t-4 border-red-500 shadow-lg">
-            <div class="flex justify-between items-center mb-6 sticky top-0 bg-white py-2 z-10 border-b">
-                <h3 class="font-black text-slate-800 uppercase tracking-tighter">Cập nhật 38 Chỉ tiêu nhiệm vụ chính trị</h3>
-                <button onclick="saveChiTieu()" class="bg-red-600 text-white font-black px-6 py-2 rounded-lg hover:bg-red-700 transition-all shadow-md active:scale-95 text-xs">
+            <div class="flex justify-between items-center mb-6 sticky top-0 bg-white py-4 z-10 border-b">
+                <div>
+                    <h3 class="font-black text-slate-800 uppercase tracking-tighter text-lg">Nhập liệu 34 Chỉ tiêu (Năm 2026)</h3>
+                    <p class="text-[10px] text-slate-400 font-bold uppercase italic">Cập nhật số thực hiện (TH) vào hệ thống Real-time</p>
+                </div>
+                <button onclick="saveChiTieu()" class="bg-red-600 text-white font-black px-8 py-3 rounded-xl hover:bg-red-700 transition-all shadow-lg active:scale-95 text-xs tracking-widest">
                     💾 LƯU SỐ LIỆU
                 </button>
             </div>
             
-            <div id="input-container" class="space-y-4">
+            <div id="input-container" class="space-y-6">
                 </div>
         </div>
     </div>
@@ -31,70 +36,111 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
         import { getDatabase, ref, update, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
         
-        const firebaseConfig = { apiKey: "AIzaSyCjS8jJtoV5HLcYIpVTX1zP5DbyYmXsbh4", authDomain: "dashboard-demo-ce0da.firebaseapp.com", databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app", projectId: "dashboard-demo-ce0da", appId: "1:969593884637:web:47d4e6b03a51e7dcfbb034" };
-        const db = getDatabase(initializeApp(firebaseConfig));
-        const rootRef = ref(db, 'dashboard_binhhung/chi_tieu');
+        const firebaseConfig = { 
+            apiKey: "AIzaSyCjS8jJtoV5HLcYIpVTX1zP5DbyYmXsbh4", 
+            authDomain: "dashboard-demo-ce0da.firebaseapp.com", 
+            databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app", 
+            projectId: "dashboard-demo-ce0da", 
+            appId: "1:969593884637:web:47d4e6b03a51e7dcfbb034" 
+        };
 
+        const db = getDatabase(initializeApp(firebaseConfig));
+        const rootRef = ref(db, 'dashboard_binhhung/chi_tieu_2026');
+
+        // Danh sách 34 chỉ tiêu theo Phụ lục mới
         const indicators = [
-            {id:"ct_1", ten:"Tốc độ tăng trưởng giá trị sản xuất các ngành kinh tế", dv:"%"},
-            {id:"ct_2", ten:"Tổng thu ngân sách nhà nước trên địa bàn", dv:"Tr.đ"},
-            {id:"ct_3", ten:"Tỷ lệ giải ngân vốn đầu tư công", dv:"%"},
-            {id:"ct_4", ten:"Tỷ lệ người dân tham gia bảo hiểm y tế", dv:"%"},
-            {id:"ct_5", ten:"Tỷ lệ lao động trong độ tuổi tham gia bảo hiểm xã hội", dv:"%"},
-            {id:"ct_6", ten:"Tỷ lệ trẻ em dưới 5 tuổi suy dinh dưỡng (thể nhẹ cân)", dv:"%"},
-            {id:"ct_7", ten:"Tỷ lệ trẻ em dưới 5 tuổi suy dinh dưỡng (thể thấp còi)", dv:"%"},
-            {id:"ct_8", ten:"Số lao động được tạo việc làm mới", dv:"Người"},
-            {id:"ct_9", ten:"Tỷ lệ lao động qua đào tạo có bằng cấp, chứng chỉ", dv:"%"},
-            {id:"ct_10", ten:"Tỷ lệ hộ nghèo theo chuẩn đa chiều", dv:"%"},
-            {id:"ct_11", ten:"Tỷ lệ hộ cận nghèo theo chuẩn đa chiều", dv:"%"},
-            {id:"ct_12", ten:"Số tiêu chí nông thôn mới nâng cao duy trì và giữ vững", dv:"Tiêu chí"},
-            {id:"ct_13", ten:"Tỷ lệ ấp đạt chuẩn ấp văn hóa", dv:"%"},
-            {id:"ct_14", ten:"Tỷ lệ gia đình đạt chuẩn gia đình văn hóa", dv:"%"},
-            {id:"ct_15", ten:"Tỷ lệ trẻ em trong độ tuổi được tiêm chủng đầy đủ các loại vắc xin", dv:"%"},
-            {id:"ct_16", ten:"Tỷ lệ học sinh tốt nghiệp trung học cơ sở", dv:"%"},
-            {id:"ct_17", ten:"Tỷ lệ học sinh tốt nghiệp trung học phổ thông", dv:"%"},
-            {id:"ct_18", ten:"Tỷ lệ dân cư được sử dụng nước sạch", dv:"%"},
-            {id:"ct_19", ten:"Tỷ lệ thu gom và xử lý rác thải sinh hoạt", dv:"%"},
-            {id:"ct_20", ten:"Tỷ lệ thu gom và xử lý rác thải y tế", dv:"%"},
-            {id:"ct_21", ten:"Tỷ lệ khu dân cư đạt chuẩn an toàn về an ninh trật tự", dv:"%"},
-            {id:"ct_22", ten:"Tỷ lệ hồ sơ hành chính giải quyết đúng hạn", dv:"%"},
-            {id:"ct_23", ten:"Tỷ lệ sử dụng chữ ký số trong phát hành văn bản", dv:"%"},
-            {id:"ct_24", ten:"Chỉ tiêu tuyển quân (giao quân)", dv:"Người"},
-            {id:"ct_25", ten:"Tỷ lệ tội phạm về trật tự xã hội (giảm so với cùng kỳ)", dv:"%"},
-            {id:"ct_26", ten:"Tỷ lệ điều tra khám phá án hình sự", dv:"%"},
-            {id:"ct_27", ten:"Tai nạn giao thông (giảm cả 3 tiêu chí)", dv:"%"},
-            {id:"ct_28", ten:"Số vụ cháy nổ, tai nạn sự cố nghiêm trọng", dv:"Vụ"},
-            {id:"ct_29", ten:"Xây dựng xã đạt tiêu chuẩn an toàn về PCCC", dv:"Đạt/Không"},
-            {id:"ct_30", ten:"Tỷ lệ giải quyết tin báo, tố giác tội phạm", dv:"%"},
-            {id:"ct_31", ten:"Tỷ lệ giải quyết đơn thư khiếu nại, tố cáo", dv:"%"},
-            {id:"ct_32", ten:"Tỷ lệ số hóa kết quả giải quyết thủ tục hành chính", dv:"%"},
-            {id:"ct_33", ten:"Tỷ lệ thanh toán trực tuyến trên Cổng dịch vụ công", dv:"%"},
-            {id:"ct_34", ten:"Tỷ lệ hòa giải thành ở cơ sở", dv:"%"},
-            {id:"ct_35", ten:"Tỷ lệ dân quân tự vệ so với dân số", dv:"%"},
-            {id:"ct_36", ten:"Xây dựng lực lượng công an xã chính quy, tinh nhuệ", dv:"Đạt/Không"},
-            {id:"ct_37", ten:"Tỷ lệ đảng viên hoàn thành tốt nhiệm vụ trở lên", dv:"%"},
-            {id:"ct_38", ten:"Số lượng đảng viên mới được kết nạp", dv:"Đảng viên"}
+            {id: "1", nhom: "I", ten: "Tốc độ tăng tổng giá trị sản phẩm trên địa bàn", dv: "%"},
+            {id: "2", nhom: "I", ten: "Tổng thu ngân sách nhà nước (so dự toán)", dv: "%"},
+            {id: "3", nhom: "I", ten: "Tỷ lệ giải ngân vốn đầu tư công", dv: "%"},
+            {id: "4", nhom: "I", ten: "Tăng thu nhập bình quân đầu người", dv: "%"},
+            {id: "5", nhom: "I", ten: "Số doanh nghiệp thành lập mới", dv: "DN"},
+            {id: "6", nhom: "I", ten: "Số hộ kinh doanh thành lập mới", dv: "Hộ"},
+            
+            {id: "7", nhom: "II", ten: "Tỷ lệ dân số tham gia bảo hiểm y tế", dv: "%"},
+            {id: "8", nhom: "II", ten: "Tỷ lệ LĐ trong độ tuổi tham gia BHXH", dv: "%"},
+            {id: "9", nhom: "II", ten: "Tỷ lệ trường Mầm non đạt chuẩn Quốc gia", dv: "%"},
+            {id: "10", nhom: "II", ten: "Tỷ lệ trường Tiểu học đạt chuẩn Quốc gia", dv: "%"},
+            {id: "11", nhom: "II", ten: "Tỷ lệ trường THCS đạt chuẩn Quốc gia", dv: "%"},
+            {id: "12", nhom: "II", ten: "Số phòng học/10.000 dân", dv: "Phòng"},
+            {id: "13", nhom: "II", ten: "Tỷ lệ hoàn thành cấp Trung học cơ sở", dv: "%"},
+            {id: "14", nhom: "II", ten: "Giảm tỷ lệ hộ nghèo đa chiều", dv: "%"},
+            {id: "15", nhom: "II", ten: "Số tiêu chí đạt chuẩn NTM nâng cao", dv: "Tiêu chí"},
+            {id: "16", nhom: "II", ten: "Tỷ lệ ấp văn hóa", dv: "%"},
+            {id: "17", nhom: "II", ten: "Tỷ lệ gia đình văn hóa", dv: "%"},
+            {id: "18", nhom: "II", ten: "Tỷ lệ trẻ dưới 1 tuổi tiêm chủng đầy đủ", dv: "%"},
+            {id: "19", nhom: "II", ten: "Số lao động được giới thiệu việc làm", dv: "Người"},
+            {id: "20", nhom: "II", ten: "Xây dựng mô hình/chương trình du lịch", dv: "Mô hình"},
+
+            {id: "21", nhom: "III", ten: "Tỷ lệ dân số sử dụng nước sạch", dv: "%"},
+            {id: "22", nhom: "III", ten: "Tỷ lệ thu gom chất thải rắn sinh hoạt", dv: "%"},
+            {id: "23", nhom: "III", ten: "Tỷ lệ chất thải y tế được xử lý đạt chuẩn", dv: "%"},
+            {id: "24", nhom: "III", ten: "Tỷ lệ xử lý nước thải công nghiệp", dv: "%"},
+            {id: "25", nhom: "III", ten: "Cơ sở SXKD đạt tiêu chuẩn môi trường", dv: "%"},
+
+            {id: "26", nhom: "IV", ten: "Tỷ lệ giải quyết hồ sơ hành chính đúng hạn", dv: "%"},
+            {id: "27", nhom: "IV", ten: "Tỷ lệ CBCC sử dụng chữ ký số cá nhân", dv: "%"},
+            {id: "28", nhom: "IV", ten: "Tỷ lệ xử lý phản ánh, kiến nghị đúng hạn", dv: "%"},
+
+            {id: "29", nhom: "V", ten: "Chỉ tiêu tuyển chọn gọi công dân nhập ngũ", dv: "Người"},
+            {id: "30", nhom: "V", ten: "Kéo giảm tội phạm trật tự xã hội", dv: "%"},
+            {id: "31", nhom: "V", ten: "Tỷ lệ khám phá án hình sự", dv: "%"},
+            {id: "32", nhom: "V", ten: "Kéo giảm tai nạn giao thông (3 tiêu chí)", dv: "%"},
+            {id: "33", nhom: "V", ten: "Số vụ cháy nổ gây thiệt hại nghiêm trọng", dv: "Vụ"},
+            {id: "34", nhom: "V", ten: "Địa phương không phức tạp về ma túy", dv: "1=Đạt/0=K"}
         ];
 
+        const groupNames = {
+            "I": "Chỉ tiêu Kinh tế",
+            "II": "Chỉ tiêu Văn hóa - Xã hội",
+            "III": "Chỉ tiêu Môi trường, Đô thị",
+            "IV": "Chỉ tiêu Cải cách hành chính",
+            "V": "Chỉ tiêu Quốc phòng, An ninh"
+        };
+
         const container = document.getElementById('input-container');
+        let currentGroup = "";
+
+        // Render form theo nhóm
         indicators.forEach(it => {
+            if (it.nhom !== currentGroup) {
+                currentGroup = it.nhom;
+                container.innerHTML += `<div class="section-title">${it.nhom}. ${groupNames[it.nhom]}</div>`;
+            }
             container.innerHTML += `
-                <div class="border-b pb-2">
-                    <label>${it.ten} (${it.dv})</label>
-                    <input type="text" id="${it.id}" placeholder="Nhập kết quả thực hiện...">
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-center bg-slate-50 p-4 rounded-xl border border-slate-100 hover:bg-white hover:shadow-sm transition-all">
+                    <div class="md:col-span-3">
+                        <span class="text-[10px] font-black text-red-500 mr-2">${it.id}.</span>
+                        <label class="inline">${it.ten} <span class="text-slate-400 normal-case">(${it.dv})</span></label>
+                    </div>
+                    <div>
+                        <input type="text" id="ct_${it.id}" placeholder="Kết quả..." class="bg-white">
+                    </div>
                 </div>
             `;
         });
 
+        // Load dữ liệu thực hiện (th) từ Firebase
         onValue(rootRef, (snap) => {
             const d = snap.val();
-            if(d) Object.keys(d).forEach(k => { if(document.getElementById(k)) document.getElementById(k).value = d[k]; });
+            if(d) {
+                Object.keys(d).forEach(k => {
+                    const inputElement = document.getElementById(`ct_${k}`);
+                    if(inputElement) inputElement.value = d[k].th || 0;
+                });
+            }
         }, { onlyOnce: true });
 
+        // Hàm lưu dữ liệu (Chỉ update trường 'th')
         window.saveChiTieu = () => {
-            const data = {};
-            indicators.forEach(it => { data[it.id] = document.getElementById(it.id).value || "0"; });
-            update(rootRef, data).then(() => alert("✅ Đã lưu kết quả thực hiện!")).catch(e => alert("❌ Lỗi: " + e));
+            const updates = {};
+            indicators.forEach(it => {
+                const val = document.getElementById(`ct_${it.id}`).value || "0";
+                updates[`/${it.id}/th`] = isNaN(val) ? val : Number(val);
+            });
+
+            update(rootRef, updates)
+                .then(() => alert("✅ Đã lưu số liệu thực hiện 34 chỉ tiêu!"))
+                .catch(e => alert("❌ Lỗi: " + e));
         };
     </script>
 </body>
