@@ -9,8 +9,8 @@
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; margin: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
         
-        /* Navbar Styles */
-        .navbar { background-color: #0f172a; color: white; display: flex; flex-direction: column; flex-shrink: 0; z-index: 100; shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        /* Cấu hình Navbar phía trên */
+        .navbar { background-color: #0f172a; color: white; display: flex; flex-direction: column; flex-shrink: 0; z-index: 100; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
         .nav-top { display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; border-bottom: 1px solid #1e293b; }
         .nav-bottom { display: flex; align-items: center; background-color: #1e293b; padding: 0 24px; overflow-x: auto; scrollbar-width: none; }
         .nav-bottom::-webkit-scrollbar { display: none; }
@@ -31,11 +31,11 @@
     <header class="navbar">
         <div class="nav-top">
             <div class="flex items-center gap-4">
-                <div class="w-10 h-10 bg-blue-600 rounded-xl flex items-center justify-center shadow-lg">
-                    <span class="text-xl">📊</span>
+                <div class="h-10 w-10 flex items-center justify-center">
+                    <img src="logo.png" alt="Logo UBND Xã Bình Hưng" class="h-9 w-auto object-contain">
                 </div>
                 <div>
-                    <h2 class="text-sm font-black text-white uppercase tracking-tighter italic leading-none">UBND Xã Bình Hưng</h2>
+                    <h2 class="text-sm font-black text-white uppercase tracking-tighter italic leading-none">UBND XÃ BÌNH HƯNG</h2>
                     <div class="text-[9px] font-bold text-blue-400 uppercase mt-1 italic tracking-widest">Điều hành số 2026</div>
                 </div>
             </div>
@@ -69,7 +69,7 @@
     </main>
 
     <script>
-        // Hàm mở khóa dữ liệu
+        // Hàm xử lý Mở khóa PIN
         function handleUnlock() {
             const VIEW_PIN = "1234";
             const pin = window.prompt("Vui lòng nhập mã định danh để truy cập dữ liệu điều hành:");
@@ -96,20 +96,20 @@
             }
         }
 
-        // Xử lý khi click Menu
+        // Hàm xử lý khi người dùng chọn mục trên Menu
         function handleNavClick(el) {
             if(el.classList.contains('locked')) return;
             
-            // Cập nhật trạng thái Active
+            // Xóa active cũ và thêm active mới
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             el.classList.add('active');
             
-            // Cập nhật tiêu đề trên Header
+            // Cập nhật tiêu đề hiển thị trên Header (loại bỏ emoji)
             const title = el.innerText.replace(/[^\w\sàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/gi, '').trim();
             document.getElementById('main-title').innerText = title;
         }
 
-        // Cập nhật ngày tháng năm
+        // Tự động cập nhật ngày hiện tại
         document.getElementById('current-time').innerText = new Date().toLocaleDateString('vi-VN');
     </script>
 </body>
