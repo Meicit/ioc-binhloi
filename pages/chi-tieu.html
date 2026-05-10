@@ -2,119 +2,177 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ thống 34 Chỉ tiêu KTXH 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; padding: 24px; }
-        .table-container { background: white; border-radius: 24px; overflow: hidden; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
-        th { background: #0f172a; color: white; font-size: 11px; text-transform: uppercase; letter-spacing: 0.05em; padding: 16px; }
-        td { padding: 14px 16px; font-size: 13px; border-bottom: 1px solid #f1f5f9; font-weight: 600; }
-        tr:hover { background-color: #f8fafc; }
-        .status-badge { font-size: 10px; font-weight: 800; padding: 4px 10px; border-radius: 6px; text-transform: uppercase; }
+        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; }
+        .group-card { background: white; border-radius: 24px; padding: 24px; box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); border: 1px solid #e2e8f0; }
+        .chart-container { position: relative; height: 300px; width: 100%; }
     </style>
 </head>
-<body>
-    <div class="max-w-7xl mx-auto space-y-6">
-        <div class="flex justify-between items-center">
-            <h2 class="text-xl font-black text-slate-800 uppercase italic">Chi tiết 38 Chỉ tiêu nhiệm vụ chính trị 2026</h2>
-            <div class="flex items-center gap-2">
-                <span class="w-3 h-3 bg-blue-500 rounded-full animate-pulse"></span>
-                <span class="text-[10px] font-black text-slate-400 uppercase tracking-widest italic">Dữ liệu thời gian thực</span>
+<body class="p-4 md:p-8">
+    <div class="max-w-7xl mx-auto">
+        <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+            <div>
+                <h1 class="text-3xl font-black text-slate-800 uppercase italic">Hệ thống 34 Chỉ tiêu</h1>
+                <p class="text-slate-500 font-bold uppercase text-xs tracking-widest mt-1">UBND Xã Bình Hưng - Kế hoạch năm 2026</p>
+            </div>
+            <div class="bg-white px-6 py-3 rounded-2xl shadow-sm border border-slate-200">
+                <span class="text-[10px] font-black text-slate-400 uppercase block">Tổng tiến độ chung</span>
+                <span id="tong_tien_do" class="text-2xl font-black text-blue-600">0%</span>
             </div>
         </div>
 
-        <div class="table-container">
-            <table class="w-full text-left border-collapse">
-                <thead>
-                    <tr>
-                        <th class="w-16 text-center">STT</th>
-                        <th>Nội dung chỉ tiêu nhiệm vụ</th>
-                        <th class="text-center">ĐVT</th>
-                        <th class="text-center">Kế hoạch</th>
-                        <th class="text-center text-blue-400">Thực hiện</th>
-                        <th class="text-center">Đánh giá</th>
-                    </tr>
-                </thead>
-                <tbody id="indicators-body">
-                    </tbody>
-            </table>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-10">
+            <div class="group-card">
+                <h3 class="text-sm font-black uppercase text-slate-400 mb-4 tracking-tighter">📊 Tỷ lệ hoàn thành theo nhóm lĩnh vực (%)</h3>
+                <div class="chart-container">
+                    <canvas id="barChart"></canvas>
+                </div>
+            </div>
+            <div class="group-card">
+                <h3 class="text-sm font-black uppercase text-slate-400 mb-4 tracking-tighter">🍕 Cơ cấu số lượng chỉ tiêu</h3>
+                <div class="chart-container">
+                    <canvas id="pieChart"></canvas>
+                </div>
+            </div>
         </div>
+
+        <div id="target-container" class="space-y-10">
+            </div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
-        
-        const firebaseConfig = { apiKey: "AIzaSyCjS8jJtoV5HLcYIpVTX1zP5DbyYmXsbh4", authDomain: "dashboard-demo-ce0da.firebaseapp.com", databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app", projectId: "dashboard-demo-ce0da", appId: "1:969593884637:web:47d4e6b03a51e7dcfbb034" };
+
+        const firebaseConfig = { 
+            databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app" 
+        };
         const db = getDatabase(initializeApp(firebaseConfig));
+        const rootRef = ref(db, 'dashboard_binhhung/chi_tieu_2026');
 
-        // Danh sách định nghĩa gốc (Giữ nguyên tên từ file Excel)
-        const indicators = [
-            {id:"ct_1", ten:"Tốc độ tăng trưởng giá trị sản xuất các ngành kinh tế", dv:"%", kh:"10.5"},
-            {id:"ct_2", ten:"Tổng thu ngân sách nhà nước trên địa bàn", dv:"Tr.đ", kh:"100"},
-            {id:"ct_3", ten:"Tỷ lệ giải ngân vốn đầu tư công", dv:"%", kh:"95"},
-            {id:"ct_4", ten:"Tỷ lệ người dân tham gia bảo hiểm y tế", dv:"%", kh:"95"},
-            {id:"ct_5", ten:"Tỷ lệ lao động trong độ tuổi tham gia bảo hiểm xã hội", dv:"%", kh:"59.5"},
-            {id:"ct_6", ten:"Tỷ lệ trẻ em dưới 5 tuổi suy dinh dưỡng (thể nhẹ cân)", dv:"%", kh:"27"},
-            {id:"ct_7", ten:"Tỷ lệ trẻ em dưới 5 tuổi suy dinh dưỡng (thể thấp còi)", dv:"%", kh:"32"},
-            {id:"ct_8", ten:"Số lao động được tạo việc làm mới", dv:"Người", kh:"1000"},
-            {id:"ct_9", ten:"Tỷ lệ lao động qua đào tạo có bằng cấp, chứng chỉ", dv:"%", kh:"43"},
-            {id:"ct_10", ten:"Tỷ lệ hộ nghèo theo chuẩn đa chiều", dv:"%", kh:"0.0"},
-            {id:"ct_11", ten:"Tỷ lệ hộ cận nghèo theo chuẩn đa chiều", dv:"%", kh:"0.0"},
-            {id:"ct_12", ten:"Số tiêu chí nông thôn mới nâng cao duy trì và giữ vững", dv:"Tiêu chí", kh:"19/19"},
-            {id:"ct_13", ten:"Tỷ lệ ấp đạt chuẩn ấp văn hóa", dv:"%", kh:"100"},
-            {id:"ct_14", ten:"Tỷ lệ gia đình đạt chuẩn gia đình văn hóa", dv:"%", kh:"95"},
-            {id:"ct_15", ten:"Tỷ lệ trẻ em trong độ tuổi được tiêm chủng đầy đủ", dv:"%", kh:"98"},
-            {id:"ct_16", ten:"Tỷ lệ học sinh tốt nghiệp trung học cơ sở", dv:"%", kh:"100"},
-            {id:"ct_17", ten:"Tỷ lệ học sinh tốt nghiệp trung học phổ thông", dv:"%", kh:"100"},
-            {id:"ct_18", ten:"Tỷ lệ dân cư được sử dụng nước sạch", dv:"%", kh:"100"},
-            {id:"ct_19", ten:"Tỷ lệ thu gom và xử lý rác thải sinh hoạt", dv:"%", kh:"100"},
-            {id:"ct_20", ten:"Tỷ lệ thu gom và xử lý rác thải y tế", dv:"%", kh:"100"},
-            {id:"ct_21", ten:"Tỷ lệ khu dân cư đạt chuẩn an toàn về ANTT", dv:"%", kh:"100"},
-            {id:"ct_22", ten:"Tỷ lệ hồ sơ hành chính giải quyết đúng hạn", dv:"%", kh:"100"},
-            {id:"ct_23", ten:"Tỷ lệ sử dụng chữ ký số trong phát hành văn bản", dv:"%", kh:"100"},
-            {id:"ct_24", ten:"Chỉ tiêu tuyển quân (giao quân)", dv:"Người", kh:"31/31"},
-            {id:"ct_25", ten:"Tỷ lệ tội phạm về trật tự xã hội (giảm)", dv:"%", kh:"-5"},
-            {id:"ct_26", ten:"Tỷ lệ điều tra khám phá án hình sự", dv:"%", kh:">85"},
-            {id:"ct_27", ten:"Tai nạn giao thông (giảm cả 3 tiêu chí)", dv:"%", kh:"-10"},
-            {id:"ct_28", ten:"Số vụ cháy nổ, tai nạn sự cố nghiêm trọng", dv:"Vụ", kh:"0"},
-            {id:"ct_29", ten:"Xây dựng xã đạt tiêu chuẩn an toàn về PCCC", dv:"-", kh:"Đạt"},
-            {id:"ct_30", ten:"Tỷ lệ giải quyết tin báo, tố giác tội phạm", dv:"%", kh:"100"},
-            {id:"ct_31", ten:"Tỷ lệ giải quyết đơn thư khiếu nại, tố cáo", dv:"%", kh:"100"},
-            {id:"ct_32", ten:"Tỷ lệ số hóa kết quả giải quyết TTHC", dv:"%", kh:"100"},
-            {id:"ct_33", ten:"Tỷ lệ thanh toán trực tuyến", dv:"%", kh:"100"},
-            {id:"ct_34", ten:"Tỷ lệ hòa giải thành ở cơ sở", dv:"%", kh:">85"},
-            {id:"ct_35", ten:"Tỷ lệ dân quân tự vệ so với dân số", dv:"%", kh:"1.3"},
-            {id:"ct_36", ten:"Xây dựng lực lượng công an xã chính quy", dv:"-", kh:"Đạt"},
-            {id:"ct_37", ten:"Tỷ lệ đảng viên hoàn thành tốt nhiệm vụ", dv:"%", kh:">90"},
-            {id:"ct_38", ten:"Số lượng đảng viên mới được kết nạp", dv:"Người", kh:"12"}
-        ];
+        const nhomTen = {
+            "I": "Chỉ tiêu Kinh tế",
+            "II": "Văn hóa - Xã hội",
+            "III": "Môi trường - Đô thị",
+            "IV": "Cải cách hành chính",
+            "V": "Quốc phòng - An ninh"
+        };
 
-        onValue(ref(db, 'dashboard_binhhung/chi_tieu'), (snap) => {
-            const data = snap.val() || {};
-            const tbody = document.getElementById('indicators-body');
-            tbody.innerHTML = '';
+        const colors = ["#3b82f6", "#10b981", "#f59e0b", "#8b5cf6", "#ef4444"];
 
-            indicators.forEach((it, idx) => {
-                const value = data[it.id] || "0";
-                const isFinished = parseFloat(value) >= parseFloat(it.kh);
-                
-                tbody.innerHTML += `
-                    <tr>
-                        <td class="text-center text-slate-400 font-bold">${idx + 1}</td>
-                        <td class="text-slate-700">${it.ten}</td>
-                        <td class="text-center text-slate-500">${it.dv}</td>
-                        <td class="text-center font-bold text-slate-800">${it.kh}</td>
-                        <td class="text-center font-black text-blue-600 bg-blue-50/50">${value}</td>
-                        <td class="text-center">
-                            <span class="status-badge ${isFinished ? 'bg-emerald-100 text-emerald-600' : 'bg-orange-100 text-orange-600'}">
-                                ${isFinished ? '● Đạt' : '○ Tiến độ'}
-                            </span>
-                        </td>
-                    </tr>
-                `;
-            });
+        onValue(rootRef, (snap) => {
+            const data = snap.val();
+            if (!data) return;
+
+            renderList(data);
+            renderCharts(data);
         });
+
+        function renderList(data) {
+            const container = document.getElementById('target-container');
+            container.innerHTML = "";
+
+            const groups = {};
+            Object.values(data).forEach(item => {
+                if (!groups[item.nhom]) groups[item.nhom] = [];
+                groups[item.nhom].push(item);
+            });
+
+            Object.keys(nhomTen).forEach((key, index) => {
+                if (!groups[key]) return;
+
+                let groupHtml = `
+                    <div class="space-y-4">
+                        <h2 class="text-xl font-black text-slate-800 flex items-center gap-3">
+                            <span class="w-8 h-8 rounded-lg bg-slate-800 text-white flex items-center justify-center text-sm">${key}</span>
+                            ${nhomTen[key]}
+                        </h2>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                `;
+
+                groups[key].forEach(item => {
+                    const percent = item.kh > 0 ? Math.min((item.th / item.kh) * 100, 100).toFixed(1) : 0;
+                    groupHtml += `
+                        <div class="bg-white p-5 rounded-2xl border border-slate-100 shadow-sm hover:shadow-md transition-shadow">
+                            <div class="flex justify-between items-start mb-3">
+                                <span class="text-[10px] font-black px-2 py-1 bg-slate-100 text-slate-500 rounded uppercase">Số ${Object.keys(data).find(k => data[k] === item)}</span>
+                                <span class="text-xs font-black ${percent >= 100 ? 'text-emerald-500' : 'text-blue-500'}">${percent}%</span>
+                            </div>
+                            <h4 class="text-sm font-bold text-slate-700 leading-snug h-10 overflow-hidden mb-4">${item.ten}</h4>
+                            <div class="flex justify-between items-end">
+                                <div>
+                                    <span class="block text-[10px] text-slate-400 font-bold uppercase">Kế hoạch</span>
+                                    <span class="text-sm font-black text-slate-800">${item.kh} <small class="text-[10px]">${item.dvt}</small></span>
+                                </div>
+                                <div class="text-right">
+                                    <span class="block text-[10px] text-slate-400 font-bold uppercase">Thực hiện</span>
+                                    <span class="text-sm font-black text-blue-600">${item.th}</span>
+                                </div>
+                            </div>
+                            <div class="w-full bg-slate-100 h-1.5 rounded-full mt-4 overflow-hidden">
+                                <div class="h-full bg-blue-500 rounded-full" style="width: ${percent}%"></div>
+                            </div>
+                        </div>
+                    `;
+                });
+
+                groupHtml += `</div></div>`;
+                container.innerHTML += groupHtml;
+            });
+        }
+
+        function renderCharts(data) {
+            const groupStats = {};
+            Object.keys(nhomTen).forEach(k => groupStats[k] = { totalPercent: 0, count: 0 });
+
+            Object.values(data).forEach(item => {
+                const p = item.kh > 0 ? (item.th / item.kh) * 100 : 0;
+                groupStats[item.nhom].totalPercent += Math.min(p, 100);
+                groupStats[item.nhom].count += 1;
+            });
+
+            const labels = Object.values(nhomTen);
+            const barData = Object.keys(nhomTen).map(k => (groupStats[k].totalPercent / groupStats[k].count).toFixed(1));
+            const pieData = Object.keys(nhomTen).map(k => groupStats[k].count);
+
+            // Update tổng tiến độ
+            const avgTotal = (barData.reduce((a, b) => parseFloat(a) + parseFloat(b), 0) / 5).toFixed(1);
+            document.getElementById('tong_tien_do').innerText = avgTotal + "%";
+
+            // Bar Chart
+            new Chart(document.getElementById('barChart'), {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: 'Tiến độ nhóm (%)',
+                        data: barData,
+                        backgroundColor: colors,
+                        borderRadius: 8
+                    }]
+                },
+                options: { maintainAspectRatio: false, plugins: { legend: { display: false } } }
+            });
+
+            // Pie Chart
+            new Chart(document.getElementById('pieChart'), {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: pieData,
+                        backgroundColor: colors,
+                        borderWidth: 0
+                    }]
+                },
+                options: { maintainAspectRatio: false, cutout: '70%' }
+            });
+        }
     </script>
 </body>
 </html>
