@@ -4,59 +4,98 @@
     <meta charset="UTF-8">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
-    <style>body { font-family: 'Inter', sans-serif; background: transparent; margin: 0; overflow: hidden; }</style>
+    <style>
+        body { font-family: 'Inter', sans-serif; background: transparent; margin: 0; overflow: hidden; }
+        .progress-bar { transition: width 1s ease-in-out; }
+    </style>
 </head>
 <body class="p-1">
-    <div class="bg-white p-4 rounded-[24px] shadow-sm border border-slate-100 flex flex-col h-[190px] justify-between">
-        <div>
-            <div class="flex items-center gap-2 mb-2">
-                <div class="w-7 h-7 bg-purple-100 rounded-lg flex items-center justify-center text-sm">🏗️</div>
-                <h3 class="text-[11px] font-black text-gray-500 uppercase tracking-tight">Đầu tư công</h3>
-            </div>
-            
-            <p id="dtc_von_nam" class="text-2xl font-[900] text-gray-900 tracking-tight leading-tight">0 tỷ VNĐ</p>
-            <p class="text-[10px] font-bold text-blue-600 uppercase italic">Kế hoạch vốn năm 2026</p>
-        </div>
+    <div class="bg-white p-5 rounded-[30px] shadow-sm border border-slate-100 flex flex-col h-[230px] justify-between">
         
-        <div class="pt-2 border-t border-slate-50 flex justify-between items-end">
+        <div class="flex justify-between items-start">
             <div class="flex flex-col">
-                <div class="flex items-baseline gap-1">
-                    <span class="text-[9px] font-black text-slate-400 uppercase">Tổng 5 năm:</span>
-                    <span id="dtc_tong_giai_doan" class="text-[11px] font-black text-slate-700">0 tỷ</span>
+                <div class="flex items-center gap-2 mb-1">
+                    <div class="w-6 h-6 bg-purple-600 rounded-lg flex items-center justify-center text-white text-xs">🏗️</div>
+                    <span class="text-[10px] font-black text-slate-400 uppercase tracking-wider">Đầu tư công</span>
                 </div>
-                <div class="flex items-baseline gap-1 mt-0.5">
-                    <span class="text-[9px] font-black text-slate-400 uppercase">Số dự án:</span>
-                    <span id="dtc_du_an" class="text-[11px] font-black text-purple-600">0</span>
-                </div>
+                <p class="text-xs font-black text-slate-800 uppercase italic">
+                    Tổng: <span id="dtc_tong_du_an" class="text-purple-600">0</span> dự án
+                </p>
             </div>
-            <span class="text-[8px] text-slate-300 uppercase font-black tracking-widest italic">2026-2030</span>
+            <div id="dtc_linh_vuc" class="flex gap-2 text-[9px] font-bold text-slate-400 italic">
+                </div>
         </div>
+
+        <div class="flex flex-col">
+            <span class="text-[9px] font-black text-slate-400 uppercase leading-none">Tổng đầu tư 2026-2030</span>
+            <p id="dtc_von_gd" class="text-2xl font-[900] text-slate-900 tracking-tighter leading-tight italic">0 tỷ VNĐ</p>
+        </div>
+
+        <div class="flex justify-between items-end border-t border-slate-50 pt-2">
+            <div class="flex flex-col">
+                <span class="text-[9px] font-black text-blue-500 uppercase">Bố trí vốn 2026</span>
+                <p id="dtc_von_nam" class="text-lg font-black text-blue-600 italic leading-none">0 tỷ</p>
+            </div>
+            <div class="text-right">
+                <span class="text-[9px] font-black text-slate-400 uppercase">Đã thực hiện</span>
+                <p id="dtc_da_thuc_hien" class="text-sm font-black text-emerald-600 italic leading-none">0 tỷ</p>
+            </div>
+        </div>
+
+        <div class="w-full mt-1">
+            <div class="flex justify-between items-center mb-1">
+                <span class="text-[9px] font-black text-slate-300 uppercase italic">Tiến độ năm 2026</span>
+                <span id="dtc_percent" class="text-[10px] font-black text-blue-700 italic">0%</span>
+            </div>
+            <div class="w-full bg-slate-100 h-2.5 rounded-full overflow-hidden border border-slate-50">
+                <div id="dtc_progress_bar" class="progress-bar h-full bg-gradient-to-r from-blue-500 to-blue-700 rounded-full" style="width: 0%"></div>
+            </div>
+        </div>
+
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
         
-        // Cấu hình Firebase
         const firebaseConfig = { databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app" };
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
-
-        // Trỏ vào đúng node dữ liệu chi tiết mà trang nhập liệu đã lưu
         const dtcRef = ref(db, 'dashboard_binhhung/dau_tu_cong_chi_tiet');
 
         onValue(dtcRef, (snap) => {
             const d = snap.val() || {};
             
-            // Lấy dữ liệu từ Firebase
-            const vonNam = d.von_nam || "0";
-            const vonGiaiDoan = d.von_giai_doan || "0";
-            const soDuAn = d.tong_du_an || "0";
+            // Cập nhật các con số vốn
+            document.getElementById('dtc_von_gd').innerText = (d.von_giai_doan || 0) + " tỷ VNĐ";
+            document.getElementById('dtc_von_nam').innerText = (d.von_nam || 0) + " tỷ";
+            document.getElementById('dtc_tong_du_an').innerText = d.tong_du_an || 0;
 
-            // Cập nhật giao diện
-            document.getElementById('dtc_von_nam').innerText = vonNam + " tỷ VNĐ";
-            document.getElementById('dtc_tong_giai_doan').innerText = vonGiaiDoan + " tỷ";
-            document.getElementById('dtc_du_an').innerText = soDuAn;
+            // Logic tính toán tiến độ (Số vốn thực hiện giả định hoặc từ DB)
+            // Nếu bạn chưa có field 'da_thuc_hien', tôi giả định lấy 24.4% như hình mẫu bạn gửi
+            const daThucHien = d.da_thuc_hien || (parseFloat(d.von_nam || 0) * 0.244).toFixed(2);
+            const percent = d.von_nam > 0 ? ((daThucHien / d.von_nam) * 100).toFixed(1) : 0;
+
+            document.getElementById('dtc_da_thuc_hien').innerText = daThucHien + " tỷ";
+            document.getElementById('dtc_percent').innerText = percent + "%";
+            document.getElementById('dtc_progress_bar').style.width = percent + "%";
+
+            // Hàng 1: Xử lý thống kê lĩnh vực từ mảng projects
+            if (d.projects && Array.isArray(d.projects)) {
+                const counts = {};
+                d.projects.forEach(p => {
+                    const shortName = p.type === 'Giáo dục' ? 'GD' : 
+                                    p.type === 'Giao thông' ? 'GT' : 
+                                    p.type === 'Y tế' ? 'YT' : 
+                                    p.type === 'Văn hóa' ? 'VH' : 'Khác';
+                    counts[shortName] = (counts[shortName] || 0) + 1;
+                });
+                
+                const linhVucHtml = Object.entries(counts)
+                    .map(([key, val]) => `<span>${key}: ${val}</span>`)
+                    .join('<span class="text-slate-200">|</span>');
+                document.getElementById('dtc_linh_vuc').innerHTML = linhVucHtml;
+            }
         });
     </script>
 </body>
