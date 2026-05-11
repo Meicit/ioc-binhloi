@@ -4,23 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; padding: 24px; }
         .card { background: white; border-radius: 20px; padding: 24px; border: 1px solid #e2e8f0; }
         .table-header { background-color: #f8fafc; font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; }
+        /* Badge colors */
+        .badge { px-2 py-1 rounded text-[10px] font-bold; }
     </style>
 </head>
 <body>
     <div class="max-w-7xl mx-auto">
         <div class="flex justify-between items-end mb-8">
             <div>
-                <h2 class="text-2xl font-black text-slate-800 uppercase tracking-tighter">Kế hoạch Đầu tư công trung hạn</h2>
-                <p class="text-sm text-slate-500 font-bold uppercase tracking-widest mt-1">Giai đoạn 2026 - 2030 | Xã Bình Hưng</p>
+                <h2 class="text-2xl font-black text-slate-800 uppercase tracking-tighter italic">Kế hoạch Đầu tư công trung hạn</h2>
+                <p id="display_status_chung" class="text-sm text-slate-500 font-bold uppercase tracking-widest mt-1 italic">Đang tải dữ liệu...</p>
             </div>
             <div class="text-right">
-                <span class="bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest">
-                    Tổng mức: ~554,3 Tỷ đồng
+                <span id="display_tong_muc" class="bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest">
+                    Tổng mức: 0 Tỷ đồng
                 </span>
             </div>
         </div>
@@ -28,15 +30,15 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div class="card border-t-4 border-purple-500 shadow-md">
                 <p class="text-[10px] font-black text-slate-400 uppercase mb-1">Tổng số dự án</p>
-                <h3 class="text-3xl font-black text-slate-800">15 <span class="text-sm font-bold text-slate-400">Dự án</span></h3>
+                <h3 class="text-3xl font-black text-slate-800"><span id="card_tong_du_an">0</span> <span class="text-sm font-bold text-slate-400">Dự án</span></h3>
             </div>
             <div class="card border-t-4 border-blue-500 shadow-md">
                 <p class="text-[10px] font-black text-slate-400 uppercase mb-1">Vốn TP hỗ trợ (dự kiến)</p>
-                <h3 class="text-3xl font-black text-blue-600">548,7 <span class="text-sm font-bold text-slate-400">Tỷ</span></h3>
+                <h3 class="text-3xl font-black text-blue-600"><span id="card_von_tp">0</span> <span class="text-sm font-bold text-slate-400">Tỷ</span></h3>
             </div>
             <div class="card border-t-4 border-emerald-500 shadow-md">
                 <p class="text-[10px] font-black text-slate-400 uppercase mb-1">Ngân sách Xã đối ứng</p>
-                <h3 class="text-3xl font-black text-emerald-600">5,5 <span class="text-sm font-bold text-slate-400">Tỷ</span></h3>
+                <h3 class="text-3xl font-black text-emerald-600"><span id="card_von_xa">0</span> <span class="text-sm font-bold text-slate-400">Tỷ</span></h3>
             </div>
         </div>
 
@@ -49,125 +51,93 @@
                             <th class="p-4 border-b">STT</th>
                             <th class="p-4 border-b">Tên dự án / Công trình</th>
                             <th class="p-4 border-b text-center">Lĩnh vực</th>
-                            <th class="p-4 border-b text-right">Tổng mức vốn (Triệu đồng)</th>
+                            <th class="p-4 border-b text-right">Vốn (Triệuđ)</th>
                             <th class="p-4 border-b text-center">Trạng thái</th>
                         </tr>
                     </thead>
-                    <tbody class="text-sm font-semibold text-slate-600">
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="p-4 border-b text-slate-400">01</td>
-                            <td class="p-4 border-b text-slate-800">Xây dựng mới trường Mầm non Bình Hưng (Cơ sở 2)</td>
-                            <td class="p-4 border-b text-center"><span class="bg-blue-50 text-blue-600 px-2 py-1 rounded text-[10px]">Giáo dục</span></td>
-                            <td class="p-4 border-b text-right font-bold text-slate-900">125.450</td>
-                            <td class="p-4 border-b text-center text-xs text-orange-500 uppercase font-black">Chuẩn bị đầu tư</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="p-4 border-b text-slate-400">02</td>
-                            <td class="p-4 border-b text-slate-800">Nâng cấp, mở rộng đường liên ấp 2-3</td>
-                            <td class="p-4 border-b text-center"><span class="bg-emerald-50 text-emerald-600 px-2 py-1 rounded text-[10px]">Giao thông</span></td>
-                            <td class="p-4 border-b text-right font-bold text-slate-900">85.600</td>
-                            <td class="p-4 border-b text-center text-xs text-orange-500 uppercase font-black">Chuẩn bị đầu tư</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="p-4 border-b text-slate-400">03</td>
-                            <td class="p-4 border-b text-slate-800">Cải tạo hệ thống thoát nước khu dân cư ấp 4</td>
-                            <td class="p-4 border-b text-center"><span class="bg-purple-50 text-purple-600 px-2 py-1 rounded text-[10px]">Hạ tầng</span></td>
-                            <td class="p-4 border-b text-right font-bold text-slate-900">42.200</td>
-                            <td class="p-4 border-b text-center text-xs text-orange-500 uppercase font-black">Chuẩn bị đầu tư</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="p-4 border-b text-slate-400">04</td>
-                            <td class="p-4 border-b text-slate-800">Xây dựng Trụ sở làm việc UBND xã (Khu trung tâm mới)</td>
-                            <td class="p-4 border-b text-center"><span class="bg-gray-50 text-gray-600 px-2 py-1 rounded text-[10px]">Quản lý NN</span></td>
-                            <td class="p-4 border-b text-right font-bold text-slate-900">62.300</td>
-                            <td class="p-4 border-b text-center text-xs text-orange-500 uppercase font-black">Chuẩn bị đầu tư</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="p-4 border-b text-slate-400">05</td>
-                            <td class="p-4 border-b text-slate-800">Mở rộng trường Tiểu học Bình Hưng 3</td>
-                            <td class="p-4 border-b text-center"><span class="bg-blue-50 text-blue-600 px-2 py-1 rounded text-[10px]">Giáo dục</span></td>
-                            <td class="p-4 border-b text-right font-bold text-slate-900">95.800</td>
-                            <td class="p-4 border-b text-center text-xs text-orange-500 uppercase font-black">Chuẩn bị đầu tư</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="p-4 border-b text-slate-400">06</td>
-                            <td class="p-4 border-b text-slate-800">Bê tông hóa tuyến hẻm ấp 1 kết nối đường Nguyễn Văn Linh</td>
-                            <td class="p-4 border-b text-center"><span class="bg-emerald-50 text-emerald-600 px-2 py-1 rounded text-[10px]">Giao thông</span></td>
-                            <td class="p-4 border-b text-right font-bold text-slate-900">18.400</td>
-                            <td class="p-4 border-b text-center text-xs text-orange-500 uppercase font-black">Chuẩn bị đầu tư</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="p-4 border-b text-slate-400">07</td>
-                            <td class="p-4 border-b text-slate-800">Xây dựng Nhà văn hóa kết hợp Khu thể thao ấp 5</td>
-                            <td class="p-4 border-b text-center"><span class="bg-orange-50 text-orange-600 px-2 py-1 rounded text-[10px]">Văn hóa</span></td>
-                            <td class="p-4 border-b text-right font-bold text-slate-900">12.500</td>
-                            <td class="p-4 border-b text-center text-xs text-orange-500 uppercase font-black">Chuẩn bị đầu tư</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="p-4 border-b text-slate-400">08</td>
-                            <td class="p-4 border-b text-slate-800">Lắp đặt hệ thống Camera an ninh thông minh (GĐ 2)</td>
-                            <td class="p-4 border-b text-center"><span class="bg-gray-50 text-gray-600 px-2 py-1 rounded text-[10px]">An ninh</span></td>
-                            <td class="p-4 border-b text-right font-bold text-slate-900">8.500</td>
-                            <td class="p-4 border-b text-center text-xs text-orange-500 uppercase font-black">Chuẩn bị đầu tư</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="p-4 border-b text-slate-400">09</td>
-                            <td class="p-4 border-b text-slate-800">Xây dựng trạm trung chuyển rác khép kín ấp 3</td>
-                            <td class="p-4 border-b text-center"><span class="bg-purple-50 text-purple-600 px-2 py-1 rounded text-[10px]">Môi trường</span></td>
-                            <td class="p-4 border-b text-right font-bold text-slate-900">12.200</td>
-                            <td class="p-4 border-b text-center text-xs text-orange-500 uppercase font-black">Chuẩn bị đầu tư</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="p-4 border-b text-slate-400">10</td>
-                            <td class="p-4 border-b text-slate-800">Dự án chống sạt lở bờ rạch Ông Lớn (đoạn qua ấp 2)</td>
-                            <td class="p-4 border-b text-center"><span class="bg-emerald-50 text-emerald-600 px-2 py-1 rounded text-[10px]">Thủy lợi</span></td>
-                            <td class="p-4 border-b text-right font-bold text-slate-900">35.000</td>
-                            <td class="p-4 border-b text-center text-xs text-orange-500 uppercase font-black">Chuẩn bị đầu tư</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="p-4 border-b text-slate-400">11</td>
-                            <td class="p-4 border-b text-slate-800">Nâng cấp mặt đường và vỉa hè đường Phạm Hùng</td>
-                            <td class="p-4 border-b text-center"><span class="bg-emerald-50 text-emerald-600 px-2 py-1 rounded text-[10px]">Giao thông</span></td>
-                            <td class="p-4 border-b text-right font-bold text-slate-900">22.400</td>
-                            <td class="p-4 border-b text-center text-xs text-orange-500 uppercase font-black">Chuẩn bị đầu tư</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="p-4 border-b text-slate-400">12</td>
-                            <td class="p-4 border-b text-slate-800">Trang bị thiết bị chuyển đổi số cho khối trường học</td>
-                            <td class="p-4 border-b text-center"><span class="bg-blue-50 text-blue-600 px-2 py-1 rounded text-[10px]">Giáo dục</span></td>
-                            <td class="p-4 border-b text-right font-bold text-slate-900">7.500</td>
-                            <td class="p-4 border-b text-center text-xs text-orange-500 uppercase font-black">Chuẩn bị đầu tư</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="p-4 border-b text-slate-400">13</td>
-                            <td class="p-4 border-b text-slate-800">Cải tạo công viên cây xanh khu tái định cư Bình Hưng</td>
-                            <td class="p-4 border-b text-center"><span class="bg-orange-50 text-orange-600 px-2 py-1 rounded text-[10px]">Văn hóa</span></td>
-                            <td class="p-4 border-b text-right font-bold text-slate-900">15.600</td>
-                            <td class="p-4 border-b text-center text-xs text-orange-500 uppercase font-black">Chuẩn bị đầu tư</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="p-4 border-b text-slate-400">14</td>
-                            <td class="p-4 border-b text-slate-800">Xây dựng Trạm y tế xã đạt chuẩn Quốc gia mới</td>
-                            <td class="p-4 border-b text-center"><span class="bg-red-50 text-red-600 px-2 py-1 rounded text-[10px]">Y tế</span></td>
-                            <td class="p-4 border-b text-right font-bold text-slate-900">11.500</td>
-                            <td class="p-4 border-b text-center text-xs text-orange-500 uppercase font-black">Chuẩn bị đầu tư</td>
-                        </tr>
-                        <tr class="hover:bg-slate-50 transition-colors">
-                            <td class="p-4 border-b text-slate-400">15</td>
-                            <td class="p-4 border-b text-slate-800">Bia ghi danh Liệt sĩ và khu truyền thống cách mạng</td>
-                            <td class="p-4 border-b text-center"><span class="bg-orange-50 text-orange-600 px-2 py-1 rounded text-[10px]">Văn hóa</span></td>
-                            <td class="p-4 border-b text-right font-bold text-slate-900">5.800</td>
-                            <td class="p-4 border-b text-center text-xs text-orange-500 uppercase font-black">Chuẩn bị đầu tư</td>
-                        </tr>
-                    </tbody>
+                    <tbody id="project-table-body" class="text-sm font-semibold text-slate-600">
+                        </tbody>
                 </table>
             </div>
-            <div class="mt-6 p-4 bg-slate-50 rounded-xl">
-                <p class="text-[10px] text-slate-400 italic">
-                    * Ghi chú: Số liệu tổng hợp dựa trên Báo cáo số 2374/BC-UBND về việc lập kế hoạch đầu tư công trung hạn giai đoạn 2026-2030 của UBND xã Bình Hưng.
+            <div class="mt-6 p-4 bg-slate-50 rounded-xl flex justify-between items-center">
+                <p class="text-[10px] text-slate-400 italic font-bold uppercase tracking-wider">
+                    * Số liệu dựa trên Báo cáo số 2374/BC-UBND xã Bình Hưng
                 </p>
+                <p id="last_updated" class="text-[9px] text-slate-300 font-bold uppercase">Cập nhật: --/--/----</p>
             </div>
         </div>
     </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
+
+        // Cấu hình Firebase của bạn
+        const firebaseConfig = { 
+            databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app" 
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const dtcRef = ref(db, 'dashboard_binhhung/dau_tu_cong_chi_tiet');
+
+        // Hàm định nghĩa màu sắc cho từng lĩnh vực
+        const getBadgeClass = (type) => {
+            const map = {
+                'Giáo dục': 'bg-blue-50 text-blue-600',
+                'Giao thông': 'bg-emerald-50 text-emerald-600',
+                'Hạ tầng': 'bg-purple-50 text-purple-600',
+                'Quản lý NN': 'bg-slate-100 text-slate-600',
+                'Văn hóa': 'bg-orange-50 text-orange-600',
+                'An ninh': 'bg-red-50 text-red-600',
+                'Môi trường': 'bg-teal-50 text-teal-600',
+                'Thủy lợi': 'bg-cyan-50 text-cyan-600',
+                'Y tế': 'bg-rose-50 text-rose-600'
+            };
+            return map[type] || 'bg-gray-50 text-gray-600';
+        };
+
+        // Lắng nghe dữ liệu từ Firebase
+        onValue(dtcRef, (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                // 1. Cập nhật Thông số tổng quát
+                const vTP = parseFloat(data.von_tp) || 0;
+                const vXa = parseFloat(data.von_xa) || 0;
+                const tong = (vTP + vXa).toFixed(1);
+
+                document.getElementById('display_tong_muc').innerText = `Tổng mức: ~${tong} Tỷ đồng`;
+                document.getElementById('display_status_chung').innerText = data.status_chung || "Giai đoạn 2026 - 2030 | Xã Bình Hưng";
+                document.getElementById('card_tong_du_an').innerText = data.tong_du_an || 0;
+                document.getElementById('card_von_tp').innerText = vTP.toLocaleString();
+                document.getElementById('card_von_xa').innerText = vXa.toLocaleString();
+                document.getElementById('last_updated').innerText = `Cập nhật: ${data.last_updated || ''}`;
+
+                // 2. Render danh sách dự án
+                const tbody = document.getElementById('project-table-body');
+                tbody.innerHTML = ""; // Xóa trắng trước khi nạp mới
+
+                if (data.projects && Array.isArray(data.projects)) {
+                    data.projects.forEach((p, index) => {
+                        const stt = String(index + 1).padStart(2, '0');
+                        tbody.innerHTML += `
+                            <tr class="hover:bg-slate-50 transition-colors">
+                                <td class="p-4 border-b text-slate-400 font-bold">${stt}</td>
+                                <td class="p-4 border-b text-slate-800 font-bold">${p.name}</td>
+                                <td class="p-4 border-b text-center">
+                                    <span class="${getBadgeClass(p.type)} px-2 py-1 rounded text-[10px] font-bold uppercase tracking-wider">
+                                        ${p.type}
+                                    </span>
+                                </td>
+                                <td class="p-4 border-b text-right font-black text-slate-900 italic">${p.capital}</td>
+                                <td class="p-4 border-b text-center text-[10px] text-orange-500 uppercase font-black italic">
+                                    ${p.status}
+                                </td>
+                            </tr>
+                        `;
+                    });
+                }
+            }
+        });
+    </script>
 </body>
 </html>
