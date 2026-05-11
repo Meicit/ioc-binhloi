@@ -2,27 +2,61 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body { background-color: #f8fafc; padding: 15px; margin: 0; }
-        /* Xóa bỏ khoảng trắng dư thừa giữa các hàng */
-        .grid-container { display: flex; flex-direction: column; gap: 12px; }
-        iframe { width: 100%; border: none; display: block; overflow: hidden; }
+        body { 
+            background-color: #f8fafc; 
+            padding: 20px; 
+            margin: 0; 
+            /* Ẩn thanh cuộn của trang chính để dashboard mượt hơn */
+            overflow-x: hidden; 
+        }
+        iframe { 
+            width: 100%; 
+            border: none; 
+            display: block; 
+            transition: all 0.3s ease;
+        }
+        /* Hiệu ứng hover nhẹ cho các ô iframe */
+        iframe:hover {
+            transform: translateY(-2px);
+        }
     </style>
 </head>
 <body>
-    <div class="grid-container">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
-            <iframe src="tong-quan/tq-ho-so.html" height="250" scrolling="no"></iframe>
-            <iframe src="tong-quan/tq-1022.html" height="250" scrolling="no"></iframe>
-            <iframe src="tong-quan/tq-don-thu.html" height="250" scrolling="no"></iframe>
-            <iframe src="tong-quan/tq-dau-tu-cong.html" height="350" scrolling="no"></iframe>
+    <div class="max-w-[1600px] mx-auto">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 items-start mb-6">
+            
+            <iframe src="tong-quan/tq-ho-so.html" height="210" scrolling="no"></iframe>
+            
+            <iframe src="tong-quan/tq-1022.html" height="210" scrolling="no"></iframe>
+            
+            <iframe src="tong-quan/tq-dau-tu-cong.html" height="250" scrolling="no"></iframe>
+            
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
-            <iframe src="tong-quan/tq-an-ninh.html" height="200" scrolling="no"></iframe>
-            <iframe src="tong-quan/tq-quoc-phong.html" height="200" scrolling="no"></iframe>
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+            
+            <iframe src="tong-quan/tq-don-thu.html" height="210" scrolling="no"></iframe>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <iframe src="tong-quan/tq-an-ninh.html" height="210" scrolling="no"></iframe>
+                <iframe src="tong-quan/tq-quoc-phong.html" height="210" scrolling="no"></iframe>
+            </div>
+
         </div>
+
     </div>
+
+    <script>
+        // Script hỗ trợ reload iframe nếu cần thiết hoặc xử lý lỗi đường dẫn
+        window.addEventListener('error', function(e) {
+            if (e.target.tagName === 'IFRAME') {
+                console.warn('Lỗi tải iframe:', e.target.src);
+            }
+        }, true);
+    </script>
 </body>
 </html>
