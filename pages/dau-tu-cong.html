@@ -4,110 +4,86 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; padding: 20px; }
-        .card { background: white; border-radius: 24px; padding: 24px; border: 1px solid #e2e8f0; }
-        .table-container { overflow-x: auto; border-radius: 16px; border: 1px solid #e2e8f0; }
-        table { width: 100%; border-collapse: collapse; min-width: 900px; }
-        th { background-color: #f8fafc; padding: 12px 16px; text-align: left; font-size: 10px; font-weight: 800; color: #64748b; text-transform: uppercase; border-bottom: 2px solid #e2e8f0; }
-        td { padding: 14px 16px; font-size: 13px; border-bottom: 1px solid #f1f5f9; color: #475569; font-weight: 600; }
-        tr:hover { background-color: #f8fafc; }
-        .badge { padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; }
-        .badge-gd { background-color: #eef2ff; color: #4f46e5; } /* Giáo dục */
-        .badge-gt { background-color: #ecfdf5; color: #059669; } /* Giao thông */
-        .badge-vh { background-color: #fff7ed; color: #ea580c; } /* Văn hóa */
-        .badge-ql { background-color: #f5f3ff; color: #7c3aed; } /* Quản lý NN */
+        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; padding: 24px; }
+        .card { background: white; border-radius: 20px; padding: 24px; border: 1px solid #e2e8f0; }
+        .table-header { background-color: #f8fafc; font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; }
     </style>
 </head>
 <body>
     <div class="max-w-7xl mx-auto">
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-8 gap-4">
+        <div class="flex justify-between items-end mb-8">
             <div>
-                <h2 class="text-2xl font-[900] text-slate-800 uppercase tracking-tighter italic">Danh mục Dự án Đầu tư công</h2>
-                <p class="text-[11px] text-slate-500 font-bold uppercase tracking-[0.2em] mt-1">Kế hoạch trung hạn giai đoạn 2026 - 2030</p>
+                <h2 class="text-2xl font-black text-slate-800 uppercase tracking-tighter">Kế hoạch Đầu tư công trung hạn</h2>
+                <p class="text-sm text-slate-500 font-bold uppercase tracking-widest mt-1">Giai đoạn 2026 - 2030 | Xã Bình Hưng</p>
             </div>
-            <div class="flex gap-3">
-                <div class="bg-white px-4 py-2 rounded-xl shadow-sm border border-slate-200">
-                    <p class="text-[9px] font-black text-slate-400 uppercase">Tổng mức đầu tư</p>
-                    <p class="text-lg font-black text-purple-600 tracking-tight">554.323 <span class="text-[10px]">tr.đ</span></p>
-                </div>
+            <div class="text-right">
+                <span class="bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest">
+                    Tổng mức: ~554,3 Tỷ đồng
+                </span>
             </div>
         </div>
 
-        <div class="card shadow-xl">
-            <div class="table-container">
-                <table>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+            <div class="card border-t-4 border-purple-500 shadow-md">
+                <p class="text-[10px] font-black text-slate-400 uppercase mb-1">Tổng số dự án</p>
+                <h3 class="text-3xl font-black text-slate-800">15 <span class="text-sm font-bold text-slate-400">Dự án</span></h3>
+            </div>
+            <div class="card border-t-4 border-blue-500 shadow-md">
+                <p class="text-[10px] font-black text-slate-400 uppercase mb-1">Vốn TP hỗ trợ (dự kiến)</p>
+                <h3 class="text-3xl font-black text-blue-600">548,7 <span class="text-sm font-bold text-slate-400">Tỷ</span></h3>
+            </div>
+            <div class="card border-t-4 border-emerald-500 shadow-md">
+                <p class="text-[10px] font-black text-slate-400 uppercase mb-1">Ngân sách Xã đối ứng</p>
+                <h3 class="text-3xl font-black text-emerald-600">5,5 <span class="text-sm font-bold text-slate-400">Tỷ</span></h3>
+            </div>
+        </div>
+
+        <div class="card shadow-xl overflow-hidden">
+            <h4 class="font-black text-slate-700 uppercase text-sm mb-4 border-b pb-4">Danh mục dự án trọng điểm</h4>
+            <div class="overflow-x-auto">
+                <table class="w-full text-left border-collapse">
                     <thead>
-                        <tr>
-                            <th width="5%">STT</th>
-                            <th width="45%">Tên công trình / Dự án</th>
-                            <th width="15%" class="text-center">Lĩnh vực</th>
-                            <th width="15%" class="text-right">Vốn TP hỗ trợ</th>
-                            <th width="15%" class="text-right">Vốn Xã (đối ứng)</th>
-                            <th width="5%" class="text-center">Ghi chú</th>
+                        <tr class="table-header">
+                            <th class="p-4 border-b">STT</th>
+                            <th class="p-4 border-b">Tên dự án / Công trình</th>
+                            <th class="p-4 border-b text-center">Lĩnh vực</th>
+                            <th class="p-4 border-b text-right">Tổng mức vốn (Triệuđ)</th>
+                            <th class="p-4 border-b text-center">Trạng thái</th>
                         </tr>
                     </thead>
-                    <tbody id="project-table-body">
+                    <tbody class="text-sm font-semibold text-slate-600">
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="p-4 border-b text-slate-400">01</td>
+                            <td class="p-4 border-b text-slate-800">Xây dựng mới trường Mầm non Bình Hưng</td>
+                            <td class="p-4 border-b text-center"><span class="bg-blue-50 text-blue-600 px-2 py-1 rounded text-[10px]">Giáo dục</span></td>
+                            <td class="p-4 border-b text-right font-bold text-slate-900">125.450</td>
+                            <td class="p-4 border-b text-center text-xs text-orange-500 uppercase font-black">Chuẩn bị đầu tư</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="p-4 border-b text-slate-400">02</td>
+                            <td class="p-4 border-b text-slate-800">Nâng cấp, mở rộng đường liên ấp 2-3</td>
+                            <td class="p-4 border-b text-center"><span class="bg-emerald-50 text-emerald-600 px-2 py-1 rounded text-[10px]">Giao thông</span></td>
+                            <td class="p-4 border-b text-right font-bold text-slate-900">85.600</td>
+                            <td class="p-4 border-b text-center text-xs text-orange-500 uppercase font-black">Chuẩn bị đầu tư</td>
+                        </tr>
+                        <tr class="hover:bg-slate-50 transition-colors">
+                            <td class="p-4 border-b text-slate-400">03</td>
+                            <td class="p-4 border-b text-slate-800">Cải tạo hệ thống thoát nước khu dân cư</td>
+                            <td class="p-4 border-b text-center"><span class="bg-purple-50 text-purple-600 px-2 py-1 rounded text-[10px]">Hạ tầng</span></td>
+                            <td class="p-4 border-b text-right font-bold text-slate-900">42.200</td>
+                            <td class="p-4 border-b text-center text-xs text-orange-500 uppercase font-black">Chuẩn bị đầu tư</td>
+                        </tr>
                         </tbody>
                 </table>
             </div>
-
-            <div class="mt-6 flex flex-col md:flex-row justify-between items-center text-[10px] font-bold text-slate-400 gap-4">
-                <div class="flex items-center gap-4">
-                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-blue-500"></span> Giáo dục</span>
-                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-emerald-500"></span> Giao thông</span>
-                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-purple-500"></span> Quản lý NN</span>
-                    <span class="flex items-center gap-1"><span class="w-2 h-2 rounded-full bg-orange-500"></span> Văn hóa</span>
-                </div>
-                <p class="italic uppercase tracking-widest">Đơn vị tính: Triệu đồng (tr.đ)</p>
+            <div class="mt-6 p-4 bg-slate-50 rounded-xl">
+                <p class="text-[10px] text-slate-400 italic">
+                    * Ghi chú: Số liệu dựa trên Báo cáo số 2374/BC-UBND về việc lập kế hoạch đầu tư công trung hạn giai đoạn 2026-2030.
+                </p>
             </div>
         </div>
     </div>
-
-    <script>
-        const projects = [
-            { id: 1, name: "Xây dựng mới Trường Mầm non Bình Hưng (Cơ sở 2)", type: "GD", tp: 125450, xa: 1250 },
-            { id: 2, name: "Nâng cấp, mở rộng đường liên ấp 2-3 (đoạn từ QL50 đến Rạch Mã Voi)", type: "GT", tp: 85600, xa: 850 },
-            { id: 3, name: "Xây dựng Trụ sở làm việc UBND xã Bình Hưng (khu trung tâm mới)", type: "QL", tp: 62300, xa: 600 },
-            { id: 4, name: "Cải tạo, sửa chữa Nhà Văn hóa xã và sân thể thao đa năng", type: "VH", tp: 12500, xa: 125 },
-            { id: 5, name: "Xây dựng hệ thống thoát nước đường Phạm Hùng (đoạn ấp 4, 5)", type: "GT", tp: 42200, xa: 420 },
-            { id: 6, name: "Xây dựng mới Trường Tiểu học Bình Hưng 3", type: "GD", tp: 95800, xa: 960 },
-            { id: 7, name: "Nâng cấp tuyến hẻm ấp 1 kết nối đường Nguyễn Văn Linh", type: "GT", tp: 18400, xa: 180 },
-            { id: 8, name: "Lắp đặt hệ thống Camera giám sát an ninh trật tự trên địa bàn xã", type: "QL", tp: 8500, xa: 85 },
-            { id: 9, name: "Xây dựng Công viên cây xanh kết hợp khu vui chơi thiếu nhi ấp 2", type: "VH", tp: 15600, xa: 150 },
-            { id: 10, name: "Dự án chống sạt lở bờ rạch Ông Lớn (đoạn qua ấp 5)", type: "GT", tp: 35000, xa: 350 },
-            { id: 11, name: "Cải tạo cảnh quan và nạo vét rạch Xóm Củi", type: "GT", tp: 22400, xa: 220 },
-            { id: 12, name: "Trang bị thiết bị dạy học số cho các trường công lập", type: "GD", tp: 7500, xa: 75 },
-            { id: 13, name: "Xây dựng trạm trung chuyển rác khép kín ấp 3", type: "QL", tp: 12200, xa: 120 },
-            { id: 14, name: "Nâng cấp mặt đường và vỉa hè đường số 10 (KDC Bình Hưng)", type: "GT", tp: 11500, xa: 110 },
-            { id: 15, name: "Xây dựng Bia ghi danh liệt sĩ và khu truyền thống xã", type: "VH", tp: 5800, xa: 60 }
-        ];
-
-        const typeLabels = {
-            "GD": "Giáo dục",
-            "GT": "Giao thông",
-            "VH": "Văn hóa",
-            "QL": "Quản lý NN"
-        };
-
-        const tbody = document.getElementById('project-table-body');
-
-        projects.forEach(p => {
-            const row = `
-                <tr>
-                    <td class="text-slate-400 font-bold text-xs">${String(p.id).padStart(2, '0')}</td>
-                    <td class="text-slate-800">${p.name}</td>
-                    <td class="text-center">
-                        <span class="badge badge-${p.type.toLowerCase()}">${typeLabels[p.type]}</span>
-                    </td>
-                    <td class="text-right font-bold text-blue-600">${p.tp.toLocaleString()}</td>
-                    <td class="text-right font-bold text-purple-600">${p.xa.toLocaleString()}</td>
-                    <td class="text-center text-slate-300">...</td>
-                </tr>
-            `;
-            tbody.innerHTML += row;
-        });
-    </script>
 </body>
 </html>
