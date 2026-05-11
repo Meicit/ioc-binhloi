@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; background: transparent; margin: 0; overflow: hidden; }</style>
+</head>
+<body class="p-1">
+    <div class="bg-white p-4 rounded-[24px] shadow-sm border border-slate-100 flex flex-col h-[190px] justify-between">
+        <div>
+            <div class="flex items-center gap-2 mb-2">
+                <div class="w-7 h-7 bg-purple-100 rounded-lg flex items-center justify-center text-sm">🏗️</div>
+                <h3 class="text-[11px] font-bold text-gray-500 uppercase">Đầu tư công (2026-2030)</h3>
+            </div>
+            <p id="dtc_tong_von" class="text-2xl font-extrabold text-gray-900 tracking-tight">0 tỷ VNĐ</p>
+            <p id="dtc_du_an" class="text-[11px] text-gray-400 font-medium italic">Tổng số: 15 dự án</p>
+        </div>
+        
+        <div class="pt-2 border-t border-slate-50 flex justify-between items-end">
+            <div class="flex flex-col">
+                <span id="dtc_tp_ho_tro" class="text-[10px] font-bold text-gray-400 uppercase">TP hỗ trợ: 0 tỷ</span>
+                <span id="dtc_xa_doi_ung" class="text-[10px] font-bold text-purple-600 uppercase mt-0.5">Xã đối ứng: 0 tỷ</span>
+            </div>
+            <span class="text-[8px] text-slate-300 uppercase font-bold">Kế hoạch 5 năm</span>
+        </div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
+        
+        const firebaseConfig = { databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app" };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        onValue(ref(db, 'dashboard_binhhung/dau_tu_cong'), (snap) => {
+            const d = snap.val() || {};
+            // Đơn vị tính: Triệu đồng chuyển sang Tỷ đồng để hiển thị gọn
+            const tongVon = ((d.tong_von || 0) / 1000).toFixed(1);
+            const tp_von = ((d.tp_ho_tro || 0) / 1000).toFixed(1);
+            const xa_von = ((d.xa_doi_ung || 0) / 1000).toFixed(1);
+
+            document.getElementById('dtc_tong_von').innerText = tongVon + " tỷ VNĐ";
+            document.getElementById('dtc_tp_ho_tro').innerText = "TP hỗ trợ: " + tp_von + " tỷ";
+            document.getElementById('dtc_xa_doi_ung').innerText = "Xã đối ứng: " + xa_von + " tỷ";
+            document.getElementById('dtc_du_an').innerText = "Tổng số: " + (d.so_du_an || 15) + " dự án";
+        });
+    </script>
+</body>
+</html>
