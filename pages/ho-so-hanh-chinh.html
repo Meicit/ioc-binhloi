@@ -4,193 +4,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; padding: 24px; color: #1e293b; }
-        .glass-card { background: white; border-radius: 24px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); transition: transform 0.2s; }
-        .glass-card:hover { transform: translateY(-2px); }
-        .gradient-blue { background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%); }
-        .gradient-emerald { background: linear-gradient(135deg, #10b981 0%, #047857 100%); }
+        body { font-family: 'Inter', sans-serif; background-color: #f0f4f8; padding: 20px; }
+        .main-card { background: white; border-radius: 32px; padding: 28px; box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0; height: 100%; }
+        .label-text { color: #0f172a; font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.1em; }
+        .value-big { font-size: 48px; font-weight: 900; color: #0f172a; line-height: 1; }
+        .res-box { padding: 12px; border-radius: 16px; text-align: center; }
+        .res-label { font-size: 10px; font-weight: 900; text-transform: uppercase; margin-bottom: 4px; }
+        .res-value { font-size: 20px; font-weight: 900; }
     </style>
 </head>
 <body>
+    <div class="max-w-7xl mx-auto italic">
+        <div class="bg-white p-6 rounded-[32px] mb-6 shadow-sm border border-indigo-100">
+            <h3 class="text-[11px] font-black text-indigo-900 uppercase mb-4 tracking-widest italic">Kết quả đánh giá Bộ chỉ số phục vụ</h3>
+            <div class="grid grid-cols-5 gap-4 text-center">
+                <div><p class="text-[10px] font-black text-indigo-700 uppercase mb-1">Tiến độ</p><p id="score_process" class="text-lg font-black text-slate-900">19.8</p></div>
+                <div><p class="text-[10px] font-black text-indigo-700 uppercase mb-1">Trực tuyến</p><p id="score_online" class="text-lg font-black text-slate-900">20</p></div>
+                <div><p class="text-[10px] font-black text-indigo-700 uppercase mb-1">Hài lòng</p><p id="score_satisfaction" class="text-lg font-black text-slate-900">18</p></div>
+                <div><p class="text-[10px] font-black text-indigo-700 uppercase mb-1">Số hóa</p><p id="score_digital" class="text-lg font-black text-slate-900">21.23</p></div>
+                <div class="bg-emerald-600 rounded-xl py-1 shadow-lg shadow-emerald-100"><p class="text-[10px] font-black text-white uppercase">Tổng điểm</p><p id="score_total" class="text-lg font-black text-white">97.03</p></div>
+            </div>
+        </div>
 
-    <div class="max-w-7xl mx-auto space-y-6">
-        <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-300 pb-6">
-            <div>
-                <h1 class="text-2xl font-black text-blue-900 uppercase italic">Kết quả thực hiện hồ sơ hành chính</h1>
-                <p class="text-slate-500 text-xs font-bold uppercase tracking-widest mt-1">Hệ thống Dashboard • Xã Bình Hưng</p>
-            </div>
-            <div class="flex gap-2">
-                <div class="bg-blue-600 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center shadow-lg shadow-blue-200">
-                    HỆ THỐNG: <span id="v_he_thong" class="ml-1">0</span>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            
+            <div class="main-card border-t-[12px] border-blue-700">
+                <div class="flex flex-col mb-8">
+                    <div class="flex justify-between items-end mb-6">
+                        <div>
+                            <p class="label-text text-blue-800">Tiếp nhận trong tháng</p>
+                            <h2 id="month_total" class="value-big text-blue-700 mt-2">0</h2>
+                        </div>
+                        <div class="text-right">
+                             <p class="text-[10px] font-black text-slate-500 uppercase italic">Hồ sơ/Tháng</p>
+                        </div>
+                    </div>
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-blue-50 p-4 rounded-2xl border border-blue-100">
+                            <p class="text-[10px] font-black text-blue-600 uppercase mb-1">Trực tuyến</p>
+                            <p id="month_online" class="text-3xl font-black text-blue-700">0</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                            <p class="text-[10px] font-black text-slate-700 uppercase mb-1">Trực tiếp</p>
+                            <p id="month_offline" class="text-3xl font-black text-slate-900">0</p>
+                        </div>
+                    </div>
                 </div>
-                <div class="bg-slate-700 text-white px-4 py-2 rounded-xl text-xs font-bold flex items-center shadow-lg shadow-slate-200">
-                    NGOÀI HỆ THỐNG: <span id="v_ngoai_he_thong" class="ml-1">0</span>
+
+                <div>
+                    <p class="label-text text-slate-900 mb-4 border-b border-slate-100 pb-2 italic">Kết quả giải quyết (Tháng)</p>
+                    <div class="grid grid-cols-4 gap-3">
+                        <div class="res-box bg-emerald-50 text-emerald-700 border border-emerald-200">
+                            <p class="res-label">Trước hạn</p><p id="res_before" class="res-value">0</p>
+                        </div>
+                        <div class="res-box bg-blue-50 text-blue-700 border border-blue-200">
+                            <p class="res-label">Trong hạn</p><p id="res_in_time" class="res-value">0</p>
+                        </div>
+                        <div class="res-box bg-rose-50 text-rose-700 border border-rose-200">
+                            <p class="res-label">Trễ hạn</p><p id="res_late" class="res-value">0</p>
+                        </div>
+                        <div class="res-box bg-slate-900 text-white">
+                            <p class="res-label">Xin lỗi</p><p id="res_sorry" class="res-value">0</p>
+                        </div>
+                    </div>
                 </div>
             </div>
+
+            <div class="main-card border-t-[12px] border-emerald-700">
+                <div class="flex flex-col mb-8">
+                    <div class="flex justify-between items-end mb-6">
+                        <div>
+                            <p class="label-text text-emerald-800 uppercase">Lũy kế đến ngày <span id="luy_ke_date" class="text-emerald-700">--/--</span></p>
+                            <h2 id="total_luy_ke" class="value-big text-emerald-700 mt-2">0</h2>
+                        </div>
+                        <div class="text-right">
+                             <p class="text-[10px] font-black text-slate-500 uppercase italic">Tổng lũy kế</p>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 gap-4">
+                        <div class="bg-emerald-50 p-4 rounded-2xl border border-emerald-100">
+                            <p class="text-[10px] font-black text-emerald-600 uppercase mb-1">Trực tuyến</p>
+                            <p id="total_online" class="text-3xl font-black text-emerald-700">0</p>
+                        </div>
+                        <div class="bg-slate-50 p-4 rounded-2xl border border-slate-200">
+                            <p class="text-[10px] font-black text-slate-700 uppercase mb-1">Trực tiếp</p>
+                            <p id="total_offline" class="text-3xl font-black text-slate-900">0</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <p class="label-text text-slate-900 mb-4 border-b border-slate-100 pb-2 italic">Kết quả giải quyết (Lũy kế)</p>
+                    <div class="grid grid-cols-4 gap-3">
+                        <div class="res-box bg-emerald-50 text-emerald-700 border border-emerald-200">
+                            <p class="res-label">Trước hạn</p><p id="lk_res_before" class="res-value">0</p>
+                        </div>
+                        <div class="res-box bg-blue-50 text-blue-700 border border-blue-200">
+                            <p class="res-label">Trong hạn</p><p id="lk_res_in_time" class="res-value">0</p>
+                        </div>
+                        <div class="res-box bg-rose-50 text-rose-700 border border-rose-200">
+                            <p class="res-label">Trễ hạn</p><p id="lk_res_late" class="res-value">0</p>
+                        </div>
+                        <div class="res-box bg-slate-900 text-white">
+                            <p class="res-label">Xin lỗi</p><p id="lk_res_sorry" class="res-value">0</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <div class="glass-card p-6 border-l-8 border-blue-600">
-                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Tổng hồ sơ tiếp nhận trong tháng</p>
-                <div class="flex items-baseline gap-2 mt-2">
-                    <span id="v_tong_tiep_nhan" class="text-5xl font-black text-blue-600">0</span>
-                    <span class="text-xs font-bold text-slate-400 italic">Hồ sơ/Tháng</span>
-                </div>
-                <div class="mt-4 grid grid-cols-2 gap-2 text-[10px] font-bold">
-                    <div class="bg-blue-50 text-blue-700 p-2 rounded-lg text-center uppercase">Trực tuyến: <span id="v_truc_tuyen">0</span></div>
-                    <div class="bg-slate-50 text-slate-700 p-2 rounded-lg text-center uppercase">Trực tiếp: <span id="v_truc_tiep">0</span></div>
-                </div>
+            <div class="main-card !p-6 flex justify-between items-center border-l-[12px] border-orange-600">
+                <div><p class="label-text text-orange-900">Mức độ hài lòng</p><p id="sat_rate" class="text-4xl font-black text-orange-600">0%</p></div>
+                <div class="text-right"><p class="text-[10px] font-black text-slate-900 uppercase">Lượt đánh giá</p><p id="sat_count" class="text-3xl font-black text-slate-900">0</p></div>
             </div>
-
-            <div class="glass-card p-6 border-l-8 border-emerald-500">
-                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Lũy kế từ 01/01/2026</p>
-                <div class="flex items-baseline gap-2 mt-2">
-                    <span id="v_luy_ke" class="text-5xl font-black text-emerald-600">0</span>
-                    <span class="text-xs font-bold text-slate-400 italic">Hồ sơ</span>
-                </div>
-                <div class="mt-4 flex justify-between items-center text-[10px] font-bold uppercase text-slate-500">
-                    <span>Số hồ sơ thực hiện số hóa:</span>
-                    <span id="v_so_hoa_luy_ke" class="text-emerald-700 text-sm">0</span>
-                </div>
+            <div class="main-card !p-6 flex justify-between items-center border-l-[12px] border-indigo-700">
+                <div><p class="label-text text-indigo-900">Số hóa lũy kế</p><p id="total_digital" class="text-4xl font-black text-indigo-700">0</p></div>
+                <div class="w-14 h-14 bg-indigo-100 rounded-2xl flex items-center justify-center text-indigo-700 font-black text-sm shadow-inner">DIGI</div>
             </div>
-
-            <div class="glass-card p-6 border-l-8 border-orange-500">
-                <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Mức độ hài lòng</p>
-                <div class="flex items-baseline gap-2 mt-2">
-                    <span id="v_hai_long_percent" class="text-5xl font-black text-orange-500">0%</span>
-                    <span class="text-xs font-bold text-slate-400 italic">Đánh giá</span>
-                </div>
-                <div class="mt-4 flex justify-between items-center text-[10px] font-bold uppercase text-slate-500">
-                    <span>Số lượt đánh giá:</span>
-                    <span id="v_luot_danh_gia" class="text-orange-700 text-sm">0</span>
-                </div>
-            </div>
-        </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div class="lg:col-span-8 space-y-6">
-                <div class="glass-card p-8">
-                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-wider mb-6 flex items-center gap-2">
-                        <span class="w-2 h-4 bg-blue-600 rounded-full"></span> Kết quả giải quyết
-                    </h3>
-                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
-                        <div class="p-4 bg-emerald-50 rounded-2xl border border-emerald-100">
-                            <div class="text-[10px] font-bold text-emerald-600 uppercase mb-1">Trước hạn</div>
-                            <div id="v_truoc_han" class="text-2xl font-black text-emerald-700">0</div>
-                        </div>
-                        <div class="p-4 bg-blue-50 rounded-2xl border border-blue-100">
-                            <div class="text-[10px] font-bold text-blue-600 uppercase mb-1">Trong hạn</div>
-                            <div id="v_trong_han" class="text-2xl font-black text-blue-700">0</div>
-                        </div>
-                        <div class="p-4 bg-red-50 rounded-2xl border border-red-100">
-                            <div class="text-[10px] font-bold text-red-600 uppercase mb-1">Trễ hạn</div>
-                            <div id="v_tre_han" class="text-2xl font-black text-red-700">0</div>
-                        </div>
-                        <div class="p-4 bg-slate-800 rounded-2xl text-white">
-                            <div class="text-[10px] font-bold opacity-70 uppercase mb-1">Thư xin lỗi</div>
-                            <div id="v_thu_xin_loi" class="text-2xl font-black">0</div>
-                        </div>
-                    </div>
-                    <div class="mt-6 p-4 bg-slate-50 rounded-xl border border-dashed border-slate-300">
-                        <div class="flex justify-between items-center text-xs font-bold text-slate-600">
-                            <span>Thủ tục hành chính niêm yết:</span>
-                            <span id="v_tthc_niemyet" class="text-blue-700 font-black">0 Thủ tục</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="glass-card p-6">
-                    <h3 class="text-xs font-black text-slate-800 uppercase tracking-wider mb-4 flex items-center gap-2">
-                        <span class="w-2 h-4 bg-purple-600 rounded-full"></span> Kênh phản ánh, kiến nghị
-                    </h3>
-                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                        <div class="flex justify-between items-center p-3 bg-white border rounded-xl">
-                            <span class="text-xs font-bold text-slate-500">Dịch vụ công QG</span>
-                            <b id="v_pa_dvcqg" class="text-purple-700">00</b>
-                        </div>
-                        <div class="flex justify-between items-center p-3 bg-white border rounded-xl">
-                            <span class="text-xs font-bold text-slate-500">Cổng 1022</span>
-                            <b id="v_pa_1022" class="text-purple-700">00</b>
-                        </div>
-                        <div class="flex justify-between items-center p-3 bg-white border rounded-xl">
-                            <span class="text-xs font-bold text-slate-500">Đường dây nóng</span>
-                            <b id="v_pa_nong" class="text-purple-700">00</b>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="lg:col-span-4 space-y-6">
-                <div class="gradient-blue p-8 rounded-[32px] text-white shadow-xl relative overflow-hidden">
-                    <div class="relative z-10">
-                        <h3 class="text-[10px] font-black opacity-70 uppercase tracking-widest mb-4">Số hóa hồ sơ (Tháng)</h3>
-                        <div id="v_so_hoa_thang" class="text-6xl font-black italic">0</div>
-                        <p class="text-[10px] font-bold opacity-70 mt-2 uppercase">Hồ sơ đã được số hóa</p>
-                    </div>
-                    <div class="absolute -right-4 -bottom-4 text-white opacity-10 text-[100px] font-black italic">DIGI</div>
-                </div>
-
-                <div class="gradient-emerald p-8 rounded-[32px] text-white shadow-xl relative overflow-hidden">
-                    <div class="relative z-10 text-center">
-                        <h3 class="text-[10px] font-black opacity-70 uppercase tracking-widest mb-2">Bưu chính công ích</h3>
-                        <div id="v_buu_chinh" class="text-5xl font-black italic">0</div>
-                        <p class="text-[10px] font-bold opacity-70 mt-2 uppercase tracking-tighter">Hồ sơ trả qua bưu điện</p>
-                    </div>
-                    <div class="absolute -left-4 -top-4 text-white opacity-10 text-8xl">📦</div>
-                </div>
+            <div class="main-card !p-6 flex justify-between items-center border-l-[12px] border-cyan-600">
+                <div><p class="label-text text-cyan-900">Số hóa trong tháng</p><p id="month_digital" class="text-4xl font-black text-cyan-600">0</p></div>
+                <div class="w-14 h-14 bg-cyan-100 rounded-2xl flex items-center justify-center text-cyan-700 font-black text-sm shadow-inner">NEW</div>
             </div>
         </div>
     </div>
-
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
-        
-        const firebaseConfig = { 
-            apiKey: "AIzaSyCjS8jJtoV5HLcYIpVTX1zP5DbyYmXsbh4", 
-            authDomain: "dashboard-demo-ce0da.firebaseapp.com", 
-            databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app", 
-            projectId: "dashboard-demo-ce0da", 
-            appId: "1:969593884637:web:47d4e6b03a51e7dcfbb034" 
-        };
-        const db = getDatabase(initializeApp(firebaseConfig));
-        const rootRef = ref(db, 'dashboard_binhhung/ho_so_thang');
-
-        onValue(rootRef, (snap) => {
-            const d = snap.val();
-            if(!d) return;
-
-            // Header
-            document.getElementById('v_he_thong').innerText = d.he_thong || 0;
-            document.getElementById('v_ngoai_he_thong').innerText = d.ngoai_he_thong || 0;
-
-            // Chỉ số chính
-            document.getElementById('v_tong_tiep_nhan').innerText = d.thang_tong || 0;
-            document.getElementById('v_truc_tuyen').innerText = d.truc_tuyen || 0;
-            document.getElementById('v_truc_tiep').innerText = d.truc_tiep || 0;
-            document.getElementById('v_luy_ke').innerText = d.luy_ke || 0;
-            document.getElementById('v_so_hoa_luy_ke').innerText = d.so_hoa_luy_ke || 0;
-            document.getElementById('v_hai_long_percent').innerText = (d.hai_long_percent || 0) + "%";
-            document.getElementById('v_luot_danh_gia').innerText = d.luot_danh_gia || 0;
-
-            // Kết quả giải quyết
-            document.getElementById('v_truoc_han').innerText = d.truoc_han || 0;
-            document.getElementById('v_trong_han').innerText = d.trong_han || 0;
-            document.getElementById('v_tre_han').innerText = d.tre_han || 0;
-            document.getElementById('v_thu_xin_loi').innerText = d.thu_xin_loi || 0;
-            document.getElementById('v_tthc_niemyet').innerText = (d.tthc_niemyet || 0) + " Thủ tục";
-
-            // Phản ánh
-            document.getElementById('v_pa_dvcqg').innerText = d.pa_dvcqg || 0;
-            document.getElementById('v_pa_1022').innerText = d.pa_1022 || 0;
-            document.getElementById('v_pa_nong').innerText = d.pa_nong || 0;
-
-            // Cột phải
-            document.getElementById('v_so_hoa_thang').innerText = d.so_hoa_thang || 0;
-            document.getElementById('v_buu_chinh').innerText = d.buu_chinh || 0;
-        });
-    </script>
-</body>
+    
+    </body>
 </html>
