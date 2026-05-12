@@ -8,62 +8,61 @@
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; padding: 24px; }
         .card { background: white; border-radius: 20px; padding: 24px; border: 1px solid #e2e8f0; }
-        .table-header { background-color: #f8fafc; font-size: 10px; font-weight: 800; color: #64748b; text-transform: uppercase; }
-        /* Tùy chỉnh thanh tiến độ nhỏ trong bảng */
+        .table-header { background-color: #f8fafc; font-size: 10px; font-weight: 800; color: #1e293b; text-transform: uppercase; }
         .progress-mini { height: 6px; background-color: #e2e8f0; border-radius: 99px; overflow: hidden; }
-        .progress-inner { height: 100%; background: linear-gradient(to right, #8b5cf6, #3b82f6); border-radius: 99px; }
+        .progress-inner { height: 100%; background: linear-gradient(to right, #6366f1, #2563eb); border-radius: 99px; transition: width 1s ease-in-out; }
     </style>
 </head>
 <body>
-    <div class="max-w-7xl mx-auto">
+    <div class="max-w-7xl mx-auto italic">
         <div class="flex justify-between items-end mb-8">
             <div>
-                <h2 class="text-2xl font-black text-slate-800 uppercase tracking-tighter italic">Kế hoạch Đầu tư công trung hạn</h2>
-                <p id="display_status_chung" class="text-sm text-slate-500 font-bold uppercase tracking-widest mt-1 italic">Giai đoạn 2026 - 2030</p>
+                <h2 class="text-2xl font-black text-slate-900 uppercase tracking-tighter italic">Kế hoạch Đầu tư công trung hạn</h2>
+                <p id="display_status_chung" class="text-sm text-indigo-700 font-bold uppercase tracking-widest mt-1 italic">Giai đoạn 2026 - 2030</p>
             </div>
             <div class="text-right">
-                <span id="display_ti_le" class="bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest shadow-sm">
+                <span id="display_ti_le" class="bg-indigo-600 text-white px-5 py-2 rounded-full text-xs font-black uppercase tracking-widest shadow-lg shadow-indigo-100">
                     Vốn năm: 0% tổng giai đoạn
                 </span>
             </div>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="card border-t-4 border-slate-500 shadow-md">
-                <p class="text-[10px] font-black text-slate-400 uppercase mb-1">Tổng số dự án</p>
-                <h3 class="text-3xl font-black text-slate-800"><span id="card_tong_du_an">0</span> <span class="text-sm font-bold text-slate-400">Dự án</span></h3>
+            <div class="card border-t-8 border-slate-800 shadow-md">
+                <p class="text-[10px] font-black text-slate-500 uppercase mb-1 tracking-wider">Tổng số dự án</p>
+                <h3 class="text-3xl font-black text-slate-900"><span id="card_tong_du_an">0</span> <span class="text-sm font-bold text-slate-400">Dự án</span></h3>
             </div>
-            <div class="card border-t-4 border-violet-500 shadow-md">
-                <p class="text-[10px] font-black text-slate-400 uppercase mb-1">Tổng đầu tư giai đoạn</p>
-                <h3 class="text-3xl font-black text-violet-600"><span id="card_von_giai_doan">0</span> <span class="text-sm font-bold text-slate-400">Tỷ VNĐ</span></h3>
+            <div class="card border-t-8 border-indigo-700 shadow-md">
+                <p class="text-[10px] font-black text-indigo-500 uppercase mb-1 tracking-wider">Tổng đầu tư giai đoạn</p>
+                <h3 class="text-3xl font-black text-indigo-700"><span id="card_von_giai_doan">0</span> <span class="text-sm font-bold text-indigo-300">Tỷ VNĐ</span></h3>
             </div>
-            <div class="card border-t-4 border-blue-500 shadow-md">
-                <p class="text-[10px] font-black text-slate-400 uppercase mb-1">Bố trí vốn năm 2026</p>
-                <h3 class="text-3xl font-black text-blue-600"><span id="card_von_nam">0</span> <span class="text-sm font-bold text-slate-400">Tỷ VNĐ</span></h3>
+            <div class="card border-t-8 border-blue-700 shadow-md">
+                <p class="text-[10px] font-black text-blue-500 uppercase mb-1 tracking-wider">Bố trí vốn năm 2026</p>
+                <h3 class="text-3xl font-black text-blue-700"><span id="card_von_nam">0</span> <span class="text-sm font-bold text-blue-300">Tỷ VNĐ</span></h3>
             </div>
         </div>
 
-        <div class="card shadow-xl overflow-hidden">
-            <h4 class="font-black text-slate-700 uppercase text-sm mb-4 border-b pb-4 italic">Chi tiết danh mục 15 dự án trọng điểm</h4>
+        <div class="card shadow-xl overflow-hidden border-none">
+            <h4 class="font-black text-slate-900 uppercase text-sm mb-4 border-b border-slate-100 pb-4 italic tracking-wide">Chi tiết danh mục 15 dự án trọng điểm</h4>
             <div class="overflow-x-auto">
                 <table class="w-full text-left border-collapse">
                     <thead>
                         <tr class="table-header">
-                            <th class="p-4 border-b">STT</th>
-                            <th class="p-4 border-b">Tên dự án / Công trình</th>
-                            <th class="p-4 border-b text-center">Lĩnh vực</th>
-                            <th class="p-4 border-b text-right">Tổng vốn (Tr.đ)</th>
-                            <th class="p-4 border-b text-right text-blue-600">Vốn đầu tư (Tr.đ)</th>
-                            <th class="p-4 border-b text-center">Tỷ lệ thực hiện</th>
-                            <th class="p-4 border-b text-center">Trạng thái</th>
+                            <th class="p-4 border-b border-slate-100">STT</th>
+                            <th class="p-4 border-b border-slate-100">Tên dự án / Công trình</th>
+                            <th class="p-4 border-b border-slate-100 text-center">Lĩnh vực</th>
+                            <th class="p-4 border-b border-slate-100 text-right">Tổng vốn (Tr.đ)</th>
+                            <th class="p-4 border-b border-slate-100 text-right text-blue-700">Vốn đầu tư (Tr.đ)</th>
+                            <th class="p-4 border-b border-slate-100 text-center">Tỷ lệ thực hiện</th>
+                            <th class="p-4 border-b border-slate-100 text-center">Trạng thái</th>
                         </tr>
                     </thead>
-                    <tbody id="project-table-body" class="text-sm font-semibold text-slate-600">
+                    <tbody id="project-table-body" class="text-sm font-bold text-slate-800">
                         </tbody>
                 </table>
             </div>
-            <div class="mt-6 p-4 bg-slate-50 rounded-xl flex justify-between items-center text-[9px] font-bold text-slate-400 uppercase tracking-widest">
-                <span>* Số liệu: Báo cáo 2374/BC-UBND xã Bình Hưng</span>
+            <div class="mt-6 p-4 bg-slate-50 rounded-xl flex justify-between items-center text-[9px] font-black text-slate-500 uppercase tracking-widest">
+                <span>* Trích xuất: Báo cáo số 2374/BC-UBND xã Bình Hưng</span>
                 <span id="last_updated">Cập nhật: --/--/----</span>
             </div>
         </div>
@@ -78,47 +77,57 @@
         const db = getDatabase(app);
         const dtcRef = ref(db, 'dashboard_binhhung/dau_tu_cong_chi_tiet');
 
+        // Hàm xử lý số liệu từ chuỗi (loại bỏ dấu ngăn cách hàng nghìn và chuyển dấu phẩy thập phân)
+        const parseVNNumber = (str) => {
+            if (!str) return 0;
+            // Loại bỏ dấu chấm (ngăn cách hàng nghìn) và thay dấu phẩy bằng dấu chấm (thập phân)
+            const cleanStr = String(str).replace(/\./g, '').replace(',', '.');
+            return parseFloat(cleanStr) || 0;
+        };
+
         onValue(dtcRef, (snap) => {
             const d = snap.val();
             if (d) {
-                // 1. Cập nhật số liệu Header & Cards
                 document.getElementById('card_tong_du_an').innerText = d.tong_du_an || 0;
                 document.getElementById('card_von_giai_doan').innerText = d.von_giai_doan || 0;
                 document.getElementById('card_von_nam').innerText = d.von_nam || 0;
                 document.getElementById('display_status_chung').innerText = d.status_chung || "Giai đoạn 2026 - 2030";
                 document.getElementById('last_updated').innerText = "Cập nhật: " + (d.last_updated || "--");
 
-                const tile_nam = ((parseFloat(d.von_nam)/parseFloat(d.von_giai_doan))*100).toFixed(1);
-                document.getElementById('display_ti_le').innerText = `Vốn năm chiếm: ${isNaN(tile_nam) ? 0 : tile_nam}% tổng giai đoạn`;
+                const vNam = parseVNNumber(d.von_nam);
+                const vGD = parseVNNumber(d.von_giai_doan);
+                const tile_nam = vGD > 0 ? ((vNam / vGD) * 100).toFixed(1) : 0;
+                document.getElementById('display_ti_le').innerText = `Vốn năm chiếm: ${tile_nam}% tổng giai đoạn`;
 
-                // 2. Render Bảng dự án
                 const tbody = document.getElementById('project-table-body');
                 if (d.projects && Array.isArray(d.projects)) {
                     tbody.innerHTML = d.projects.map((p, i) => {
-                        // Lấy dữ liệu mới (nếu không có mặc định là 0)
-                        const invested = p.invested || "0";
-                        const percentage = p.percentage || 0;
+                        const totalCap = parseVNNumber(p.capital);
+                        const invested = parseVNNumber(p.invested);
+                        
+                        // TÍNH TOÁN TỶ LỆ THỰC HIỆN THEO CÔNG THỨC
+                        const percentage = totalCap > 0 ? ((invested / totalCap) * 100).toFixed(1) : 0;
 
                         return `
-                            <tr class="hover:bg-slate-50 border-b border-slate-50 transition-colors">
-                                <td class="p-4 text-slate-400">${String(i+1).padStart(2, '0')}</td>
-                                <td class="p-4 text-slate-800 font-bold leading-snug">${p.name}</td>
+                            <tr class="hover:bg-indigo-50/30 border-b border-slate-50 transition-colors">
+                                <td class="p-4 text-slate-400 font-medium">${String(i+1).padStart(2, '0')}</td>
+                                <td class="p-4 text-slate-900 font-extrabold leading-snug">${p.name}</td>
                                 <td class="p-4 text-center">
-                                    <span class="bg-blue-50 text-blue-600 px-2 py-1 rounded text-[10px] uppercase font-bold tracking-tighter">
+                                    <span class="bg-indigo-50 text-indigo-700 px-2 py-1 rounded text-[10px] uppercase font-black tracking-tighter border border-indigo-100">
                                         ${p.type}
                                     </span>
                                 </td>
                                 <td class="p-4 text-right font-black text-slate-900 italic">${p.capital}</td>
-                                <td class="p-4 text-right font-black text-blue-700 italic">${invested}</td>
+                                <td class="p-4 text-right font-black text-blue-700 italic">${p.invested || '0'}</td>
                                 <td class="p-4">
                                     <div class="flex flex-col items-center gap-1">
-                                        <span class="text-[10px] font-black text-slate-700">${percentage}%</span>
+                                        <span class="text-[11px] font-[900] text-indigo-900">${percentage}%</span>
                                         <div class="w-full max-w-[80px] progress-mini">
                                             <div class="progress-inner" style="width: ${percentage}%"></div>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="p-4 text-center text-[10px] text-orange-500 font-black uppercase italic leading-tight">
+                                <td class="p-4 text-center text-[10px] text-orange-600 font-black uppercase italic leading-tight">
                                     ${p.status}
                                 </td>
                             </tr>
