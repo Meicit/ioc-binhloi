@@ -1,22 +1,25 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8"><script src="https://cdn.tailwindcss.com"></script>
-    <style>body { font-family: sans-serif; background: transparent; margin: 0; overflow: hidden; }</style>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>body { font-family: 'Inter', sans-serif; background: transparent; margin: 0; overflow: hidden; }</style>
 </head>
 <body class="p-1">
-    <div class="bg-white p-4 rounded-[24px] shadow-sm border border-slate-100 flex flex-col h-[190px] justify-between">
+    <div class="bg-white p-5 rounded-[30px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-indigo-50 flex flex-col h-[190px] justify-between">
         <div>
-            <div class="flex items-center gap-2 mb-2">
-                <div class="w-7 h-7 bg-indigo-100 rounded-lg flex items-center justify-center text-sm">📞</div>
-                <h3 class="text-[11px] font-bold text-gray-500 uppercase">Phản ánh 1022</h3>
+            <div class="flex items-center gap-2 mb-3">
+                <div class="w-6 h-6 bg-indigo-600 rounded-lg flex items-center justify-center text-white text-[10px] shadow-lg shadow-indigo-100">📞</div>
+                <h3 class="text-[10px] font-black text-indigo-900 uppercase tracking-[0.15em]">Phản ánh 1022</h3>
             </div>
-            <p id="pa_tong" class="text-2xl font-extrabold text-gray-900 tracking-tight">0 phản ánh</p>
-            <p id="pa_rate" class="text-[11px] text-gray-400 font-medium italic">Đã xử lý: 0%</p>
+            <p id="pa_tong" class="text-3xl font-[900] text-slate-900 tracking-tighter leading-tight italic">0 phản ánh</p>
+            <p id="pa_rate" class="text-[11px] text-indigo-600 font-extrabold italic mt-1 uppercase tracking-wider">Xử lý: 0%</p>
         </div>
-        <div class="pt-2 border-t border-slate-50 flex justify-between items-end">
-            <span id="pa_details" class="text-[10px] font-bold text-gray-400 tracking-tight">Đang chờ: 0 phản ánh</span>
-            <span class="text-[8px] text-slate-300 uppercase font-bold">Dữ liệu 1022</span>
+
+        <div class="pt-3 border-t border-indigo-50 flex justify-between items-center">
+            <span id="pa_cho" class="bg-indigo-50 text-indigo-700 px-3 py-1 rounded-full border border-indigo-100 text-[10px] font-black italic">Đang chờ: 0</span>
+            <span class="text-[8px] text-indigo-300 font-black uppercase tracking-widest italic">Dữ liệu 1022</span>
         </div>
     </div>
     <script type="module">
@@ -25,10 +28,10 @@
         const db = getDatabase(initializeApp({ databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app" }));
         onValue(ref(db, 'dashboard_binhhung/pa_1022'), (snap) => {
             const d = snap.val() || {};
-            const rate = d.tong > 0 ? (d.da_giai_quyet/d.tong*100).toFixed(1) : 0;
+            const rate = d.tong > 0 ? (d.da_giai_quyet / d.tong * 100).toFixed(1) : 0;
             document.getElementById('pa_tong').innerText = (d.tong || 0) + " phản ánh";
-            document.getElementById('pa_rate').innerText = "Đã xử lý: " + rate + "%";
-            document.getElementById('pa_details').innerText = "Đang chờ: " + (d.chua_giai_quyet || 0) + " phản ánh";
+            document.getElementById('pa_rate').innerText = "Xử lý: " + rate + "%";
+            document.getElementById('pa_cho').innerText = "Đang chờ: " + (d.chua_giai_quyet || 0);
         });
     </script>
 </body>
