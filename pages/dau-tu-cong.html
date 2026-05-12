@@ -2,12 +2,16 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; padding: 24px; }
         .card { background: white; border-radius: 20px; padding: 24px; border: 1px solid #e2e8f0; }
-        .table-header { background-color: #f8fafc; font-size: 11px; font-weight: 800; color: #64748b; text-transform: uppercase; }
+        .table-header { background-color: #f8fafc; font-size: 10px; font-weight: 800; color: #64748b; text-transform: uppercase; }
+        /* Tùy chỉnh thanh tiến độ nhỏ trong bảng */
+        .progress-mini { height: 6px; background-color: #e2e8f0; border-radius: 99px; overflow: hidden; }
+        .progress-inner { height: 100%; background: linear-gradient(to right, #8b5cf6, #3b82f6); border-radius: 99px; }
     </style>
 </head>
 <body>
@@ -15,10 +19,10 @@
         <div class="flex justify-between items-end mb-8">
             <div>
                 <h2 class="text-2xl font-black text-slate-800 uppercase tracking-tighter italic">Kế hoạch Đầu tư công trung hạn</h2>
-                <p id="display_status_chung" class="text-sm text-slate-500 font-bold uppercase tracking-widest mt-1 italic italic">Giai đoạn 2026 - 2030</p>
+                <p id="display_status_chung" class="text-sm text-slate-500 font-bold uppercase tracking-widest mt-1 italic">Giai đoạn 2026 - 2030</p>
             </div>
             <div class="text-right">
-                <span id="display_ti_le" class="bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest">
+                <span id="display_ti_le" class="bg-purple-100 text-purple-700 px-4 py-2 rounded-full text-xs font-black uppercase tracking-widest shadow-sm">
                     Vốn năm: 0% tổng giai đoạn
                 </span>
             </div>
@@ -48,7 +52,9 @@
                             <th class="p-4 border-b">STT</th>
                             <th class="p-4 border-b">Tên dự án / Công trình</th>
                             <th class="p-4 border-b text-center">Lĩnh vực</th>
-                            <th class="p-4 border-b text-right">Tổng mức vốn (Tr.đ)</th>
+                            <th class="p-4 border-b text-right">Tổng vốn (Tr.đ)</th>
+                            <th class="p-4 border-b text-right text-blue-600">Vốn đầu tư (Tr.đ)</th>
+                            <th class="p-4 border-b text-center">Tỷ lệ thực hiện</th>
                             <th class="p-4 border-b text-center">Trạng thái</th>
                         </tr>
                     </thead>
@@ -75,27 +81,50 @@
         onValue(dtcRef, (snap) => {
             const d = snap.val();
             if (d) {
-                // Cập nhật số liệu Header & Cards
-                document.getElementById('card_tong_du_an').innerText = d.tong_du_an;
-                document.getElementById('card_von_giai_doan').innerText = d.von_giai_doan;
-                document.getElementById('card_von_nam').innerText = d.von_nam;
-                document.getElementById('display_status_chung').innerText = d.status_chung;
-                document.getElementById('last_updated').innerText = "Cập nhật: " + d.last_updated;
+                // 1. Cập nhật số liệu Header & Cards
+                document.getElementById('card_tong_du_an').innerText = d.tong_du_an || 0;
+                document.getElementById('card_von_giai_doan').innerText = d.von_giai_doan || 0;
+                document.getElementById('card_von_nam').innerText = d.von_nam || 0;
+                document.getElementById('display_status_chung').innerText = d.status_chung || "Giai đoạn 2026 - 2030";
+                document.getElementById('last_updated').innerText = "Cập nhật: " + (d.last_updated || "--");
 
-                const tile = ((parseFloat(d.von_nam)/parseFloat(d.von_giai_doan))*100).toFixed(1);
-                document.getElementById('display_ti_le').innerText = `Vốn năm chiếm: ${tile}% tổng giai đoạn`;
+                const tile_nam = ((parseFloat(d.von_nam)/parseFloat(d.von_giai_doan))*100).toFixed(1);
+                document.getElementById('display_ti_le').innerText = `Vốn năm chiếm: ${isNaN(tile_nam) ? 0 : tile_nam}% tổng giai đoạn`;
 
-                // Render Bảng
+                // 2. Render Bảng dự án
                 const tbody = document.getElementById('project-table-body');
-                tbody.innerHTML = d.projects.map((p, i) => `
-                    <tr class="hover:bg-slate-50 border-b border-slate-50">
-                        <td class="p-4 text-slate-400">${String(i+1).padStart(2, '0')}</td>
-                        <td class="p-4 text-slate-800 font-bold">${p.name}</td>
-                        <td class="p-4 text-center"><span class="bg-blue-50 text-blue-600 px-2 py-1 rounded text-[10px] uppercase font-bold">${p.type}</span></td>
-                        <td class="p-4 text-right font-black text-slate-900 italic">${p.capital}</td>
-                        <td class="p-4 text-center text-[10px] text-orange-500 font-black uppercase italic">${p.status}</td>
-                    </tr>
-                `).join('');
+                if (d.projects && Array.isArray(d.projects)) {
+                    tbody.innerHTML = d.projects.map((p, i) => {
+                        // Lấy dữ liệu mới (nếu không có mặc định là 0)
+                        const invested = p.invested || "0";
+                        const percentage = p.percentage || 0;
+
+                        return `
+                            <tr class="hover:bg-slate-50 border-b border-slate-50 transition-colors">
+                                <td class="p-4 text-slate-400">${String(i+1).padStart(2, '0')}</td>
+                                <td class="p-4 text-slate-800 font-bold leading-snug">${p.name}</td>
+                                <td class="p-4 text-center">
+                                    <span class="bg-blue-50 text-blue-600 px-2 py-1 rounded text-[10px] uppercase font-bold tracking-tighter">
+                                        ${p.type}
+                                    </span>
+                                </td>
+                                <td class="p-4 text-right font-black text-slate-900 italic">${p.capital}</td>
+                                <td class="p-4 text-right font-black text-blue-700 italic">${invested}</td>
+                                <td class="p-4">
+                                    <div class="flex flex-col items-center gap-1">
+                                        <span class="text-[10px] font-black text-slate-700">${percentage}%</span>
+                                        <div class="w-full max-w-[80px] progress-mini">
+                                            <div class="progress-inner" style="width: ${percentage}%"></div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="p-4 text-center text-[10px] text-orange-500 font-black uppercase italic leading-tight">
+                                    ${p.status}
+                                </td>
+                            </tr>
+                        `;
+                    }).join('');
+                }
             }
         });
     </script>
