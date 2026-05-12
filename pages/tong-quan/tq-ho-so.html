@@ -3,25 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <style>body { font-family: 'Inter', sans-serif; background: transparent; margin: 0; overflow: hidden; }</style>
 </head>
 <body class="p-1">
-    <div class="bg-white p-4 rounded-[24px] shadow-sm border border-slate-100 flex flex-col h-[190px] justify-between">
+    <div class="bg-white p-5 rounded-[30px] shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-blue-50 flex flex-col h-[190px] justify-between">
         <div>
-            <div class="flex items-center gap-2 mb-2">
-                <div class="w-7 h-7 bg-blue-100 rounded-lg flex items-center justify-center text-sm">📋</div>
-                <h3 class="text-[11px] font-bold text-gray-500 uppercase">Hồ sơ TTHC</h3>
+            <div class="flex items-center gap-2 mb-3">
+                <div class="w-6 h-6 bg-blue-700 rounded-lg flex items-center justify-center text-white text-[10px] shadow-lg shadow-blue-100">📋</div>
+                <h3 class="text-[10px] font-black text-blue-900 uppercase tracking-[0.15em]">Hồ sơ TTHC</h3>
             </div>
-            <p id="display_luy_ke" class="text-2xl font-extrabold text-gray-900 tracking-tight">0 hồ sơ</p>
-            <p id="display_rate" class="text-[11px] text-gray-400 font-medium italic">Đúng hạn: 0%</p>
+            <p id="hs_tong" class="text-3xl font-[900] text-slate-900 tracking-tighter leading-tight italic">0 hồ sơ</p>
+            <p id="hs_rate" class="text-[11px] text-blue-700 font-extrabold italic mt-1 uppercase tracking-wider">Đúng hạn: 0%</p>
         </div>
-        <div class="pt-2 border-t border-slate-50 flex justify-between items-end">
-            <div class="flex flex-col">
-                <span id="display_details" class="text-[10px] font-bold text-gray-400">Đã GQ: 0 (0%)</span>
-                <span class="text-[8px] text-slate-300 uppercase font-bold mt-1">Dữ liệu tháng hiện tại</span>
-            </div>
-            <span class="text-[10px] font-black text-blue-600 bg-blue-50 px-2 py-0.5 rounded">REALTIME</span>
+
+        <div class="pt-3 border-t border-blue-50 flex justify-between items-center">
+            <span id="hs_details" class="bg-blue-50 text-blue-800 px-3 py-1 rounded-full border border-blue-100 text-[10px] font-black italic tracking-tighter">Đã GQ: 0 hồ sơ</span>
+            <span class="text-[8px] text-blue-300 font-black uppercase tracking-widest italic tracking-tighter">Tháng hiện tại</span>
         </div>
     </div>
     <script type="module">
@@ -30,10 +28,10 @@
         const db = getDatabase(initializeApp({ databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app" }));
         onValue(ref(db, 'dashboard_binhhung/ho_so_thang'), (snap) => {
             const d = snap.val() || {};
-            const rate = d.luy_ke > 0 ? (d.truoc_han/d.luy_ke*100).toFixed(2) : 0;
-            document.getElementById('display_luy_ke').innerText = (d.luy_ke || 0).toLocaleString() + " hồ sơ";
-            document.getElementById('display_rate').innerText = "Đúng hạn: " + rate + "%";
-            document.getElementById('display_details').innerText = `Đã GQ: ${(d.truoc_han || 0).toLocaleString()} (${rate}%)`;
+            const rate = d.luy_ke > 0 ? (d.truoc_han / d.luy_ke * 100).toFixed(1) : 0;
+            document.getElementById('hs_tong').innerText = (d.luy_ke || 0).toLocaleString() + " hồ sơ";
+            document.getElementById('hs_rate').innerText = "Đúng hạn: " + rate + "%";
+            document.getElementById('hs_details').innerText = "Đã GQ: " + (d.truoc_han || 0).toLocaleString() + " hồ sơ";
         });
     </script>
 </body>
