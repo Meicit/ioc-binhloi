@@ -20,11 +20,11 @@
         <div class="bg-white p-6 rounded-[32px] mb-6 shadow-sm border border-indigo-100">
             <h3 class="text-[11px] font-black text-indigo-900 uppercase mb-4 tracking-widest italic">Kết quả đánh giá Bộ chỉ số phục vụ</h3>
             <div class="grid grid-cols-5 gap-4 text-center">
-                <div><p class="text-[10px] font-black text-indigo-700 uppercase mb-1">Tiến độ</p><p id="score_process" class="text-lg font-black text-slate-900">19.8</p></div>
-                <div><p class="text-[10px] font-black text-indigo-700 uppercase mb-1">Trực tuyến</p><p id="score_online" class="text-lg font-black text-slate-900">20</p></div>
-                <div><p class="text-[10px] font-black text-indigo-700 uppercase mb-1">Hài lòng</p><p id="score_satisfaction" class="text-lg font-black text-slate-900">18</p></div>
-                <div><p class="text-[10px] font-black text-indigo-700 uppercase mb-1">Số hóa</p><p id="score_digital" class="text-lg font-black text-slate-900">21.23</p></div>
-                <div class="bg-emerald-600 rounded-xl py-1 shadow-lg shadow-emerald-100"><p class="text-[10px] font-black text-white uppercase">Tổng điểm</p><p id="score_total" class="text-lg font-black text-white">97.03</p></div>
+                <div><p class="text-[10px] font-black text-indigo-700 uppercase mb-1">Tiến độ</p><p id="score_process" class="text-lg font-black text-slate-900">0</p></div>
+                <div><p class="text-[10px] font-black text-indigo-700 uppercase mb-1">Trực tuyến</p><p id="score_online" class="text-lg font-black text-slate-900">0</p></div>
+                <div><p class="text-[10px] font-black text-indigo-700 uppercase mb-1">Hài lòng</p><p id="score_satisfaction" class="text-lg font-black text-slate-900">0</p></div>
+                <div><p class="text-[10px] font-black text-indigo-700 uppercase mb-1">Số hóa</p><p id="score_digital" class="text-lg font-black text-slate-900">0</p></div>
+                <div class="bg-emerald-600 rounded-xl py-1 shadow-lg shadow-emerald-100"><p class="text-[10px] font-black text-white uppercase">Tổng điểm</p><p id="score_total" class="text-lg font-black text-white">0</p></div>
             </div>
         </div>
 
@@ -115,7 +115,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -133,6 +132,56 @@
             </div>
         </div>
     </div>
-    
-    </body>
-</html>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
+
+        // Cấu hình Firebase
+        const firebaseConfig = { 
+            databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app" 
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Lắng nghe dữ liệu tại Node ho_so_chi_tiet
+        const dbRef = ref(db, 'dashboard_binhhung/ho_so_chi_tiet');
+
+        onValue(dbRef, (snap) => {
+            const d = snap.val() || {};
+
+            // 1. Bộ chỉ số đánh giá
+            document.getElementById('score_process').innerText = d.score_process || 0;
+            document.getElementById('score_online').innerText = d.score_online || 0;
+            document.getElementById('score_satisfaction').innerText = d.score_satisfaction || 0;
+            document.getElementById('score_digital').innerText = d.score_digital || 0;
+            document.getElementById('score_total').innerText = d.score_total || 0;
+
+            // 2. Dữ liệu tháng
+            document.getElementById('month_total').innerText = d.month_total || 0;
+            document.getElementById('month_online').innerText = d.month_online || 0;
+            document.getElementById('month_offline').innerText = d.month_offline || 0;
+            document.getElementById('res_before').innerText = d.res_before || 0;
+            document.getElementById('res_in_time').innerText = d.res_in_time || 0;
+            document.getElementById('res_late').innerText = d.res_late || 0;
+            document.getElementById('res_sorry').innerText = d.res_sorry || 0;
+
+            // 3. Dữ liệu lũy kế
+            document.getElementById('total_luy_ke').innerText = d.total_luy_ke || 0;
+            document.getElementById('total_online').innerText = d.total_online || 0;
+            document.getElementById('total_offline').innerText = d.total_offline || 0;
+            document.getElementById('luy_ke_date').innerText = d.luy_ke_date || "--/--";
+            document.getElementById('lk_res_before').innerText = d.lk_res_before || 0;
+            document.getElementById('lk_res_in_time').innerText = d.lk_res_in_time || 0;
+            document.getElementById('lk_res_late').innerText = d.lk_res_late || 0;
+            document.getElementById('lk_res_sorry').innerText = d.lk_res_sorry || 0;
+
+            // 4. Hài lòng và Số hóa
+            document.getElementById('sat_rate').innerText = (d.sat_rate || 0) + "%";
+            document.getElementById('sat_count').innerText = d.sat_count || 0;
+            document.getElementById('total_digital').innerText = d.total_digital || 0;
+            document.getElementById('month_digital').innerText = d.month_digital || 0;
+        });
+    </script>
+</body>
+</html>c
