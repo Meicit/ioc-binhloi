@@ -5,24 +5,106 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Điều hành - UBND Xã Bình Hưng</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Inter', sans-serif; background-color: #f1f5f9; margin: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: #f1f5f9; 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            height: 100vh; 
+            overflow: hidden; 
+        }
         
-        .navbar { background-color: #0f172a; color: white; display: flex; flex-direction: column; flex-shrink: 0; z-index: 100; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
-        .nav-top { display: flex; justify-content: space-between; align-items: center; padding: 12px 24px; border-bottom: 1px solid #1e293b; }
-        .nav-bottom { display: flex; align-items: center; background-color: #1e293b; padding: 0 24px; overflow-x: auto; scrollbar-width: none; }
+        /* NAVBAR: Đổi sang màu xanh Navy đậm như hình ảnh yêu cầu */
+        .navbar { 
+            background-color: #0b4a8f; /* Màu xanh Navy tươi và đậm như hình */
+            color: white; 
+            display: flex; 
+            flex-direction: column; 
+            flex-shrink: 0; 
+            z-index: 100; 
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-top { 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            padding: 10px 24px; 
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        /* MENU 3D TRÊN NỀN XANH NAVY ĐẬM */
+        .nav-bottom { 
+            display: flex; 
+            align-items: center; 
+            background-color: #083a71; /* Màu xanh tối hơn một chút cho dải menu */
+            padding: 8px 24px; 
+            overflow-x: auto; 
+            scrollbar-width: none;
+            gap: 12px;
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.2);
+        }
         .nav-bottom::-webkit-scrollbar { display: none; }
 
-        .nav-item { padding: 14px 20px; cursor: pointer; border-bottom: 3px solid transparent; color: #94a3b8; font-weight: 600; font-size: 13px; display: flex; align-items: center; gap: 8px; text-decoration: none; transition: all 0.2s; white-space: nowrap; }
-        .nav-item:hover { color: white; background-color: rgba(255,255,255,0.05); }
-        .nav-item.active { color: white; border-bottom-color: #3b82f6; font-weight: 800; background-color: rgba(59, 130, 246, 0.1); }
-        .nav-item.locked { opacity: 0.3; cursor: not-allowed; filter: grayscale(1); pointer-events: none; }
+        .nav-item { 
+            padding: 10px 18px; 
+            cursor: pointer; 
+            border-radius: 12px;
+            color: #bae6fd; 
+            font-weight: 600; 
+            font-size: 13px; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+            text-decoration: none; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+            white-space: nowrap;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .nav-item:hover { 
+            color: white; 
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .nav-item.active { 
+            color: white !important; 
+            font-weight: 800; 
+            /* Giữ hiệu ứng 3D màu Sky cho nút Active để nổi bật trên nền Navy */
+            background: linear-gradient(145deg, #0ea5e9, #0284c7);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            box-shadow: 
+                0 4px 15px rgba(14, 165, 233, 0.4),
+                inset 0 1px 2px rgba(255, 255, 255, 0.4);
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        .nav-item.locked { opacity: 0.3; cursor: not-allowed; filter: grayscale(1); pointer-events: none; background: transparent; }
 
         .main-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
-        iframe { flex: 1; width: 100%; border: none; background-color: #f8fafc; }
+        iframe { flex: 1; width: 100%; border: none; background-color: #f1f5f9; }
         
-        #btn-unlock { cursor: pointer !important; transition: all 0.3s ease; }
+        #btn-unlock { 
+            cursor: pointer !important; 
+            transition: all 0.3s ease; 
+            background: rgba(255, 255, 255, 0.15);
+            color: white;
+            font-weight: 700;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+        #btn-unlock:hover {
+            background: white;
+            color: #0b4a8f;
+            transform: scale(1.05);
+        }
     </style>
 </head>
 <body>
@@ -30,21 +112,20 @@
     <header class="navbar">
         <div class="nav-top">
             <div class="flex items-center gap-4">
-                <div class="h-10 w-10 flex items-center justify-center">
-                    <img src="logo.png" alt="Logo UBND Xã Bình Hưng" class="h-9 w-auto object-contain">
+                <div class="h-10 w-10 flex items-center justify-center bg-white rounded-xl p-1 shadow-lg">
+                    <img src="logo.png" alt="Logo" class="h-9 w-auto object-contain">
                 </div>
                 <div>
-                    <h2 class="text-sm font-black text-white uppercase tracking-tighter italic leading-none">UBND XÃ BÌNH HƯNG</h2>
-                    <div class="text-[9px] font-bold text-blue-400 uppercase mt-1 italic tracking-widest">Điều hành số 2026</div>
+                    <h2 class="text-sm font-[900] text-white uppercase tracking-tighter italic leading-none">ỦY BAN NHÂN DÂN XÃ BÌNH HƯNG - THÀNH PHỐ HỒ CHÍ MINH</h2>
+                    <div class="text-[9px] font-bold text-sky-100 uppercase mt-1 italic tracking-widest">Dashboard Điều hành thông minh 2026 - Hệ thống quản trị số xã Bình Hưng</div>
                 </div>
             </div>
 
             <div class="flex items-center gap-6">
                 <div class="hidden md:block text-right">
-                    <div id="main-title" class="text-xs font-black text-blue-400 uppercase italic">Thông tin chung</div>
-                    <div class="text-[10px] font-bold text-slate-500 uppercase mt-0.5" id="current-time">--/--/2026</div>
+                    <div class="text-[10px] font-extrabold text-sky-100 uppercase mt-0.5 tracking-widest" id="current-time">--/--/2026</div>
                 </div>
-                <button id="btn-unlock" type="button" onclick="handleUnlock()" class="px-5 py-2 rounded-lg text-[10px] font-black text-blue-400 border border-blue-900 uppercase hover:bg-blue-600 hover:text-white transition-all tracking-widest shadow-inner">
+                <button id="btn-unlock" type="button" onclick="handleUnlock()" class="px-5 py-2 rounded-lg text-[10px] uppercase tracking-widest shadow-md font-bold">
                     🔓 Mở khóa dữ liệu
                 </button>
             </div>
@@ -53,7 +134,7 @@
         <nav class="nav-bottom" id="main-nav">
             <a href="pages/tong-quan.html" target="main-frame" class="nav-item active" onclick="handleNavClick(this)">🏠 Thông tin chung</a>
             
-            <div class="h-6 w-px bg-slate-700 mx-2"></div>
+            <div class="h-6 w-px bg-white/10 mx-1"></div>
             
             <a href="pages/ho-so-hanh-chinh.html" target="main-frame" class="nav-item locked" data-lock="true" onclick="handleNavClick(this)">📋 Hồ sơ hành chính</a>
             <a href="pages/chi-tieu.html" target="main-frame" class="nav-item locked" data-lock="true" onclick="handleNavClick(this)">📈 Chỉ tiêu KT-XH</a>
@@ -84,12 +165,12 @@
 
                 const btn = document.getElementById('btn-unlock');
                 btn.innerHTML = "✅ ĐÃ MỞ KHÓA";
-                btn.style.backgroundColor = "#059669"; 
+                btn.style.backgroundColor = "#0ea5e9"; 
                 btn.style.color = "#ffffff";
                 btn.style.borderColor = "transparent";
                 btn.onclick = null; 
                 
-                alert("Mở khóa thành công!");
+                alert("Xác thực thành công!");
             } else if (pin !== null) {
                 alert("Mã định danh không chính xác!");
             }
@@ -99,11 +180,11 @@
             if(el.classList.contains('locked')) return;
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             el.classList.add('active');
-            const title = el.innerText.replace(/[^\w\sàáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]/gi, '').trim();
-            document.getElementById('main-title').innerText = title;
         }
 
-        document.getElementById('current-time').innerText = new Date().toLocaleDateString('vi-VN');
+        document.getElementById('current-time').innerText = new Date().toLocaleDateString('vi-VN', {
+            day: '2-digit', month: '2-digit', year: 'numeric'
+        });
     </script>
 </body>
 </html>
