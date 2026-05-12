@@ -13,8 +13,8 @@
                 <div class="w-6 h-6 bg-amber-500 rounded-lg flex items-center justify-center text-white text-[10px] shadow-lg shadow-amber-100">📂</div>
                 <h3 class="text-[10px] font-black text-amber-900 uppercase tracking-[0.15em]">Đơn thư & Tiếp dân</h3>
             </div>
-            <p id="dt_tong" class="text-3xl font-[900] text-slate-900 tracking-tighter leading-tight italic">0 đơn thư</p>
-            <p id="dt_rate" class="text-[11px] text-amber-600 font-extrabold italic mt-1 uppercase tracking-wider">Giải quyết: 0%</p>
+            <p id="dt_tong" class="text-3xl font-[900] text-slate-900 tracking-tighter leading-tight italic">Đang tải...</p>
+            <p id="dt_rate" class="text-[11px] text-amber-600 font-extrabold italic mt-1 uppercase tracking-wider italic">Đang cập nhật...</p>
         </div>
 
         <div class="pt-3 border-t border-amber-50 flex justify-between items-center">
@@ -25,17 +25,46 @@
             <span class="text-[8px] text-amber-300 font-black uppercase tracking-widest italic">Realtime</span>
         </div>
     </div>
+
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
-        const db = getDatabase(initializeApp({ databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app" }));
-        onValue(ref(db, 'dashboard_binhhung/don_thu'), (snap) => {
-            const d = snap.val() || {};
-            const rate = d.tong > 0 ? (d.da_giai_quyet / d.tong * 100).toFixed(1) : 0;
-            document.getElementById('dt_tong').innerText = (d.tong || 0) + " đơn thư";
-            document.getElementById('dt_rate').innerText = "Giải quyết: " + rate + "%";
-            document.getElementById('dt_xong').innerText = "Đã GQ: " + (d.da_giai_quyet || 0);
-            document.getElementById('dt_cho').innerText = "Đang GQ: " + (d.chua_giai_quyet || 0);
+
+        // Cấu hình Firebase
+        const firebaseConfig = { 
+            databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app" 
+        };
+        
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Đảm bảo Node này tồn tại trên Firebase của bạn
+        const donThuRef = ref(db, 'dashboard_binhhung/don_thu');
+
+        onValue(donThuRef, (snap) => {
+            const d = snap.val();
+            console.log("Dữ liệu Đơn thư nhận được:", d); // Kiểm tra ở F12 Console
+
+            if (d) {
+                // Tính tỷ lệ giải quyết
+                const tong = parseInt(d.tong) || 0;
+                const daGQ = parseInt(d.da_giai_quyet) || 0;
+                const chuaGQ = parseInt(d.chua_giai_quyet) || 0;
+                
+                const rate = tong > 0 ? ((daGQ / tong) * 100).toFixed(1) : 0;
+
+                // Cập nhật giao diện
+                document.getElementById('dt_tong').innerText = tong + " đơn thư";
+                document.getElementById('dt_rate').innerText = "Giải quyết: " + rate + "%";
+                document.getElementById('dt_xong').innerText = "Đã GQ: " + daGQ;
+                document.getElementById('dt_cho').innerText = "Đang GQ: " + chuaGQ;
+            } else {
+                document.getElementById('dt_tong').innerText = "0 đơn thư";
+                document.getElementById('dt_rate').innerText = "Chưa có dữ liệu";
+            }
+        }, (error) => {
+            console.error("Lỗi Firebase:", error);
+            document.getElementById('dt_tong').innerText = "Lỗi kết nối";
         });
     </script>
 </body>
