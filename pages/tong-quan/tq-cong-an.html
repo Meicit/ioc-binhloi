@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background-color: white; 
+            margin: 0; 
+            padding: 20px; 
+            display: flex;
+            align-items: center;
+            height: 100vh;
+            box-sizing: border-box;
+        }
+        .card {
+            width: 100%;
+            background: white;
+            border-radius: 20px;
+            padding: 10px 20px;
+        }
+        .bar-label {
+            width: 140px;
+            font-size: 11px;
+            font-weight: 600;
+            color: #94a3b8;
+            line-height: 1.2;
+            padding-right: 15px;
+        }
+        .bar-container {
+            height: 28px;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            transition: all 0.5s;
+        }
+        .bar-value {
+            position: absolute;
+            right: -25px;
+            font-weight: 800;
+            color: #1e293b;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <div class="flex items-center gap-2 mb-6">
+            <div class="bg-[#1d4ed8] p-1.5 rounded-lg shadow-md">
+                <svg class="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M10 2a1 1 0 00-1 1v.683a3.7 3.7 0 00-2.67 1.307C5.12 5.882 4 7.575 4 9.5c0 2.923 1.25 5.554 3.245 7.424A.5.5 0 007.5 17h5a.5.5 0 00.255-.076C14.75 15.054 16 12.423 16 9.5c0-1.925-1.12-3.618-2.33-4.51a3.7 3.7 0 00-2.67-1.307V3a1 1 0 00-1-1z" />
+                </svg>
+            </div>
+            <h3 class="text-base font-extrabold text-[#1e293b]">Lĩnh vực công an</h3>
+        </div>
+
+        <div class="space-y-4 pr-8">
+            <div class="flex items-center">
+                <div class="bar-label">Tội phạm về trật tự xã hội</div>
+                <div class="flex-1">
+                    <div class="bar-container bg-[#5089ba]" style="width: 10%"><span class="bar-value">1</span></div>
+                </div>
+            </div>
+
+            <div class="flex items-center">
+                <div class="bar-label">Phạm pháp hình sự</div>
+                <div class="flex-1">
+                    <div class="bar-container bg-[#f2a73d]" style="width: 35%"><span class="bar-value">6</span></div>
+                </div>
+            </div>
+
+            <div class="flex items-center">
+                <div class="bar-label">Khu phố đạt chuẩn an toàn thông tin</div>
+                <div class="flex-1">
+                    <div class="bar-container bg-[#e26e55]" style="width: 85%"><span class="bar-value">18</span></div>
+                </div>
+            </div>
+
+            <div class="flex items-center">
+                <div class="bar-label">Tin báo/Tố giác được giải quyết</div>
+                <div class="flex-1">
+                    <div class="bar-container bg-[#94a3b8]" style="width: 42%"><span class="bar-value">7</span></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
