@@ -5,54 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trang chủ Điều hành - Xã Bình Hưng</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
             margin: 0;
             padding: 0;
+            background-color: #ffffff; /* Nền trắng toàn bộ phần dưới */
+            color: #1e293b;
+            display: flex;
+            flex-direction: column;
             min-height: 100vh;
-            /* Lớp phủ Gradient sáng màu Cyan - Blue để làm bừng sáng trang web */
-            background: linear-gradient(135deg, rgba(30, 64, 175, 0.7), rgba(6, 182, 212, 0.6)), 
+        }
+
+        /* HEADER CÓ HÌNH NỀN */
+        .header-bg {
+            height: 45vh;
+            background: linear-gradient(to bottom, rgba(3, 105, 161, 0.2), rgba(255, 255, 255, 1)), 
                         url('hinhnen.png');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
-            color: #ffffff;
             display: flex;
             flex-direction: column;
-        }
-
-        /* Hiệu ứng vệt sáng động chạy ngang nền */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.1) 0%, transparent 80%);
-            pointer-events: none;
-        }
-
-        .hero-section {
-            padding: 80px 20px 100px;
+            align-items: center;
+            justify-content: center;
             text-align: center;
+            padding: 20px;
         }
 
         .logo-main {
-            width: 100px;
-            filter: drop-shadow(0 0 20px rgba(255, 255, 255, 0.9));
-            margin-bottom: 25px;
-            animation: pulse-glow 3s infinite alternate;
+            width: 80px;
+            filter: drop-shadow(0 4px 10px rgba(0,0,0,0.2));
+            margin-bottom: 15px;
         }
 
-        @keyframes pulse-glow {
-            from { filter: drop-shadow(0 0 15px rgba(255, 255, 255, 0.6)); }
-            to { filter: drop-shadow(0 0 35px rgba(34, 211, 238, 1)); }
+        /* TIÊU ĐỀ TRÊN NỀN ẢNH */
+        .title-hero {
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: clamp(2rem, 5vw, 4rem);
+            color: #0c4a6e; /* Màu xanh Navy thẫm để nổi trên ảnh sáng */
+            letter-spacing: -2px;
+            italic: italic;
         }
 
-        /* GRID 3x3 - Nút Glassmorphism Sáng */
+        /* GRID 3x3 - PHONG CÁCH SÁNG NỔI KHỐI */
         .grid-container {
-            max-width: 900px;
-            margin: -40px auto 60px;
+            max-width: 1000px;
+            margin: -60px auto 60px;
             padding: 0 20px;
             display: grid;
             grid-template-columns: repeat(3, 1fr); 
@@ -60,98 +60,104 @@
         }
 
         .nav-card {
-            background: rgba(255, 255, 255, 0.15); /* Tăng độ sáng của kính */
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: #ffffff;
             border-radius: 24px;
-            aspect-ratio: 1 / 0.9;
+            aspect-ratio: 1 / 0.85;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            gap: 15px;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            gap: 12px;
+            transition: all 0.3s ease;
             cursor: pointer;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            /* Đổ bóng 3D mềm mại trên nền trắng */
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+            border: 1px solid #f1f5f9;
         }
 
         .nav-card:hover {
-            transform: translateY(-10px);
-            background: rgba(255, 255, 255, 0.25);
-            border-color: #ffffff;
-            box-shadow: 0 0 30px rgba(34, 211, 238, 0.5); /* Phát sáng màu Cyan */
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px -10px rgba(3, 105, 161, 0.2);
+            border-color: #0ea5e9;
+            background-color: #f0f9ff;
         }
 
         .nav-card span { 
-            font-size: 40px; 
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.8));
+            font-size: 32px; 
+            margin-bottom: 5px;
         }
 
         .nav-card h3 {
             font-size: 11px;
-            font-weight: 900;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #ffffff;
-            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            letter-spacing: 1px;
+            color: #0f172a;
+            text-align: center;
         }
 
-        /* Glass Panel trắng trong suốt */
-        .glass-panel {
-            max-width: 900px;
-            margin: 0 auto 60px;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(20px);
-            border-radius: 30px;
-            padding: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
-        }
-
-        .feedback-input {
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-            border-radius: 12px;
-            padding: 14px;
-            color: white;
+        /* PHẦN DƯỚI NỀN TRẮNG */
+        .content-section {
+            max-width: 1000px;
+            margin: 0 auto 80px;
+            display: grid;
+            grid-template-cols: repeat(1, 1fr);
+            gap: 40px;
             width: 100%;
-            font-size: 13px;
-            font-weight: 600;
+            padding: 0 20px;
         }
 
-        .feedback-input::placeholder { color: rgba(255,255,255,0.7); }
+        .info-box {
+            background: #f8fafc;
+            border-radius: 24px;
+            padding: 40px;
+            border: 1px solid #e2e8f0;
+        }
 
-        .btn-submit {
-            background: linear-gradient(90deg, #22d3ee 0%, #3b82f6 100%);
-            padding: 12px 40px;
+        .input-light {
+            background: #ffffff;
+            border: 2px solid #e2e8f0;
             border-radius: 12px;
-            font-weight: 900;
-            text-transform: uppercase;
+            padding: 12px 16px;
+            width: 100%;
+            transition: all 0.2s;
+        }
+
+        .input-light:focus {
+            border-color: #0ea5e9;
+            outline: none;
+            box-shadow: 0 0 0 4px rgba(14, 165, 233, 0.1);
+        }
+
+        .btn-blue {
+            background: #0ea5e9;
             color: white;
-            box-shadow: 0 0 20px rgba(34, 211, 238, 0.6);
-            transition: 0.3s;
+            padding: 12px 32px;
+            border-radius: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: 0.2s;
         }
 
-        .btn-submit:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 30px rgba(34, 211, 238, 0.9);
+        .btn-blue:hover {
+            background: #0284c7;
+            transform: scale(1.02);
         }
 
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
             .grid-container { grid-template-columns: repeat(2, 1fr); }
+            .header-bg { height: 35vh; }
         }
     </style>
 </head>
 <body>
 
-    <header class="hero-section">
+    <header class="header-bg">
         <img src="logo.png" alt="Logo" class="logo-main">
-        <h1 class="text-5xl md:text-7xl font-[900] tracking-tighter uppercase italic text-white drop-shadow-2xl">
-            XÃ BÌNH HƯNG
-        </h1>
-        <div class="h-1.5 w-32 bg-cyan-400 mt-4 rounded-full shadow-[0_0_20px_rgba(34,211,238,1)]"></div>
-        <p class="text-cyan-100 font-bold uppercase tracking-[0.5em] mt-6 text-xs drop-shadow-md">
-            Hệ thống quản trị số tương lai
+        <h1 class="title-hero italic">Xã Bình Hưng</h1>
+        <p class="text-sky-700 font-bold uppercase tracking-[0.4em] mt-2 text-[10px]">
+            Trung tâm điều hành số thông minh
         </p>
     </header>
 
@@ -167,27 +173,30 @@
         <div class="nav-card"><span>🚀</span><h3>Dịch vụ công</h3></div>
     </main>
 
-    <section class="glass-panel grid grid-cols-1 md:grid-cols-2 gap-12">
-        <div>
-            <h2 class="text-2xl font-[900] mb-6 text-cyan-300 uppercase italic drop-shadow-sm">Liên hệ trực tuyến</h2>
-            <div class="space-y-4 text-white text-[13px] font-bold">
-                <p class="flex items-center gap-3">📍 <span class="opacity-90">Bình Hưng, Bình Chánh, TP.HCM</span></p>
-                <p class="flex items-center gap-3">📞 <span class="opacity-90">(028) 38xx xxxx</span></p>
-                <p class="flex items-center gap-3">📧 <span class="opacity-90">binhhung@tphcm.gov.vn</span></p>
+    <div class="content-section grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="info-box shadow-sm">
+            <h2 class="text-xl font-900 mb-6 uppercase italic text-sky-800 border-b-2 border-sky-100 pb-2">Liên hệ điều hành</h2>
+            <div class="space-y-4 text-slate-600 text-sm font-medium">
+                <p class="flex items-center gap-3">📍 <span>Bình Hưng, Bình Chánh, TP.HCM</span></p>
+                <p class="flex items-center gap-3">📞 <span>(028) 38xx xxxx</span></p>
+                <p class="flex items-center gap-3">📧 <span>binhhung@tphcm.gov.vn</span></p>
             </div>
         </div>
-        <div>
-            <h2 class="text-2xl font-[900] mb-6 text-cyan-300 uppercase italic drop-shadow-sm">Góp ý điều hành</h2>
+
+        <div class="info-box shadow-sm">
+            <h2 class="text-xl font-900 mb-6 uppercase italic text-sky-800 border-b-2 border-sky-100 pb-2">Góp ý xây dựng</h2>
             <form class="space-y-3">
-                <input type="text" placeholder="Họ tên cán bộ/người dân" class="feedback-input outline-none">
-                <textarea placeholder="Nội dung đóng góp..." rows="2" class="feedback-input outline-none"></textarea>
-                <div class="text-right"><button type="button" class="btn-submit">Gửi Phản Hồi</button></div>
+                <input type="text" placeholder="Tên đơn vị / Cá nhân" class="input-light text-sm font-bold">
+                <textarea placeholder="Nội dung góp ý..." rows="2" class="input-light text-sm font-bold"></textarea>
+                <div class="text-right">
+                    <button type="button" class="btn-blue text-[11px]">Gửi thông tin</button>
+                </div>
             </form>
         </div>
-    </section>
+    </div>
 
-    <footer class="text-center pb-10 text-cyan-100/60 text-[10px] font-black uppercase tracking-[0.6em]">
-        &copy; 2026 IOC BÌNH HƯNG - SMART GOVERNMENT SOLUTIONS
+    <footer class="text-center py-10 text-slate-400 text-[10px] font-bold uppercase tracking-widest border-t border-slate-100">
+        &copy; 2026 IOC Bình Hưng - Smart Government Solution
     </footer>
 
 </body>
