@@ -9,8 +9,9 @@
     <style>
         body {
             font-family: 'Montserrat', sans-serif;
-            background-color: #050a15;
-            color: white;
+            /* Thay đen bằng Xanh Navy thẫm */
+            background-color: #0c1e35; 
+            color: #f1f5f9;
             margin: 0;
             overflow-x: hidden;
         }
@@ -18,7 +19,8 @@
         /* Hero Section với Hình nền hinhnen.png */
         .hero-section {
             height: 55vh;
-            background: linear-gradient(to bottom, rgba(5, 10, 21, 0.2), #050a15), 
+            /* Gradient chuyển từ xanh trong suốt sang xanh navy thẫm */
+            background: linear-gradient(to bottom, rgba(12, 30, 53, 0.2), #0c1e35), 
                         url('hinhnen.png');
             background-size: cover;
             background-position: center;
@@ -40,12 +42,11 @@
             50% { transform: translateY(-15px); }
         }
 
-        /* CẤU TRÚC LƯỚI 3x3 CỐ ĐỊNH */
+        /* LƯỚI 3x3 */
         .grid-container {
             max-width: 900px;
             margin: -100px auto 60px;
             padding: 0 20px;
-            /* Thiết lập 3 cột bằng nhau */
             display: grid;
             grid-template-columns: repeat(3, 1fr); 
             gap: 20px;
@@ -54,11 +55,12 @@
         }
 
         .nav-card {
-            background: rgba(255, 255, 255, 0.03);
+            /* Nền xanh kính mờ */
+            background: rgba(255, 255, 255, 0.07);
             backdrop-filter: blur(25px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 24px;
-            aspect-ratio: 1 / 0.9; /* Giữ các ô gần như hình vuông */
+            aspect-ratio: 1 / 0.9;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -66,58 +68,53 @@
             gap: 15px;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
             cursor: pointer;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-            border-top: 1px solid rgba(255, 255, 255, 0.2); /* Tạo hiệu ứng ánh sáng viền trên */
+            /* Đổ bóng màu xanh thẫm thay vì đen */
+            box-shadow: 0 15px 35px rgba(2, 6, 23, 0.5);
         }
 
         .nav-card:hover {
-            transform: translateY(-10px) rotateX(5deg);
-            background: rgba(59, 130, 246, 0.15);
-            border-color: #3b82f6;
-            box-shadow: 0 25px 50px rgba(59, 130, 246, 0.3);
+            transform: translateY(-10px);
+            background: rgba(59, 130, 246, 0.25);
+            border-color: #60a5fa;
+            box-shadow: 0 25px 50px rgba(30, 58, 138, 0.4);
         }
 
-        .nav-card span { 
-            font-size: 40px; 
-            filter: drop-shadow(0 0 10px rgba(255,255,255,0.2)); 
-        }
+        .nav-card span { font-size: 40px; }
 
         .nav-card h3 {
-            font-size: 10px;
+            font-size: 11px;
             font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: #e2e8f0;
+            letter-spacing: 1px;
+            color: #ffffff;
             text-align: center;
-            padding: 0 10px;
         }
 
         /* Glass Panel cho Liên hệ & Góp ý */
         .glass-panel {
             max-width: 900px;
             margin: 0 auto 60px;
-            background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(10px);
+            background: rgba(255, 255, 255, 0.03);
             border-radius: 32px;
             padding: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 0 20px 40px rgba(2, 6, 23, 0.3);
         }
 
         .feedback-input {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            background: rgba(30, 58, 138, 0.3);
+            border: 1px solid rgba(96, 165, 250, 0.3);
             border-radius: 12px;
             padding: 12px 18px;
             color: white;
             width: 100%;
             font-size: 12px;
-            transition: 0.3s;
         }
 
         .feedback-input:focus {
-            border-color: #3b82f6;
-            background: rgba(255, 255, 255, 0.1);
+            border-color: #60a5fa;
+            background: rgba(30, 58, 138, 0.5);
+            outline: none;
         }
 
         .btn-submit {
@@ -126,15 +123,13 @@
             border-radius: 10px;
             font-weight: 800;
             font-size: 11px;
+            color: white;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            box-shadow: 0 5px 15px rgba(29, 78, 216, 0.4);
+            box-shadow: 0 5px 15px rgba(37, 99, 235, 0.4);
         }
 
-        /* Responsive cho di động (chuyển về 2 cột nếu màn hình quá nhỏ) */
         @media (max-width: 640px) {
             .grid-container { grid-template-columns: repeat(2, 1fr); }
-            .hero-section { height: 45vh; }
         }
     </style>
 </head>
@@ -142,76 +137,45 @@
 
     <header class="hero-section">
         <img src="logo.png" alt="Logo" class="logo-main mb-4">
-        <h1 class="text-4xl md:text-6xl font-[900] tracking-tighter text-center uppercase italic">
+        <h1 class="text-4xl md:text-6xl font-[900] tracking-tighter text-center uppercase italic text-white">
             XÃ BÌNH HƯNG
         </h1>
-        <p class="text-blue-400 font-bold uppercase tracking-[0.4em] mt-4 text-[10px]">Trung tâm điều hành thông minh (IOC)</p>
+        <p class="text-blue-300 font-bold uppercase tracking-[0.4em] mt-4 text-[10px]">Trung tâm điều hành thông minh (IOC)</p>
     </header>
 
     <main class="grid-container">
-        <div class="nav-card">
-            <span>🏠</span>
-            <h3>Thông tin chung</h3>
-        </div>
-        <div class="nav-card">
-            <span>📋</span>
-            <h3>Hồ sơ hành chính</h3>
-        </div>
-        <div class="nav-card">
-            <span>📈</span>
-            <h3>Chỉ tiêu KT-XH</h3>
-        </div>
-        <div class="nav-card">
-            <span>🏗️</span>
-            <h3>Đầu tư công</h3>
-        </div>
-        <div class="nav-card">
-            <span>📂</span>
-            <h3>Đơn thư</h3>
-        </div>
-        <div class="nav-card">
-            <span>📞</span>
-            <h3>Phản ánh 1022</h3>
-        </div>
-        <div class="nav-card">
-            <span>⚖️</span>
-            <h3>Văn bản chỉ đạo</h3>
-        </div>
-        <div class="nav-card">
-            <span>🛡️</span>
-            <h3>An ninh - QP</h3>
-        </div>
-        <div class="nav-card">
-            <span>🚀</span>
-            <h3>Dịch vụ công</h3>
-        </div>
+        <div class="nav-card"><span>🏠</span><h3>Thông tin chung</h3></div>
+        <div class="nav-card"><span>📋</span><h3>Hồ sơ hành chính</h3></div>
+        <div class="nav-card"><span>📈</span><h3>Chỉ tiêu KT-XH</h3></div>
+        <div class="nav-card"><span>🏗️</span><h3>Đầu tư công</h3></div>
+        <div class="nav-card"><span>📂</span><h3>Đơn thư</h3></div>
+        <div class="nav-card"><span>📞</span><h3>Phản ánh 1022</h3></div>
+        <div class="nav-card"><span>⚖️</span><h3>Văn bản chỉ đạo</h3></div>
+        <div class="nav-card"><span>🛡️</span><h3>An ninh - QP</h3></div>
+        <div class="nav-card"><span>🚀</span><h3>Dịch vụ công</h3></div>
     </main>
 
-    <section class="glass-panel grid grid-cols-1 md:grid-cols-2 gap-12">
+    <section class="glass-panel grid grid-cols-1 md:grid-cols-2 gap-12 text-white">
         <div>
-            <h2 class="text-xl font-[900] mb-6 border-l-4 border-blue-500 pl-4 uppercase italic">Liên hệ</h2>
-            <div class="space-y-4 text-slate-400 text-[12px] font-medium">
-                <p class="flex items-center gap-3">📍 <span>Số 123, đường số 5, Bình Hưng, Bình Chánh</span></p>
-                <p class="flex items-center gap-3">📞 <span>(028) 38xx xxxx</span></p>
-                <p class="flex items-center gap-3">📧 <span>binhhung@tphcm.gov.vn</span></p>
+            <h2 class="text-xl font-[900] mb-6 border-l-4 border-blue-400 pl-4 uppercase italic">Liên hệ</h2>
+            <div class="space-y-4 text-blue-100 text-[12px] font-medium">
+                <p>📍 Số 123, đường số 5, Bình Hưng, Bình Chánh</p>
+                <p>📞 (028) 38xx xxxx</p>
+                <p>📧 binhhung@tphcm.gov.vn</p>
             </div>
         </div>
-
         <div>
-            <h2 class="text-xl font-[900] mb-6 border-l-4 border-blue-500 pl-4 uppercase italic">Góp ý</h2>
+            <h2 class="text-xl font-[900] mb-6 border-l-4 border-blue-400 pl-4 uppercase italic">Góp ý</h2>
             <form class="space-y-3">
                 <input type="text" placeholder="Họ tên" class="feedback-input">
                 <textarea placeholder="Nội dung..." rows="2" class="feedback-input"></textarea>
-                <div class="text-right">
-                    <button type="button" class="btn-submit">Gửi</button>
-                </div>
+                <div class="text-right"><button type="button" class="btn-submit">Gửi</button></div>
             </form>
         </div>
     </section>
 
-    <footer class="text-center pb-10 text-slate-600 text-[9px] font-bold uppercase tracking-[0.5em]">
+    <footer class="text-center pb-10 text-blue-300/50 text-[9px] font-bold uppercase tracking-[0.5em]">
         Hệ thống quản trị số 2026 - Xã Bình Hưng
     </footer>
-
 </body>
 </html>
