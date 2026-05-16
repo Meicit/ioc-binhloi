@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Giới thiệu Siêu đơn vị hành chính - Xã Bình Hưng</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(rgba(241, 245, 249, 0.15), rgba(241, 245, 249, 0.15)), 
+                        url('hinhnen.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #1e293b;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container-wrapper {
+            max-width: 1050px;
+            margin: 40px auto 60px;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        /* Khối tiêu đề chính */
+        .title-box {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .title-main {
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: clamp(1.8rem, 4vw, 2.8rem);
+            color: #0c4a6e;
+            letter-spacing: -1px;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Khối nội dung Glassmorphism */
+        .article-card {
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-top: 2px solid rgba(255, 255, 255, 0.7);
+            border-left: 2px solid rgba(255, 255, 255, 0.6);
+            border-right: 1px solid rgba(14, 165, 233, 0.2);
+            border-bottom: 1px solid rgba(14, 165, 233, 0.2);
+            border-radius: 28px;
+            padding: 45px;
+            box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.15);
+        }
+
+        /* Section phân đoạn thông tin */
+        .info-section {
+            margin-bottom: 35px;
+        }
+        .info-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .section-heading {
+            font-size: 16px;
+            font-weight: 900;
+            text-transform: uppercase;
+            color: #0b4a8f;
+            border-left: 4px solid #0ea5e9;
+            padding-left: 12px;
+            margin-bottom: 16px;
+            letter-spacing: 0.5px;
+        }
+
+        .text-paragraph {
+            font-size: 14px;
+            line-height: 1.7;
+            font-weight: 600;
+            color: #334155;
+            text-align: justify;
+        }
+
+        /* Nút quay lại 3D */
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #ffffff;
+            border-top: 1px solid rgba(255,255,255,0.8);
+            border: 1px solid #e2e8f0;
+            color: #0c4a6e;
+            padding: 12px 24px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 6px -1px rgba(12, 74, 110, 0.1);
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            margin-bottom: 30px;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px -5px rgba(14, 165, 233, 0.3);
+            border-color: #0ea5e9;
+            color: #0ea5e9;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-wrapper">
+        <a href="home.html" class="btn-back">
+            ⬅️ Quay lại Trang chủ
+        </a>
+
+        <div class="title-box">
+            <h1 class="title-main italic">Tổng quan địa giới hành chính</h1>
+            <p class="text-sky-800 font-bold uppercase tracking-[0.3em] mt-2 text-[10px] drop-shadow-sm">
+                Thông tin chiến lược siêu đơn vị xã Bình Hưng
+            </p>
+        </div>
+
+        <article class="article-card">
+            
+            <p class="text-paragraph text-base italic text-[#0c4a6e] font-bold mb-8 border-b border-sky-200/50 pb-6">
+                Sau khi thực hiện đề án sắp xếp, sáp nhập các đơn vị hành chính và tổ chức lại mô hình quản lý, xã Bình Hưng đã trở thành một trong những siêu đơn vị hành chính cấp xã có quy mô dân số và kinh tế thuộc top đầu của Thành phố Hồ Chí Minh.
+            </p>
+
+            <div class="info-section">
+                <h2 class="section-heading">1. Cơ cấu sáp nhập và Tầm vóc mới</h2>
+                <p class="text-paragraph">
+                    Xã Bình Hưng mới được hình thành trên cơ sở hợp nhất toàn bộ không gian, nguồn lực và dân cư từ các khu vực lân cận:<br><br>
+                    • <strong>Hợp nhất:</strong> Toàn bộ diện tích tự nhiên và quy mô dân số của xã Bình Hưng cũ và xã Phong Phú cũ.<br>
+                    • <strong>Tiếp nhận thêm:</strong> Một phần diện tích tự nhiên và dân số từ Phường 7, Quận 8 chuyển giao sang.<br>
+                    • <strong>Tên gọi và quản lý:</strong> Đơn vị hành chính mới vẫn giữ tên gọi là xã Bình Hưng, thuộc quản lý trực tiếp của Thành phố Hồ Chí Minh.
+                </p>
+            </div>
+
+            <div class="info-section">
+                <h2 class="section-heading">2. Quy mô Diện tích và Dân số vượt trội</h2>
+                <p class="text-paragraph">
+                    Sự kết hợp này tạo nên một xã Bình Hưng có tầm vóc và nguồn lực tương đương với một đô thị lớn:<br><br>
+                    • <strong>Diện tích:</strong> Rộng khoảng 32,6 km², bao trọn dải đô thị liên hoàn và các trục giao thông huyết mạch như đại lộ Nguyễn Văn Linh và Quốc lộ 50.<br>
+                    • <strong>Dân số:</strong> Đạt gần 184.000 người, trở thành một trong những xã đông dân nhất cả nước, quy mô dân số vượt trội hơn hẳn nhiều quận hay thị xã khác.
+                </p>
+            </div>
+
+            <div class="info-section">
+                <h2 class="section-heading">3. Hệ thống Trụ sở Hành chính Công</h2>
+                <p class="text-paragraph">
+                    Để đảm bảo phục vụ tốt nhất cho lượng cư dân và doanh nghiệp lớn, hệ thống hành chính công được vận hành tại các địa điểm:<br><br>
+                    • <strong>Trụ sở chính / Trung tâm phục vụ hành chính công:</strong> Số A10/26A, đường số 10, Khu Dân cư Bình Hưng, xã Bình Hưng, TP.HCM.<br>
+                    • <strong>Cơ sở phối hợp tiếp dân:</strong> Số D11/314 Trịnh Quang Nghị, xã Bình Hưng, TP.HCM (khu vực Phong Phú cũ).
+                </p>
+            </div>
+
+            <div class="info-section">
+                <h2 class="section-heading">4. Định hướng phát triển Đô thị hiện đại</h2>
+                <p class="text-paragraph">
+                    Việc xóa bỏ ranh giới hành chính cũ tạo điều kiện cho xã Bình Hưng bứt phá mạnh mẽ:<br><br>
+                    • <strong>Chuỗi đô thị liên hoàn:</strong> Các khu dân cư cao cấp như KDC Trung Sơn, KDC Đại Phúc, KDC Phong Phú 4, Lovera Park... giờ đây quy về một mối quản lý thống nhất, tạo nên một diện mạo đô thị đồng bộ, hiện đại và không còn vết cắt hạ tầng.<br>
+                    • <strong>Kinh tế dịch vụ dẫn dắt:</strong> Với lợi thế tiếp giáp trực tiếp Quận 7 và Quận 8, xã Bình Hưng tập trung phát triển mạnh mẽ ngành thương mại, dịch vụ cao cấp, tài chính và bất động sản dọc theo các tuyến giao thông xương sống.<br>
+                    • <strong>Chuyển đổi số trong quản lý:</strong> Với mật độ dân cư năng động và cơ cấu lao động phi nông nghiệp chiếm tuyệt đối, xã Bình Hưng đang đi đầu trong việc ứng dụng công nghệ, cải cách hành chính và xây dựng các mô hình quản lý công trực tuyến hiệu quả để phục vụ nhân dân tốt nhất.
+                </p>
+            </div>
+
+        </article>
+    </div>
+
+    <footer class="text-center py-10 text-sky-900 font-bold text-[10px] uppercase tracking-widest drop-shadow-sm mt-auto">
+        &copy; 2026 IOC Bình Hưng - Smart Government Solution
+    </footer>
+
+</body>
+</html>
