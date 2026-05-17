@@ -12,7 +12,7 @@
             margin: 0;
             padding: 0;
             min-height: 100vh;
-            /* Đã cập nhật ../hinhnen.png để nhảy ra thư mục gốc lấy ảnh nền */
+            /* Đã lùi 1 cấp ra ngoài để lấy ảnh nền hinhnen.png */
             background: linear-gradient(rgba(241, 245, 249, 0.15), rgba(241, 245, 249, 0.15)), 
                         url('../hinhnen.png');
             background-size: cover;
@@ -107,6 +107,7 @@
         .btn-prev { left: 20px; }
         .btn-next { right: 20px; }
 
+        /* KHUNG CHỨA VIDEO YOUTUBE 3D CHUẨN 16:9 */
         .video-card {
             background: #ffffff;
             border-radius: 20px;
@@ -178,17 +179,29 @@
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="video-card">
-                        <video width="100%" height="100%" controls class="w-full h-full object-cover">
-                            <source src="videos/video1.mp4" type="video/mp4">
-                            Trình duyệt của bạn không hỗ trợ thẻ video.
-                        </video>
+                        <iframe 
+                            width="100%" 
+                            height="100%" 
+                            src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                            title="Video tuyên truyền số 1" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen 
+                            class="w-full h-full">
+                        </iframe>
                     </div>
 
                     <div class="video-card">
-                        <video width="100%" height="100%" controls class="w-full h-full object-cover">
-                            <source src="videos/video2.mp4" type="video/mp4">
-                            Trình duyệt của bạn không hỗ trợ thẻ video.
-                        </video>
+                        <iframe 
+                            width="100%" 
+                            height="100%" 
+                            src="https://www.youtube.com/embed/dQw4w9WgXcQ" 
+                            title="Video tuyên truyền số 2" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen 
+                            class="w-full h-full">
+                        </iframe>
                     </div>
                 </div>
             </div>
