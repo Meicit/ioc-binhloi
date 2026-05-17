@@ -3,95 +3,83 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thông tin chung - Hệ thống i-Dashboard</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Montserrat', sans-serif; background-color: #f8fafc; padding: 10px; overflow-x: hidden; }
-        iframe { width: 100%; border: none; display: block; overflow: hidden; border-radius: 20px; background-color: white; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        
-        .marquee-container {
-            background: linear-gradient(90deg, #0b4a8f 0%, #075985 100%);
-            color: white; padding: 8px 0; border-radius: 10px; margin-bottom: 15px;
-            display: flex; align-items: center;
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0; padding: 24px;
+            background-color: #f1f5f9;
+            color: #1e293b;
         }
-        .marquee-label {
-            background: #00FF00; color: #052e16; padding: 2px 12px; font-weight: 900; font-size: 11px;
-            text-transform: uppercase; border-radius: 0 20px 20px 0; margin-right: 15px; white-space: nowrap;
-        }
-
-        /* Hiệu ứng 3D cho ô Tra cứu */
-        .search-card {
-            background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
-            border: 2px solid #e2e8f0;
+        .welcome-panel {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(14, 165, 233, 0.15);
             border-radius: 20px;
+            padding: 35px;
+            box-shadow: 0 10px 25px -5px rgba(12, 74, 110, 0.05);
+        }
+        .feature-card {
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
             padding: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            cursor: pointer;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-            text-decoration: none;
+            transition: all 0.3s ease;
         }
-
-        .search-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(11, 74, 143, 0.15);
-            border-color: #3b82f6;
-        }
-
-        .search-card:active { transform: scale(0.98); }
-
-        .icon-box {
-            background: #3b82f6;
-            color: white;
-            padding: 12px;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(59, 130, 246, 0.4);
+        .feature-card:hover {
+            transform: translateY(-2px);
+            border-color: #0ea5e9;
+            box-shadow: 0 12px 20px -5px rgba(14, 165, 233, 0.1);
         }
     </style>
 </head>
 <body>
 
-    <div class="marquee-container">
-        <div class="marquee-label">📊 34 Chỉ tiêu KTXH 2026</div>
-        <marquee behavior="scroll" direction="left" scrollamount="6">
-            <span class="inline-block mr-10 text-[12px] font-bold">1. Tốc độ tăng trưởng sản phẩm: <span class="text-[#00FF00]">11.7%</span></span>
-            <span class="inline-block mr-10 text-[12px] font-bold text-white/50">|</span>
-            <span class="inline-block mr-10 text-[12px] font-bold ml-10">2. Thu ngân sách nhà nước: <span class="text-[#00FF00]">69%</span></span>
-        </marquee>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
-        <iframe src="../pages/tong-quan/tq-ho-so.html" height="205" scrolling="no"></iframe>
-        <iframe src="../pages/tong-quan/tq-1022.html" height="205" scrolling="no"></iframe>
-        <iframe src="../pages/tong-quan/tq-don-thu.html" height="205" scrolling="no"></iframe>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <iframe src="../pages/tong-quan/tq-cong-an.html" height="260" scrolling="no"></iframe>
-        <iframe src="../pages/tong-quan/tq-quoc-phong.html" height="260" scrolling="no"></iframe>
-    </div>
-
-    <div class="w-full">
-        <a href="https://baohiemxahoi.gov.vn/tracuu/Pages/tra-cuu-thoi-han-su-dung-the-bhyt.aspx" 
-           target="_blank" 
-           class="search-card">
-            <div class="flex items-center gap-5">
-                <div class="icon-box">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                    </svg>
-                </div>
-                <div>
-                    <h3 class="text-lg font-black text-slate-800 uppercase tracking-tight">Tra cứu thời hạn thẻ Bảo hiểm y tế</h3>
-                    <p class="text-sm font-semibold text-blue-600 italic">Cổng thông tin điện tử Bảo hiểm xã hội Việt Nam &rarr;</p>
-                </div>
+    <div class="welcome-panel">
+        <div class="flex items-center gap-4 border-b border-slate-200 pb-5 mb-6">
+            <span class="text-4xl">🏛️</span>
+            <div>
+                <h1 class="text-xl font-[900] text-[#0b4a8f] uppercase tracking-wide">Hệ thống i-Dashboard Điều hành Thông minh</h1>
+                <p class="text-xs font-bold text-sky-600 uppercase mt-0.5 tracking-wider">Trung tâm giám sát dữ liệu số tập trung - UBND Xã Bình Hưng</p>
             </div>
-            <div class="hidden md:block">
-                <span class="bg-blue-100 text-blue-700 px-4 py-2 rounded-full text-xs font-black uppercase">Click để tra cứu</span>
+        </div>
+
+        <div class="space-y-4 text-justify text-sm font-semibold text-slate-600 leading-relaxed">
+            <p>
+                Chào mừng Lãnh đạo và Thường trực Ủy ban nhân dân xã đến với <strong class="text-[#0b4a8f]">Hệ thống i-Dashboard Điều hành Thông minh (Phiên bản 2026)</strong>. Đây là nền tảng cốt lõi thuộc chiến lược chuyển đổi số toàn diện và xây dựng Chính quyền điện tử kiểu mẫu tại Siêu đơn vị hành chính xã Bình Hưng, Thành phố Hồ Chí Minh.
+            </p>
+            <p>
+                i-Dashboard đóng vai trò là <strong class="text-sky-600">"Bộ não số tổng hợp"</strong>, có nhiệm vụ liên thông, số hóa và trực quan hóa toàn bộ dòng chảy dữ liệu công vụ từ các ban ngành, đoàn thể và 70 khu phố trực thuộc. Hệ thống tổng hợp tự động các chỉ số báo cáo thời gian thực, giúp Thường trực UBND xã có cái nhìn toàn cảnh, xuyên suốt để kịp thời đưa ra các quyết định chỉ đạo, điều hành chính xác, khoa học và tối ưu nhất.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+            <div class="feature-card">
+                <div class="text-2xl mb-2">📊</div>
+                <h3 class="text-xs font-[900] text-[#0b4a8f] uppercase mb-1">Giám sát Hồ sơ Công vụ</h3>
+                <p class="text-[11px] font-medium text-slate-500 leading-normal">Theo dõi tiến độ xử lý hồ sơ hành chính công, kiểm soát tỷ lệ giải quyết đúng hạn và nhận diện các điểm nghẽn thủ tục.</p>
             </div>
-        </a>
+
+            <div class="feature-card">
+                <div class="text-2xl mb-2">📈</div>
+                <h3 class="text-xs font-[900] text-[#0b4a8f] uppercase mb-1">Chỉ tiêu Kinh tế - Xã hội</h3>
+                <p class="text-[11px] font-medium text-slate-500 leading-normal">Bản đồ số hóa mục tiêu tăng trưởng, quản lý ngân sách, thu chi công và tiến độ giải ngân các công trình đầu tư công trọng điểm.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="text-2xl mb-2">📞</div>
+                <h3 class="text-xs font-[900] text-[#0b4a8f] uppercase mb-1">Tương tác & Phản ánh 1022</h3>
+                <p class="text-[11px] font-medium text-slate-500 leading-normal">Tiếp nhận thông tin trực tiếp từ Tổng đài 1022 và đơn thư nhân dân, phân loại lĩnh vực tự động để các ban ngành xử lý kịp thời.</p>
+            </div>
+        </div>
+
+        <div class="mt-8 pt-4 border-t border-slate-200 flex items-center gap-2 text-[11px] font-bold text-amber-600 italic">
+            <span>🛡️</span>
+            <span>An toàn thông tin: Phiên làm việc được bảo mật và giám sát bởi hệ thống Google Firebase Auth. Vui lòng đăng xuất sau khi kết thúc công tác điều hành.</span>
+        </div>
     </div>
 
 </body>
