@@ -1,1 +1,177 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mã QR Bộ Thủ tục hành chính - Xã Bình Hưng</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: linear-gradient(rgba(241, 245, 249, 0.15), rgba(241, 245, 249, 0.15)), 
+                        url('hinhnen.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #0c4a6e;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container-wrapper {
+            max-width: 1100px;
+            margin: 40px auto 60px;
+            padding: 0 20px;
+            width: 100%;
+        }
+
+        /* Tiêu đề */
+        .title-box {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .title-main {
+            font-weight: 900;
+            text-transform: uppercase;
+            font-size: clamp(1.6rem, 4vw, 2.5rem);
+            color: #0c4a6e;
+            letter-spacing: -1px;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
+        }
+
+        /* Khung chứa danh mục tài liệu Glassmorphism */
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.55);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-top: 2px solid rgba(255, 255, 255, 0.7);
+            border-left: 2px solid rgba(255, 255, 255, 0.6);
+            border-right: 1px solid rgba(14, 165, 233, 0.2);
+            border-bottom: 1px solid rgba(14, 165, 233, 0.2);
+            border-radius: 28px;
+            padding: 35px;
+            box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.15);
+        }
+
+        /* Khung hiển thị PDF trực tiếp */
+        .pdf-viewer-container {
+            width: 100%;
+            height: 650px; /* Độ cao lý tưởng để xem PDF thoải mái */
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.05);
+            border: 1px solid rgba(14, 165, 233, 0.2);
+            background: #ffffff;
+        }
+
+        /* Nút quay lại 3D */
+        .btn-back {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: #ffffff;
+            border: 1px solid #e2e8f0;
+            color: #0c4a6e;
+            padding: 12px 24px;
+            border-radius: 14px;
+            font-weight: 800;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 6px -1px rgba(12, 74, 110, 0.1);
+            transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+            margin-bottom: 25px;
+        }
+
+        .btn-back:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px -5px rgba(14, 165, 233, 0.3);
+            border-color: #0ea5e9;
+            color: #0ea5e9;
+        }
+
+        /* Tab chuyển đổi giữa các lĩnh vực thủ tục (nếu có nhiều file PDF) */
+        .tab-btn {
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid #e2e8f0;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #0c4a6e;
+            transition: all 0.2s;
+        }
+        .tab-btn.active {
+            background: #0ea5e9;
+            color: white;
+            border-color: #0ea5e9;
+            box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container-wrapper">
+        <a href="home.html" class="btn-back">
+            ⬅️ Quay lại Trang chủ
+        </a>
+
+        <div class="title-box">
+            <h1 class="title-main italic">Tra cứu bộ mã QR Thủ tục hành chính</h1>
+            <p class="text-sky-800 font-bold uppercase tracking-[0.3em] mt-2 text-[10px] drop-shadow-sm">
+                Quét mã nhanh công tác phục vụ hành chính công - Xã Bình Hưng
+            </p>
+        </div>
+
+        <div class="glass-panel">
+            
+            <div class="flex flex-wrap gap-3 mb-6">
+                <button onclick="changePdf('Thủ tục_Lĩnh vực_LiênThông', this)" class="tab-btn active">📦 Bộ TTHC Tổng Hợp</button>
+                <button onclick="changePdf('ma-qr-tthc-2.pdf', this)" class="tab-btn">📋 Lĩnh Vực Đất Đai / Đô Thị</button>
+                <button onclick="changePdf('ma-qr-tthc-3.pdf', this)" class="tab-btn">👤 Lĩnh Vực Tư Pháp / Hộ Tịch</button>
+            </div>
+
+            <div class="pdf-viewer-container">
+                <object id="pdf-viewer" data="Thủ tục_Lĩnh vực_LiênThông.pdf" type="application/pdf" width="100%" height="100%">
+                    <p class="p-6 text-center text-sm font-bold text-slate-600">
+                        Trình duyệt của bạn không hỗ trợ xem PDF trực tiếp. 
+                        <a id="download-fallback" href="Thủ tục_Lĩnh vực_LiênThông.pdf" class="text-sky-600 underline" download>Bấm vào đây để tải file PDF về máy.</a>
+                    </p>
+                </object>
+            </div>
+            
+            <p class="mt-4 text-center text-xs font-bold text-sky-900 italic">
+                💡 Hướng dẫn: Người dân có thể đưa camera điện thoại quét trực tiếp các mã QR trên màn hình để truy cập biểu mẫu mẫu trực tuyến.
+            </p>
+        </div>
+    </div>
+
+    <footer class="text-center py-10 text-sky-900 font-bold text-[10px] uppercase tracking-widest drop-shadow-sm mt-auto">
+        &copy; 2026 IOC Bình Hưng - Hệ thống số hóa dữ liệu công vụ
+    </footer>
+
+    <script>
+        function changePdf(pdfName, buttonElement) {
+            // Cập nhật lại thuộc tính file dữ liệu cho thẻ object
+            const viewer = document.getElementById('pdf-viewer');
+            viewer.setAttribute('data', pdfName);
+
+            // Cập nhật đường link dự phòng nếu lỗi
+            const fallback = document.getElementById('download-fallback');
+            fallback.setAttribute('href', pdfName);
+
+            // Thay đổi trạng thái hiển thị active của các nút bấm
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            buttonElement.classList.add('active');
+        }
+    </script>
+</body>
+</html>
 
