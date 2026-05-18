@@ -88,7 +88,9 @@
                 <div class="col-status">Trạng thái</div>
             </div>
 
-            <div id="project-list-container" class="text-[11px] font-extrabold text-slate-900"></div>
+            <div id="project-list-container" class="text-[11px] font-extrabold text-slate-900">
+                <p class="p-4 italic text-slate-400">Hệ thống đang kết nối dữ liệu Firebase...</p>
+            </div>
         </div>
 
         <div class="w-full ai-panel rounded-[25px] p-6 mb-8">
@@ -120,10 +122,11 @@
     </div>
 
     <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
-        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
+        // Đồng bộ hóa phiên bản Firebase chuẩn không gây xung đột (Dùng bản 10.8.0 giống file home.html)
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
         
-        // Nhập trực tiếp mô hình xử lý văn bản đám mây của Google
+        // Nhập thư viện Google GenAI
         import { GoogleGenAI } from "https://esm.run/@google/generative-ai";
 
         const firebaseConfig = { databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app" };
@@ -196,56 +199,60 @@
 
         // Cơ chế lắng nghe đồng bộ từ Firebase Realtime Database
         onValue(dtcRef, (snap) => {
-            const d = snap.val();
-            if (d && d.projects) {
-                document.getElementById('card_tong_du_an').innerText = d.tong_du_an || 0;
-                document.getElementById('card_von_giai_doan').innerText = d.von_giai_doan || 0;
-                document.getElementById('card_von_nam').innerText = d.von_nam || 0;
+            try {
+                const d = snap.val();
+                if (d && d.projects) {
+                    document.getElementById('card_tong_du_an').innerText = d.tong_du_an || 0;
+                    document.getElementById('card_von_giai_doan').innerText = d.von_giai_doan || 0;
+                    document.getElementById('card_von_nam').innerText = d.von_nam || 0;
 
-                const computedProjects = [];
+                    const computedProjects = [];
 
-                const container = document.getElementById('project-list-container');
-                container.innerHTML = d.projects.map((p, i) => {
-                    const totalCap = parseVNNumber(p.capital);
-                    const invested = parseVNNumber(p.invested || 0);
-                    const percentage = totalCap > 0 ? ((invested / totalCap) * 100).toFixed(1) : 0;
+                    const container = document.getElementById('project-list-container');
+                    container.innerHTML = d.projects.map((p, i) => {
+                        const totalCap = parseVNNumber(p.capital);
+                        const invested = parseVNNumber(p.invested || 0);
+                        const percentage = totalCap > 0 ? ((invested / totalCap) * 100).toFixed(1) : 0;
 
-                    computedProjects.push({
-                        name: p.name,
-                        type: p.type,
-                        capital: p.capital,
-                        invested: p.invested || '0',
-                        percentage: percentage + '%'
-                    });
+                        computedProjects.push({
+                            name: p.name,
+                            type: p.type,
+                            capital: p.capital,
+                            invested: p.invested || '0',
+                            percentage: percentage + '%'
+                        });
 
-                    return `
-                        <div class="row-container">
-                            <div class="row-3d">
-                                <div class="grid-row row-content">
-                                    <div class="col-stt text-slate-400 font-black">${i+1}</div>
-                                    <div class="col-name font-[900] truncate text-slate-900">${p.name}</div>
-                                    <div class="col-type">
-                                        <span class="bg-slate-100 px-2 py-0.5 rounded-md text-[8px] border border-slate-200 shadow-sm">${p.type}</span>
+                        return `
+                            <div class="row-container">
+                                <div class="row-3d">
+                                    <div class="grid-row row-content">
+                                        <div class="col-stt text-slate-400 font-black">${i+1}</div>
+                                        <div class="col-name font-[900] truncate text-slate-900">${p.name}</div>
+                                        <div class="col-type">
+                                            <span class="bg-slate-100 px-2 py-0.5 rounded-md text-[8px] border border-slate-200 shadow-sm">${p.type}</span>
+                                        </div>
+                                        <div class="col-cap italic">${p.capital}</div>
+                                        <div class="col-invest text-blue-800 italic">${p.invested || '0'}</div>
+                                        <div class="col-rate">
+                                            <span class="bg-slate-900 text-white px-2 py-0.5 rounded-md shadow-lg">${percentage}%</span>
+                                        </div>
+                                        <div class="col-status text-[8px] text-orange-700 font-[900] uppercase italic">${p.status}</div>
                                     </div>
-                                    <div class="col-cap italic">${p.capital}</div>
-                                    <div class="col-invest text-blue-800 italic">${p.invested || '0'}</div>
-                                    <div class="col-rate">
-                                        <span class="bg-slate-900 text-white px-2 py-0.5 rounded-md shadow-lg">${percentage}%</span>
-                                    </div>
-                                    <div class="col-status text-[8px] text-orange-700 font-[900] uppercase italic">${p.status}</div>
                                 </div>
                             </div>
-                        </div>
-                    `;
-                }).join('');
+                        `;
+                    }).join('');
 
-                // Lưu bộ nhớ đệm dữ liệu Firebase vào biến toàn cục để sẵn sàng phục vụ cho nút bấm kích hoạt AI
-                globalCachedData = {
-                    tong_du_an: d.tong_du_an || 0,
-                    von_giai_doan: d.von_giai_doan || 0,
-                    von_nam: d.von_nam || 0,
-                    projects: computedProjects
-                };
+                    // Lưu bộ nhớ đệm dữ liệu Firebase vào biến toàn cục để sẵn sàng phục vụ cho nút bấm kích hoạt AI
+                    globalCachedData = {
+                        tong_du_an: d.tong_du_an || 0,
+                        von_giai_doan: d.von_giai_doan || 0,
+                        von_nam: d.von_nam || 0,
+                        projects: computedProjects
+                    };
+                }
+            } catch (firebaseErr) {
+                console.error("Lỗi dựng bảng Firebase:", firebaseErr);
             }
         });
     </script>
