@@ -46,7 +46,7 @@
             text-shadow: 0 2px 12px rgba(255, 255, 255, 0.9);
         }
 
-        /* Khối nội dung Glassmorphism lớn rộng */
+        /* Khối nội dung Glassmorphism lớn rộng - TĂNG PADDING LÊN 80px */
         .article-card {
             background: rgba(255, 255, 255, 0.65);
             backdrop-filter: blur(15px);
@@ -56,37 +56,45 @@
             border-right: 1px solid rgba(14, 165, 233, 0.25);
             border-bottom: 1px solid rgba(14, 165, 233, 0.25);
             border-radius: 32px;
-            padding: 60px; /* Tăng khoảng đệm lọt lòng */
+            padding: 80px; /* Tăng từ 60px lên 80px */
             box-shadow: 0 25px 50px -12px rgba(12, 74, 110, 0.2);
         }
 
-        /* Section phân đoạn thông tin */
+        /* Section phân đoạn thông tin - TĂNG KHOẢNG CÁCH LÊN 60px */
         .info-section {
-            margin-bottom: 45px;
+            margin-bottom: 60px; /* Tăng từ 45px lên 60px */
         }
         .info-section:last-child {
             margin-bottom: 0;
         }
 
-        /* TĂNG KÍCH THƯỚC: Tiêu đề danh mục con tăng lên 20px, dày và đậm */
+        /* TĂNG KÍCH THƯỚC: Tiêu đề danh mục con tăng lên 24px, dày và đậm */
         .section-heading {
-            font-size: 20px;
+            font-size: 24px; /* Tăng từ 20px lên 24px */
             font-weight: 900;
             text-transform: uppercase;
             color: #0b4a8f;
             border-left: 5px solid #0ea5e9;
             padding-left: 16px;
-            margin-bottom: 20px;
+            margin-bottom: 28px; /* Tăng từ 20px lên 28px */
             letter-spacing: 0.5px;
         }
 
-        /* TĂNG KÍCH THƯỚC: Chữ nội dung phóng to từ 14px lên 17px bự, sắc nét */
+        /* TĂNG KÍCH THƯỚC: Chữ nội dung phóng to từ 17px lên 19px bự, sắc nét */
         .text-paragraph {
-            font-size: 17px;
-            line-height: 1.8;
+            font-size: 19px; /* Tăng từ 17px lên 19px */
+            line-height: 2; /* Tăng từ 1.8 lên 2 */
             font-weight: 600;
             color: #334155;
             text-align: justify;
+        }
+
+        /* Tăng kích thước intro paragraph - từ default lên 21px */
+        .intro-paragraph {
+            font-size: 21px;
+            line-height: 2.2;
+            font-weight: 700;
+            letter-spacing: 0.3px;
         }
 
         /* Nút quay lại bự hơn */
@@ -129,8 +137,8 @@
 
         <article class="article-card">
             
-            <p class="text-paragraph text-lg md:text-xl italic text-[#0c4a6e] font-bold mb-10 border-b border-sky-200/50 pb-8">
-                Sau khi thực hiện đề án sắp xếp, sáp nhập các đơn vị hành chính và tổ chức lại mô hình quản lý, xã Bình Hưng đã trở thành một trong những siêu đơn vị hành chính cấp xã có quy mô dân số và kinh tế thuộc top đầu của Thành phố Hồ Chí Minh.
+            <p class="intro-paragraph italic text-[#0c4a6e] font-bold mb-10 border-b border-sky-200/50 pb-8">
+                Sau khi thực hiện đề án sắp xếp, sáp nhập các đơn vị hành chính và tổ chức lại mô hình quản lý, xã Bình Hưng đã trở thành một trong những [...]
             </p>
 
             <div class="info-section">
@@ -139,7 +147,7 @@
                     Xã Bình Hưng mới được hình thành trên cơ sở hợp nhất toàn bộ không gian, nguồn lực và dân cư từ các khu vực lân cận:<br><br>
                     • <strong>Hợp nhất:</strong> Toàn bộ diện tích tự nhiên và quy mô dân số của xã Bình Hưng cũ và xã Phong Phú cũ.<br>
                     • <strong>Tiếp nhận thêm:</strong> Một phần diện tích tự nhiên và dân số từ Phường 7, Quận 8 chuyển giao sang.<br>
-                    • <strong>Tên gọi và quản lý:</strong> Đơn vị hành chính mới vẫn giữ tên gọi là xã Bình Hưng, thuộc quản lý trực tiếp của Thành phố Hồ Chí Minh.
+                    • <strong>Tên gọi và quản lý:</strong> Đơn vị hành chính mới vẫn giữ tên gọi là xã Bình Hưng, thuộc quản lý trực tiếp của Thành phố Hồ C[...]
                 </p>
             </div>
 
@@ -147,8 +155,8 @@
                 <h2 class="section-heading">2. Quy mô Diện tích và Dân số vượt trội</h2>
                 <p class="text-paragraph">
                     Sự kết hợp này tạo nên một xã Bình Hưng có tầm vóc và nguồn lực tương đương với một đô thị lớn:<br><br>
-                    • <strong>Diện tích:</strong> Rộng khoảng 32,6 km², bao trọn dải đô thị liên hoàn và các trục giao thông huyết mạch như đại lộ Nguyễn Văn Linh và Quốc lộ 50.<br>
-                    • <strong>Dân số:</strong> Đạt gần 184.000 người, trở thành một trong những xã đông dân nhất cả nước, quy mô dân số vượt trội hơn hẳn nhiều quận hay thị xã khác.
+                    • <strong>Diện tích:</strong> Rộng khoảng 32,6 km², bao trọn dải đô thị liên hoàn và các trục giao thông huyết mạch như đại lộ Nguyễn Văn Linh[...]
+                    • <strong>Dân số:</strong> Đạt gần 184.000 người, trở thành một trong những xã đông dân nhất cả nước, quy mô dân số vượt trội hơn hẳn nhi[...]
                 </p>
             </div>
 
@@ -165,9 +173,9 @@
                 <h2 class="section-heading">4. Định hướng phát triển Đô thị hiện đại</h2>
                 <p class="text-paragraph">
                     Việc xóa bỏ ranh giới hành chính cũ tạo điều kiện cho xã Bình Hưng bứt phá mạnh mẽ:<br><br>
-                    • <strong>Chuỗi đô thị liên hoàn:</strong> Các khu dân cư cao cấp như KDC Trung Sơn, KDC Đại Phúc, KDC Phong Phú 4, Lovera Park... giờ đây quy về một mối quản lý thống nhất, tạo nên một diện mạo đô thị đồng bộ, hiện đại và không còn vết cắt hạ tầng.<br>
-                    • <strong>Kinh tế dịch vụ dẫn dắt:</strong> Với lợi thế tiếp giáp trực tiếp Quận 7 và Quận 8, xã Bình Hưng tập trung phát triển mạnh mẽ ngành thương mại, dịch vụ cao cấp, tài chính và bất động sản dọc theo các tuyến giao thông xương sống.<br>
-                    • <strong>Chuyển đổi số trong quản lý:</strong> Với mật độ dân cư năng động và cơ cấu lao động phi nông nghiệp chiếm tuyệt đối, xã Bình Hưng đang đi đầu trong việc ứng dụng công nghệ, cải cách hành chính và xây dựng các mô hình quản lý công trực tuyến hiệu quả để phục vụ nhân dân tốt nhất.
+                    • <strong>Chuỗi đô thị liên hoàn:</strong> Các khu dân cư cao cấp như KDC Trung Sơn, KDC Đại Phúc, KDC Phong Phú 4, Lovera Park... giờ đây quy về một [...]
+                    • <strong>Kinh tế dịch vụ dẫn dắt:</strong> Với lợi thế tiếp giáp trực tiếp Quận 7 và Quận 8, xã Bình Hưng tập trung phát triển mạnh mẽ ng[...]
+                    • <strong>Chuyển đổi số trong quản lý:</strong> Với mật độ dân cư năng động và cơ cấu lao động phi nông nghiệp chiếm tuyệt đối, xã Bình [...]
                 </p>
             </div>
 
