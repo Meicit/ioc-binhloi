@@ -60,7 +60,7 @@
         }
     </style>
     
-    <script src="https://unpkg.com/@google/generative-ai@0.1.1/dist/index.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@google/generative-ai@0.1.1/dist/index.umd.min.js"></script>
 </head>
 <body>
     <div class="max-w-7xl mx-auto italic">
@@ -86,7 +86,7 @@
                 <div class="col-name text-left uppercase">Tên dự án / công trình trọng điểm</div>
                 <div class="col-type">Lĩnh vực</div>
                 <div class="col-cap">Tổng vốn</div>
-                <div class="col-invest text-blue-300">Đã đầu tru</div>
+                <div class="col-invest text-blue-300">Đã đầu tư</div>
                 <div class="col-rate">Tỷ lệ</div>
                 <div class="col-status">Trạng thái</div>
             </div>
@@ -183,7 +183,6 @@
                     `;
                 }).join('');
 
-                // Gán dữ liệu đệm vào đối tượng window toàn cục để nút bấm bên ngoài lôi ra dùng
                 window.globalCachedData = {
                     tong_du_an: d.tong_du_an || 0,
                     von_giai_doan: d.von_giai_doan || 0,
@@ -195,13 +194,13 @@
     </script>
 
     <script>
-        // Hàm ẩn hiện mắt thần bảo mật Key
+        // Mắt thần ẩn hiện mật khẩu
         document.getElementById('btn_toggle_key').addEventListener('click', function() {
             var input = document.getElementById('input_api_key');
             input.type = input.type === "password" ? "text" : "password";
         });
 
-        // Hàm click kích hoạt gọi AI Google đám mây
+        // Xử lý sự kiện bấm nút phân tích số liệu
         document.getElementById('btn_submit_analysis').addEventListener('click', async function() {
             var keyInp = document.getElementById('input_api_key').value.trim();
             var aiViewElement = document.getElementById('ai-analysis-content');
@@ -217,11 +216,11 @@
                 return;
             }
 
-            aiViewElement.innerHTML = '<p class="italic text-sky-600 animate-pulse font-bold">🤖 Trợ lý thông minh đang quét bảng số liệu đầu tư công và thiết lập báo cáo...</p>';
+            aiViewElement.innerHTML = '<p class="italic text-sky-600 animate-pulse font-bold">🤖 Trợ lý số đang kết nối máy chủ Google AI để tính toán và lập luận báo cáo...</p>';
 
             try {
-                // Sử dụng hàm khởi tạo thư viện từ gói UMD an toàn tuyệt đối
-                var genAI = new GoogleGenerativeAI.GoogleGenAI({ apiKey: keyInp });
+                // Sử dụng thư viện qua đối tượng global window do tệp UMD cung cấp nhằm vượt qua cơ chế chặn module của GitHub
+                var genAI = new window.GoogleGenerativeAI.GoogleGenAI({ apiKey: keyInp });
                 var aiModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
 
                 var promptContext = `
@@ -241,11 +240,10 @@
                 var aiResponse = await aiModel.generateContent(promptContext);
                 var resultText = aiResponse.response.text();
                 
-                // Trả nội dung phân tích sạch lên giao diện
                 aiViewElement.innerHTML = '<p class="text-slate-800">' + resultText.replace(/\*\*/g, '') + '</p>';
             } catch (error) {
-                console.error("Lỗi API:", error);
-                aiViewElement.innerHTML = '<p class="text-red-700 font-bold">⚠️ Không thể phân tích: Hãy kiểm tra lại mã API Key bạn nhập đã chính xác chưa, hoặc kiểm tra kết nối mạng của thiết bị.</p>';
+                console.error("Lỗi gọi API:", error);
+                aiViewElement.innerHTML = '<p class="text-red-700 font-bold">⚠️ Không thể phân tích: Hãy kiểm tra lại mã API Key bạn nhập đã chính xác chưa, hoặc kiểm tra kết nối mạng mạng của thiết bị.</p>';
             }
         });
     </script>
