@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sổ tay điện tử 70 Ấp - Xã Bình Hưng</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0; padding: 0; min-height: 100vh;
+            background: linear-gradient(rgba(241, 245, 249, 0.15), rgba(241, 245, 249, 0.15)), 
+                        url('../hinhnen.png');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            color: #0c4a6e; display: flex; flex-direction: column;
+        }
+
+        .container-wrapper { max-width: 1100px; margin: 40px auto 60px; padding: 0 20px; width: 100%; }
+        .title-main { font-weight: 900; text-transform: uppercase; font-size: clamp(1.6rem, 4vw, 2.5rem); color: #0c4a6e; text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8); }
+
+        /* Giao diện Glassmorphism mờ kính công nghệ */
+        .glass-panel { background: rgba(255, 255, 255, 0.55); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border-top: 2px solid rgba(255, 255, 255, 0.7); border-left: 2px solid rgba(255, 255, 255, 0.6); border-right: 1px solid rgba(14, 165, 233, 0.2); border-bottom: 1px solid rgba(14, 165, 233, 0.2); border-radius: 28px; padding: 35px; box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.15); }
+        
+        /* Hộp hiển thị hằng số thống kê */
+        .stat-badge { background: rgba(255, 255, 255, 0.75); border: 1px solid rgba(14, 165, 233, 0.2); border-radius: 16px; padding: 14px 20px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.02); }
+
+        /* Khung chứa mã nhúng an toàn từ Google Đám mây */
+        .pdf-viewer-container { width: 100%; height: 750px; border-radius: 16px; overflow: hidden; box-shadow: 0 8px 25px rgba(12, 74, 110, 0.12); border: 1px solid rgba(14, 165, 233, 0.2); background: #ffffff; }
+
+        /* Nút quay lại trang chủ */
+        .btn-back { display: inline-flex; align-items: center; gap: 8px; background: #ffffff; border: 1px solid #e2e8f0; color: #0c4a6e; padding: 12px 24px; border-radius: 14px; font-weight: 800; font-size: 12px; text-transform: uppercase; box-shadow: 0 4px 6px -1px rgba(12, 74, 110, 0.1); transition: all 0.3s ease; margin-bottom: 25px; }
+        .btn-back:hover { transform: translateY(-3px); box-shadow: 0 10px 20px -5px rgba(14, 165, 233, 0.3); border-color: #0ea5e9; color: #0ea5e9; }
+    </style>
+</head>
+<body>
+
+    <div class="container-wrapper">
+        <a href="../home.html" class="btn-back">
+            ⬅️ Quay lại Trang chủ
+        </a>
+
+        <div class="text-center mb-8">
+            <h1 class="title-main italic">Sổ tay điện tử thông tin 70 ấp</h1>
+            <p class="text-sky-800 font-bold uppercase tracking-[0.3em] mt-2 text-[10px] drop-shadow-sm">
+                Cơ sở dữ liệu nhân sự và bản đồ phân ranh địa giới hành chính - Xã Bình Hưng
+            </p>
+        </div>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+            <div class="stat-badge">
+                <p class="text-[9px] font-black text-slate-500 uppercase tracking-wider mb-0.5">Tổng số ấp sáp nhập</p>
+                <h4 class="text-xl font-[900] text-[#0b4a8f]">70 Ấp</h4>
+            </div>
+            <div class="stat-badge">
+                <p class="text-[9px] font-black text-slate-500 uppercase tracking-wider mb-0.5">Quy mô dân số mới</p>
+                <h4 class="text-xl font-[900] text-[#0b4a8f]">183.729 dân</h4>
+            </div>
+            <div class="stat-badge">
+                <p class="text-[9px] font-black text-slate-500 uppercase tracking-wider mb-0.5">Diện tích tự nhiên</p>
+                <h4 class="text-xl font-[900] text-[#0b4a8f]">3.263 ha</h4>
+            </div>
+            <div class="stat-badge">
+                <p class="text-[9px] font-black text-slate-500 uppercase tracking-wider mb-0.5">Thời điểm số liệu</p>
+                <h4 class="text-sm font-[900] text-sky-600 mt-1 uppercase">Tháng 09/2025</h4>
+            </div>
+        </div>
+
+        <div class="glass-panel space-y-6">
+            
+            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-sky-900/10 pb-4 gap-4">
+                <div>
+                    <h2 class="text-sm font-[900] text-[#0b4a8f] uppercase tracking-wide">Hệ thống tra cứu tài liệu trực tuyến</h2>
+                    <p class="text-[11px] font-semibold text-slate-500 mt-0.5">Dữ liệu được nhúng trực tiếp từ kho lưu trữ đám mây tốc độ cao.</p>
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    <a href="https://drive.google.com/file/d/1Ze0TkdexHAYJ7X1qXPWHuR1XxxdGSvT_/view?usp=sharing" target="_blank" class="inline-flex items-center justify-center bg-slate-800 hover:bg-slate-900 text-white font-bold text-[10px] uppercase tracking-wider px-3 py-2 rounded-xl shadow-sm transition-all">
+                        📥 Tải File PDF Gốc
+                    </a>
+                    <a href="https://bit.ly/Sổ_tay_định_dạng_Flipbook" target="_blank" class="inline-flex items-center justify-center bg-sky-600 hover:bg-sky-700 text-white font-bold text-[10px] uppercase tracking-wider px-4 py-2.5 rounded-xl shadow-md transition-all">
+                        📖 Xem bản lật trang (Flipbook)
+                    </a>
+                </div>
+            </div>
+
+            <div class="pdf-viewer-container">
+                <iframe src="https://drive.google.com/file/d/1Ze0TkdexHAYJ7X1qXPWHuR1XxxdGSvT_/preview" width="100%" height="100%" allow="autoplay" class="border-none"></iframe>
+            </div>
+
+            <div class="bg-sky-50/50 border border-sky-200/60 rounded-xl p-4 flex gap-3 items-start">
+                <span class="text-lg">💡</span>
+                <p class="text-[11px] font-semibold text-sky-950 leading-relaxed m-0">
+                    <strong>Mẹo tra cứu nhanh:</strong> Cán bộ có thể nhấn vào biểu tượng kính lúp 🔍 (hoặc tổ hợp phím <code>Ctrl + F</code>) trên thanh công cụ của khung xem để gõ nhanh tên Ấp hoặc số điện thoại nhân sự cần tìm kiếm mà không cần cuộn trang thủ công.
+                </p>
+            </div>
+            
+        </div>
+    </div>
+
+    <footer class="text-center py-10 text-sky-900 font-bold text-[10px] uppercase tracking-widest drop-shadow-sm mt-auto">
+        &copy; 2026 IOC Bình Hưng - Hệ thống quản trị số liệu dân cư liên thông
+    </footer>
+
+</body>
+</html>
