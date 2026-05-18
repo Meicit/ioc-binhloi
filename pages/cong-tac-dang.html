@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Công tác Đảng - Xã Bình Hưng</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background-color: #f1f5f9; padding: 20px; color: #1e293b; }
+        
+        /* Cấu trúc hàng cột bảng chỉ tiêu tối giản */
+        .grid-row { display: flex; align-items: center; width: 100%; padding: 12px 15px; position: relative; font-family: 'Inter', sans-serif; }
+        .col-stt { width: 6%; text-align: center; }
+        .col-criterion { width: 50%; text-left: left; padding-right: 10px; }
+        .col-target { width: 14%; text-align: center; }
+        .col-current { width: 16%; text-align: center; }
+        .col-rate { width: 14%; text-align: right; }
+
+        /* Tiêu đề bảng kiểu khối màu tối nghiêm túc */
+        .header-row { 
+            background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+            color: white; font-size: 10px; font-weight: 900; 
+            text-transform: uppercase; border-radius: 12px;
+            margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        /* Định dạng hàng danh mục trắng phẳng tinh tế */
+        .row-container { margin-bottom: 8px; font-family: 'Inter', sans-serif; }
+        .row-flat { position: relative; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0; transition: all 0.2s ease; }
+        .row-flat:hover { transform: translateY(-1px); box-shadow: 0 8px 15px rgba(0,0,0,0.06); border-color: #cbd5e1; }
+    </style>
+</head>
+<body>
+
+    <div class="max-w-7xl mx-auto">
+        <div class="flex items-center gap-4 border-b border-slate-200 pb-5 mb-6">
+            <span class="text-4xl">🚩</span>
+            <div>
+                <h1 class="text-xl font-[900] text-[#0b4a8f] uppercase tracking-wide">Giám sát Chỉ tiêu Công tác Đảng hằng năm</h1>
+                <p class="text-xs font-bold text-red-600 uppercase mt-0.5 tracking-wider">Hệ thống theo dõi kết quả xây dựng Tổ chức Đảng và Kiểm tra, Giám sát - Đảng ủy Xã Bình Hưng</p>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div class="bg-white p-5 rounded-2xl shadow-sm border-b-4 border-red-600">
+                <p class="text-[9px] font-black text-slate-500 uppercase tracking-wider">Kết nạp Đảng viên mới (2026)</p>
+                <h3 class="text-3xl font-[950] text-red-600 mt-1">18 <span class="text-xs font-bold text-slate-400">/ Chỉ tiêu 25</span></h3>
+            </div>
+            <div class="bg-white p-5 rounded-2xl shadow-sm border-b-4 border-slate-800">
+                <p class="text-[9px] font-black text-slate-500 uppercase tracking-wider">Tổ chức Đảng "4 tốt"</p>
+                <h3 class="text-3xl font-[950] text-slate-800 mt-1">92.4%</h3>
+            </div>
+            <div class="bg-white p-5 rounded-2xl shadow-sm border-b-4 border-blue-700">
+                <p class="text-[9px] font-black text-slate-500 uppercase tracking-wider">Hoàn thành tốt nhiệm vụ trở lên</p>
+                <h3 class="text-3xl font-[950] text-blue-700 mt-1">95.6%</h3>
+            </div>
+        </div>
+
+        <div class="w-full">
+            <div class="grid-row header-row">
+                <div class="col-stt">STT</div>
+                <div class="col-criterion text-left uppercase">Tiêu chí đánh giá & Nhiệm vụ chính trị Đảng ủy</div>
+                <div class="col-target">Chỉ tiêu Đại hội</div>
+                <div class="col-current">Kết quả thực tế</div>
+                <div class="col-rate">Tỷ lệ đạt</div>
+            </div>
+
+            <div id="cong-tac-dang-container" class="text-[11px] font-extrabold text-slate-900">
+                </div>
+        </div>
+    </div>
+
+    <script>
+        // Khởi tạo mảng dữ liệu nghiệp vụ công tác Đảng theo yêu cầu chi tiết của bạn
+        const danhSachChiTieuDang = [
+            { criterion: "Theo dõi kết quả, số lượng kết nạp Đảng viên mới hằng năm", target: "25 Đảng viên", current: "18 Đảng viên", rate: "72.0%" },
+            { criterion: "Tỷ lệ tổ chức cơ sở đảng đạt tiêu chí đánh giá mô hình '4 tốt'", target: "90.0%", current: "92.4%", rate: "102.6%" },
+            { criterion: "Tỷ lệ tổ chức đảng xây dựng kế hoạch và tiến hành kiểm tra, giám sát định kỳ", target: "100%", current: "100%", rate: "100%" },
+            { criterion: "Tỷ lệ chi bộ, tổ chức đảng đạt mức phân loại Hoàn thành tốt nhiệm vụ trở lên", target: "95.0%", current: "95.6%", rate: "100.6%" },
+            { criterion: "Tỷ lệ Đảng viên chính thức tham gia đầy đủ các buổi học tập Nghị quyết, chính trị", target: "98.0%", current: "98.5%", rate: "100.5%" },
+            { criterion: "Tỷ lệ Chi bộ trực thuộc thực hiện nghiêm túc sinh hoạt chuyên đề hằng quý", target: "100%", current: "100%", rate: "100%" }
+        ];
+
+        // Tự động kết xuất dữ liệu lên giao diện phẳng tối giản
+        document.addEventListener("DOMContentLoaded", () => {
+            const container = document.getElementById('cong-tac-dang-container');
+            container.innerHTML = danhSachChiTieuDang.map((item, index) => `
+                <div class="row-container">
+                    <div class="row-flat">
+                        <div class="grid-row">
+                            <div class="col-stt text-slate-400 font-black">${index + 1}</div>
+                            <div class="col-criterion font-[900] text-slate-800">${item.criterion}</div>
+                            <div class="col-target font-semibold text-slate-500 text-center">${item.target}</div>
+                            <div class="col-current font-bold text-slate-900 text-center">${item.current}</div>
+                            <div class="col-rate">
+                                <span class="bg-slate-900 text-white px-2 py-0.5 rounded-md shadow-sm font-mono text-[10px]">${item.rate}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        });
+    </script>
+</body>
+</html>
