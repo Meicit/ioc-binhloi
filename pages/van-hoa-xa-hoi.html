@@ -23,6 +23,7 @@
         body.dark-theme .btn-switcher-active { background: #0369a1; color: #00f0ff; border-color: #00f0ff; }
         body.dark-theme .tab-menu-item { color: #93c5fd; border-color: rgba(56, 189, 248, 0.2); background: rgba(30, 41, 59, 0.4); }
         body.dark-theme .tab-menu-item:hover { color: #00f0ff; border-color: #00f0ff; }
+        body.dark-theme .table-split { border-color: rgba(255,255,255,0.08); }
 
         /* QUẢN LÝ MÀU CHỮ NỔI BẬT KHÔNG DÙNG TRẮNG / XÁM CHO NỀN SÁNG (LIGHT THEME) */
         body.light-theme {
@@ -39,6 +40,7 @@
         body.light-theme .btn-switcher-active { background: #0b4a8f; color: #bfdbfe; border-color: #0b4a8f; box-shadow: 0 2px 8px rgba(11, 74, 143, 0.2); }
         body.light-theme .tab-menu-item { color: #1e3a8a; border-color: rgba(11, 74, 143, 0.2); background: #ffffff; }
         body.light-theme .tab-menu-item:hover { color: #031b4e; border-color: #031b4e; }
+        body.light-theme .table-split { border-color: rgba(11, 74, 143, 0.15); }
 
         body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s, color 0.3s; }
         .container-wrapper { max-width: 1600px; margin: 25px auto; padding: 0 20px; width: 100%; }
@@ -50,7 +52,6 @@
         .btn-back { display: inline-flex; align-items: center; gap: 8px; background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.3); color: inherit; padding: 10px 20px; border-radius: 12px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; }
         .btn-back:hover { transform: translateY(-2px); border-color: #ef4444; background: rgba(239, 68, 68, 0.1); }
         
-        /* Menu Tab đồng bộ hình ảnh */
         .tab-menu-item { padding: 10px 20px; font-size: 13px; font-weight: 700; border-radius: 12px; border: 1px solid; transition: all 0.2s; white-space: nowrap; }
         .tab-menu-item.active { background: #0ea5e9 !important; color: #ffffff !important; border-color: #0ea5e9 !important; box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4); }
 
@@ -237,13 +238,68 @@
             </div>
         </div>
 
-        <div id="panel_nhan_su" class="module-tab-content hidden glass-panel p-6 space-y-4">
-            <h2 class="text-base font-black uppercase text-dynamic-title border-l-4 border-blue-500 pl-3">👤 Quản trị nghiệp vụ Nhân sự – Nội vụ Xã</h2>
-            <p class="text-xs text-dynamic-body leading-relaxed">
-                Số liệu chi tiết về cơ cấu cán bộ, công chức, người hoạt động không chuyên trách tại UBND xã Bình Hưng. Theo dõi biến động quỹ lương, đánh giá xếp loại hoàn thành nhiệm vụ và công tác đào tạo bồi dưỡng chuyên môn nghiệp vụ định kỳ của cơ quan hành chính.
-            </p>
-            <div class="p-4 rounded-xl bg-slate-800/30 border border-slate-700/50 font-mono text-[11px] text-dynamic-label">
-                [Hệ thống Lưu trữ: Dữ liệu nhân sự đang liên thông tự động từ cổng Sở Nội Vụ...]
+        <div id="panel_nhan_su" class="module-tab-content hidden space-y-5">
+            
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+                
+                <div class="lg:col-span-7 glass-panel p-5 flex flex-col justify-between space-y-4">
+                    <div>
+                        <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-4 border-b border-slate-700/40 pb-2">📊 Chỉ số cốt lõi nhân sự – Nội vụ</h2>
+                        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+                            <div class="sub-card-white p-3 rounded-xl border">
+                                <span class="text-[9px] font-bold text-dynamic-label uppercase block">Tổng biên chế</span>
+                                <span class="text-2xl font-black text-dynamic-title block mt-1">76</span>
+                                <span class="text-[8px] text-dynamic-body block mt-0.5">Biên chế được giao</span>
+                            </div>
+                            <div class="sub-card-white p-3 rounded-xl border border-sky-500/20">
+                                <span class="text-[9px] font-bold text-sky-400 uppercase block">Hiện có</span>
+                                <span class="text-2xl font-black text-sky-500 block mt-1">74</span>
+                                <span class="text-[8px] text-dynamic-body block mt-0.5">Công chức hiện có</span>
+                            </div>
+                            <div class="sub-card-white p-3 rounded-xl border border-red-500/20 bg-red-500/5">
+                                <span class="text-[9px] font-bold text-red-400 uppercase block">Thiếu</span>
+                                <span class="text-2xl font-black text-red-500 block mt-1">2</span>
+                                <span class="text-[8px] text-red-400 font-semibold block mt-0.5">Biên chế còn thiếu</span>
+                            </div>
+                            <div class="sub-card-white p-3 rounded-xl border">
+                                <span class="text-[9px] font-bold text-purple-400 uppercase block">Biến động</span>
+                                <span class="text-2xl font-black text-purple-400 block mt-1">8</span>
+                                <span class="text-[8px] text-dynamic-body block mt-0.5">Chỉ số theo dõi</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 pt-2">
+                        <h3 class="text-[10px] font-bold uppercase text-dynamic-label">🍩 Cơ cấu hiện có – Thiếu biên chế</h3>
+                        <div class="w-full h-[180px] relative flex justify-center">
+                            <canvas id="staffDoughnutChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:col-span-5 glass-panel p-5 flex flex-col justify-between space-y-4">
+                    <div class="space-y-3">
+                        <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title border-b border-slate-700/40 pb-2">📋 Diễn giải điều hành</h2>
+                        <div class="text-[11px] font-['Inter'] space-y-2">
+                            <div class="flex justify-between py-1.5 border-b table-split font-semibold"><span class="text-dynamic-label">Tỷ lệ thiếu biên chế</span><span class="text-red-400 font-mono font-bold">2,63%</span></div>
+                            <div class="flex justify-between py-1.5 border-b table-split font-semibold"><span class="text-dynamic-body">Bổ nhiệm / Kiện toàn</span><span class="text-dynamic-title font-mono font-bold">50</span></div>
+                            <div class="flex justify-between py-1.5 border-b table-split font-semibold"><span class="text-dynamic-body">Mức cảnh báo</span><span class="text-emerald-400 font-bold">Xanh – trong tầm kiểm soát</span></div>
+                            <div class="flex flex-col py-1.5 font-medium"><span class="text-dynamic-body font-bold mb-0.5">Nhận định:</span><p class="text-dynamic-body text-justify leading-relaxed">Biến động nhân sự cần tiếp tục theo dõi, tuy nhiên chưa vượt ngưỡng cảnh báo đỏ của Ban nội vụ cơ quan.</p></div>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 border-t border-slate-700/40 pt-3">
+                        <h3 class="text-[10px] font-bold uppercase text-dynamic-label">📊 Mô phỏng biến động nhân sự cơ sở</h3>
+                        <div class="w-full h-[140px] relative">
+                            <canvas id="staffBarChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="text-center text-[10px] font-bold text-dynamic-label uppercase tracking-wider pt-2">
+                © Bản quyền thuộc về UBND Xã Bình Hưng • Hệ thống theo dõi thông tin trên lĩnh vực Văn hóa Xã hội
             </div>
         </div>
 
@@ -271,7 +327,7 @@
         <div id="panel_van_hoa" class="module-tab-content hidden glass-panel p-6 space-y-4">
             <h2 class="text-base font-black uppercase text-dynamic-title border-l-4 border-purple-500 pl-3">📻 Lĩnh vực thông tin Văn hóa – Truyền thông & Phong trào</h2>
             <p class="text-xs text-dynamic-body leading-relaxed">
-                Báo cáo phong trào xây dựng đời sống văn hóa, theo dõi tiêu chuẩn gia đình văn hóa, quản lý thiết chế văn hóa cơ sở, các trạm phát thanh, đài truyền thanh xã và hoạt động cổ động tuyên truyền trực quan chính trị trên các trục lộ chính.
+                Báo cáo phong trào xây dựng đời sống văn hóa, theo dõi tiêu chuẩn gia định văn hóa, quản lý thiết chế văn hóa cơ sở, các trạm phát thanh, đài truyền thanh xã và hoạt động cổ động tuyên truyền trực quan chính trị trên các trục lộ chính.
             </p>
         </div>
 
@@ -282,29 +338,25 @@
     </footer>
 
     <script>
-        let mainChart = null;
-        let barChart = null;
-        let pieChart = null;
+        let mainChart = null, barChart = null, pieChart = null;
+        let doughnutStaffChart = null, barStaffChart = null;
+        let lastKnownTextColor = '#00f0ff'; // Lưu bộ nhớ đệm màu sắc đồ thị phục vụ khi chuyển tab
 
-        // ĐỘNG CƠ BẺ KHÓA: Hàm xử lý hoán đổi nội dung các tabs khi cán bộ click chọn menu
+        // Hàm xử lý hoán đổi nội dung các tabs nghiệp vụ
         window.switchModuleTab = function(targetPanelId, btnElement) {
-            // 1. Ẩn toàn bộ các phân khu nội dung tab hiện tại
-            document.querySelectorAll('.module-tab-content').forEach(panel => {
-                panel.classList.add('hidden');
-            });
-            
-            // 2. Hiển thị phân khu được click chỉ định
+            document.querySelectorAll('.module-tab-content').forEach(panel => panel.classList.add('hidden'));
             document.getElementById(targetPanelId).classList.remove('hidden');
 
-            // 3. Xóa class active của tất cả nút bấm trong thanh nav
-            btnElement.parentElement.querySelectorAll('.tab-menu-item').forEach(btn => {
-                btn.classList.remove('active');
-            });
-
-            // 4. Thêm class active tôn vinh nút bấm vừa được chọn
+            btnElement.parentElement.querySelectorAll('.tab-menu-item').forEach(btn => btn.classList.remove('active'));
             btnElement.classList.add('active');
+
+            // KÍCH HOẠT VẼ LẠI ĐỒ THỊ NHÂN SỰ KHI BẤM VÀO TAB NHÂN SỰ TRÁNH LỖI WIDTH CAO ĐỘ BIẾN THỂ 0px
+            if(targetPanelId === 'panel_nhan_su') {
+                renderStaffCharts(lastKnownTextColor);
+            }
         }
 
+        // Đồ thị của tab Tổng quan
         function renderAllCharts(textColor) {
             if(mainChart) mainChart.destroy();
             if(barChart) barChart.destroy();
@@ -372,6 +424,56 @@
             });
         }
 
+        // ĐỒNG BỘ NÂNG CẤP: Vẽ hệ thống đồ thị dành riêng cho Tab nghiệp vụ Nhân sự – Nội vụ
+        function renderStaffCharts(textColor) {
+            if(doughnutStaffChart) doughnutStaffChart.destroy();
+            if(barStaffChart) barStaffChart.destroy();
+
+            // 1. Doughnut Chart: Cơ cấu hiện có vs thiếu biên chế
+            const ctxStaffDoughnut = document.getElementById('staffDoughnutChart').getContext('2d');
+            doughnutStaffChart = new Chart(ctxStaffDoughnut, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Hiện có (74 công chức)', 'Còn thiếu (2 biên chế)'],
+                    datasets: [{
+                        data: [74, 2],
+                        backgroundColor: ['#0ea5e9', '#f43f5e'],
+                        borderWidth: 2,
+                        borderColor: 'rgba(30, 41, 59, 0.5)'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false, responsive: true,
+                    cutout: '72%',
+                    plugins: { legend: { position: 'right', labels: { color: textColor, font: { size: 9, weight: 'bold' } } } }
+                }
+            });
+
+            // 2. Bar Chart: Mô phỏng biến động nhân sự
+            const ctxStaffBar = document.getElementById('staffBarChart').getContext('2d');
+            barStaffChart = new Chart(ctxStaffBar, {
+                type: 'bar',
+                data: {
+                    labels: ['Hiện có', 'Thiếu', 'Bổ nhiệm', 'Biến động'],
+                    datasets: [{
+                        data: [74, 2, 50, 8],
+                        backgroundColor: ['#0ea5e9', '#f43f5e', '#22c55e', '#6366f1'],
+                        borderRadius: 4,
+                        barThickness: 30
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false, responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: textColor, font: { size: 9, weight: 'bold' } } },
+                        y: { max: 80, grid: { color: 'rgba(148, 163, 184, 0.1)' }, ticks: { color: textColor, font: { size: 9 } } }
+                    }
+                }
+            });
+        }
+
+        // BIÊN ĐỘ GIAO DIỆN SWITCHER HOÁN ĐỔI THEME AN TOÀN TUYỆT ĐỐI
         window.setTheme = function(themeName) {
             const body = document.getElementById('body-context');
             const btnLight = document.getElementById('btn-theme-light');
@@ -382,13 +484,21 @@
                 body.classList.add('light-theme');
                 btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-blue-900 text-sky-200 shadow-md border border-blue-700";
                 btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-blue-900 hover:text-slate-800";
-                renderAllCharts('#031b4e');
+                
+                lastKnownTextColor = '#031b4e';
             } else {
                 body.classList.remove('light-theme');
                 body.classList.add('dark-theme');
                 btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border btn-switcher-active";
                 btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-sky-400 hover:text-sky-300";
-                renderAllCharts('#00f0ff');
+                
+                lastKnownTextColor = '#00f0ff';
+            }
+            
+            // Vẽ lại toàn bộ đồ thị của cả 2 tabs để khớp màu sắc văn bản theo theme mới
+            renderAllCharts(lastKnownTextColor);
+            if (!document.getElementById('panel_nhan_su').classList.contains('hidden')) {
+                renderStaffCharts(lastKnownTextColor);
             }
         }
 
