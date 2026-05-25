@@ -5,101 +5,270 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Công tác Đảng - Xã Bình Hưng</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Montserrat', sans-serif; background-color: #f1f5f9; padding: 20px; color: #1e293b; }
+        body {
+            font-family: 'Montserrat', sans-serif;
+            margin: 0; padding: 0; min-height: 100vh;
+            background: linear-gradient(rgba(15, 23, 42, 0.85), rgba(15, 23, 42, 0.95)), url('../hinhnen.png');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            color: #f8fafc; display: flex; flex-direction: column;
+        }
+        .container-wrapper { max-width: 1550px; margin: 30px auto; padding: 0 24px; width: 100%; }
+        .glass-panel { background: rgba(30, 41, 59, 0.65); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5); }
         
-        /* Cấu trúc hàng cột bảng chỉ tiêu tối giản */
-        .grid-row { display: flex; align-items: center; width: 100%; padding: 12px 15px; position: relative; font-family: 'Inter', sans-serif; }
-        .col-stt { width: 6%; text-align: center; }
-        .col-criterion { width: 50%; text-left: left; padding-right: 10px; }
-        .col-target { width: 14%; text-align: center; }
-        .col-current { width: 16%; text-align: center; }
-        .col-rate { width: 14%; text-align: right; }
+        /* Cấu trúc hàng cột bảng chỉ tiêu tối giản nâng cấp */
+        .grid-row { display: flex; align-items: center; width: 100%; padding: 14px 20px; position: relative; font-family: 'Inter', sans-serif; }
+        .col-stt { width: 5%; text-align: center; }
+        .col-criterion { width: 45%; text-align: left; padding-right: 15px; }
+        .col-target { width: 12%; text-align: center; }
+        .col-current { width: 12%; text-align: center; }
+        .col-progress { width: 16%; padding: 0 10px; }
+        .col-rate { width: 10%; text-align: right; }
 
         /* Tiêu đề bảng kiểu khối màu tối nghiêm túc */
         .header-row { 
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            color: white; font-size: 10px; font-weight: 900; 
-            text-transform: uppercase; border-radius: 12px;
-            margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            color: white; font-size: 11px; font-weight: 900; 
+            text-transform: uppercase; border-radius: 14px;
+            margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            border: 1px solid rgba(255,255,255,0.05);
         }
         
         /* Định dạng hàng danh mục trắng phẳng tinh tế */
         .row-container { margin-bottom: 8px; font-family: 'Inter', sans-serif; }
-        .row-flat { position: relative; background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0; transition: all 0.2s ease; }
-        .row-flat:hover { transform: translateY(-1px); box-shadow: 0 8px 15px rgba(0,0,0,0.06); border-color: #cbd5e1; }
+        .row-flat { position: relative; background: rgba(255, 255, 255, 0.05); border-radius: 14px; overflow: hidden; border: 1px solid rgba(255, 255, 255, 0.08); transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1); cursor: pointer; }
+        .row-flat:hover { transform: translateY(-2px); background: rgba(239, 68, 68, 0.08); border-color: #ef4444; box-shadow: 0 8px 16px -5px rgba(239, 68, 68, 0.3); }
+
+        .btn-back { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #ffffff; padding: 12px 24px; border-radius: 14px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; }
+        .btn-back:hover { transform: translateY(-2px); background: rgba(255,255,255,0.15); border-color: #ef4444; }
     </style>
 </head>
 <body>
 
-    <div class="max-w-7xl mx-auto">
-        <div class="flex items-center gap-4 border-b border-slate-200 pb-5 mb-6">
-            <span class="text-4xl">🚩</span>
-            <div>
-                <h1 class="text-xl font-[900] text-[#0b4a8f] uppercase tracking-wide">Giám sát Chỉ tiêu Công tác Đảng hằng năm</h1>
-                <p class="text-xs font-bold text-red-600 uppercase mt-0.5 tracking-wider">Hệ thống theo dõi kết quả xây dựng Tổ chức Đảng và Kiểm tra, Giám sát - Đảng ủy Xã Bình Hưng</p>
+    <div class="container-wrapper space-y-6">
+        
+        <div class="flex justify-between items-center">
+            <a href="home.html" class="btn-back">⬅️ Quay lại Trang chủ</a>
+            <span class="text-xs bg-red-500/20 text-red-400 font-extrabold px-3 py-1.5 rounded-full border border-red-500/30 uppercase tracking-widest">Hệ thống giám sát xây dựng Đảng</span>
+        </div>
+
+        <header class="glass-panel p-6 text-center">
+            <div class="flex justify-center mb-2"><span class="text-3xl animate-pulse">🚩</span></div>
+            <h1 class="text-xl md:text-2xl font-black uppercase tracking-wider bg-gradient-to-r from-white via-slate-200 to-red-400 bg-clip-text text-transparent">
+                Giám sát Chỉ tiêu Công tác Đảng hằng năm — Đảng ủy Xã Bình Hưng
+            </h1>
+            <p class="text-slate-400 font-medium text-xs uppercase tracking-[0.2em] mt-1">
+                Hệ thống theo dõi tiến độ, phân tích số liệu trực quan phục vụ công tác xây dựng tổ chức Đảng vững mạnh
+            </p>
+        </header>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+            <div class="glass-panel p-5 border-l-4 border-red-600">
+                <p class="text-[10px] font-bold text-red-400 uppercase tracking-wider">Kết nạp Đảng viên mới (2026)</p>
+                <h3 class="text-2xl font-black text-white mt-1">18 <span class="text-xs font-bold text-slate-400">/ Chỉ tiêu 25 (Đạt 72%)</span></h3>
+            </div>
+            <div class="glass-panel p-5 border-l-4 border-amber-500">
+                <p class="text-[10px] font-bold text-amber-400 uppercase tracking-wider">Tổ chức Đảng đạt "4 tốt"</p>
+                <h3 class="text-2xl font-black text-white mt-1">92.4% <span class="text-xs font-bold text-emerald-400">(Vượt 2.4%)</span></h3>
+            </div>
+            <div class="glass-panel p-5 border-l-4 border-sky-500">
+                <p class="text-[10px] font-bold text-sky-400 uppercase tracking-wider">Phân loại Hoàn thành tốt trở lên</p>
+                <h3 class="text-2xl font-black text-white mt-1">95.6% <span class="text-xs font-bold text-emerald-400">(Vượt 0.6%)</span></h3>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
-            <div class="bg-white p-5 rounded-2xl shadow-sm border-b-4 border-red-600">
-                <p class="text-[9px] font-black text-slate-500 uppercase tracking-wider">Kết nạp Đảng viên mới (2026)</p>
-                <h3 class="text-3xl font-[950] text-red-600 mt-1">18 <span class="text-xs font-bold text-slate-400">/ Chỉ tiêu 25</span></h3>
-            </div>
-            <div class="bg-white p-5 rounded-2xl shadow-sm border-b-4 border-slate-800">
-                <p class="text-[9px] font-black text-slate-500 uppercase tracking-wider">Tổ chức Đảng "4 tốt"</p>
-                <h3 class="text-3xl font-[950] text-slate-800 mt-1">92.4%</h3>
-            </div>
-            <div class="bg-white p-5 rounded-2xl shadow-sm border-b-4 border-blue-700">
-                <p class="text-[9px] font-black text-slate-500 uppercase tracking-wider">Hoàn thành tốt nhiệm vụ trở lên</p>
-                <h3 class="text-3xl font-[950] text-blue-700 mt-1">95.6%</h3>
-            </div>
-        </div>
-
-        <div class="w-full">
-            <div class="grid-row header-row">
-                <div class="col-stt">STT</div>
-                <div class="col-criterion text-left uppercase">Tiêu chí đánh giá & Nhiệm vụ chính trị Đảng ủy</div>
-                <div class="col-target">Chỉ tiêu Đại hội</div>
-                <div class="col-current">Kết quả thực tế</div>
-                <div class="col-rate">Tỷ lệ đạt</div>
-            </div>
-
-            <div id="cong-tac-dang-container" class="text-[11px] font-extrabold text-slate-900">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+            <div class="lg:col-span-7 glass-panel p-5">
+                <h2 class="text-xs font-black uppercase tracking-wider text-red-400 mb-3">📊 Đồ thị Đối chiếu Tiến độ hoàn thành Chỉ tiêu (%)</h2>
+                <div class="w-full relative h-[280px]">
+                    <canvas id="dangBarChart"></canvas>
                 </div>
+            </div>
+
+            <div class="lg:col-span-5 glass-panel p-5 flex flex-col justify-between">
+                <h2 class="text-xs font-black uppercase tracking-wider text-sky-400 mb-3">🎯 Cơ cấu Phân loại Chất lượng Chi bộ trực thuộc</h2>
+                <div class="w-full relative h-[240px] flex justify-center">
+                    <canvas id="dangPieChart"></canvas>
+                </div>
+            </div>
         </div>
+
+        <div class="glass-panel p-5">
+            <h2 class="text-xs font-black uppercase tracking-wider text-red-400 mb-4">📝 Bảng cơ sở dữ liệu chi tiết các Chỉ tiêu Đại hội</h2>
+            <div class="w-full overflow-x-auto custom-scrollbar">
+                <div class="min-w-[1000px]">
+                    <div class="grid-row header-row">
+                        <div class="col-stt">STT</div>
+                        <div class="col-criterion text-left uppercase">Tiêu chí đánh giá & Nhiệm vụ chính trị Đảng ủy</div>
+                        <div class="col-target">Chỉ tiêu Đại hội</div>
+                        <div class="col-current">Kết quả thực tế</div>
+                        <div class="col-progress">Tiến độ đồ thị</div>
+                        <div class="col-rate">Tỷ lệ đạt</div>
+                    </div>
+
+                    <div id="cong-tac-dang-container" class="text-xs font-semibold text-slate-300">
+                        </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-panel p-6 border border-red-500/20 bg-gradient-to-r from-slate-900/60 to-red-950/20">
+            <h2 class="text-xs font-black uppercase tracking-wider text-amber-400 mb-3 flex items-center gap-2">
+                💡 Trung tâm phân tích dữ liệu & Khuyến nghị điều hành của Thường trực Đảng ủy
+            </h2>
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 font-['Inter'] text-xs leading-relaxed">
+                <div class="space-y-1.5 p-4 rounded-xl bg-slate-900/40 border border-slate-800">
+                    <h3 class="font-extrabold text-emerald-400 flex items-center gap-1.5">🟢 ĐIỂM SÁNG BIỂU DƯƠNG</h3>
+                    <p class="text-slate-400">
+                        Chỉ tiêu xây dựng mô hình <span class="text-white font-semibold">"Tổ chức Đảng 4 tốt"</span> và tỷ lệ phân loại Chi bộ <span class="text-white font-semibold">Hoàn thành tốt nhiệm vụ</span> đều hoàn thành vượt mức kế hoạch đề ra (Đạt lần lượt <span class="text-emerald-400 font-bold">102.6%</span> và <span class="text-emerald-400 font-bold">100.6%</span>). 
+                    </p>
+                    <p class="text-slate-400">
+                        Công tác giáo dục chính trị, triển khai học tập Nghị quyết và sinh hoạt chuyên đề hằng quý duy trì kỷ cương tuyệt đối, đạt tỷ lệ liên thông <span class="text-white font-bold">100%</span>.
+                    </p>
+                </div>
+
+                <div class="space-y-1.5 p-4 rounded-xl bg-slate-900/40 border border-slate-800">
+                    <h3 class="font-extrabold text-red-400 flex items-center gap-1.5">🚨 CẢNH BÁO ĐIỂM NGHẼN</h3>
+                    <p class="text-slate-400">
+                        Công tác <span class="text-red-400 font-bold">phát triển Đảng viên mới</span> hiện là điểm nghẽn lớn nhất trong năm khi mới chỉ đạt <span class="text-white font-bold">72%</span> tiến độ Đại hội (Kết nạp được 18/25 chỉ tiêu).
+                    </p>
+                    <p class="text-slate-400">
+                        Áp lực tạo nguồn quần chúng ưu tú tại khối doanh nghiệp ngoài nhà nước và trên địa bàn khu dân cư đô thị mới (KDC Trung Sơn, Lovera Park,...) đang có dấu hiệu chững lại, cần tập trung tháo gỡ.
+                    </p>
+                </div>
+
+                <div class="space-y-1.5 p-4 rounded-xl bg-slate-900/40 border border-slate-800">
+                    <h3 class="font-extrabold text-sky-400 flex items-center gap-1.5">🎯 QUYẾT ĐỊNH ĐIỀU HÀNH</h3>
+                    <p class="text-slate-400 font-bold text-sky-400 italic">Đề xuất Bí thư Đảng ủy và Thường trực ban hành Quyết nghị chỉ đạo:</p>
+                    <ul class="list-disc list-inside space-y-1 pl-1 text-slate-400">
+                        <li>Giao chỉ tiêu bổ sung khẩn cấp cho các Chi bộ Ấp, trường học; đẩy mạnh tạo nguồn từ lực lượng dân quân cơ động, đoàn viên thanh niên xuất sắc.</li>
+                        <li>Tăng cường công tác kiểm tra, giám sát định kỳ tại các Chi bộ có tiến độ kết nạp Đảng dưới <span class="text-white font-semibold">50%</span> nhằm tháo gỡ khó khăn về mặt thủ tục thẩm tra lý lịch.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
     </div>
 
+    <footer class="w-full text-center py-6 text-slate-500 font-bold text-[10px] uppercase tracking-[0.3em] border-t border-slate-900 bg-slate-950/20 backdrop-blur-md mt-auto">
+        &copy; 2026 IOC Xã Bình Hưng — Hệ thống Quản trị chỉ số công tác Đảng ủy liên thông bảo mật
+    </footer>
+
     <script>
-        // Khởi tạo mảng dữ liệu nghiệp vụ công tác Đảng theo yêu cầu chi tiết của bạn
+        // Mảng dữ liệu chỉ tiêu công tác Đảng chuẩn hóa từ Đảng ủy
         const danhSachChiTieuDang = [
-            { criterion: "Theo dõi kết quả, số lượng kết nạp Đảng viên mới hằng năm", target: "25 Đảng viên", current: "18 Đảng viên", rate: "72.0%" },
-            { criterion: "Tỷ lệ tổ chức cơ sở đảng đạt tiêu chí đánh giá mô hình '4 tốt'", target: "90.0%", current: "92.4%", rate: "102.6%" },
-            { criterion: "Tỷ lệ tổ chức đảng xây dựng kế hoạch và tiến hành kiểm tra, giám sát định kỳ", target: "100%", current: "100%", rate: "100%" },
-            { criterion: "Tỷ lệ chi bộ, tổ chức đảng đạt mức phân loại Hoàn thành tốt nhiệm vụ trở lên", target: "95.0%", current: "95.6%", rate: "100.6%" },
-            { criterion: "Tỷ lệ Đảng viên chính thức tham gia đầy đủ các buổi học tập Nghị quyết, chính trị", target: "98.0%", current: "98.5%", rate: "100.5%" },
-            { criterion: "Tỷ lệ Chi bộ trực thuộc thực hiện nghiêm túc sinh hoạt chuyên đề hằng quý", target: "100%", current: "100%", rate: "100%" }
+            { criterion: "Theo dõi kết quả, số lượng kết nạp Đảng viên mới hằng năm", target: "25 Đảng viên", current: "18 Đảng viên", rate: "72.0%", num_rate: 72.0, color: "bg-red-500" },
+            { criterion: "Tỷ lệ tổ chức cơ sở đảng đạt tiêu chí đánh giá mô hình '4 tốt'", target: "90.0%", current: "92.4%", rate: "102.6%", num_rate: 100, color: "bg-amber-500" },
+            { criterion: "Tỷ lệ tổ chức đảng xây dựng kế hoạch và tiến hành kiểm tra, giám sát định kỳ", target: "100%", current: "100%", rate: "100%", num_rate: 100, color: "bg-emerald-500" },
+            { criterion: "Tỷ lệ chi bộ, tổ chức đảng đạt mức phân loại Hoàn thành tốt nhiệm vụ trở lên", target: "95.0%", current: "95.6%", rate: "100.6%", num_rate: 100, color: "bg-sky-500" },
+            { criterion: "Tỷ lệ Đảng viên chính thức tham gia đầy đủ các buổi học tập Nghị quyết, chính trị", target: "98.0%", current: "98.5%", rate: "100.5%", num_rate: 100, color: "bg-indigo-500" },
+            { criterion: "Tỷ lệ Chi bộ trực thuộc thực hiện nghiêm túc sinh hoạt chuyên đề hằng quý", target: "100%", current: "100%", rate: "100%", num_rate: 100, color: "bg-purple-500" }
         ];
 
-        // Tự động kết xuất dữ liệu lên giao diện phẳng tối giản
-        document.addEventListener("DOMContentLoaded", () => {
+        // 1. Hàm vẽ Biểu đồ tiến độ (Bar Chart)
+        function drawBarChart() {
+            const ctx = document.getElementById('dangBarChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['Kết nạp mới', 'Tổ chức 4 tốt', 'Kiểm tra định kỳ', 'HT tốt nhiệm vụ', 'Học tập Nghị quyết', 'Sinh hoạt chuyên đề'],
+                    datasets: [
+                        {
+                            label: 'Chỉ tiêu đặt ra (%)',
+                            data: [100, 90, 100, 95, 98, 100],
+                            backgroundColor: 'rgba(255, 255, 255, 0.15)',
+                            borderColor: 'rgba(255, 255, 255, 0.4)',
+                            borderWidth: 1,
+                            borderRadius: 4
+                        },
+                        {
+                            label: 'Kết quả thực tế (%)',
+                            data: [72, 92.4, 100, 95.6, 98.5, 100],
+                            backgroundColor: 'rgba(239, 68, 68, 0.75)',
+                            borderColor: '#ef4444',
+                            borderWidth: 1,
+                            borderRadius: 4
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { labels: { color: '#94a3b8', font: { weight: 'bold', size: 10 } } }
+                    },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: '#94a3b8', font: { size: 9, weight: 'bold' } } },
+                        y: { max: 120, grid: { color: 'rgba(255,255,255,0.05)' }, ticks: { color: '#94a3b8', font: { size: 9 } } }
+                    }
+                }
+            });
+        }
+
+        // 2. Hàm vẽ Biểu đồ tròn cơ cấu phân loại chất lượng (Pie Chart)
+        function drawPieChart() {
+            const ctx = document.getElementById('dangPieChart').getContext('2d');
+            new Chart(ctx, {
+                type: 'pie',
+                data: {
+                    labels: ['HT Xuất sắc', 'HT Tốt', 'HT Nhiệm vụ', 'Không HT'],
+                    datasets: [{
+                        data: [22.4, 73.2, 4.4, 0],
+                        backgroundColor: [
+                            'rgba(16, 185, 129, 0.75)', // Xanh lá - Xuất sắc
+                            'rgba(14, 165, 233, 0.75)', // Xanh dương - Tốt
+                            'rgba(245, 158, 11, 0.75)', // Vàng - Hoàn thành
+                            'rgba(239, 68, 68, 0.75)'   // Đỏ - Không hoàn thành
+                        ],
+                        borderColor: 'rgba(30, 41, 59, 0.8)',
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: { 
+                            position: 'right',
+                            labels: { color: '#94a3b8', font: { weight: 'bold', size: 9 } } 
+                        }
+                    }
+                }
+            });
+        }
+
+        // 3. Kết xuất dữ liệu bảng biểu tự động kèm Progress Bar tinh tế
+        function renderTable() {
             const container = document.getElementById('cong-tac-dang-container');
             container.innerHTML = danhSachChiTieuDang.map((item, index) => `
                 <div class="row-container">
                     <div class="row-flat">
                         <div class="grid-row">
-                            <div class="col-stt text-slate-400 font-black">${index + 1}</div>
-                            <div class="col-criterion font-[900] text-slate-800">${item.criterion}</div>
-                            <div class="col-target font-semibold text-slate-500 text-center">${item.target}</div>
-                            <div class="col-current font-bold text-slate-900 text-center">${item.current}</div>
+                            <div class="col-stt text-slate-500 font-black">${index + 1}</div>
+                            <div class="col-criterion font-bold text-slate-100">${item.criterion}</div>
+                            <div class="col-target font-semibold text-slate-400 text-center">${item.target}</div>
+                            <div class="col-current font-extrabold text-white text-center">${item.current}</div>
+                            <div class="col-progress">
+                                <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden border border-slate-700/50">
+                                    <div class="${item.color} h-full rounded-full" style="width: ${item.num_rate}%"></div>
+                                </div>
+                            </div>
                             <div class="col-rate">
-                                <span class="bg-slate-900 text-white px-2 py-0.5 rounded-md shadow-sm font-mono text-[10px]">${item.rate}</span>
+                                <span class="bg-slate-900 border border-slate-700 text-slate-200 px-2 py-0.5 rounded-md font-mono text-[10px] font-bold">${item.rate}</span>
                             </div>
                         </div>
                     </div>
                 </div>
             `).join('');
+        }
+
+        // Khởi động toàn diện các module đồ họa và dữ liệu khi trang sẵn sàng
+        document.addEventListener("DOMContentLoaded", () => {
+            renderTable();
+            drawBarChart();
+            drawPieChart();
         });
     </script>
 </body>
