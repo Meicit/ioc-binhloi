@@ -241,4 +241,69 @@
             barChart = new Chart(ctxBar, {
                 type: 'bar',
                 data: {
-                    labels:
+                    labels: ['Kinh tế', 'Văn hóa - XH', 'Môi trường - ĐT', 'Cải cách HC', 'QP - AN'],
+                    datasets: [{
+                        label: 'Tiến độ hoàn thành nhóm (%)',
+                        data: barData,
+                        backgroundColor: colors,
+                        borderRadius: 6
+                    }]
+                },
+                options: { 
+                    maintainAspectRatio: false, 
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: textColor, font: { weight: 'bold', size: 9 } } },
+                        y: { max: 110, grid: { color: 'rgba(148, 163, 184, 0.1)' }, ticks: { color: textColor, font: { size: 9, weight: 'bold' } } }
+                    }
+                }
+            });
+
+            // Render Doughnut Chart
+            const ctxPie = document.getElementById('pieChart').getContext('2d');
+            doughnutChart = new Chart(ctxPie, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        data: pieData,
+                        backgroundColor: colors,
+                        borderWidth: 2,
+                        borderColor: 'rgba(30, 41, 59, 0.5)'
+                    }]
+                },
+                options: { 
+                    maintainAspectRatio: false, 
+                    cutout: '72%',
+                    plugins: { legend: { position: 'right', labels: { color: textColor, font: { weight: 'bold', size: 9 } } } }
+                }
+            });
+        }
+
+        // ĐIỀU HÀNH ĐỔI NỀN TRẮNG ĐEN TOÀN CỤC KHÔNG GIAN CHỈ HUY
+        window.setTheme = function(themeName) {
+            const body = document.getElementById('body-context');
+            const btnLight = document.getElementById('btn-theme-light');
+            const btnDark = document.getElementById('btn-theme-dark');
+
+            if(themeName === 'light') {
+                body.classList.remove('dark-theme');
+                body.classList.add('light-theme');
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-sm border border-slate-200";
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition text-slate-500 hover:text-slate-800";
+                
+                // Đồng bộ chữ đồ thị sang màu Navy siêu đậm
+                if (currentRawSnapshot) renderCharts(currentRawSnapshot, '#031b4e');
+            } else {
+                body.classList.remove('light-theme');
+                body.classList.add('dark-theme');
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-sky-600 text-white shadow-sm";
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition text-slate-400 hover:text-white";
+                
+                // Đồng bộ chữ đồ thị sang màu Cyan Neon sáng bừng
+                if (currentRawSnapshot) renderCharts(currentRawSnapshot, '#00f0ff');
+            }
+        }
+    </script>
+</body>
+</html>
