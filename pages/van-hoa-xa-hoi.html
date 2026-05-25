@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bảng Theo Dõi Thông Tin Trên Lĩnh Vực Văn Hóa Xã Hội - Xã Bình Hưng</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* QUẢN LÝ MÀU CHỮ NỔI BẬT CHO NỀN TỐI (DARK THEME) - KHÔNG DÙNG TRẮNG / XÁM */
+        body.dark-theme {
+            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98)), url('../hinhnen.png');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            color: #38bdf8;
+        }
+        body.dark-theme .text-dynamic-title { color: #00f0ff; } /* Cyan Neon */
+        body.dark-theme .text-dynamic-body { color: #93c5fd; }  /* Xanh dương tươi */
+        body.dark-theme .text-dynamic-label { color: #fbbf24; } /* Vàng hổ phách */
+        body.dark-theme .glass-panel { background: rgba(15, 23, 42, 0.75); border-color: rgba(56, 189, 248, 0.2); }
+        body.dark-theme .card-stat-item { background: rgba(30, 41, 59, 0.7); border-color: rgba(56, 189, 248, 0.15); }
+        body.dark-theme .sub-card-white { background: rgba(15, 23, 42, 0.4); border-color: rgba(255, 255, 255, 0.08); }
+        body.dark-theme .btn-switcher-active { background: #0369a1; color: #00f0ff; border-color: #00f0ff; }
+
+        /* QUẢN LÝ MÀU CHỮ NỔI BẬT CHO NỀN SÁNG (LIGHT THEME) - KHÔNG DÙNG TRẮNG / XÁM */
+        body.light-theme {
+            background: linear-gradient(rgba(241, 245, 249, 0.9), rgba(241, 245, 249, 0.98)), url('../hinhnen.png');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            color: #0b4a8f;
+        }
+        body.light-theme .text-dynamic-title { color: #031b4e; } /* Xanh Navy siêu đậm */
+        body.light-theme .text-dynamic-body { color: #1e3a8a; }  /* Xanh indigo nguyên khối */
+        body.light-theme .text-dynamic-label { color: #b45309; } /* Cam đất đậm */
+        body.light-theme .glass-panel { background: rgba(255, 255, 255, 0.9); border-color: rgba(11, 74, 143, 0.25); box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.15); }
+        body.light-theme .card-stat-item { background: #ffffff; border-color: rgba(11, 74, 143, 0.18); box-shadow: 0 4px 12px rgba(12, 74, 110, 0.03); }
+        body.light-theme .sub-card-white { background: #f8fafc; border-color: rgba(11, 74, 143, 0.12); }
+        body.light-theme .btn-switcher-active { background: #0b4a8f; color: #bfdbfe; border-color: #0b4a8f; box-shadow: 0 2px 8px rgba(11, 74, 143, 0.2); }
+
+        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s, color 0.3s; }
+        .container-wrapper { max-width: 1600px; margin: 25px auto; padding: 0 20px; width: 100%; }
+        .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; transition: all 0.3s; }
+        
+        .card-stat-item { border: 1px solid; border-radius: 16px; padding: 16px; position: relative; transition: all 0.25s; }
+        .card-stat-item:hover { transform: translateY(-2px); border-color: #3b82f6; }
+
+        .btn-back { display: inline-flex; align-items: center; gap: 8px; background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.3); color: inherit; padding: 10px 20px; border-radius: 12px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; }
+        .btn-back:hover { transform: translateY(-2px); border-color: #ef4444; background: rgba(239, 68, 68, 0.1); }
+        
+        /* Menu Tab Giống ảnh gốc */
+        .tab-menu-item { padding: 8px 16px; font-size: 12px; font-weight: 700; border-radius: 10px; border: 1px solid rgba(14, 165, 233, 0.2); transition: all 0.2s; }
+        .tab-menu-item.active { background: #0ea5e9; color: white !important; border-color: #0ea5e9; box-shadow: 0 4px 12px rgba(14, 165, 233, 0.3); }
+
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.3); border-radius: 10px; }
+    </style>
+</head>
+<body class="dark-theme custom-scrollbar" id="body-context">
+
+    <div class="container-wrapper space-y-5">
+        
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <a href="../home.html" class="btn-back">⬅️ Quay lại Trang chủ</a>
+            
+            <div class="bg-slate-900 border border-slate-700 p-1 rounded-xl flex items-center shadow-md backdrop-blur">
+                <span class="text-[10px] font-black uppercase tracking-wider px-3 text-dynamic-label">Chế độ xem:</span>
+                <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-dynamic-body hover:text-sky-400">
+                    🔵 Nền trắng
+                </button>
+                <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border btn-switcher-active">
+                    🟠 Nền đen
+                </button>
+            </div>
+        </div>
+
+        <header class="glass-panel p-5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-4 text-center md:text-left">
+                <div class="h-12 w-12 flex items-center justify-center bg-white rounded-xl p-1 shadow-md">
+                    <img src="../logo.png" alt="Logo" class="h-10 w-auto object-contain">
+                </div>
+                <div>
+                    <h1 class="text-base md:text-lg font-black uppercase tracking-tight text-dynamic-title leading-tight">
+                        Bảng Theo Dõi Thông Tin Trên Lĩnh Vực Văn Hóa Xã Hội
+                    </h1>
+                    <p class="text-dynamic-label font-bold text-[10px] uppercase mt-0.5">
+                        Xã Bình Hưng • Bố cục theo nhóm chủ đề • Cảnh báo điều hành • Tự động cập nhật từ Google Apps Script
+                    </p>
+                </div>
+            </div>
+            <div class="flex flex-col items-end text-right font-mono text-[11px] font-bold text-dynamic-body space-y-0.5">
+                <div class="bg-slate-900/50 px-3 py-1 rounded-lg border border-slate-700/40">14:09:46 - 25/5/2026</div>
+                <div class="text-[9px] text-emerald-400 uppercase tracking-widest">Nguồn dữ liệu: Google Apps Script - Kết nối thành công</div>
+            </div>
+        </header>
+
+        <nav class="glass-panel p-2 flex items-center gap-2 overflow-x-auto no-scrollbar">
+            <button class="tab-menu-item active">Tổng quan</button>
+            <button class="tab-menu-item text-dynamic-body">Nhân sự – Nội vụ</button>
+            <button class="tab-menu-item text-dynamic-body">Giáo dục</button>
+            <button class="tab-menu-item text-dynamic-body">Y tế – An sinh</button>
+            <button class="tab-menu-item text-dynamic-body">An sinh xã hội</button>
+            <button class="tab-menu-item text-dynamic-body">Văn hóa – Truyền thông</button>
+        </nav>
+
+        <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4">
+            <div class="card-stat-item border-t-4 border-blue-500 flex flex-col justify-between">
+                <div>
+                    <span class="text-[9px] font-black text-dynamic-label uppercase tracking-wider block">Nhân sự - Nội vụ</span>
+                    <span class="text-3xl font-black text-dynamic-title block mt-1">74</span>
+                </div>
+                <div class="mt-2 text-[10px] font-semibold text-dynamic-body leading-tight">
+                    <p>Công chức hiện có / tổng biên chế</p>
+                    <span class="inline-block bg-red-500/10 text-red-400 font-bold px-1.5 py-0.5 rounded mt-1 text-[9px]">Thiếu 2 biên chế</span>
+                </div>
+            </div>
+            <div class="card-stat-item border-t-4 border-blue-500 flex flex-col justify-between">
+                <div>
+                    <span class="text-[9px] font-black text-dynamic-label uppercase tracking-wider block">Giáo dục</span>
+                    <span class="text-3xl font-black text-dynamic-title block mt-1">44</span>
+                </div>
+                <div class="mt-2 text-[10px] font-semibold text-dynamic-body leading-tight">
+                    <p>Tổng cơ sở từ Mầm non đến THPT</p>
+                    <span class="inline-block bg-sky-500/10 text-sky-400 font-bold px-1.5 py-0.5 rounded mt-1 text-[9px]">Công 11 | Tư 33</span>
+                </div>
+            </div>
+            <div class="card-stat-item border-t-4 border-green-500 flex flex-col justify-between">
+                <div>
+                    <span class="text-[9px] font-black text-dynamic-label uppercase tracking-wider block">Bao phủ BHYT</span>
+                    <span class="text-3xl font-black text-dynamic-title block mt-1">99,3</span>
+                </div>
+                <div class="mt-2 text-[10px] font-semibold text-dynamic-body leading-tight">
+                    <p>Tỷ lệ bao phủ bảo hiểm y tế</p>
+                    <span class="inline-block bg-amber-500/10 text-amber-500 font-bold px-1.5 py-0.5 rounded mt-1 text-[9px]">BHYT thiếu 633 người</span>
+                </div>
+            </div>
+            <div class="card-stat-item border-t-4 border-green-500 flex flex-col justify-between">
+                <div>
+                    <span class="text-[9px] font-black text-dynamic-label uppercase tracking-wider block">Hồ sơ sức khỏe điện tử</span>
+                    <span class="text-3xl font-black text-dynamic-title block mt-1">95,0</span>
+                </div>
+                <div class="mt-2 text-[10px] font-semibold text-dynamic-body leading-tight">
+                    <p>Tiến độ tạo lập hồ sơ sức khỏe</p>
+                    <span class="inline-block bg-emerald-500/10 text-emerald-400 font-bold px-1.5 py-0.5 rounded mt-1 text-[9px]">Mục tiêu 95%</span>
+                </div>
+            </div>
+            <div class="card-stat-item border-t-4 border-green-500 flex flex-col justify-between">
+                <div>
+                    <span class="text-[9px] font-black text-dynamic-label uppercase tracking-wider block">An sinh xã hội</span>
+                    <span class="text-3xl font-black text-dynamic-title block mt-1">5.313</span>
+                </div>
+                <div class="mt-2 text-[10px] font-semibold text-dynamic-body leading-tight">
+                    <p>Đối tượng trợ cấp, bảo trợ xã hội</p>
+                    <span class="inline-block bg-indigo-500/10 text-indigo-400 font-bold px-1.5 py-0.5 rounded mt-1 text-[9px]">NCT: 1.046</span>
+                </div>
+            </div>
+            <div class="card-stat-item border-t-4 border-green-500 flex flex-col justify-between">
+                <div>
+                    <span class="text-[9px] font-black text-dynamic-label uppercase tracking-wider block">Hộ gia đình văn hóa</span>
+                    <span class="text-3xl font-black text-dynamic-title block mt-1">99,18</span>
+                </div>
+                <div class="mt-2 text-[10px] font-semibold text-dynamic-body leading-tight">
+                    <p>Tỷ lệ hộ gia đình văn hóa đạt chuẩn</p>
+                    <span class="inline-block bg-blue-500/10 text-blue-400 font-bold px-1.5 py-0.5 rounded mt-1 text-[9px]">41.290/41.631 hộ - 70/70 Ấp</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch">
+            
+            <div class="lg:col-span-4 glass-panel p-4 flex flex-col justify-between space-y-4">
+                <div>
+                    <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">📋 Nhóm chỉ số điều hành trọng tâm</h2>
+                    <div class="grid grid-cols-2 gap-3 text-center">
+                        <div class="sub-card-white p-2.5 rounded-xl border">
+                            <span class="text-[9px] font-bold text-dynamic-label uppercase block">Tỷ lệ thiếu biên chế</span>
+                            <span class="text-xl font-black text-red-500 block mt-0.5">2,63%</span>
+                            <span class="text-[8px] text-dynamic-body block mt-0.5">Cảnh báo đỏ khi vượt 10%</span>
+                        </div>
+                        <div class="sub-card-white p-2.5 rounded-xl border">
+                            <span class="text-[9px] font-bold text-dynamic-label uppercase block">Bao phủ BHYT</span>
+                            <span class="text-xl font-black text-sky-500 block mt-0.5">99,3%</span>
+                            <span class="text-[8px] text-dynamic-body block mt-0.5">So với mục tiêu 97%</span>
+                        </div>
+                        <div class="sub-card-white p-2.5 rounded-xl border">
+                            <span class="text-[9px] font-bold text-dynamic-label uppercase block">Tiêm chủng</span>
+                            <span class="text-xl font-black text-emerald-500 block mt-0.5">95,6%</span>
+                            <span class="text-[8px] text-dynamic-body block mt-0.5">Tỷ lệ trong độ tuổi tiêm chủng chung</span>
+                        </div>
+                        <div class="sub-card-white p-2.5 rounded-xl border border-red-500/20 bg-red-500/5">
+                            <span class="text-[9px] font-bold text-red-400 uppercase block">Khám NCT</span>
+                            <span class="text-xl font-black text-red-500 block mt-0.5">11,09%</span>
+                            <span class="text-[8px] text-red-400 font-semibold block mt-0.5">Chỉ tiêu cần ưu tiên đẩy nhanh</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <h3 class="text-[10px] font-bold uppercase text-dynamic-label">📊 So sánh nhóm chỉ số trọng điểm</h3>
+                    <div class="w-full h-[200px] relative">
+                        <canvas id="mainIndicatorsChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-4 glass-panel p-4 flex flex-col justify-between space-y-4">
+                <div>
+                    <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">🎓 Giáo dục theo nhóm chủ đề</h2>
+                    <div class="grid grid-cols-4 gap-2 text-center">
+                        <div class="sub-card-white p-2 rounded-lg border"><span class="text-[9px] font-bold text-dynamic-label block">CÔNG LẬP</span><span class="text-base font-black text-dynamic-title mt-0.5 block">11</span></div>
+                        <div class="sub-card-white p-2 rounded-lg border"><span class="text-[9px] font-bold text-dynamic-label block">TƯ THỤC</span><span class="text-base font-black text-dynamic-title mt-0.5 block">33</span></div>
+                        <div class="sub-card-white p-2 rounded-lg border"><span class="text-[9px] font-bold text-dynamic-label block">CĐ + ĐH</span><span class="text-base font-black text-dynamic-title mt-0.5 block">6</span></div>
+                        <div class="sub-card-white p-2 rounded-lg border"><span class="text-[9px] font-bold text-dynamic-label block">TT NGOẠI NGỮ</span><span class="text-base font-black text-dynamic-title mt-0.5 block">36</span></div>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <h3 class="text-[10px] font-bold uppercase text-dynamic-label">🏫 So sánh Công lập - Tư thục từ Mầm non đến THPT</h3>
+                    <div class="w-full h-[140px] relative">
+                        <canvas id="educationBarChart"></canvas>
+                    </div>
+                </div>
+
+                <div class="space-y-2">
+                    <h3 class="text-[10px] font-bold uppercase text-dynamic-label">🍩 Cơ cấu toàn hệ thống giáo dục</h3>
+                    <div class="w-full h-[100px] relative flex justify-center">
+                        <canvas id="educationPieChart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="lg:col-span-4 glass-panel p-4 flex flex-col justify-between space-y-4">
+                <div class="space-y-3">
+                    <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title">💡 Cảnh báo & Nhận định nhanh</h2>
+                    <div class="space-y-2 font-['Inter'] text-[11px] max-h-[300px] overflow-y-auto pr-1 custom-scrollbar">
+                        <div class="p-2.5 rounded-xl sub-card-white border-l-4 border-blue-500">
+                            <span class="font-bold text-dynamic-label text-[10px] block uppercase">Nhân sự</span>
+                            <p class="text-dynamic-body mt-0.5 leading-relaxed">Tỷ lệ thiếu biên chế hiện ở mức <span class="font-bold text-red-400">2,63%</span>, tiếp tục theo dõi biến động và triển khai phương án kiện toàn.</p>
+                        </div>
+                        <div class="p-2.5 rounded-xl sub-card-white border-l-4 border-amber-500">
+                            <span class="font-bold text-amber-500 text-[10px] block uppercase">Cảnh báo y tế</span>
+                            <p class="text-dynamic-body mt-0.5 leading-relaxed">Khám sức khỏe người cao tuổi mới đạt <span class="font-bold text-red-500">11,09%</span>, là chỉ số đặc biệt cần ưu tiên tập trung chỉ đạo.</p>
+                        </div>
+                        <div class="p-2.5 rounded-xl sub-card-white border-l-4 border-sky-500">
+                            <span class="font-bold text-sky-500 text-[10px] block uppercase">Cơ cấu giáo dục</span>
+                            <p class="text-dynamic-body mt-0.5 leading-relaxed">Khối tư thục chiếm tới <span class="font-bold text-dynamic-title">75,0%</span> từ Mầm non đến THPT, cần tăng cường điều phối quản lý chuyên đề.</p>
+                        </div>
+                        <div class="p-2.5 rounded-xl sub-card-white border-l-4 border-indigo-500">
+                            <span class="font-bold text-indigo-500 text-[10px] block uppercase">Trung tâm ngoại ngữ</span>
+                            <p class="text-dynamic-body mt-0.5 leading-relaxed">Hiện có <span class="font-bold text-dynamic-title">36 trung tâm</span> ngoại ngữ – tin học cần rà soát, cập nhật và đồng bộ hồ sơ định kỳ.</p>
+                        </div>
+                        <div class="p-2.5 rounded-xl sub-card-white border-l-4 border-emerald-500">
+                            <span class="font-bold text-emerald-500 text-[10px] block uppercase">Điểm mạnh văn hóa</span>
+                            <p class="text-dynamic-body mt-0.5 leading-relaxed">Tỷ lệ hộ gia đình văn hóa đạt <span class="font-bold text-emerald-400">99,18%</span>, hoàn thành xuất sắc phủ kín các ấp văn hóa đạt mốc đạt <span class="font-bold text-dynamic-title">70/70 Ấp</span>.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="space-y-2.5 border-t border-slate-700/40 pt-3">
+                    <h3 class="text-xs font-black uppercase text-dynamic-title tracking-wider">🎯  Tiến độ chỉ tiêu y tế</h3>
+                    <div class="space-y-2 text-[10px] font-bold font-['Inter']">
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-dynamic-body"><span>BHYT toàn dân</span><span class="text-emerald-400">99,3%</span></div>
+                            <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden border border-slate-700/50"><div class="h-full bg-gradient-to-r from-amber-500 to-emerald-500" style="width: 99.3%"></div></div>
+                        </div>
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-dynamic-body"><span>Hồ sơ sức khỏe điện tử</span><span class="text-sky-400">95,0%</span></div>
+                            <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden border border-slate-700/50"><div class="h-full bg-gradient-to-r from-blue-500 to-sky-400" style="width: 95.0%"></div></div>
+                        </div>
+                        <div class="space-y-1">
+                            <div class="flex justify-between text-dynamic-body"><span>Tiêm chủng mở rộng</span><span class="text-emerald-400">95,6%</span></div>
+                            <div class="w-full bg-slate-800 h-2 rounded-full overflow-hidden border border-slate-700/50"><div class="h-full bg-gradient-to-r from-teal-500 to-emerald-400" style="width: 95.6%"></div></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <footer class="w-full text-center py-5 text-dynamic-label font-bold text-[10px] uppercase tracking-[0.3em] border-t border-slate-900 bg-slate-950/20 backdrop-blur-md">
+        &copy; 2026 IOC Xã Bình Hưng — Hệ thống điều hành chỉ số văn hóa, giáo dục và an sinh xã hội trực tuyến
+    </footer>
+
+    <script>
+        let mainChart = null;
+        let barChart = null;
+        let pieChart = null;
+
+        function renderAllCharts(textColor) {
+            if(mainChart) mainChart.destroy();
+            if(barChart) barChart.destroy();
+            if(pieChart) pieChart.destroy();
+
+            const ctxMain = document.getElementById('mainIndicatorsChart').getContext('2d');
+            mainChart = new Chart(ctxMain, {
+                type: 'bar',
+                data: {
+                    labels: ['BHYT', 'Hồ sơ sức khỏe', 'Tiêm chủng', 'Khám NCT', 'Hộ văn hóa'],
+                    datasets: [{
+                        data: [99.3, 95.0, 95.6, 11.09, 99.18],
+                        backgroundColor: ['#0ea5e9', '#38bdf8', '#0ea5e9', '#ef4444', '#22c55e'],
+                        borderRadius: 5,
+                        barThickness: 24
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false, responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: textColor, font: { size: 9, weight: 'bold' } } },
+                        y: { max: 100, grid: { color: 'rgba(148, 163, 184, 0.1)' }, ticks: { color: textColor, font: { size: 9 } } }
+                    }
+                }
+            });
+
+            const ctxBar = document.getElementById('educationBarChart').getContext('2d');
+            barChart = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: ['Mầm non', 'Tiểu học', 'THCS', 'THPT'],
+                    datasets: [
+                        { label: 'Công lập', data: [5, 4, 1, 1], backgroundColor: '#0ea5e9', borderRadius: 4 },
+                        { label: 'Tư thục', data: [22, 4, 4, 3], backgroundColor: '#f59e0b', borderRadius: 4 }
+                    ]
+                },
+                options: {
+                    maintainAspectRatio: false, responsive: true,
+                    plugins: { legend: { labels: { color: textColor, font: { size: 9, weight: 'bold' } } } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: textColor, font: { size: 9, weight: 'bold' } } },
+                        y: { max: 25, grid: { color: 'rgba(148, 163, 184, 0.1)' }, ticks: { color: textColor, font: { size: 9 } } }
+                    }
+                }
+            });
+
+            const ctxPie = document.getElementById('educationPieChart').getContext('2d');
+            pieChart = new Chart(ctxPie, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Công lập (25.0%)', 'Tư thục (75.0%)'],
+                    datasets: [{
+                        data: [11, 33],
+                        backgroundColor: ['#0ea5e9', '#f59e0b'],
+                        borderWidth: 2,
+                        borderColor: 'rgba(30, 41, 59, 0.5)'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false, responsive: true,
+                    cutout: '68%',
+                    plugins: { legend: { position: 'right', labels: { color: textColor, font: { size: 9, weight: 'bold' } } } }
+                }
+            });
+        }
+
+        window.setTheme = function(themeName) {
+            const body = document.getElementById('body-context');
+            const btnLight = document.getElementById('btn-theme-light');
+            const btnDark = document.getElementById('btn-theme-dark');
+
+            if(themeName === 'light') {
+                body.classList.remove('dark-theme');
+                body.classList.add('light-theme');
+                
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-blue-900 text-sky-200 shadow-md border border-blue-700";
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-blue-900 hover:text-slate-800";
+                
+                renderAllCharts('#031b4e');
+            } else {
+                body.classList.remove('light-theme');
+                body.classList.add('dark-theme');
+                
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border btn-switcher-active";
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-sky-400 hover:text-sky-300";
+                
+                renderAllCharts('#00f0ff');
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            setTheme('dark');
+        });
+    </script>
+</body>
+</html>
