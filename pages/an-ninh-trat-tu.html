@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IOC An Ninh Trật Tự - PCCC - ATGT Xã Bình Hưng</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* QUẢN LÝ MÀU CHỮ NỔI BẬT CHO NỀN TỐI (DARK THEME) - KHÔNG DÙNG TRẮNG / XÁM */
+        body.dark-theme {
+            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98)), url('../hinhnen.png');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            color: #38bdf8;
+        }
+        body.dark-theme .text-dynamic-title { color: #00f0ff; } /* Cyan Neon */
+        body.dark-theme .text-dynamic-body { color: #93c5fd; }  /* Xanh dương tươi */
+        body.dark-theme .text-dynamic-label { color: #fbbf24; } /* Vàng hổ phách */
+        body.dark-theme .glass-panel { background: rgba(15, 23, 42, 0.75); border-color: rgba(56, 189, 248, 0.2); }
+        body.dark-theme .card-stat-item { background: rgba(30, 41, 59, 0.7); border-color: rgba(56, 189, 248, 0.15); }
+        body.dark-theme .sub-card-white { background: rgba(15, 23, 42, 0.4); border-color: rgba(255, 255, 255, 0.08); }
+        body.dark-theme .btn-switcher-active { background: #0369a1; color: #00f0ff; border-color: #00f0ff; }
+        body.dark-theme .table-th { background: rgba(15, 23, 42, 0.6); color: #00f0ff; }
+        body.dark-theme .table-tr { border-color: rgba(255, 255, 255, 0.05); }
+        body.dark-theme .table-tr:hover { background: rgba(14, 165, 233, 0.05); }
+
+        /* QUẢN LÝ MÀU CHỮ NỔI BẬT KHÔNG DÙNG TRẮNG / XÁM CHO NỀN SÁNG (LIGHT THEME) */
+        body.light-theme {
+            background: linear-gradient(rgba(241, 245, 249, 0.9), rgba(241, 245, 249, 0.98)), url('../hinhnen.png');
+            background-size: cover; background-position: center; background-attachment: fixed;
+            color: #0b4a8f;
+        }
+        body.light-theme .text-dynamic-title { color: #031b4e; } /* Xanh Navy siêu đậm */
+        body.light-theme .text-dynamic-body { color: #1e3a8a; }  /* Xanh indigo nguyên khối */
+        body.light-theme .text-dynamic-label { color: #b45309; } /* Cam đất đậm */
+        body.light-theme .glass-panel { background: rgba(255, 255, 255, 0.9); border-color: rgba(11, 74, 143, 0.25); box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.15); }
+        body.light-theme .card-stat-item { background: #ffffff; border-color: rgba(11, 74, 143, 0.18); box-shadow: 0 4px 12px rgba(12, 74, 110, 0.03); }
+        body.light-theme .sub-card-white { background: #f8fafc; border-color: rgba(11, 74, 143, 0.12); }
+        body.light-theme .btn-switcher-active { background: #0b4a8f; color: #bfdbfe; border-color: #0b4a8f; box-shadow: 0 2px 8px rgba(11, 74, 143, 0.2); }
+        body.light-theme .table-th { background: rgba(11, 74, 143, 0.1); color: #031b4e; }
+        body.light-theme .table-tr { border-color: rgba(11, 74, 143, 0.1); }
+        body.light-theme .table-tr:hover { background: rgba(11, 74, 143, 0.03); }
+
+        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s, color 0.3s; }
+        .container-wrapper { max-width: 1650px; margin: 25px auto; padding: 0 20px; width: 100%; }
+        .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; transition: all 0.3s; }
+        
+        .card-stat-item { border: 1px solid; border-radius: 16px; padding: 14px; display: flex; flex-direction: column; justify-content: space-y-2; transition: all 0.25s; }
+        .card-stat-item:hover { transform: translateY(-2px); border-color: #3b82f6; }
+
+        .btn-back { display: inline-flex; align-items: center; gap: 8px; background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.3); color: inherit; padding: 10px 20px; border-radius: 12px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; }
+        .btn-back:hover { transform: translateY(-2px); border-color: #ef4444; background: rgba(239, 68, 68, 0.1); }
+        .custom-scrollbar::-webkit-scrollbar { width: 5px; height: 5px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.3); border-radius: 10px; }
+    </style>
+</head>
+<body class="dark-theme custom-scrollbar" id="body-context">
+
+    <div class="container-wrapper space-y-5">
+        
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+            <a href="../home.html" class="btn-back">⬅️ Quay lại Trang chủ</a>
+            
+            <div class="bg-slate-900 border border-slate-700 p-1 rounded-xl flex items-center shadow-md backdrop-blur">
+                <span class="text-[10px] font-black uppercase tracking-wider px-3 text-dynamic-label">Chế độ xem:</span>
+                <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-dynamic-body hover:text-sky-400">
+                    🔵 Nền trắng
+                </button>
+                <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border btn-switcher-active">
+                    🟠 Nền đen
+                </button>
+            </div>
+        </div>
+
+        <header class="glass-panel p-5 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="flex items-center gap-4 text-center md:text-left">
+                <div class="h-12 w-12 flex items-center justify-center bg-white rounded-xl p-1 shadow-md">
+                    <img src="../logo.png" alt="Logo" class="h-10 w-auto object-contain">
+                </div>
+                <div>
+                    <h1 class="text-base md:text-lg font-black uppercase tracking-tight text-dynamic-title leading-tight">
+                        IOC AN NINH TRẬT TỰ – PCCC – ATGT XÃ BÌNH HƯNG
+                    </h1>
+                    <p class="text-dynamic-label font-bold text-[10px] uppercase mt-0.5">
+                        Hệ thống theo dõi tổng hợp tình hình quốc phòng, an ninh trật tự, phòng cháy chữa cháy và an toàn giao thông
+                    </p>
+                </div>
+            </div>
+            <div class="flex flex-col items-end text-right font-mono text-[11px] font-bold text-dynamic-body space-y-0.5">
+                <div class="bg-slate-900/50 px-3 py-1 rounded-lg border border-slate-700/40" id="live-time-stamp">Cập nhật: 2026-05-25T07:15:20.150Z - nhaplieu_v2</div>
+            </div>
+        </header>
+
+        <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-8 gap-3">
+            <div class="card-stat-item border-l-4 border-sky-500">
+                <span class="text-[9px] font-black text-dynamic-label uppercase tracking-wider block">Quốc phòng</span>
+                <span class="text-2xl font-black text-dynamic-title block mt-0.5">100</span>
+                <span class="text-[9px] text-dynamic-body block leading-tight">Giao quân: 54/54 - Huấn luyện: Đạt</span>
+                <span class="self-start text-[8px] font-extrabold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded mt-1">Sẵn sàng</span>
+            </div>
+            <div class="card-stat-item border-l-4 border-sky-500">
+                <span class="text-[9px] font-black text-dynamic-label uppercase tracking-wider block">Trật tự xã hội</span>
+                <span class="text-2xl font-black text-dynamic-title block mt-0.5">26</span>
+                <span class="text-[9px] text-dynamic-body block leading-tight">Chênh lệch kỳ trước: 7</span>
+                <span class="self-start text-[8px] font-extrabold text-sky-400 bg-sky-500/10 px-1.5 py-0.5 rounded mt-1">TTXH</span>
+            </div>
+            <div class="card-stat-item border-l-4 border-sky-500">
+                <span class="text-[9px] font-black text-dynamic-label uppercase tracking-wider block">Tỷ lệ khám phá</span>
+                <span class="text-2xl font-black text-dynamic-title block mt-0.5">66.67%</span>
+                <span class="text-[9px] text-dynamic-body block leading-tight">Khám phá: 8 vụ</span>
+                <span class="self-start text-[8px] font-extrabold text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded mt-1">Hiệu quả</span>
+            </div>
+            <div class="card-stat-item border-l-4 border-sky-500">
+                <span class="text-[9px] font-black text-dynamic-label uppercase tracking-wider block">Ma túy</span>
+                <span class="text-2xl font-black text-dynamic-title block mt-0.5">23</span>
+                <span class="text-[9px] text-dynamic-body block leading-tight">Đối tượng: 53</span>
+                <span class="self-start text-[8px] font-extrabold text-amber-400 bg-amber-500/10 px-1.5 py-0.5 rounded mt-1">Kiểm soát</span>
+            </div>
+            <div class="card-stat-item border-l-4 border-sky-500">
+                <span class="text-[9px] font-black text-dynamic-label uppercase tracking-wider block">Tệ nạn xã hội</span>
+                <span class="text-2xl font-black text-dynamic-title block mt-0.5">2</span>
+                <span class="text-[9px] text-dynamic-body block leading-tight">Xử lý: 16 đối tượng</span>
+                <span class="self-start text-[8px] font-extrabold text-purple-400 bg-purple-500/10 px-1.5 py-0.5 rounded mt-1">Theo dõi</span>
+            </div>
+            <div class="card-stat-item border-l-4 border-sky-500">
+                <span class="text-[9px] font-black text-dynamic-label uppercase tracking-wider block">Kinh tế - Môi trường</span>
+                <span class="text-2xl font-black text-dynamic-title block mt-0.5">3</span>
+                <span class="text-[9px] text-dynamic-body block leading-tight">Đối tượng: 24</span>
+                <span class="self-start text-[8px] font-extrabold text-indigo-400 bg-indigo-500/10 px-1.5 py-0.5 rounded mt-1">KT-MT</span>
+            </div>
+            <div class="card-stat-item border-l-4 border-sky-500">
+                <span class="text-[9px] font-black text-dynamic-label uppercase tracking-wider block">Trật tự đô thị</span>
+                <span class="text-2xl font-black text-dynamic-title block mt-0.5">119</span>
+                <span class="text-[9px] text-dynamic-body block leading-tight">Tiền phạt: 349.675.000đ</span>
+                <span class="self-start text-[8px] font-extrabold text-cyan-400 bg-cyan-500/10 px-1.5 py-0.5 rounded mt-1">Đô thị</span>
+            </div>
+            <div class="card-stat-item border-l-4 border-sky-500">
+                <span class="text-[9px] font-black text-dynamic-label uppercase tracking-wider block">PCCC / TNGT</span>
+                <span class="text-2xl font-black text-dynamic-title block mt-0.5">2 / 4</span>
+                <span class="text-[9px] text-dynamic-body block leading-tight">Tử vong: 3 - Bị thương: 1</span>
+                <span class="self-start text-[8px] font-extrabold text-rose-400 bg-rose-500/10 px-1.5 py-0.5 rounded mt-1">Cảnh báo</span>
+            </div>
+        </div>
+
+        <div class="glass-panel p-4 border border-rose-500/30 bg-rose-500/5 flex flex-col space-y-1">
+            <h3 class="text-xs font-black text-rose-500 uppercase tracking-wider">⚠️ Tổng hợp nhanh tình hình địa bàn</h3>
+            <p class="text-xs text-dynamic-body font-bold">
+                • Tổng vụ TTXH: <span class="text-dynamic-title font-black">26</span> 
+                • Khám phá: <span class="text-emerald-400 font-black">66.67%</span> 
+                • Tử vong do TNGT: <span class="text-rose-500 font-black">3</span> 
+                • PCCC: <span class="text-amber-500 font-black">2 vụ</span> 
+                • TNGT: <span class="text-blue-500 font-black">4 vụ</span> 
+                • Đô thị: <span class="text-purple-400 font-black">119 vụ</span> 
+                • Chênh lệch TTXH: <span class="text-red-400 font-black">7</span>
+            </p>
+            <div class="mt-2 p-2 rounded-lg bg-rose-500/10 border border-rose-500/20 text-center text-xs font-black text-rose-500 animate-pulse uppercase">
+                🚨 Có phát sinh tử vong do tai nạn giao thông trên địa bàn xã
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5">
+            <div class="lg:col-span-7 glass-panel p-4 flex flex-col justify-between">
+                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">📊 Diễn biến tình hình an ninh trật tự (Số vụ việc)</h2>
+                <div class="w-full h-[240px] relative">
+                    <canvas id="crimeLineChart"></canvas>
+                </div>
+            </div>
+            <div class="lg:col-span-5 glass-panel p-4 flex flex-col justify-between">
+                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">🍕 Cơ cấu vụ việc chính hệ thống tiếp nhận</h2>
+                <div class="w-full h-[220px] relative flex justify-center">
+                    <canvas id="crimePieChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-5 font-['Inter'] text-xs">
+            <div class="glass-panel p-4 flex flex-col justify-between">
+                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3 border-b border-slate-700/40 pb-1.5">🔥 Phòng cháy chữa cháy</h2>
+                <div class="space-y-2 flex-grow flex flex-col justify-center">
+                    <div class="flex justify-between border-b border-slate-800 pb-1"><span class="text-dynamic-body font-medium">Tổng số vụ cháy</span><span class="font-bold text-dynamic-title">2 vụ</span></div>
+                    <div class="flex justify-between border-b border-slate-800 pb-1"><span class="text-dynamic-body font-medium">Thiệt hại về người</span><span class="font-bold text-emerald-400">0</span></div>
+                    <div class="flex justify-between border-b border-slate-800 pb-1"><span class="text-dynamic-body font-medium">Thiệt hại tài sản</span><span class="font-bold text-dynamic-title">70.000.000đ</span></div>
+                    <div class="flex justify-between"><span class="text-dynamic-body font-medium">Cháy nhà dân</span><span class="font-bold text-amber-400 italic">Đang theo dõi</span></div>
+                </div>
+            </div>
+            <div class="glass-panel p-4 flex flex-col justify-between">
+                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3 border-b border-slate-700/40 pb-1.5">🚗 Tai nạn giao thông cơ sở</h2>
+                <div class="space-y-1.5 flex-grow flex flex-col justify-center">
+                    <div class="flex justify-between border-b border-slate-800 pb-0.5"><span class="text-dynamic-body font-medium">Tổng số vụ tai nạn</span><span class="font-bold text-dynamic-title">4 vụ</span></div>
+                    <div class="flex justify-between border-b border-slate-800 pb-0.5"><span class="text-dynamic-body font-medium">Số người chết</span><span class="font-black text-rose-500">3 người</span></div>
+                    <div class="flex justify-between border-b border-slate-800 pb-0.5"><span class="text-dynamic-body font-medium">Số người bị thương</span><span class="font-bold text-dynamic-title">1 người</span></div>
+                    <div class="flex justify-between border-b border-slate-800 pb-0.5"><span class="text-dynamic-body text-[11px]">Va chạm xe máy</span><span class="text-dynamic-body">0 chết • 1 bị thương</span></div>
+                    <div class="flex justify-between border-b border-slate-800 pb-0.5"><span class="text-dynamic-body text-[11px]">Tai nạn xe Buýt + xe Máy</span><span class="text-rose-400 font-semibold">1 chết • 0 bị thương</span></div>
+                    <div class="flex justify-between"><span class="text-dynamic-body text-[11px]">Xe Container + Xe rác</span><span class="text-rose-400 font-semibold">1 chết • 0 bị thương</span></div>
+                </div>
+            </div>
+            <div class="glass-panel p-4 flex flex-col justify-between">
+                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3 border-b border-slate-700/40 pb-1.5">🚦 Điểm đen ùn tắc giao thông</h2>
+                <div class="space-y-2 flex-grow flex flex-col justify-center">
+                    <div class="flex border-b border-slate-800 pb-1 uppercase font-black text-dynamic-label text-[10px]"><span class="w-1/2">Điểm ùn tắc</span><span class="w-1/2 text-right">Khung giờ cao điểm</span></div>
+                    <div class="flex justify-between items-center"><span class="text-dynamic-title font-bold">Ngã tư Nguyễn Văn Linh – Nguyễn Hữu Thọ</span><span class="font-mono font-bold text-red-400 bg-red-500/10 px-2 py-0.5 rounded">07h - 08h sáng</span></div>
+                    <p class="text-[10px] text-dynamic-body italic mt-2 border-t border-slate-800 pt-2">Lực lượng CSGT và TNXP chốt trực liên tục phân luồng điều tiết tác vụ.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-stretch font-['Inter']">
+            <div class="lg:col-span-8 glass-panel p-4 text-xs space-y-2 leading-relaxed">
+                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label">💡 Nhật ký nhận định nhanh của ban chỉ huy Công an xã</h2>
+                <ul class="list-disc list-inside space-y-1.5 text-dynamic-body pl-1">
+                    <li>Tổng số vụ trật tự xã hội ghi nhận <span class="text-white font-bold">26 vụ</span>; biên độ chênh lệch tăng <span class="text-red-400 font-bold">7 vụ</span> so với kỳ trước.</li>
+                    <li>Tỷ lệ khám phá hiện đạt <span class="text-emerald-400 font-black">66.67%</span>; tổng số vụ khám phá thành công đấu tranh: <span class="text-white font-semibold">8 vụ</span>.</li>
+                    <li>Tội phạm về <span class="text-dynamic-title font-medium">Ma túy phát sinh 23 vụ</span>, lập hồ sơ quản lý chặt chẽ liên quan <span class="text-dynamic-title font-bold">53 đối tượng</span>.</li>
+                    <li>Phòng cháy chữa cháy xảy ra <span class="text-amber-400 font-bold">2 vụ</span>; kiểm soát tốt rủi ro, thiệt hại về người đạt mốc lý tưởng bằng <span class="text-emerald-400 font-bold">0</span>.</li>
+                    <li>TNGT xảy ra <span class="text-red-400 font-bold">4 vụ</span>, làm <span class="text-rose-500 font-black">3 người chết</span> và <span class="text-white font-semibold">1 người bị thương</span> (Cần khẩn cấp cắm biển cảnh báo).</li>
+                    <li>Trật tự đô thị xử lý quyết liệt ghi nhận <span class="text-white font-bold">119 vụ</span>; tổng số tiền phạt nộp ngân sách: <span class="text-cyan-400 font-mono font-bold">349.675.000đ</span>.</li>
+                </ul>
+            </div>
+            <div class="lg:col-span-4 glass-panel p-4 flex flex-col justify-between">
+                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-2">🎯 Chỉ số cảnh báo trọng tâm</h2>
+                <div class="grid grid-cols-2 gap-2 text-center text-[10px] font-bold">
+                    <div class="p-2 rounded-xl sub-card-white border"><span class="text-xl font-black text-sky-500 block">66.67%</span><span class="text-dynamic-body block mt-0.5">Tỷ lệ khám phá vụ án</span></div>
+                    <div class="p-2 rounded-xl sub-card-white border border-red-500/20 bg-red-500/5"><span class="text-xl font-black text-red-500 block">3</span><span class="text-red-400 block mt-0.5">Tử vong do TNGT</span></div>
+                    <div class="p-2 rounded-xl sub-card-white border"><span class="text-xl font-black text-amber-500 block">1</span><span class="text-dynamic-body block mt-0.5">Điểm vụ PCCC chi tiết</span></div>
+                    <div class="p-2 rounded-xl sub-card-white border border-amber-500/20 bg-amber-500/5"><span class="text-xl font-black text-amber-500 block">4</span><span class="text-amber-400 block mt-0.5">Điểm giao thông cần theo dõi</span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="glass-panel p-4 overflow-x-auto custom-scrollbar">
+            <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">🛡️ Bảng giám sát mục tiêu chỉ tiêu Quốc phòng – An ninh năm 2026</h2>
+            <table class="w-full text-left text-[11px] font-['Inter'] min-w-[1000px]">
+                <thead>
+                    <tr class="table-th font-black uppercase text-[10px] rounded-lg">
+                        <th class="p-3 text-center rounded-l-xl">STT</th>
+                        <th class="p-3">Nội dung chỉ tiêu kế hoạch</th>
+                        <th class="p-3 text-center">ĐVT</th>
+                        <th class="p-3 text-center">Chỉ tiêu năm</th>
+                        <th class="p-3 text-center">% Hoàn thành</th>
+                        <th class="p-3 text-center">Đánh giá</th>
+                        <th class="p-3 rounded-r-xl">Chú thích kết quả thực tế (Dữ liệu thực địa)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr class="table-tr border-b font-medium text-dynamic-body">
+                        <td class="p-3 text-center font-bold text-dynamic-title">33.1</td>
+                        <td class="p-3 font-semibold text-dynamic-title">Hoàn thành 100% chỉ tiêu tuyển quân NVQS & CAND</td>
+                        <td class="p-3 text-center">%</td>
+                        <td class="p-3 text-center font-mono">100</td>
+                        <td class="p-3 text-center font-mono font-bold">1.0</td>
+                        <td class="p-3 text-center"><span class="bg-emerald-500/20 text-emerald-400 text-[9px] font-black px-2 py-0.5 rounded border border-emerald-500/30 uppercase">Vượt</span></td>
+                        <td class="p-3 font-medium">Đã giao quân 54/54 công dân nhập ngũ ngày 04/3/2026</td>
+                    </tr>
+                    <tr class="table-tr border-b font-medium text-dynamic-body">
+                        <td class="p-3 text-center font-bold text-dynamic-title">33.2</td>
+                        <td class="p-3 font-semibold text-dynamic-title">Hoàn thành 100% chỉ tiêu huấn luyện dân quân</td>
+                        <td class="p-3 text-center">%</td>
+                        <td class="p-3 text-center font-mono">100</td>
+                        <td class="p-3 text-center font-mono font-bold">1.0</td>
+                        <td class="p-3 text-center"><span class="bg-sky-500/20 text-sky-400 text-[9px] font-black px-2 py-0.5 rounded border border-sky-500/30 uppercase">Đạt</span></td>
+                        <td class="p-3 font-medium">Hoàn tất kiểm tra điều động lực lượng đạt tỷ lệ 126/126 chiến sĩ</td>
+                    </tr>
+                    <tr class="table-tr border-b font-medium text-dynamic-body">
+                        <td class="p-3 text-center font-bold text-dynamic-title">34</td>
+                        <td class="p-3 font-semibold text-dynamic-title">Kiềm chế và kéo giảm ít nhất 10% số vụ tội phạm trật tự xã hội</td>
+                        <td class="p-3 text-center">%</td>
+                        <td class="p-3 text-center font-semibold">Giảm 10</td>
+                        <td class="p-3 text-center font-mono font-bold text-emerald-400">0.424</td>
+                        <td class="p-3 text-center"><span class="bg-emerald-500/20 text-emerald-400 text-[9px] font-black px-2 py-0.5 rounded border border-emerald-500/30 uppercase">Vượt</span></td>
+                        <td class="p-3 font-medium">Kéo giảm thành công 39 vụ tội phạm hình sự so với cùng kỳ năm ngoái</td>
+                    </tr>
+                    <tr class="table-tr border-b font-medium text-dynamic-body">
+                        <td class="p-3 text-center font-bold text-dynamic-title">35.1</td>
+                        <td class="p-3 font-semibold text-dynamic-title">Tỷ lệ điều tra phá án trật tự xã hội đạt trên 80%</td>
+                        <td class="p-3 text-center">%</td>
+                        <td class="p-3 text-center font-mono">80</td>
+                        <td class="p-3 text-center font-mono font-bold text-emerald-400">88.46%</td>
+                        <td class="p-3 text-center"><span class="bg-sky-500/20 text-sky-400 text-[9px] font-black px-2 py-0.5 rounded border border-sky-500/30 uppercase">Đạt</span></td>
+                        <td class="p-3 font-medium">Khám phá, bóc gỡ thành công phá án xong 23/26 vụ việc</td>
+                    </tr>
+                    <tr class="table-tr font-medium text-dynamic-body">
+                        <td class="p-3 text-center font-bold text-dynamic-title">35.2</td>
+                        <td class="p-3 font-semibold text-dynamic-title">Tỷ lệ phá án rất nghiêm trọng/đặc biệt nghiêm trọng trên 95%</td>
+                        <td class="p-3 text-center">%</td>
+                        <td class="p-3 text-center font-mono">95</td>
+                        <td class="p-3 text-center font-mono font-bold text-rose-400">0.4</td>
+                        <td class="p-3 text-center"><span class="bg-rose-500/20 text-rose-400 text-[9px] font-black px-2 py-0.5 rounded border border-rose-500/30 uppercase">Chậm</span></td>
+                        <td class="p-3 font-medium text-rose-400">Hiện mới điều tra phá án xong 02/05 vụ án thuộc diện nghiêm trọng</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <footer class="w-full text-center py-5 text-dynamic-label font-bold text-[10px] uppercase tracking-[0.3em] border-t border-slate-900 bg-slate-950/20 backdrop-blur-md">
+        &copy; 2026 IOC Xã Bình Hưng — Hệ thống điều hành chỉ số quốc phòng, quốc phòng an ninh và an toàn trật tự cơ sở
+    </footer>
+
+    <script>
+        let lineChartInstance = null;
+        let pieChartInstance = null;
+
+        // Hàm liên kết nạp dữ liệu bản vẽ đồ thị Chart.js
+        function renderSecurityCharts(textColor) {
+            if(lineChartInstance) lineChartInstance.destroy();
+            if(pieChartInstance) pieChartInstance.destroy();
+
+            // 1. Line Chart - Diễn biến an ninh trật tự (TTXH, Ma túy, TNGT)
+            const ctxLine = document.getElementById('crimeLineChart').getContext('2d');
+            lineChartInstance = new Chart(ctxLine, {
+                type: 'line',
+                data: {
+                    labels: ['TTXH', 'Ma túy', 'TNGT'],
+                    datasets: [{
+                        label: 'Số vụ việc',
+                        data: [26, 23, 4],
+                        borderColor: '#00f0ff',
+                        backgroundColor: 'rgba(0, 240, 255, 0.1)',
+                        borderWidth: 3,
+                        pointBackgroundColor: '#fbbf24',
+                        pointRadius: 5,
+                        tension: 0.3
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false, responsive: true,
+                    plugins: { legend: { display: false } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: textColor, font: { size: 9, weight: 'bold' } } },
+                        y: { max: 30, grid: { color: 'rgba(148, 163, 184, 0.1)' }, ticks: { color: textColor, font: { size: 9 } } }
+                    }
+                }
+            });
+
+            // 2. Pie Chart - Cơ cấu tỷ lệ các loại vụ việc chính tiếp nhận
+            const ctxPie = document.getElementById('crimePieChart').getContext('2d');
+            pieChartInstance = new Chart(ctxPie, {
+                type: 'doughnut',
+                data: {
+                    labels: ['TTXH (26 vụ)', 'PCCC (2 vụ)', 'TNGT (4 vụ)'],
+                    datasets: [{
+                        data: [26, 2, 4],
+                        backgroundColor: ['#00f0ff', '#ef4444', '#fbbf24'],
+                        borderWidth: 2,
+                        borderColor: 'rgba(30, 41, 59, 0.5)'
+                    }]
+                },
+                options: {
+                    maintainAspectRatio: false, responsive: true,
+                    cutout: '68%',
+                    plugins: { legend: { position: 'right', labels: { color: textColor, font: { size: 9, weight: 'bold' } } } }
+                }
+            });
+        }
+
+        // BỘ ĐIỀU HÀNH HOÁN ĐỔI THEME QUA LẠI CHỐNG KHUYẾT TẬT ĐÈ MÀU CHỮ
+        window.setTheme = function(themeName) {
+            const body = document.getElementById('body-context');
+            const btnLight = document.getElementById('btn-theme-light');
+            const btnDark = document.getElementById('btn-theme-dark');
+
+            if(themeName === 'light') {
+                body.classList.remove('dark-theme');
+                body.classList.add('light-theme');
+                
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-blue-900 text-sky-200 shadow-md border border-blue-700";
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-blue-900 hover:text-slate-800";
+                
+                // Đồng bộ nhãn chữ biểu đồ sang màu sẫm sắc nét
+                renderSecurityCharts('#031b4e');
+            } else {
+                body.classList.remove('light-theme');
+                body.classList.add('dark-theme');
+                
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border btn-switcher-active";
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-sky-400 hover:text-sky-300";
+                
+                // Đồng bộ nhãn chữ biểu đồ sang màu Neon sáng bừng
+                renderSecurityCharts('#00f0ff');
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", () => {
+            setTheme('dark'); // Khởi tạo mặc định giao diện nền tối chuyên dụng đặc thù vũ trang
+        });
+    </script>
+</body>
+</html>
