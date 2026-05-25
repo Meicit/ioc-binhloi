@@ -65,7 +65,7 @@
                     🔵 Nền trắng
                 </button>
                 <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border btn-switcher-active">
-                    🟠 Nền đen
+                    orange 🟠 Nền đen
                 </button>
             </div>
         </div>
@@ -281,6 +281,7 @@
             });
         }
 
+        // ĐÃ SỬA: Hàm cấu hình Engine đổi nền qua lại Trắng / Đen chạy ổn định, chính xác
         window.setTheme = function(themeName) {
             const body = document.getElementById('body-context');
             const btnLight = document.getElementById('btn-theme-light');
@@ -290,17 +291,17 @@
                 body.classList.remove('dark-theme');
                 body.classList.add('light-theme');
                 
-                // Cấu hình lại nút sang dạng không màu trắng
+                // Đồng bộ CSS công tắc
                 btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-blue-900 text-sky-200 shadow-md border border-blue-700";
-                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition text-slate-500 hover:text-slate-800";
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-dynamic-body hover:text-slate-800";
                 
                 if (currentRawSnapshot) renderCharts(currentRawSnapshot, '#031b4e');
             } else {
                 body.classList.remove('light-theme');
-                body.dark-theme || body.classList.add('dark-theme');
+                body.classList.add('dark-theme');
                 
-                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-sky-600 text-sky-100 shadow-sm border border-sky-400";
-                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition text-slate-400 hover:text-sky-400";
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border btn-switcher-active";
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-dynamic-body hover:text-sky-400";
                 
                 if (currentRawSnapshot) renderCharts(currentRawSnapshot, '#00f0ff');
             }
