@@ -19,8 +19,9 @@
         body.dark-theme .text-dynamic-label { color: #fbbf24; } /* Vàng hổ phách */
         body.dark-theme .glass-panel { background: rgba(15, 23, 42, 0.75); border-color: rgba(56, 189, 248, 0.2); }
         body.dark-theme .card-target-item { background: rgba(30, 41, 59, 0.7); border-color: rgba(56, 189, 248, 0.15); }
-        body.dark-theme .row-3d { background: rgba(30, 41, 59, 0.5); border-color: rgba(255,255,255,0.08); }
+        body.dark-theme .row-3d { background: rgba(30, 41, 59, 0.5); border-color: rgba(255, 255, 255, 0.08); }
         body.dark-theme .btn-switcher-active { background: #0369a1; color: #00f0ff; border-color: #00f0ff; }
+        body.dark-theme .kpi-box { background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%); border-color: #38bdf8; }
 
         /* QUẢN LÝ MÀU CHỮ NỔI BẬT CHO NỀN SÁNG (LIGHT THEME) - KHÔNG DÙNG TRẮNG / XÁM */
         body.light-theme {
@@ -35,6 +36,7 @@
         body.light-theme .card-target-item { background: #e2e8f0; border-color: rgba(11, 74, 143, 0.2); box-shadow: 0 4px 12px rgba(12, 74, 110, 0.05); }
         body.light-theme .row-3d { background: #ffffff; border-color: rgba(11, 74, 143, 0.2); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
         body.light-theme .btn-switcher-active { background: #0b4a8f; color: #bfdbfe; border-color: #0b4a8f; box-shadow: 0 2px 8px rgba(11, 74, 143, 0.2); }
+        body.light-theme .kpi-box { background: linear-gradient(135deg, #0b4a8f 0%, #1e3a8a 100%); border-color: #031b4e; }
 
         body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s, color 0.3s; }
         .container-wrapper { max-width: 1550px; margin: 30px auto; padding: 0 24px; width: 100%; }
@@ -69,7 +71,6 @@
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.3); border-radius: 10px; }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/@google/generative-ai@0.1.1/dist/index.umd.min.js"></script>
 </head>
 <body class="dark-theme custom-scrollbar" id="body-context">
 
@@ -88,6 +89,21 @@
                 </button>
             </div>
         </div>
+
+        <header class="glass-panel p-6 flex flex-col md:flex-row justify-between items-center gap-4">
+            <div class="text-center md:text-left">
+                <h1 class="text-xl md:text-2xl font-black uppercase tracking-wider text-dynamic-title">
+                    Hệ thống Giám sát & Quản trị Đầu tư công
+                </h1>
+                <p class="text-dynamic-label font-bold text-xs uppercase tracking-[0.15em] mt-1">
+                    UBND Xã Bình Hưng — Kế hoạch hành động chỉ huy giải ngân mục tiêu năm 2026
+                </p>
+            </div>
+            <div class="kpi-box px-6 py-3 rounded-2xl shadow-lg border text-center min-w-[160px]">
+                <span class="text-[10px] font-black text-dynamic-label uppercase block tracking-wider">Tổng tiến độ giải ngân</span>
+                <span id="tong_tien_do" class="text-2xl font-black text-emerald-400">0%</span>
+            </div>
+        </header>
 
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="glass-panel p-5 border-l-4 border-slate-700">
@@ -162,32 +178,6 @@
             </div>
         </div>
 
-        <div class="glass-panel p-6 border border-sky-500/20 bg-slate-900/40">
-            <div class="flex flex-col md:flex-row md:items-center justify-between border-b border-slate-700/60 pb-4 mb-4 gap-4">
-                <div class="flex items-center gap-3">
-                    <span class="text-2xl">🤖</span>
-                    <div>
-                        <h2 class="text-xs font-black text-dynamic-title uppercase tracking-wider font-['Montserrat']">Trợ lý Số điều hành i-Dashboard AI</h2>
-                        <p class="text-[10px] text-dynamic-label font-bold uppercase mt-0.5">Tự động phân tích & lập luận chuyên sâu hiệu quả sử dụng vốn</p>
-                    </div>
-                </div>
-                
-                <div class="flex items-center gap-2 max-w-md w-full md:w-auto font-['Inter']">
-                    <div class="relative w-full md:w-64">
-                        <input type="password" id="input_api_key" placeholder="Nhập Gemini API Key của bạn..." class="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-xs font-mono font-bold text-white focus:outline-none focus:border-sky-500 shadow-sm">
-                        <button id="btn_toggle_key" type="button" class="absolute right-3 top-2.5 text-xs text-slate-500 font-bold select-none hover:text-sky-400">👁️</button>
-                    </div>
-                    <button id="btn_submit_analysis" type="button" class="bg-gradient-to-r from-sky-600 to-blue-700 hover:from-sky-700 hover:to-blue-800 text-white font-bold text-xs uppercase tracking-wider px-4 py-2.5 rounded-xl shadow-md transition-all whitespace-nowrap">
-                        🔍 Phân tích số liệu
-                    </button>
-                </div>
-            </div>
-
-            <div id="ai-analysis-content" class="text-xs font-medium text-dynamic-body leading-relaxed text-justify space-y-2 font-['Inter']">
-                <p class="italic text-slate-500">Yêu cầu cán bộ nhập mã Gemini API Key hợp lệ và bấm nút "Phân tích số liệu" để tạo báo cáo đánh giá tự động dựa trên thời gian thực...</p>
-            </div>
-        </div>
-
     </div>
 
     <script type="module">
@@ -221,7 +211,6 @@
                 return cap > 0 ? parseFloat(((inv / cap) * 100).toFixed(1)) : 0;
             });
 
-            // Tách dữ liệu cơ cấu theo lĩnh vực để vẽ biểu đồ tròn
             const typeStats = {};
             projects.forEach(p => {
                 const cap = parseVNNumber(p.capital);
@@ -279,27 +268,17 @@
         onValue(dtcRef, (snap) => {
             const d = snap.val();
             if (d && d.projects) {
-                cachedDataForTheme = d; // Ghi dữ liệu vào bộ nhớ đệm
+                cachedDataForTheme = d;
                 document.getElementById('card_tong_du_an').innerText = d.tong_du_an || 0;
                 document.getElementById('card_von_giai_doan').innerText = d.von_giai_doan || 0;
                 document.getElementById('card_von_nam').innerText = d.von_nam || 0;
 
-                const computedProjects = [];
                 const container = document.getElementById('project-list-container');
                 
                 container.innerHTML = d.projects.map((p, i) => {
                     const totalCap = parseVNNumber(p.capital);
                     const invested = parseVNNumber(p.invested || 0);
                     const percentage = totalCap > 0 ? ((invested / totalCap) * 100).toFixed(1) : 0;
-
-                    computedProjects.push({
-                        name: p.name,
-                        type: p.type,
-                        capital: p.capital,
-                        invested: p.invested || '0',
-                        percentage: percentage + '%',
-                        status: p.status
-                    });
 
                     return `
                         <div class="row-container">
@@ -324,19 +303,12 @@
                     `;
                 }).join('');
 
-                window.globalCachedData = {
-                    tong_du_an: d.tong_du_an || 0,
-                    von_giai_doan: d.von_giai_doan || 0,
-                    von_nam: d.von_nam || 0,
-                    projects: computedProjects
-                };
-
                 const isLight = document.getElementById('body-context').classList.contains('light-theme');
                 drawCharts(d.projects, isLight ? '#031b4e' : '#00f0ff');
             }
         });
 
-        // Hàm xử lý hoán đổi giao diện hai luồng
+        // Hàm xử lý hoán đổi giao diện hai luồng - ĐÃ SỬA TOÀN DIỆN LỖI CHUYỂN NGƯỢC NỀN ĐEN
         window.setTheme = function(themeName) {
             const body = document.getElementById('body-context');
             const btnLight = document.getElementById('btn-theme-light');
@@ -360,57 +332,6 @@
                 if (cachedDataForTheme) drawCharts(cachedDataForTheme.projects, '#00f0ff');
             }
         }
-    </script>
-
-    <script>
-        document.getElementById('btn_toggle_key').addEventListener('click', function() {
-            var input = document.getElementById('input_api_key');
-            input.type = input.type === "password" ? "text" : "password";
-        });
-
-        document.getElementById('btn_submit_analysis').addEventListener('click', async function() {
-            var keyInp = document.getElementById('input_api_key').value.trim();
-            var aiViewElement = document.getElementById('ai-analysis-content');
-
-            if (!keyInp) {
-                alert("⚠️ Vui lòng cung cấp mã Gemini API Key hợp lệ trước!");
-                document.getElementById('input_api_key').focus();
-                return;
-            }
-            if (!window.globalCachedData) {
-                alert("⚠️ Dữ liệu hành chính chưa tải xong, vui lòng đợi vài giây!");
-                return;
-            }
-
-            aiViewElement.innerHTML = '<p class="italic text-sky-400 animate-pulse font-bold">🤖 Trợ lý số đang kết nối máy chủ Google AI để tính toán và lập luận báo cáo...</p>';
-
-            try {
-                var genAI = new window.GoogleGenerativeAI.GoogleGenAI({ apiKey: keyInp });
-                var aiModel = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
-
-                var promptContext = `
-                    Bạn là Trợ lý số điều hành thông minh (IOC) của Ủy ban nhân dân xã Bình Hưng, TP.HCM năm 2026.
-                    Hãy phân tích nhanh số liệu thống kê đầu tư công này và viết một đoạn đánh giá ngắn gọn từ 3-4 câu:
-                    - Tổng dự án: ${window.globalCachedData.tong_du_an}
-                    - Quy mô vốn giai đoạn: ${window.globalCachedData.von_giai_doan} tỷ VNĐ
-                    - Vốn giao năm 2026: ${window.globalCachedData.von_nam} tỷ VNĐ
-                    - Danh sách công trình: ${JSON.stringify(window.globalCachedData.projects)}
-
-                    Yêu cầu bài viết:
-                    1. Viết văn phong hành chính trang trọng, nghiêm túc.
-                    2. Chỉ ra dự án giải ngân tốt nhất và dự án có tiến độ thấp cần đốc thúc chỉ đạo để kịp mốc chỉ tiêu năm 2026.
-                    3. Tuyệt đối không dùng ký hiệu định dạng thô như các dấu sao (**) trong câu phản hồi.
-                `;
-
-                var aiResponse = await aiModel.generateContent(promptContext);
-                var resultText = aiResponse.response.text();
-                
-                aiViewElement.innerHTML = '<p class="text-slate-300 font-medium">' + resultText.replace(/\*\*/g, '') + '</p>';
-            } catch (error) {
-                console.error("Lỗi gọi API:", error);
-                aiViewElement.innerHTML = '<p class="text-red-400 font-bold">⚠️ Không thể phân tích: Hãy kiểm tra lại mã API Key bạn nhập đã chính xác chưa, hoặc kiểm tra kết nối mạng của cơ quan.</p>';
-            }
-        });
     </script>
 </body>
 </html>
