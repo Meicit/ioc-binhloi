@@ -1,18 +1,30 @@
 [
     {
         "id": 1,
+        "name": "Công an xã Bình Hưng",
+        "address": "517 Quốc lộ 50, xã Bình Hưng, Thành phố Hồ Chí Minh",
+        "map_embed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3787.3565024533737!2d106.65130244272974!3d10.729307562211403!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752e4101606c39%3A0x31b2ad35e751fbad!2zQ8O0bmcgQW4gWMOjIELDrG5oIEjGsG5n!5e1!3m2!1svi!2s!4v1780229677756!5m2!1svi!2s"
+    },
+    {
+        "id": 2,
+        "name": "Ban chỉ huy Quân sự xã Bình Hưng",
+        "address": "đường số 9, khu dân cư Phong Phú 4 ấp 57, xã Bình Hưng, Thành phố Hồ Chí Minh",
+        "map_embed": "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3787.825321908458!2d106.6453114!3d10.6918124!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTDCsDQxJzMwLjUiTiAxMDbCsDM4JzQzLjEiRQ!5e1!3m2!1svi!2s!4v1780228794414!5m2!1svi!2s"
+    },
+    {
+        "id": 3,
         "name": "Trạm Y tế xã Bình Hưng",
         "address": "Số 71A Đường số 1 Khu dân cư Bình Hưng, ấp 5, xã Bình Hưng, Thành phố Hồ Chí Minh",
         "map_embed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3787.391971060345!2d106.65146471043575!3d10.726475389375118!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752e40756c6c4b%3A0xb4942b842b20a3c5!2zVHLhuqFtIHkgdOG6vyB4w6MgQsOsbmggSMawbmc!5e1!3m2!1svi!2s!4v1779634618032!5m2!1svi!2s"
     },
     {
-        "id": 2,
+        "id": 4,
         "name": "Trung tâm Cung ứng dịch vụ công xã Bình Hưng",
         "address": "Đường số 19, Khu dân cư Phong Phú 4, ấp 57, xã Bình Hưng, Thành phố Hồ Chí Minh",
         "map_embed": "https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d946.9633707476441!2d106.64347892845119!3d10.689555999338136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMTDCsDQxJzIyLjQiTiAxMDbCsDM4JzM4LjkiRQ!5e1!3m2!1svi!2s!4v1779635652138!5m2!1svi!2s"
     },
     {
-        "id": 3,
+        "id": 5,
         "name": "Ban Quản lý dự án đầu tư xây dựng xã Bình Hưng",
         "address": "920 đường Văn Tiến Dũng, xã Bình Hưng, Thành phố Hồ Chí Minh",
  "map_embed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1726.7570578868156!2d106.6520057559323!3d10.685760304168747!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x317531ea78363101%3A0x920f93cb2aff38e6!2zOTIwIFbEg24gVGnhur9uIETFqW5nLCBCw6xuaCBIxrBuZywgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e1!3m2!1svi!2s!4v1779634064991!5m2!1svi!2s"
