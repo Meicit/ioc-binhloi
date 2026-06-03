@@ -3,230 +3,298 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Điều hành Thu Ngân Sách 2026 - Xã Bình Hưng</title>
+    <title>Trung tâm Giám sát Ngân sách Số — Xã Bình Hưng</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* QUẢN LÝ MÀU CHỮ NỔI BẬT KHÔNG DÙNG TRẮNG / XÁM CHO NỀN TỐI (DARK THEME) */
+        /* QUẢN LÝ MÀU CHỮ ĐỘNG NỀN TỐI (DARK THEME) - CHỐNG MẤT CHỮ */
         body.dark-theme {
             background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98)), url('../hinhnen.png');
             background-size: cover; background-position: center; background-attachment: fixed;
             color: #38bdf8;
         }
-        body.dark-theme .text-dynamic-title { color: #00f0ff; } /* Cyan Neon */
-        body.dark-theme .text-dynamic-body { color: #93c5fd; }  /* Xanh dương tươi */
-        body.dark-theme .text-dynamic-label { color: #fbbf24; } /* Vàng hổ phách */
+        body.dark-theme .text-dynamic-title { color: #00f0ff; }
+        body.dark-theme .text-dynamic-body { color: #93c5fd; }
+        body.dark-theme .text-dynamic-label { color: #fbbf24; }
         body.dark-theme .glass-panel { background: rgba(15, 23, 42, 0.75); border-color: rgba(56, 189, 248, 0.2); }
-        body.dark-theme .card-target-item { background: rgba(30, 41, 59, 0.7); border-color: rgba(56, 189, 248, 0.15); }
-        body.dark-theme .row-3d { background: rgba(30, 41, 59, 0.5); border-color: rgba(255, 255, 255, 0.08); }
+        body.dark-theme .table-row-item { background: rgba(30, 41, 59, 0.5); border-color: rgba(255, 255, 255, 0.08); }
         body.dark-theme .btn-switcher-active { background: #0369a1; color: #00f0ff; border-color: #00f0ff; }
         body.dark-theme .kpi-box { background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%); border-color: #38bdf8; }
 
-        /* QUẢN LÝ MÀU CHỮ NỔI BẬT KHÔNG DÙNG TRẮNG / XÁM CHO NỀN SÁNG (LIGHT THEME) */
+        /* QUẢN LÝ MÀU CHỮ ĐỘNG NỀN SÁNG (LIGHT THEME) - CHỐNG MẤT CHỮ */
         body.light-theme {
             background: linear-gradient(rgba(241, 245, 249, 0.9), rgba(241, 245, 249, 0.98)), url('../hinhnen.png');
             background-size: cover; background-position: center; background-attachment: fixed;
             color: #0b4a8f;
         }
-        body.light-theme .text-dynamic-title { color: #031b4e; } /* Xanh Navy siêu đậm */
-        body.light-theme .text-dynamic-body { color: #1e3a8a; }  /* Xanh indigo nguyên khối */
-        body.light-theme .text-dynamic-label { color: #b45309; } /* Cam đất đậm */
+        body.light-theme .text-dynamic-title { color: #031b4e; }
+        body.light-theme .text-dynamic-body { color: #1e3a8a; }
+        body.light-theme .text-dynamic-label { color: #b45309; }
         body.light-theme .glass-panel { background: rgba(226, 232, 240, 0.92); border-color: rgba(11, 74, 143, 0.3); box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.2); }
-        body.light-theme .card-target-item { background: #e2e8f0; border-color: rgba(11, 74, 143, 0.2); box-shadow: 0 4px 12px rgba(12, 74, 110, 0.05); }
-        body.light-theme .row-3d { background: #ffffff; border-color: rgba(11, 74, 143, 0.2); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
+        body.light-theme .table-row-item { background: #ffffff; border-color: rgba(11, 74, 143, 0.2); box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05); }
         body.light-theme .btn-switcher-active { background: #0b4a8f; color: #bfdbfe; border-color: #0b4a8f; box-shadow: 0 2px 8px rgba(11, 74, 143, 0.2); }
         body.light-theme .kpi-box { background: linear-gradient(135deg, #0b4a8f 0%, #1e3a8a 100%); border-color: #031b4e; }
 
         body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s, color 0.3s; }
         .container-wrapper { max-width: 1550px; margin: 30px auto; padding: 0 24px; width: 100%; }
-        .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4); transition: all 0.3s; }
-        .chart-container { position: relative; height: 280px; width: 100%; }
+        .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; transition: all 0.3s; }
+        .chart-container { position: relative; height: 260px; width: 100%; }
         
-        /* Cấu trúc cột cố định bảng thu ngân sách */
-        .grid-row { display: flex; align-items: center; width: 100%; padding: 14px 20px; position: relative; font-family: 'Inter', sans-serif; }
-        .col-stt { width: 5%; text-align: center; }
-        .col-source { width: 45%; text-align: left; padding-right: 10px; }
-        .col-plan { width: 18%; text-align: right; }
-        .col-actual { width: 18%; text-align: right; }
-        .col-rate { width: 14%; text-align: right; }
+        /* Định dạng phân bổ lưới bảng biểu */
+        .grid-table-layout { display: flex; align-items: center; width: 100%; padding: 12px 16px; font-family: 'Inter', sans-serif; }
+        .w-idx { width: 6%; text-align: center; }
+        .w-name { width: 50%; text-align: left; padding-right: 10px; }
+        .w-val1 { width: 22%; text-align: right; }
+        .w-val2 { width: 22%; text-align: right; }
 
-        /* Tiêu đề bảng màu tối nghiêm túc */
         .header-row { 
             background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
-            color: white; font-size: 11px; font-weight: 900; 
-            text-transform: uppercase; border-radius: 14px;
-            margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-            border: 1px solid rgba(255,255,255,0.05);
+            color: white; font-size: 11px; font-weight: 900; text-transform: uppercase; border-radius: 12px; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.05);
         }
-        
-        .row-container { margin-bottom: 8px; perspective: 1000px; }
-        .row-3d { position: relative; border: 1px solid; border-radius: 14px; overflow: hidden; transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1); }
-        .row-3d:hover { transform: translateY(-2px); border-color: #3b82f6; box-shadow: 0 8px 16px -5px rgba(59, 130, 246, 0.3); }
+        .table-row-item { border: 1px solid; border-radius: 12px; transition: all 0.2s ease; margin-bottom: 6px; }
+        .table-row-item:hover { transform: translateX(4px); border-color: #3b82f6; }
 
         .btn-back { display: inline-flex; align-items: center; gap: 8px; background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.3); color: inherit; padding: 12px 24px; border-radius: 14px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; }
         .btn-back:hover { transform: translateY(-2px); border-color: #ef4444; background: rgba(239, 68, 68, 0.1); }
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.3); border-radius: 10px; }
+        .tab-btn { border: 1px solid transparent; transition: all 0.25s ease; }
     </style>
 </head>
 <body class="dark-theme custom-scrollbar" id="body-context">
 
     <div class="container-wrapper space-y-6">
         
+        <!-- ĐIỀU HƯỚNG BAN ĐẦU -->
         <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
             <a href="../home.html" class="btn-back">⬅️ Quay lại Trang chủ</a>
             
             <div class="bg-slate-900 border border-slate-700 p-1 rounded-xl flex items-center shadow-md backdrop-blur">
                 <span class="text-[10px] font-black uppercase tracking-wider px-3 text-dynamic-label">Chế độ xem:</span>
-                <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-dynamic-body hover:text-sky-400">
-                    🔵 Nền trắng
-                </button>
-                <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border btn-switcher-active">
-                    🟠 Nền đen
-                </button>
+                <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition text-slate-400 hover:text-sky-400">🔵 Nền trắng</button>
+                <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition btn-switcher-active">🟠 Nền đen</button>
             </div>
         </div>
 
-        <header class="glass-panel p-6 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="text-center md:text-left">
-                <h1 class="text-xl md:text-2xl font-black uppercase tracking-wider text-dynamic-title">
-                    Dashboard Điều hành Thu Ngân Sách Nhà Nước
+        <!-- TIÊU ĐỀ ĐIỀU HÀNH -->
+        <header class="glass-panel p-6 flex flex-col lg:flex-row justify-between items-center gap-4">
+            <div class="text-center lg:text-left space-y-1">
+                <div class="flex items-center justify-center lg:justify-start gap-2 text-xs font-bold text-red-500 uppercase tracking-widest">
+                    <span>🏛️ QUYẾT ĐỊNH 4100/QĐ-UBND</span>
+                    <span class="px-2 py-0.5 rounded bg-red-500/10 border border-red-500/20 text-[10px]">CÔNG KHAI ĐIỀU CHỈNH</span>
+                </div>
+                <h1 class="text-lg md:text-xl font-black uppercase tracking-wider text-dynamic-title">
+                    Trung tâm Giám sát Điều hành Thu - Chi Ngân Sách Địa Phương
                 </h1>
-                <p class="text-dynamic-label font-bold text-xs uppercase tracking-[0.15em] mt-1">
-                    UBND Xã Bình Hưng — Số liệu tổng hợp đồng bộ thời gian thực năm 2026
+                <p class="text-dynamic-label font-bold text-xs uppercase tracking-[0.1em]">
+                    Hệ thống số hóa cân đối dự toán ngân sách Nhà nước Xã Bình Hưng năm 2025
                 </p>
             </div>
-            <div class="kpi-box px-6 py-3 rounded-2xl shadow-lg border text-center min-w-[180px]">
-                <span class="text-[10px] font-black text-dynamic-label uppercase block tracking-wider">Mốc Quý Hiện Hành</span>
-                <span class="text-2xl font-black text-amber-400">32.0%</span>
+            <div class="kpi-box px-6 py-3 rounded-2xl shadow-lg border text-center min-w-[210px]">
+                <span class="text-[9px] font-black text-dynamic-label uppercase block tracking-wider">Tổng dự toán thu - chi cân đối</span>
+                <span class="text-xl font-black text-emerald-400">377.103.000.000 <small class="text-[10px] font-bold">đ</small></span>
             </div>
         </header>
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-            <div class="glass-panel p-5 border-l-4 border-sky-500">
-                <p class="text-[10px] font-bold text-sky-400 uppercase tracking-wider">Thu NSNN Tháng Đang Xem</p>
-                <h3 class="text-xl font-black text-dynamic-title mt-1">381.200.457.046 <small class="text-[10px] text-dynamic-label block">đồng</small></h3>
+        <!-- BA THẺ CARD TỔNG HỢP THEO PHỤ LỤC BIỂU 108 -->
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <div class="glass-panel p-4.5 border-l-4 border-sky-500 flex flex-col justify-between">
+                <span class="text-[9px] font-black text-sky-400 uppercase tracking-wider">I. Thu xã hưởng 100% (Biểu 108)</span>
+                <h3 class="text-xl font-black text-dynamic-title mt-1">11.510.000.000 <small class="text-[10px] text-dynamic-label block font-medium">Đồng dự toán giao</small></h3>
             </div>
-            <div class="glass-panel p-5 border-l-4 border-indigo-500">
-                <p class="text-[10px] font-bold text-indigo-400 uppercase tracking-wider">Lũy kế Thu NSNN</p>
-                <h3 class="text-xl font-black text-dynamic-title mt-1">1.206.793.793.658 <small class="text-[10px] text-emerald-400 block">Đạt 34.9% / Kế hoạch</small></h3>
+            <div class="glass-panel p-4.5 border-l-4 border-amber-500 flex flex-col justify-between">
+                <span class="text-[9px] font-black text-amber-400 uppercase tracking-wider">II. Thu phân chia theo tỷ lệ (%)</span>
+                <h3 class="text-xl font-black text-dynamic-title mt-1">25.400.000.000 <small class="text-[10px] text-dynamic-label block font-medium">Đồng dự toán giao</small></h3>
             </div>
-            <div class="glass-panel p-5 border-l-4 border-emerald-500">
-                <p class="text-[10px] font-bold text-emerald-400 uppercase tracking-wider">Thu NS Địa Phương Tháng</p>
-                <h3 class="text-xl font-black text-dynamic-title mt-1">36.933.665.807 <small class="text-[10px] text-dynamic-label block">đồng</small></h3>
-            </div>
-            <div class="glass-panel p-5 border-l-4 border-purple-500">
-                <p class="text-[10px] font-bold text-purple-400 uppercase tracking-wider">Lũy kế NS Địa Phương</p>
-                <h3 class="text-xl font-black text-dynamic-title mt-1">42.6% <small class="text-[10px] text-emerald-400 block">Vượt mốc quý 10.6%</small></h3>
+            <div class="glass-panel p-4.5 border-l-4 border-purple-500 flex flex-col justify-between">
+                <span class="text-[9px] font-black text-purple-400 uppercase tracking-wider">III. Thu bổ sung từ cấp trên</span>
+                <h3 class="text-xl font-black text-dynamic-title mt-1">298.256.000.000 <small class="text-[10px] text-emerald-400 block font-bold">Cân đối: 255.982 Tỷ | Mục tiêu: 42.274 Tỷ</small></h3>
             </div>
         </div>
 
+        <!-- BẢN ĐỒ PHÂN TÍCH ĐỒ THỊ TRỰC QUAN -->
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
             <div class="lg:col-span-7 glass-panel p-5">
-                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">📊 Biểu đồ tiến độ thực hiện các nguồn Thu Ngân Sách (%)</h2>
+                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">📊 Biểu đồ cơ cấu phân bổ Dự toán chi thường xuyên (Biểu 110)</h2>
                 <div class="chart-container">
-                    <canvas id="revenueBarChart"></canvas>
+                    <canvas id="expenseBarChart"></canvas>
                 </div>
             </div>
             <div class="lg:col-span-5 glass-panel p-5 flex flex-col justify-between">
-                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">🍕 Cơ cấu các nguồn thu Ngân sách địa phương hưởng 100%</h2>
+                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">🍕 Tỷ trọng phân bổ nguồn lực nguồn thu ngân sách xã</h2>
                 <div class="chart-container flex justify-center">
-                    <canvas id="revenuePieChart"></canvas>
+                    <canvas id="revenueDoughnutChart"></canvas>
                 </div>
             </div>
         </div>
 
-        <div class="glass-panel p-5">
-            <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label mb-4">📝 Bảng thống kê chi tiết các nguồn thu ngân sách địa phương</h2>
-            <div class="w-full overflow-x-auto custom-scrollbar">
-                <div class="min-w-[1000px]">
-                    <div class="grid-row header-row">
-                        <div class="col-stt">STT</div>
-                        <div class="col-source text-left uppercase">Nội dung / Các khoản thu ngân sách</div>
-                        <div class="col-plan">Kế hoạch dự toán</div>
-                        <div class="col-actual">Thực hiện lũy kế</div>
-                        <div class="col-rate">Tỷ lệ tiến độ</div>
-                    </div>
-                    <div id="revenue-list-container" class="text-xs font-semibold"></div>
+        <!-- THANH CHUYỂN PHÂN HỆ PHỤ LỤC BIỂU MẪU ĐỘNG -->
+        <div class="glass-panel p-4 space-y-4">
+            <div class="flex border-b border-slate-700/40 pb-2 flex-wrap gap-2 text-[10px] font-black uppercase tracking-wider" id="tab-wrapper">
+                <button onclick="switchBudgetTab('tab-thu', this)" class="tab-btn px-4 py-2 rounded-xl bg-sky-600 text-white font-bold shadow-md">📋 BIỂU 109 - Chi tiết dự toán thu ngân sách</button>
+                <button onclick="switchBudgetTab('tab-chi', this)" class="tab-btn px-4 py-2 rounded-xl bg-slate-900/40 text-dynamic-body border border-slate-700/60 font-bold hover:border-sky-500">📋 BIỂU 110 - Chi tiết dự toán chi thường xuyên</button>
+            </div>
+
+            <!-- PHÂN HỆ TAB 1: DỰ TOÁN THU NGÂN SÁCH (BIỂU 109) -->
+            <div id="tab-thu" class="budget-tab-content font-['Inter'] text-xs">
+                <div class="grid-table-layout header-row">
+                    <div class="w-idx">STT</div>
+                    <div class="w-name">Nội dung danh mục các khoản thu ngân sách xã</div>
+                    <div class="w-val1">Thu NS Nhà Nước (đ)</div>
+                    <div class="w-val2">Thu Ngân Sách Xã (đ)</div>
+                </div>
+                <div id="thu-table-body" class="max-h-[400px] overflow-y-auto pr-1 custom-scrollbar font-semibold">
+                    <!-- Loaded via Realtime Loop -->
                 </div>
             </div>
-        </div>
 
-        <div class="glass-panel p-6 border border-sky-500/20 bg-gradient-to-r from-slate-900/50 to-sky-950/10">
-            <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label mb-3 flex items-center gap-2">💡 Trung tâm phân tích Ngân sách & Khuyến nghị điều hành tác vụ</h2>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 font-['Inter'] text-xs leading-relaxed">
-                <div class="insight-card p-4 rounded-xl border space-y-1">
-                    <h3 class="font-extrabold text-emerald-500 uppercase text-[11px]">🟢 Điểm sáng vượt tiến độ</h3>
-                    <p class="text-dynamic-body">Khoản thu về <span class="font-bold text-dynamic-title">Tiền sử dụng đất</span> bứt phá ngoạn mục đạt <span class="font-bold text-emerald-400">122,3%</span> so với kế hoạch dự toán hằng năm, trở thành trụ cột trợ lực lớn cho tổng thu ngân sách địa phương.</p>
+            <!-- PHÂN HỆ TAB 2: DỰ TOÁN CHI NGÂN SÁCH (BIỂU 110) -->
+            <div id="tab-chi" class="budget-tab-content hidden font-['Inter'] text-xs">
+                <div class="grid-table-layout header-row">
+                    <div class="w-idx">STT</div>
+                    <div class="w-name">Nội dung phân bổ nhiệm vụ chi thường xuyên</div>
+                    <div class="w-val1">Đầu tư phát triển (đ)</div>
+                    <div class="w-val2">Kinh phí thường xuyên (đ)</div>
                 </div>
-                <div class="insight-card p-4 rounded-xl border space-y-1">
-                    <h3 class="font-extrabold text-red-500 uppercase text-[11px]">🚨 Cảnh báo điểm nghẽn nguồn thu</h3>
-                    <p class="text-dynamic-body">Khoản thu <span class="font-bold text-red-400">Thuế thu nhập cá nhân</span> hiện tại đang có tiến độ rất thấp, chỉ mới đạt <span class="font-bold text-red-400">24,9%</span> lũy kế, tụt lại phía sau so với mốc tiến độ quý hiện hành (<span class="font-bold text-white">32,0%</span>).</p>
-                </div>
-                <div class="insight-card p-4 rounded-xl border space-y-1">
-                    <h3 class="font-extrabold text-sky-500 uppercase text-[11px]">🎯 Giải pháp điều hành chỉ đạo</h3>
-                    <p class="font-bold text-dynamic-title italic mb-1">Đề xuất Ban điều hành chỉ đạo chính sách:</p>
-                    <ul class="list-disc list-inside space-y-0.5 pl-0.5 text-dynamic-body">
-                        <li>Phối hợp với Chi cục Thuế tăng cường rà soát, đôn đốc chống thất thu khu vực kinh tế tư nhân và Thuế công thương nghiệp ngoài quốc doanh (hiện đạt <span class="font-bold text-amber-400">41,7%</span>).</li>
-                        <li>Tập trung giải ngân nguồn vốn bổ sung cải cách tiền lương (<span class="font-bold text-sky-400">16,97 tỷ</span>) theo đúng nghị quyết phân bổ ngân sách.</li>
-                    </ul>
+                <div id="chi-table-body" class="max-h-[400px] overflow-y-auto pr-1 custom-scrollbar font-semibold">
+                    <!-- Loaded via Realtime Loop -->
                 </div>
             </div>
         </div>
 
     </div>
 
-    <footer class="w-full text-center py-6 text-dynamic-label font-bold text-[10px] uppercase tracking-[0.3em] border-t border-slate-900 bg-slate-950/20 backdrop-blur-md">
-        &copy; 2026 IOC Xã Bình Hưng — Hệ thống điều hành số liệu và phân tích thu chi ngân sách trực tuyến
-    </footer>
+    <!-- ENGINE LIÊN THÔNG FIREBASE REALTIME CLOUD -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-    <script>
-        const mockRevenueData = [
-            { id: 1, source: "Thuế công thương nghiệp ngoài quốc doanh", plan: "1.761.740.000.000đ", actual: "734.646.619.176đ", rate: "41.7%", num_rate: 41.7, color: "bg-blue-500" },
-            { id: 2, source: "Thuế thu nhập cá nhân", plan: "1.044.700.000.000đ", actual: "260.147.401.942đ", rate: "24.9%", num_rate: 24.9, color: "bg-red-500" },
-            { id: 3, source: "Tiền sử dụng đất", plan: "73.220.000.000đ", actual: "89.558.712.788đ", rate: "122.3%", num_rate: 100, color: "bg-emerald-500" },
-            { id: 4, source: "Ngân sách địa phương hưởng 100% - Phí, lệ phí", plan: "421.840.000đ", actual: "179.307.500đ", rate: "42.5%", num_rate: 42.5, color: "bg-amber-500" },
-            { id: 5, source: "Bổ sung ngân sách từ cấp trên", plan: "25.530.000.000đ", actual: "10.876.000.000đ", rate: "42.6%", num_rate: 42.6, color: "bg-indigo-500" },
-            { id: 6, source: "Bổ sung cải cách tiền lương và mục tiêu", plan: "48.163.000.000đ", actual: "20.497.919.000đ", rate: "42.5%", num_rate: 42.5, color: "bg-purple-500" }
+        const firebaseConfig = { databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app" };
+        const db = getDatabase(initializeApp(firebaseConfig));
+        
+        // Trỏ trực tiếp vào hai nhánh node chuyên đề Thu - Chi ngân sách của xã
+        const thuNodeRef = ref(db, 'dashboard_binhhung/bieu_109_thu_2025');
+        const chiNodeRef = ref(db, 'dashboard_binhhung/bieu_110_chi_2025');
+
+        let barChartInstance = null;
+        let pieChartInstance = null;
+        let currentLabelColor = '#94a3b8';
+
+        // MẢNG DỮ LIỆU CỐ ĐỊNH PHÁP LÝ THEO BÁO CÁO PHỤ LỤC 4100/QĐ-UBND 
+        const databaseThu109 = [
+            {"stt": "I", "name": "CÁC KHOẢN THU XÃ HƯỞNG 100%", "nsnn": "46.170.000.000", "nsx": "2.290.000.000", "isHeader": true},
+            {"stt": "1", "name": "Phí, lệ phí hành chính công", "nsnn": "290.000.000", "nsx": "290.000.000", "isHeader": false},
+            {"stt": "3", "name": "Thu từ hoạt động kinh tế và sự nghiệp địa bàn", "nsnn": "43.880.000.000", "nsx": "0", "isHeader": false},
+            {"stt": "8", "name": "Các khoản thu khác ngân sách", "nsnn": "2.000.000.000", "nsx": "2.000.000.000", "isHeader": false},
+            {"stt": "II", "name": "CÁC KHOẢN THU PHÂN CHIA THEO TỶ LỆ PHẦN TRĂM (%)", "nsnn": "45.506.000.000", "nsx": "34.620.000.000", "isHeader": true},
+            {"stt": "1.1", "name": "Thuế sử dụng đất phi nông nghiệp", "nsnn": "8.300.000.000", "nsx": "8.300.000.000", "isHeader": false},
+            {"stt": "1.3", "name": "Lệ phí môn bài thu từ cá nhân, hộ kinh doanh", "nsnn": "920.000.000", "nsx": "920.000.000", "isHeader": false},
+            {"stt": "1.4", "name": "Lệ phí trước bạ nhà đất", "nsnn": "36.286.000.000", "nsx": "25.400.000.000", "isHeader": false},
+            {"stt": "IV", "name": "THU CHUYỂN NGUỒN CÂN ĐỐI", "nsnn": "0", "nsx": "41.937.000.000", "isHeader": true},
+            {"stt": "VI", "name": "THU BỔ SUNG TỪ NGÂN SÁCH CẤP TRÊN", "nsnn": "0", "nsx": "298.256.000.000", "isHeader": true},
+            {"stt": "1", "name": "- Bổ sung cân đối ngân sách địa phương", "nsnn": "0", "nsx": "255.982.000.000", "isHeader": false},
+            {"stt": "2", "name": "- Bổ sung có mục tiêu phục vụ nhiệm vụ", "nsnn": "0", "nsx": "42.274.000.000", "isHeader": false}
         ];
 
-        let barChart = null;
-        let pieChart = null;
+        const databaseChi110 = [
+            {"stt": "1", "name": "Chi sự nghiệp giáo dục, đào tạo và dạy nghề", "investment": "0", "regular": "218.858.000.000"},
+            {"stt": "3", "name": "Chi sự nghiệp y tế, chăm sóc sức khỏe", "investment": "0", "regular": "16.652.252.000"},
+            {"stt": "4", "name": "Chi sự nghiệp văn hóa, thông tin tuyên truyền", "investment": "0", "regular": "190.000.000"},
+            {"stt": "5", "name": "Chi sự nghiệp phát thanh, truyền hình cơ sở", "investment": "0", "regular": "3.147.000.000"},
+            {"stt": "6", "name": "Chi sự nghiệp thể dục thể thao địa phương", "investment": "0", "regular": "150.000.000"},
+            {"stt": "7", "name": "Chi bảo vệ môi trường, thu gom xử lý rác", "investment": "0", "regular": "78.789.592.000"},
+            {"stt": "8", "name": "Chi các hoạt động phát triển kinh tế", "investment": "0", "regular": "269.000.000"},
+            {"stt": "9", "name": "Chi hoạt động quản lý nhà nước, Đảng, đoàn thể", "investment": "0", "regular": "78.789.592.000"},
+            {"stt": "10", "name": "Chi đảm bảo an sinh công tác xã hội", "investment": "0", "regular": "19.935.156.000"},
+            {"stt": "11", "name": "Chi quốc phòng, quân sự và an ninh cơ sở", "investment": "0", "regular": "22.786.000.000"},
+            {"stt": "12", "name": "Các khoản chi khác ngân sách", "investment": "0", "regular": "1.822.000.000"},
+            {"stt": "13", "name": "Kinh phí dự phòng ngân sách xã", "investment": "0", "regular": "14.504.000.000"}
+        ];
 
-        function renderCharts(textColor) {
-            if(barChart) barChart.destroy();
-            if(pieChart) pieChart.destroy();
+        // KHỞI ĐỘNG LIÊN THÔNG DỮ LIỆU LÊN MÀN HÌNH CHỈ HUY
+        document.addEventListener("DOMContentLoaded", () => {
+            renderTableThu();
+            renderTableChi();
+            setTheme('dark');
+        });
 
-            const ctxBar = document.getElementById('revenueBarChart').getContext('2d');
-            barChart = new Chart(ctxBar, {
+        function renderTableThu() {
+            const container = document.getElementById('thu-table-body');
+            container.innerHTML = databaseThu109.map(item => `
+                <div class="table-row-item ${item.isHeader ? 'bg-sky-950/20 border-sky-500/30' : 'table-row-item'}">
+                    <div class="grid-table-layout">
+                        <div class="w-idx font-black text-dynamic-label">${item.stt}</div>
+                        <div class="w-name truncate ${item.isHeader ? 'text-dynamic-title font-black' : 'text-dynamic-body font-bold'}">${item.name}</div>
+                        <div class="w-val1 font-mono text-dynamic-title text-right">${item.nsnn}</div>
+                        <div class="w-val2 font-mono text-emerald-400 text-right">${item.nsx}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderTableChi() {
+            const container = document.getElementById('chi-table-body');
+            container.innerHTML = databaseChi110.map(item => `
+                <div class="table-row-item">
+                    <div class="grid-table-layout">
+                        <div class="w-idx font-black text-dynamic-label">${item.stt}</div>
+                        <div class="w-name truncate text-dynamic-body font-bold">${item.name}</div>
+                        <div class="w-val1 font-mono text-slate-400 text-right">${item.investment}</div>
+                        <div class="w-val2 font-mono text-red-400 text-right">${item.regular}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.switchBudgetTab = function(tabId, btnElement) {
+            document.querySelectorAll('.budget-tab-content').forEach(c => c.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+
+            for(let btn of document.getElementById('tab-wrapper').children) {
+                btn.className = "tab-btn px-4 py-2 rounded-xl bg-slate-900/40 text-dynamic-body border border-slate-700/60 font-bold hover:border-sky-500";
+            }
+            btnElement.className = "tab-btn px-4 py-2 rounded-xl bg-sky-600 text-white font-bold shadow-md";
+        }
+
+        window.renderChartsEngine = function(textColor) {
+            if(barChartInstance) barChartInstance.destroy();
+            if(pieChartInstance) pieChartInstance.destroy();
+
+            // 1. Đồ thị Cột nhóm nhiệm vụ Chi ngân sách lớn (Đơn vị tính quy chuẩn về Tỷ đồng)
+            const ctxBar = document.getElementById('expenseBarChart').getContext('2d');
+            barChartInstance = new Chart(ctxBar, {
                 type: 'bar',
                 data: {
-                    labels: ['Công thương nghiệp', 'Thu nhập cá nhân', 'Tiền sử dụng đất', 'Phí, lệ phí', 'Cấp trên bổ sung', 'Vốn mục tiêu'],
-                    datasets: [
-                        { label: 'Mốc tiến độ Quý (%)', data: [32, 32, 32, 32, 32, 32], backgroundColor: 'rgba(245, 158, 11, 0.2)', borderColor: '#f59e0b', borderWidth: 1, type: 'line' },
-                        { label: 'Tiến độ thực tế đạt được (%)', data: [41.7, 24.9, 122.3, 42.5, 42.6, 42.5], backgroundColor: ['#2563eb', '#dc2626', '#10b981', '#fbbf24', '#6366f1', '#a855f7'], borderRadius: 6 }
-                    ]
+                    labels: ['Giáo dục', 'Y tế', 'Môi trường', 'Quản lý NN', 'An sinh XH', 'An ninh QP', 'Dự phòng'],
+                    datasets: [{
+                        label: 'Giá trị dự toán phân bổ (Tỷ đồng)',
+                        data: [218.8, 16.6, 78.7, 78.7, 19.9, 22.7, 14.5],
+                        backgroundColor: ['#2563eb', '#10b981', '#d97706', '#8b5cf6', '#ec4899', '#f43f5e', '#64748b'],
+                        borderRadius: 6,
+                        barThickness: 32
+                    }]
                 },
                 options: {
                     maintainAspectRatio: false,
                     responsive: true,
-                    plugins: { legend: { labels: { color: textColor, font: { weight: 'bold', size: 10 } } } },
+                    plugins: { legend: { display: false } },
                     scales: {
-                        x: { grid: { display: false }, ticks: { color: textColor, font: { size: 9, weight: 'bold' } } },
-                        y: { max: 140, grid: { color: 'rgba(148, 163, 184, 0.1)' }, ticks: { color: textColor, font: { size: 9 } } }
+                        x: { grid: { display: false }, ticks: { color: textColor, font: { weight: 'bold', size: 9 } } },
+                        y: { grid: { color: 'rgba(148, 163, 184, 0.1)' }, ticks: { color: textColor, font: { size: 9 } } }
                     }
                 }
             });
 
-            const ctxPie = document.getElementById('revenuePieChart').getContext('2d');
-            pieChart = new Chart(ctxPie, {
+            // 2. Đồ thị cơ cấu tròn tỷ trọng các nguồn thu Ngân sách Xã hưởng lợi
+            const ctxPie = document.getElementById('revenueDoughnutChart').getContext('2d');
+            pieChartInstance = new Chart(ctxPie, {
                 type: 'doughnut',
                 data: {
-                    labels: ['Lệ phí trước bạ nhà đất', 'Lệ phí trước bạ khác', 'Phí, lệ phí Một cửa', 'Thu khác ngân sách'],
+                    labels: ['Thu xã 100%', 'Thu điều tiết tỷ lệ', 'Cấp trên bổ sung', 'Chuyển nguồn'],
                     datasets: [{
-                        data: [4284265905, 419467740, 179307500, 676705662],
-                        backgroundColor: ['#10b981', '#3b82f6', '#f59e0b', '#64748b'],
+                        data: [11510000000, 25400000000, 298256000000, 41937000000],
+                        backgroundColor: ['#3b82f6', '#fbbf24', '#10b981', '#a855f7'],
                         borderWidth: 2,
                         borderColor: 'rgba(30, 41, 59, 0.5)'
                     }]
@@ -240,53 +308,24 @@
             });
         }
 
-        function renderTable() {
-            const container = document.getElementById('revenue-list-container');
-            container.innerHTML = mockRevenueData.map((item, index) => `
-                <div class="row-container">
-                    <div class="row-3d">
-                        <div class="grid-row">
-                            <div class="col-stt font-black text-slate-400">${index + 1}</div>
-                            <div class="col-source font-bold text-dynamic-title">${item.source}</div>
-                            <div class="col-plan text-dynamic-body font-mono">${item.plan}</div>
-                            <div class="col-actual text-sky-500 font-mono">${item.actual}</div>
-                            <div class="col-rate flex items-center justify-end gap-3">
-                                <div class="w-24 bg-slate-800/40 h-2 rounded-full overflow-hidden border border-slate-700/40 hidden sm:block">
-                                    <div class="${item.color} h-full rounded-full" style="width: ${item.num_rate}%"></div>
-                                </div>
-                                <span class="bg-slate-900 border border-slate-700 text-slate-200 px-2 py-0.5 rounded-md font-mono text-[10px] font-bold">${item.rate}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // ĐỒNG BỘ FIX LỖI 100%: Engine hoán đổi Theme sáng tối mượt mà không bị lỡ dòng
         window.setTheme = function(themeName) {
             const body = document.getElementById('body-context');
             const btnLight = document.getElementById('btn-theme-light');
             const btnDark = document.getElementById('btn-theme-dark');
 
             if(themeName === 'light') {
-                body.classList.remove('dark-theme');
-                body.classList.add('light-theme');
+                body.classList.remove('dark-theme'); body.classList.add('light-theme');
                 btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-blue-900 text-sky-200 shadow-md border border-blue-700";
                 btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-blue-900 hover:text-slate-800";
-                renderCharts('#031b4e');
+                currentLabelColor = '#031b4e';
             } else {
-                body.classList.remove('light-theme');
-                body.classList.add('dark-theme');
+                body.classList.remove('light-theme'); body.classList.add('dark-theme');
                 btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border btn-switcher-active";
                 btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-sky-400 hover:text-sky-300";
-                renderCharts('#00f0ff');
+                currentLabelColor = '#00f0ff';
             }
+            renderChartsEngine(currentLabelColor);
         }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            renderTable();
-            setTheme('dark');
-        });
     </script>
 </body>
 </html>
