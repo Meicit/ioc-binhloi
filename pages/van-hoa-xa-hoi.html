@@ -44,7 +44,7 @@
         .container-wrapper { max-width: 1600px; margin: 25px auto; padding: 0 20px; width: 100%; }
         .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; transition: all 0.3s; }
         .card-stat-item { border: 1px solid; border-radius: 16px; padding: 16px; transition: all 0.25s; }
-        .tab-menu-item { padding: 10px 20px; font-size: 12px; font-weight: 800; border-radius: 12px; border: 1px solid; transition: all 0.2s; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.03em; }
+        .tab-menu-item { padding: 10px 20px; font-size: 12px; font-weight: 800; border-radius: 12px; border: 1px solid; transition: all 0.2s; white-space: nowrap; text-transform: uppercase; letter-spacing: 0.03em; cursor: pointer; }
         .tab-menu-item.active { background: #0ea5e9 !important; color: #ffffff !important; border-color: #0ea5e9 !important; box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4); }
         .custom-scrollbar::-webkit-scrollbar { width: 5px; height: 5px; }
         .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
@@ -56,7 +56,7 @@
     <div class="container-wrapper space-y-5">
         
         <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <a href="../home.html" class="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs uppercase px-5 py-3 rounded-xl border border-slate-700 transition">⬅️ Quay lại Trang chủ</a>
+            <a href="home.html" class="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs uppercase px-5 py-3 rounded-xl border border-slate-700 transition">⬅️ Quay lại Trang chủ</a>
             <div class="bg-slate-900 border border-slate-700 p-1 rounded-xl flex items-center shadow-md backdrop-blur">
                 <span class="text-[10px] font-black uppercase tracking-wider px-3 text-dynamic-label">Chế độ xem:</span>
                 <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-400 hover:text-sky-400">🔵 Nền trắng</button>
@@ -69,7 +69,7 @@
                 <div class="h-12 w-12 flex items-center justify-center bg-white rounded-xl p-1 shadow-md"><img src="../logo.png" alt="Logo" class="h-10 w-auto object-contain"></div>
                 <div>
                     <h1 class="text-base md:text-lg font-black uppercase text-dynamic-title leading-tight">Trung Tâm Giám Sát Điều Hành Dữ Liệu Văn Hóa – Xã Hội</h1>
-                    <p class="text-dynamic-label font-bold text-[10px] uppercase mt-0.5">Xã Bình Hưng • Kênh thông tin điều hành 5 lĩnh vực nghiệp vụ chuyên sâu kết nối Firebase Cloud</p>
+                    <p class="text-dynamic-label font-bold text-[10px] uppercase mt-0.5">Xã Bình Hưng • Liên thông tích hợp đồng bộ 5 nhóm chỉ số chuyên ngành thời gian thực</p>
                 </div>
             </div>
             <div id="realtime_clock" class="text-right font-mono text-[11px] font-bold text-dynamic-body">⏳ Đang đồng bộ...</div>
@@ -83,27 +83,27 @@
             <button onclick="switchModuleTab('panel_ton_giao', this)" class="tab-menu-item">🕌 5. Tôn giáo - Dân tộc - Đoàn thể</button>
         </nav>
 
-        <!-- ================= PHÂN KHU GIAO DIỆN 1: LAO ĐỘNG – AN SINH XH ================= -->
+        <!-- ================= PHÂN HỆ 1: LAO ĐỘNG – AN SINH XH ================= -->
         <div id="panel_lao_dong" class="module-tab-content space-y-5">
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <div class="card-stat-item border-l-4 border-red-600">
                     <span class="text-[10px] font-black text-dynamic-label uppercase block">Chính sách người có công</span>
-                    <span id="ld_nguoi_co_cong" class="text-xl font-black text-dynamic-title block mt-1">⏳...</span>
+                    <span id="ld_nguoi_co_cong" class="text-xl font-black text-dynamic-title block mt-1">-- người</span>
                     <span class="text-[9px] text-dynamic-body block mt-0.5">Thương binh, bệnh binh, thân nhân liệt sĩ</span>
                 </div>
                 <div class="card-stat-item border-l-4 border-amber-500">
                     <span class="text-[10px] font-black text-dynamic-label uppercase block">Bảo trợ xã hội hằng tháng</span>
-                    <span id="ld_bao_tro" class="text-xl font-black text-dynamic-title block mt-1">⏳...</span>
+                    <span id="ld_bao_tro" class="text-xl font-black text-dynamic-title block mt-1">-- đối tượng</span>
                     <span class="text-[9px] text-dynamic-body block mt-0.5">Người cao tuổi, khuyết tật, mồ côi</span>
                 </div>
                 <div class="card-stat-item border-l-4 border-emerald-500">
                     <span class="text-[10px] font-black text-dynamic-label uppercase block">Chuẩn nghèo đa chiều</span>
-                    <span id="ld_ho_nghèo" class="text-xl font-black text-dynamic-title block mt-1">⏳...</span>
+                    <span id="ld_ho_nghèo" class="text-xl font-black text-dynamic-title block mt-1">-- hộ nghèo</span>
                     <span class="text-[9px] text-emerald-500 font-bold block mt-0.5">Giữ vững mục tiêu xóa nghèo địa phương</span>
                 </div>
                 <div class="card-stat-item border-l-4 border-indigo-500">
                     <span class="text-[10px] font-black text-dynamic-label uppercase block">Lao động qua đào tạo</span>
-                    <span id="ld_qua_dao_tao" class="text-xl font-black text-dynamic-title block mt-1">⏳...</span>
+                    <span id="ld_qua_dao_tao" class="text-xl font-black text-dynamic-title block mt-1">-- %</span>
                     <span class="text-[9px] text-dynamic-body block mt-0.5">Tỷ lệ dịch chuyển sang phi nông nghiệp</span>
                 </div>
             </div>
@@ -115,34 +115,32 @@
                 </div>
                 <div class="lg:col-span-6 glass-panel p-5 overflow-x-auto custom-scrollbar">
                     <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">📝 Nhật ký rà soát việc làm & Nghèo đa chiều</h2>
-                    <div id="table_lao_dong" class="space-y-2 text-[11px] font-['Inter'] font-semibold">
-                        <div class="text-center py-6 text-slate-500">⏳ Đang tải nhật ký lao động từ đám mây...</div>
-                    </div>
+                    <div id="table_lao_dong" class="space-y-2 text-[11px] font-['Inter'] font-semibold"></div>
                 </div>
             </div>
         </div>
 
-        <!-- ================= PHÂN KHU GIAO DIỆN 2: VĂN HÓA – THỂ THAO – DL ================= -->
+        <!-- ================= PHÂN HỆ 2: VĂN HÓA – THỂ THAO – DL ================= -->
         <div id="panel_van_hoa" class="module-tab-content hidden space-y-5">
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <div class="card-stat-item border-l-4 border-sky-500">
                     <span class="text-[10px] font-black text-dynamic-label uppercase block">Gia đình văn hóa</span>
-                    <span id="vh_gia_dinh_rate" class="text-xl font-black text-dynamic-title block mt-1">⏳...</span>
-                    <span id="vh_gia_dinh_sub" class="text-[9px] text-dynamic-body block mt-0.5">⏳...</span>
+                    <span id="vh_gia_dinh_rate" class="text-xl font-black text-dynamic-title block mt-1">-- %</span>
+                    <span id="vh_gia_dinh_sub" class="text-[9px] text-dynamic-body block mt-0.5">-- hộ đạt chuẩn</span>
                 </div>
                 <div class="card-stat-item border-l-4 border-purple-500">
                     <span class="text-[10px] font-black text-dynamic-label uppercase block">Ấp văn hóa đạt chuẩn</span>
-                    <span id="vh_ap_rate" class="text-xl font-black text-dynamic-title block mt-1">⏳...</span>
-                    <span id="vh_ap_sub" class="text-[9px] text-dynamic-body block mt-0.5">⏳...</span>
+                    <span id="vh_ap_rate" class="text-xl font-black text-dynamic-title block mt-1">-- %</span>
+                    <span id="vh_ap_sub" class="text-[9px] text-dynamic-body block mt-0.5">-- / 70 ấp đạt danh hiệu</span>
                 </div>
                 <div class="card-stat-item border-l-4 border-amber-500">
                     <span class="text-[10px] font-black text-dynamic-label uppercase block">Thiết chế hạ tầng thể thao</span>
-                    <span id="vh_san_the_thao" class="text-xl font-black text-dynamic-title block mt-1">⏳...</span>
+                    <span id="vh_san_the_thao" class="text-xl font-black text-dynamic-title block mt-1">-- cơ sở</span>
                     <span class="text-[9px] text-dynamic-body block mt-0.5">Hệ thống sân bãi công cộng và tư nhân</span>
                 </div>
                 <div class="card-stat-item border-l-4 border-red-500">
                     <span class="text-[10px] font-black text-red-400 uppercase block">Cơ sở kinh doanh nhạy cảm</span>
-                    <span id="vh_nhay_cam" class="text-xl font-black text-red-500 block mt-1">⏳...</span>
+                    <span id="vh_nhay_cam" class="text-xl font-black text-red-500 block mt-1">-- cơ sở</span>
                     <span class="text-[9px] text-red-400 font-bold block mt-0.5">Karaoke, internet, điểm kinh doanh có điều kiện</span>
                 </div>
             </div>
@@ -154,9 +152,7 @@
                 </div>
                 <div class="lg:col-span-5 glass-panel p-5 overflow-x-auto custom-scrollbar">
                     <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">📝 Nhật ký quản lý kiểm tra phong trào</h2>
-                    <div id="table_van_hoa" class="space-y-2 text-[11px] font-['Inter'] font-semibold">
-                        <div class="text-center py-6 text-slate-500">⏳ Đang tải nhật ký văn hóa từ đám mây...</div>
-                    </div>
+                    <div id="table_van_hoa" class="space-y-2 text-[11px] font-['Inter'] font-semibold"></div>
                 </div>
             </div>
         </div>
@@ -166,22 +162,22 @@
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <div class="card-stat-item border-l-4 border-teal-500">
                     <span class="text-[10px] font-black text-dynamic-label uppercase block">Bao phủ BHYT toàn dân</span>
-                    <span id="yt_bhyt_rate" class="text-xl font-black text-dynamic-title block mt-1">⏳...</span>
+                    <span id="yt_bhyt_rate" class="text-xl font-black text-dynamic-title block mt-1">-- %</span>
                     <span class="text-[9px] text-dynamic-body block mt-0.5">Đã cấp thẻ miễn phí cho đối tượng chính sách</span>
                 </div>
                 <div class="card-stat-item border-l-4 border-emerald-500">
                     <span class="text-[10px] font-black text-dynamic-label uppercase block">Tiêm chủng mở rộng trẻ em</span>
-                    <span id="yt_tiem_chung" class="text-xl font-black text-dynamic-title block mt-1">⏳...</span>
+                    <span id="yt_tiem_chung" class="text-xl font-black text-dynamic-title block mt-1">-- %</span>
                     <span class="text-[9px] text-dynamic-body block mt-0.5">Trẻ dưới 1 tuổi và phụ nữ mang thai</span>
                 </div>
                 <div class="card-stat-item border-l-4 border-orange-500">
                     <span class="text-[10px] font-black text-dynamic-label uppercase block">Sinh con thứ 3 trở lên</span>
-                    <span id="yt_sinh_con_3" class="text-xl font-black text-dynamic-title block mt-1">⏳...</span>
+                    <span id="yt_sinh_con_3" class="text-xl font-black text-dynamic-title block mt-1">-- trẻ</span>
                     <span class="text-[9px] text-dynamic-body block mt-0.5">Chỉ số biến động gia tăng dân số tự nhiên</span>
                 </div>
                 <div class="card-stat-item border-l-4 border-red-500">
                     <span class="text-[10px] font-black text-red-400 uppercase block">Dịch bệnh truyền nhiễm</span>
-                    <span id="yt_dich_benh" class="text-xl font-black text-red-500 block mt-1">⏳...</span>
+                    <span id="yt_dich_benh" class="text-xl font-black text-red-500 block mt-1">-- ca mắc</span>
                     <span class="text-[9px] text-red-400 font-bold block mt-0.5">Số ca Sốt xuất huyết, Tay chân miệng</span>
                 </div>
             </div>
@@ -193,9 +189,7 @@
                 </div>
                 <div class="lg:col-span-6 glass-panel p-5 overflow-x-auto custom-scrollbar">
                     <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">📝 Báo cáo biến động dân số tự nhiên & Y tế dự phòng</h2>
-                    <div id="table_y_te" class="space-y-2 text-[11px] font-['Inter'] font-semibold">
-                        <div class="text-center py-6 text-slate-500">⏳ Đang tải báo cáo y tế dân số từ đám mây...</div>
-                    </div>
+                    <div id="table_y_te" class="space-y-2 text-[11px] font-['Inter'] font-semibold"></div>
                 </div>
             </div>
         </div>
@@ -205,22 +199,22 @@
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <div class="card-stat-item border-l-4 border-blue-600">
                     <span class="text-[10px] font-black text-dynamic-label uppercase block">Mạng lưới Trường học</span>
-                    <span id="gd_tong_truong" class="text-xl font-black text-dynamic-title block mt-1">⏳...</span>
-                    <span id="gd_truong_sub" class="text-[9px] text-dynamic-body block mt-0.5">⏳...</span>
+                    <span id="gd_tong_truong" class="text-xl font-black text-dynamic-title block mt-1">-- trường</span>
+                    <span id="gd_truong_sub" class="text-[9px] text-dynamic-body block mt-0.5">-- công lập | -- tư thục</span>
                 </div>
                 <div class="card-stat-item border-l-4 border-emerald-500">
                     <span class="text-[10px] font-black text-dynamic-label uppercase block">Trường đạt chuẩn Quốc gia</span>
-                    <span id="gd_dat_chuan_rate" class="text-xl font-black text-dynamic-title block mt-1">⏳...</span>
+                    <span id="gd_dat_chuan_rate" class="text-xl font-black text-dynamic-title block mt-1">-- %</span>
                     <span class="text-[9px] text-dynamic-body block mt-0.5">Tiến độ nâng cấp cơ sở vật chất</span>
                 </div>
                 <div class="card-stat-item border-l-4 border-amber-500">
                     <span class="text-[10px] font-black text-dynamic-label uppercase block">Phổ cập giáo dục đúng tuổi</span>
-                    <span id="gd_pho_cap_rate" class="text-xl font-black text-dynamic-title block mt-1">⏳...</span>
+                    <span id="gd_pho_cap_rate" class="text-xl font-black text-dynamic-title block mt-1">-- %</span>
                     <span class="text-[9px] text-dynamic-body block mt-0.5">Trẻ ra lớp Mầm non, Tiểu học, THCS</span>
                 </div>
                 <div class="card-stat-item border-l-4 border-purple-500">
                     <span class="text-[10px] font-black text-dynamic-label uppercase block">Xây dựng xã hội học tập</span>
-                    <span id="gd_gia_dinh_hoc_tap" class="text-xl font-black text-dynamic-title block mt-1">⏳...</span>
+                    <span id="gd_gia_dinh_hoc_tap" class="text-xl font-black text-dynamic-title block mt-1">-- mô hình</span>
                     <span class="text-[9px] text-dynamic-body block mt-0.5">Gia đình học tập, dòng họ học tập đăng ký</span>
                 </div>
             </div>
@@ -232,9 +226,7 @@
                 </div>
                 <div class="lg:col-span-6 glass-panel p-5 overflow-x-auto custom-scrollbar">
                     <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">📝 Số liệu học sinh ra lớp & Trung tâm học tập cộng đồng</h2>
-                    <div id="table_giao_duc" class="space-y-2 text-[11px] font-['Inter'] font-semibold">
-                        <div class="text-center py-6 text-slate-500">⏳ Đang tải dữ liệu phổ cập giáo dục từ đám mây...</div>
-                    </div>
+                    <div id="table_giao_duc" class="space-y-2 text-[11px] font-['Inter'] font-semibold"></div>
                 </div>
             </div>
         </div>
@@ -244,22 +236,22 @@
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
                 <div class="card-stat-item border-l-4 border-yellow-600">
                     <span class="text-[10px] font-black text-dynamic-label uppercase block">Cơ sở thờ tự tín ngưỡng</span>
-                    <span id="tg_co_so" class="text-xl font-black text-dynamic-title block mt-1">⏳...</span>
+                    <span id="tg_co_so" class="text-xl font-black text-dynamic-title block mt-1">-- cơ sở</span>
                     <span class="text-[9px] text-dynamic-body block mt-0.5">Chùa, nhà thờ, tịnh xá, đình miếu</span>
                 </div>
                 <div class="card-stat-item border-l-4 border-sky-500">
                     <span class="text-[10px] font-black text-dynamic-label uppercase block">Chức sắc & Tín đồ cư trú</span>
-                    <span id="tg_tin_do" class="text-xl font-black text-dynamic-title block mt-1">⏳...</span>
+                    <span id="tg_tin_do" class="text-xl font-black text-dynamic-title block mt-1">-- người</span>
                     <span class="text-[9px] text-dynamic-body block mt-0.5">Thống kê theo các hệ phái tôn giáo ổn định</span>
                 </div>
                 <div class="card-stat-item border-l-4 border-emerald-500">
                     <span class="text-[10px] font-black text-dynamic-label uppercase block">Đồng bào Dân tộc thiểu số</span>
-                    <span id="tg_dan_toc" class="text-xl font-black text-dynamic-title block mt-1">⏳...</span>
+                    <span id="tg_dan_toc" class="text-xl font-black text-dynamic-title block mt-1">-- hộ</span>
                     <span class="text-[9px] text-dynamic-body block mt-0.5">Theo dõi chính sách chăm lo, hỗ trợ bình đẳng</span>
                 </div>
                 <div class="card-stat-item border-l-4 border-rose-500">
                     <span class="text-[10px] font-black text-dynamic-label uppercase block">Đoàn viên, Hội viên quần chúng</span>
-                    <span id="tg_hoi_vien" class="text-xl font-black text-dynamic-title block mt-1">⏳...</span>
+                    <span id="tg_hoi_vien" class="text-xl font-black text-dynamic-title block mt-1">-- người</span>
                     <span class="text-[9px] text-dynamic-body block mt-0.5">Cựu chiến binh, Phụ nữ, Nông dân, Chữ thập đỏ</span>
                 </div>
             </div>
@@ -271,16 +263,14 @@
                 </div>
                 <div class="lg:col-span-6 glass-panel p-5 overflow-x-auto custom-scrollbar">
                     <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">📝 Nhật ký quản lý hoạt động tín ngưỡng & Tổ chức xã hội</h2>
-                    <div id="table_ton_giao" class="space-y-2 text-[11px] font-['Inter'] font-semibold">
-                        <div class="text-center py-6 text-slate-500">⏳ Đang tải dữ liệu tôn giáo đoàn thể từ đám mây...</div>
-                    </div>
+                    <div id="table_ton_giao" class="space-y-2 text-[11px] font-['Inter'] font-semibold"></div>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <!-- HỆ THỐNG ENGINE LIÊN THÔNG ĐÁM MÂY HỢP NHẤT VÀ VẼ ĐỒ THỊ ĐỘNG -->
+    <!-- HỆ THỐNG ENGINE ĐIỀU PHỐI ĐÁM MÂY LIÊN THÔNG -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -288,7 +278,7 @@
         const firebaseConfig = { databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app" };
         const db = getDatabase(initializeApp(firebaseConfig));
         
-        // Trỏ trực tiếp lên nút đầu não quản trị văn hóa xã hội trên Firebase
+        // Trỏ trực tiếp lên nút đầu não quản trị văn hóa xã hội trên Firebase[cite: 2]
         const vhNodeRef = ref(db, 'dashboard_binhhung/van_hoa_xa_hoi');
 
         let cachedFirebaseData = null;
@@ -297,59 +287,59 @@
         // Danh sách thực thể quản lý các biểu đồ cục bộ
         let chartInstances = { lao_dong: null, van_hoa: null, y_te: null, giao_duc: null, ton_giao: null };
 
-        // 🟢 LUỒNG KẾT NỐI CHÍNH: LẮNG NGHE ĐỒNG BỘ DỮ LIỆU REALTIME TỪ CLOUD
+        // 🟢 LUỒNG KẾT NỐI CHÍNH: LẮNG NGHE ĐỒNG BỘ DỮ LIỆU REALTIME
         onValue(vhNodeRef, (snapshot) => {
             const data = snapshot.val();
             if(!data) {
-                console.error("Thiếu hoặc sai cấu trúc Node 'van_hoa_xa_hoi' trên Firebase");
+                console.error("Thiếu hoặc sai cấu trúc Node 'van_hoa_xa_hoi' trên Firebase[cite: 2]");
                 return;
             }
             cachedFirebaseData = data;
 
-            // Kích hoạt nạp dữ liệu số lên giao diện Front-end thời gian thực
+            // Kích hoạt nạp dữ liệu số lên giao diện Front-end
             syncDataToGiaoDien(data);
         });
 
         function syncDataToGiaoDien(data) {
             // --- Phân hệ 1: Lao động ---
-            document.getElementById('ld_nguoi_co_cong').innerText = data.lao_dong_an_sing.nguoi_co_cong + " người";
-            document.getElementById('ld_bao_tro').innerText = data.lao_dong_an_sing.bao_tro_xa_hoi + " đối tượng";
-            document.getElementById('ld_ho_nghèo').innerText = data.lao_dong_an_sing.ho_nghèo_da_chieu + " hộ nghèo";
-            document.getElementById('ld_qua_dao_tao').innerText = data.lao_dong_an_sing.ty_le_qua_dao_tao + "%";
-            buildLogsTable('table_lao_dong', data.lao_dong_an_sing.nhat_ky_cong_tac);
+            document.getElementById('ld_nguoi_co_cong').innerText = data.lao_dong_an_sing.nguoi_co_cong + " người";[cite: 2]
+            document.getElementById('ld_bao_tro').innerText = data.lao_dong_an_sing.bao_tro_xa_hoi + " đối tượng";[cite: 2]
+            document.getElementById('ld_ho_nghèo').innerText = data.lao_dong_an_sing.ho_nghèo_da_chieu + " hộ nghèo";[cite: 2]
+            document.getElementById('ld_qua_dao_tao').innerText = data.lao_dong_an_sing.ty_le_qua_dao_tao + "%";[cite: 2]
+            buildLogsTable('table_lao_dong', data.lao_dong_an_sing.nhat_ky_cong_tac);[cite: 2]
 
             // --- Phân hệ 2: Văn hóa ---
-            document.getElementById('vh_gia_dinh_rate').innerText = data.van_hoa_the_thao.ty_le_gia_dinh_van_hoa + "%";
-            document.getElementById('vh_gia_dinh_sub').innerText = data.van_hoa_the_thao.so_luong_gia_dinh_dat.toLocaleString('vi-VN') + " hộ đạt chuẩn";
-            document.getElementById('vh_ap_rate').innerText = data.van_hoa_the_thao.ty_le_ap_van_hoa + "%";
-            document.getElementById('vh_ap_sub').innerText = data.van_hoa_the_thao.so_luong_ap_dat + " / 70 ấp đạt danh hiệu";
-            document.getElementById('vh_san_the_thao').innerText = data.van_hoa_the_thao.thiet_che_the_thao + " cơ sở";
-            document.getElementById('vh_nhay_cam').innerText = data.van_hoa_the_thao.co_so_nhay_cam + " cơ sở";
-            buildLogsTable('table_van_hoa', data.van_hoa_the_thao.nhat_ky_kiem_tra);
+            document.getElementById('vh_gia_dinh_rate').innerText = data.van_hoa_the_thao.ty_le_gia_dinh_van_hoa + "%";[cite: 2]
+            document.getElementById('vh_gia_dinh_sub').innerText = data.van_hoa_the_thao.so_luong_gia_dinh_dat.toLocaleString('vi-VN') + " hộ đạt chuẩn";[cite: 2]
+            document.getElementById('vh_ap_rate').innerText = data.van_hoa_the_thao.ty_le_ap_van_hoa + "%";[cite: 2]
+            document.getElementById('vh_ap_sub').innerText = data.van_hoa_the_thao.so_luong_ap_dat + " / 70 ấp đạt danh hiệu";[cite: 2]
+            document.getElementById('vh_san_the_thao').innerText = data.van_hoa_the_thao.thiet_che_the_thao + " cơ sở";[cite: 2]
+            document.getElementById('vh_nhay_cam').innerText = data.van_hoa_the_thao.co_so_nhay_cam + " cơ sở";[cite: 2]
+            buildLogsTable('table_van_hoa', data.van_hoa_the_thao.nhat_ky_kiem_tra);[cite: 2]
 
             // --- Phân hệ 3: Y tế ---
-            document.getElementById('yt_bhyt_rate').innerText = data.y_te_dan_so.bao_phu_bhyt + "%";
-            document.getElementById('yt_tiem_chung').innerText = data.y_te_dan_so.tiem_chung_mo_rong + "%";
-            document.getElementById('yt_sinh_con_3').innerText = data.y_te_dan_so.sinh_con_thu_3 + " trẻ";
-            document.getElementById('yt_dich_benh').innerText = data.y_te_dan_so.ca_mac_dich_benh + " ca mắc";
-            buildLogsTable('table_y_te', data.y_te_dan_so.nhat_ky_cong_tac);
+            document.getElementById('yt_bhyt_rate').innerText = data.y_te_dan_so.bao_phu_bhyt + "%";[cite: 2]
+            document.getElementById('yt_tiem_chung').innerText = data.y_te_dan_so.tiem_chung_mo_rong + "%";[cite: 2]
+            document.getElementById('yt_sinh_con_3').innerText = data.y_te_dan_so.sinh_con_thu_3 + " trẻ";[cite: 2]
+            document.getElementById('yt_dich_benh').innerText = data.y_te_dan_so.ca_mac_dich_benh + " ca mắc";[cite: 2]
+            buildLogsTable('table_y_te', data.y_te_dan_so.nhat_ky_cong_tac);[cite: 2]
 
             // --- Phân hệ 4: Giáo dục ---
-            document.getElementById('gd_tong_truong').innerText = data.giao_duc_dao_tao.tong_co_so + " trường";
-            document.getElementById('gd_truong_sub').innerText = `${data.giao_duc_dao_tao.cong_lap} công lập | ${data.giao_duc_dao_tao.tu_thuc} tư thục`;
-            document.getElementById('gd_dat_chuan_rate').innerText = data.giao_duc_dao_tao.truong_dat_chuan_quoc_gia + "%";
-            document.getElementById('gd_pho_cap_rate').innerText = data.giao_duc_dao_tao.pho_cap_dung_tuoi + "%";
-            document.getElementById('gd_gia_dinh_hoc_tap').innerText = data.giao_duc_dao_tao.mo_hinh_hoc_tap.toLocaleString('vi-VN') + " mô hình";
-            buildLogsTable('table_giao_duc', data.giao_duc_dao_tao.nhat_ky_ra_lop);
+            document.getElementById('gd_tong_truong').innerText = data.giao_duc_dao_tao.tong_co_so + " trường";[cite: 2]
+            document.getElementById('gd_truong_sub').innerText = `${data.giao_duc_dao_tao.cong_lap} công lập | ${data.giao_duc_dao_tao.tu_thuc} tư thục`;[cite: 2]
+            document.getElementById('gd_dat_chuan_rate').innerText = data.giao_duc_dao_tao.truong_dat_chuan_quoc_gia + "%";[cite: 2]
+            document.getElementById('gd_pho_cap_rate').innerText = data.giao_duc_dao_tao.pho_cap_dung_tuoi + "%";[cite: 2]
+            document.getElementById('gd_gia_dinh_hoc_tap').innerText = data.giao_duc_dao_tao.mo_hinh_hoc_tap.toLocaleString('vi-VN') + " mô hình";[cite: 2]
+            buildLogsTable('table_giao_duc', data.giao_duc_dao_tao.nhat_ky_ra_lop);[cite: 2]
 
             // --- Phân hệ 5: Tôn giáo ---
-            document.getElementById('tg_co_so').innerText = data.ton_giao_doan_the.co_so_tho_tu + " cơ sở";
-            document.getElementById('tg_tin_do').innerText = data.ton_giao_doan_the.tong_tin_do.toLocaleString('vi-VN') + " người";
-            document.getElementById('tg_dan_toc').innerText = data.ton_giao_doan_the.ho_dan_toc_thieu_so + " hộ";
-            document.getElementById('tg_hoi_vien').innerText = data.ton_giao_doan_the.tong_doan_vien.toLocaleString('vi-VN') + " người";
-            buildLogsTable('table_ton_giao', data.ton_giao_doan_the.nhat_ky_cong_tac);
+            document.getElementById('tg_co_so').innerText = data.ton_giao_doan_the.co_so_tho_tu + " cơ sở";[cite: 2]
+            document.getElementById('tg_tin_do').innerText = data.ton_giao_doan_the.tong_tin_do.toLocaleString('vi-VN') + " người";[cite: 2]
+            document.getElementById('tg_dan_toc').innerText = data.ton_giao_doan_the.ho_dan_toc_thieu_so + " hộ";[cite: 2]
+            document.getElementById('tg_hoi_vien').innerText = data.ton_giao_doan_the.tong_doan_vien.toLocaleString('vi-VN') + " người";[cite: 2]
+            buildLogsTable('table_ton_giao', data.ton_giao_doan_the.nhat_ky_cong_tac);[cite: 2]
 
-            // Khởi chạy đồng bộ hóa dải đồ thị Chart.js theo tab nghiệp vụ hiện hành
+            // Trigger làm mới đồ thị mục tiêu cho phân hệ đang mở
             refreshActiveTabCharts();
         }
 
@@ -370,7 +360,7 @@
             `).join('');
         }
 
-        // ĐIỀU PHỐI CHUYỂN ĐỔI PHÂN HỆ TAB 
+        // ĐIỀU PHỐI CHUYỂN ĐỔI PHÂN HỆ TAB MƯỢT MÀ KHÔNG TRÙNG ĐỘ ĐÔ THỊ
         window.switchModuleTab = function(targetPanelId, btnElement) {
             document.querySelectorAll('.module-tab-content').forEach(p => p.classList.add('hidden'));
             document.getElementById(targetPanelId).classList.remove('hidden');
@@ -393,7 +383,7 @@
                     data: {
                         labels: ['Người có công', 'Người cao tuổi', 'Trợ cấp khác', 'Hộ nghèo'],
                         datasets: [{
-                            data: [cachedFirebaseData.lao_dong_an_sing.nguoi_co_cong, 1046, cachedFirebaseData.lao_dong_an_sing.bao_tro_xa_hoi - 1046, cachedFirebaseData.lao_dong_an_sing.ho_nghèo_da_chieu],
+                            data: [cachedFirebaseData.lao_dong_an_sing.nguoi_co_cong, 1046, cachedFirebaseData.lao_dong_an_sing.bao_tro_xa_hoi - 1046, cachedFirebaseData.lao_dong_an_sing.ho_nghèo_da_chieu],[cite: 2]
                             backgroundColor: ['#ef4444', '#f59e0b', '#3b82f6', '#10b981'], barThickness: 35, borderRadius: 4
                         }]
                     },
@@ -409,7 +399,7 @@
                     data: {
                         labels: ['Nhà Văn Hóa', 'Hạ tầng thể thao', 'Điểm Internet', 'Cơ sở Karaoke'],
                         datasets: [{
-                            label: 'Số lượng thiết chế cơ sở', data: [7, cachedFirebaseData.van_hoa_the_thao.thiet_che_the_thao, 45, cachedFirebaseData.van_hoa_the_thao.co_so_nhay_cam],
+                            label: 'Số lượng thiết chế cơ sở', data: [7, cachedFirebaseData.van_hoa_the_thao.thiet_che_the_thao, 45, cachedFirebaseData.van_hoa_the_thao.co_so_nhay_cam],[cite: 2]
                             borderColor: '#8b5cf6', backgroundColor: 'rgba(139, 92, 246, 0.1)', fill: true, tension: 0.2
                         }]
                     },
@@ -423,9 +413,9 @@
                 chartInstances.y_te = new Chart(ctx, {
                     type: 'bar',
                     data: {
-                        labels: ['Mắc dịch bệnh (ca)', 'Sinh con bực 3 (trẻ)'],
+                        labels: ['Mắc dịch bệnh (ca)', 'Sinh con bậc 3 (trẻ)'],
                         datasets: [{
-                            data: [cachedFirebaseData.y_te_dan_so.ca_mac_dich_benh, cachedFirebaseData.y_te_dan_so.sinh_con_thu_3],
+                            data: [cachedFirebaseData.y_te_dan_so.ca_mac_dich_benh, cachedFirebaseData.y_te_dan_so.sinh_con_thu_3],[cite: 2]
                             backgroundColor: ['#f43f5e', '#06b6d4'], barThickness: 45, borderRadius: 5
                         }]
                     },
@@ -441,7 +431,7 @@
                     data: {
                         labels: ['Mầm non (%)', 'Tiểu học (%)', 'THCS (%)', 'Phổ cập (%)', 'XH học tập (%)'],
                         datasets: [{
-                            label: 'Tiến độ hoàn thành chỉ tiêu đạt chuẩn (%)', data: [27, 31.67, 43.33, cachedFirebaseData.giao_duc_dao_tao.pho_cap_dung_tuoi, 85],
+                            label: 'Tỷ lệ đạt mục tiêu Đại hội (%)', data: [27, 31.67, 43.33, cachedFirebaseData.giao_duc_dao_tao.pho_cap_dung_tuoi, 85],[cite: 2]
                             borderColor: '#0ea5e9', backgroundColor: 'rgba(14, 165, 233, 0.15)', borderWidth: 2
                         }]
                     },
@@ -457,7 +447,8 @@
                     data: {
                         labels: ['Hội chữ thập đỏ', 'Hội người cao tuổi', 'Hội khuyến học', 'Hội cựu TNXP'],
                         datasets: [{
-                            data: [1200, cachedFirebaseData.ton_giao_doan_the.tong_doan_vien - 3400, 2200, 310], backgroundColor: ['rgba(239,68,68,0.7)', 'rgba(245,158,11,0.7)', 'rgba(16,185,129,0.7)', 'rgba(99,102,241,0.7)']
+                            data: [1200, cachedFirebaseData.ton_giao_doan_the.tong_doan_vien - 3400, 2200, 310],[cite: 2]
+                            backgroundColor: ['rgba(239,68,68,0.7)', 'rgba(245,158,11,0.7)', 'rgba(16,185,129,0.7)', 'rgba(99,102,241,0.7)']
                         }]
                     },
                     options: { maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: currentLabelColor, font: { weight: 'bold', size: 9 } } } }, scales: { r: { grid: { color: 'rgba(148, 163, 184, 0.15)' }, ticks: { display: false } } } }
@@ -485,7 +476,7 @@
             refreshActiveTabCharts();
         }
 
-        // ĐỔNG HỒ ĐỒNG BỘ THỜI GIAN THỰC TẠI TRẬN
+        // ĐỒNG HỒ ĐỒNG BỘ THỜI GIAN THỰC TẠI TRẬN
         setInterval(() => {
             const options = { timeZone: 'Asia/Ho_Chi_Minh', hour12: false, hour: '2-digit', minute: '2-digit', second: '2-digit', day: '2-digit', month: '2-digit', year: 'numeric' };
             document.getElementById('realtime_clock').innerText = new Date().toLocaleString('vi-VN', options).replace(/\//g, '-');
