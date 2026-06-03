@@ -25,7 +25,7 @@
             background-size: cover; background-position: center; background-attachment: fixed;
             color: #0f172a;
         }
-        body.light-theme .glass-panel { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(16px); border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.15); }
+        body.light-theme .glass-panel { background: rgba(255, 255, 255, 0.8); border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.15); }
         body.light-theme .row-flat { background: #ffffff; border-color: rgba(14, 165, 233, 0.15); color: #1e293b; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03); }
         body.light-theme .text-main-title { color: #0b4a8f; }
         body.light-theme .insight-card { background: #f8fafc; border-color: rgba(14, 165, 233, 0.1); }
@@ -49,8 +49,8 @@
         .row-flat { position: relative; border: 1px solid; border-radius: 14px; overflow: hidden; transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1); cursor: pointer; }
         .row-flat:hover { transform: translateY(-2px); border-color: #ef4444; box-shadow: 0 8px 16px -5px rgba(239, 68, 68, 0.3); }
 
-        .btn-back { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.15); color: inherit; padding: 12px 24px; border-radius: 14px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; }
-        .btn-back:hover { transform: translateY(-2px); border-color: #ef4444; background: rgba(255,255,255,0.2); }
+        .btn-back { display: inline-flex; align-items: center; gap: 8px; background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.3); color: inherit; padding: 12px 24px; border-radius: 14px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; }
+        .btn-back:hover { transform: translateY(-2px); border-color: #ef4444; background: rgba(239, 68, 68, 0.1); }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.3); border-radius: 10px; }
     </style>
@@ -65,7 +65,7 @@
             <div class="bg-slate-800/80 border border-slate-700 p-1 rounded-xl flex items-center shadow-md backdrop-blur">
                 <span class="text-[10px] font-black uppercase tracking-wider px-3 text-slate-400">Giao diện:</span>
                 <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition text-slate-400 hover:text-white">
-                    ⚪ Nền trắng
+                    幕 Nền trắng
                 </button>
                 <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition bg-red-600 text-white shadow-sm">
                     ⚫ Nền đen
@@ -86,15 +86,15 @@
         <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div class="glass-panel p-5 border-l-4 border-red-600">
                 <p class="text-[10px] font-bold text-red-400 uppercase tracking-wider">Kết nạp Đảng viên mới (2026)</p>
-                <h3 class="text-2xl font-black mt-1">18 <span class="text-xs font-bold text-slate-400">/ Chỉ tiêu 25 (Đạt 72%)</span></h3>
+                <h3 id="card_ket_nap" class="text-2xl font-black mt-1">-- <span class="text-xs font-bold text-slate-400">/ Chỉ tiêu --</span></h3>
             </div>
             <div class="glass-panel p-5 border-l-4 border-amber-500">
                 <p class="text-[10px] font-bold text-amber-400 uppercase tracking-wider">Tổ chức Đảng đạt "4 tốt"</p>
-                <h3 class="text-2xl font-black mt-1">92.4% <span class="text-xs font-bold text-emerald-500">(Vượt 2.4%)</span></h3>
+                <h3 id="card_bon_tot" class="text-2xl font-black mt-1">-- <span class="text-xs font-bold text-emerald-500">(--)</span></h3>
             </div>
             <div class="glass-panel p-5 border-l-4 border-sky-500">
                 <p class="text-[10px] font-bold text-sky-400 uppercase tracking-wider">Phân loại Hoàn thành tốt trở lên</p>
-                <h3 class="text-2xl font-black mt-1">95.6% <span class="text-xs font-bold text-emerald-400">(Vượt 0.6%)</span></h3>
+                <h3 id="card_hoan_thanh" class="text-2xl font-black mt-1">-- <span class="text-xs font-bold text-emerald-400">(--)</span></h3>
             </div>
         </div>
 
@@ -126,7 +126,8 @@
                         <div class="col-rate">Tỷ lệ đạt</div>
                     </div>
                     <div id="cong-tac-dang-container" class="text-xs font-semibold">
-                        </div>
+                        <div class="text-center py-8 text-slate-400 animate-pulse uppercase tracking-wider">⏳ Đang liên thông kho dữ liệu số bộ ban ngành Đảng ủy...</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -161,32 +162,114 @@
         &copy; 2026 IOC Xã Bình Hưng — Hệ thống Quản trị chỉ số công tác Đảng ủy liên thông bảo mật
     </footer>
 
-    <script>
-        const danhSachChiTieuDang = [
-            { criterion: "Theo dõi kết quả, số lượng kết nạp Đảng viên mới hằng năm", target: "25 Đảng viên", current: "18 Đảng viên", rate: "72.0%", num_rate: 72.0, color: "bg-red-500" },
-            { criterion: "Tỷ lệ tổ sở đảng đạt tiêu chí đánh giá mô hình '4 tốt'", target: "90.0%", current: "92.4%", rate: "102.6%", num_rate: 100, color: "bg-amber-500" },
-            { criterion: "Tỷ lệ tổ chức đảng xây dựng kế hoạch và tiến hành kiểm tra, giám sát định kỳ", target: "100%", current: "100%", rate: "100%", num_rate: 100, color: "bg-emerald-500" },
-            { criterion: "Tỷ lệ chi bộ, tổ chức đảng đạt mức phân loại Hoàn thành tốt nhiệm vụ trở lên", target: "95.0%", current: "95.6%", rate: "100.6%", num_rate: 100, color: "bg-sky-500" },
-            { criterion: "Tỷ lệ Đảng viên chính thức tham gia đầy đủ các buổi học tập Nghị quyết, chính trị", target: "98.0%", current: "98.5%", rate: "100.5%", num_rate: 100, color: "bg-indigo-500" },
-            { criterion: "Tỷ lệ Chi bộ trực thuộc thực hiện nghiêm túc sinh hoạt chuyên đề hằng quý", target: "100%", current: "100%", rate: "100%", num_rate: 100, color: "bg-purple-500" }
-        ];
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = {
+            databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const dangNodeRef = ref(db, 'dashboard_binhhung/cong_tac_dang');
 
         let barChartInstance = null;
         let pieChartInstance = null;
+        let cachedData = null;
+        let currentLabelColor = '#94a3b8';
 
-        // Hàm vẽ lại hệ thống biểu đồ và tự động cập nhật màu chữ theo giao diện hiện hành
-        function renderCharts(textColor) {
+        // 🟢 ENGINE LẮNG NGHE DỮ LIỆU THỜI GIAN THỰC (REALTIME LISTENER)
+        onValue(dangNodeRef, (snapshot) => {
+            const data = snapshot.val();
+            if(!data) {
+                document.getElementById('cong-tac-dang-container').innerHTML = `<div class="text-center text-red-500 py-6">🚨 Không tìm thấy nhánh 'cong_tac_dang' trên Firebase Database.</div>`;
+                return;
+            }
+            cachedData = data;
+            
+            // 1. Thực thi dựng bảng và tự động tính tỷ lệ phần trăm
+            renderTableEngine(data.chi_tieu_co_so);
+            
+            // 2. Thực thi tính toán và cập nhật số liệu lên 3 ô Card Stat lớn
+            syncStatCards(data.chi_tieu_co_so);
+
+            // 3. Thực thi dựng lại biểu đồ Chart.js phối hợp màu sắc
+            renderChartsEngine(data, currentLabelColor);
+        });
+
+        function renderTableEngine(chiTieuList) {
+            const container = document.getElementById('cong-tac-dang-container');
+            container.innerHTML = chiTieuList.map((item, index) => {
+                // Thuật toán bóc tách giá trị số và tính phần trăm hoàn thành thực tế tự động
+                const targetNum = parseFloat(item.target_val);
+                const currentNum = parseFloat(item.current_val);
+                
+                let percentRate = 100;
+                if(targetNum > 0) {
+                    percentRate = parseFloat(((currentNum / targetNum) * 100).toFixed(1));
+                }
+                
+                // Giới hạn đồ thị bar-width tối đa 100% để tránh vỡ khung giao diện phẳng
+                const barWidth = percentRate > 100 ? 100 : percentRate;
+
+                return `
+                    <div class="row-container">
+                        <div class="row-flat">
+                            <div class="grid-row">
+                                <div class="col-stt font-black text-slate-400">${index + 1}</div>
+                                <div class="col-criterion font-bold text-slate-300 select-text-color">${item.criterion}</div>
+                                <div class="col-target font-semibold text-slate-400 text-center">${item.target_val} ${item.unit}</div>
+                                <div class="col-current font-extrabold text-center text-dynamic-title">${item.current_val} ${item.unit}</div>
+                                <div class="col-progress">
+                                    <div class="w-full bg-slate-800/40 h-2 rounded-full overflow-hidden border border-slate-700/50">
+                                        <div class="${item.color} h-full rounded-full shadow-sm" style="width: ${barWidth}%"></div>
+                                    </div>
+                                </div>
+                                <div class="col-rate">
+                                    <span class="bg-slate-900 border border-slate-700 text-slate-200 px-2 py-0.5 rounded-md font-mono text-[10px] font-bold">${percentRate}%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        function syncStatCards(chiTieuList) {
+            // Card 1: Kết nạp Đảng viên (Phần tử số 0)
+            const kn = chiTieuList[0];
+            const knRate = ((kn.current_val / kn.target_val) * 100).toFixed(0);
+            document.getElementById('card_ket_nap').innerHTML = `${kn.current_val} <span class="text-xs font-bold text-slate-400">/ Chỉ tiêu ${kn.target_val} (Đạt ${knRate}%)</span>`;
+
+            // Card 2: Tổ chức đảng 4 tốt (Phần tử số 1)
+            const bt = chiTieuList[1];
+            const btDiff = (bt.current_val - bt.target_val).toFixed(1);
+            document.getElementById('card_bon_tot').innerHTML = `${bt.current_val}% <span class="text-xs font-bold text-emerald-500">(Vượt ${btDiff}%)</span>`;
+
+            // Card 3: Hoàn thành tốt nhiệm vụ trở lên (Phần tử số 3)
+            const ht = chiTieuList[3];
+            const htDiff = (ht.current_val - ht.target_val).toFixed(1);
+            document.getElementById('card_hoan_thanh').innerHTML = `${ht.current_val}% <span class="text-xs font-bold text-emerald-400">(Vượt ${htDiff}%)</span>`;
+        }
+
+        function renderChartsEngine(data, textColor) {
             if(barChartInstance) barChartInstance.destroy();
             if(pieChartInstance) pieChartInstance.destroy();
 
+            // Rút dữ liệu mảng ra mảng số liệu để đồng bộ hóa Chart.js trục hoành
+            const chartTargets = data.chi_tieu_co_so.map(item => item.target_val);
+            const chartCurrents = data.chi_tieu_co_so.map(item => item.current_val);
+
+            // 1. Bar Chart - So sánh tiến độ chỉ tiêu thực tế
             const ctxBar = document.getElementById('dangBarChart').getContext('2d');
             barChartInstance = new Chart(ctxBar, {
                 type: 'bar',
                 data: {
-                    labels: ['Kết nạp mới', 'Tổ chức 4 tốt', 'Kiểm tra định kỳ', 'HT tốt nhiệm vụ', 'Học tập Nghị quyết', 'Sinh hoạt chuyên đề'],
+                    labels: ['Kết nạp mới', 'Tổ chức 4 tốt', 'Kiểm tra định kỳ', 'HT tốt nhiệm vụ', 'Học tập kế hoạch', 'Sinh hoạt chuyên đề'],
                     datasets: [
-                        { label: 'Chỉ tiêu đề ra (%)', data: [100, 90, 100, 95, 98, 100], backgroundColor: 'rgba(148, 163, 184, 0.2)', borderColor: '#94a3b8', borderWidth: 1, borderRadius: 4 },
-                        { label: 'Kết quả thực tế (%)', data: [72, 92.4, 100, 95.6, 98.5, 100], backgroundColor: 'rgba(239, 68, 68, 0.8)', borderColor: '#ef4444', borderWidth: 1, borderRadius: 4 }
+                        { label: 'Chỉ tiêu đề ra', data: chartTargets, backgroundColor: 'rgba(148, 163, 184, 0.2)', borderColor: '#94a3b8', borderWidth: 1, borderRadius: 4 },
+                        { label: 'Kết quả thực tế', data: chartCurrents, backgroundColor: 'rgba(239, 68, 68, 0.8)', borderColor: '#ef4444', borderWidth: 1, borderRadius: 4 }
                     ]
                 },
                 options: {
@@ -194,17 +277,23 @@
                     plugins: { legend: { labels: { color: textColor, font: { weight: 'bold', size: 10 } } } },
                     scales: {
                         x: { grid: { display: false }, ticks: { color: textColor, font: { size: 9, weight: 'bold' } } },
-                        y: { max: 120, grid: { color: 'rgba(148, 163, 184, 0.1)' }, ticks: { color: textColor, font: { size: 9 } } }
+                        y: { grid: { color: 'rgba(148, 163, 184, 0.1)' }, ticks: { color: textColor, font: { size: 9 } } }
                     }
                 }
             });
 
+            // 2. Pie Chart - Cơ cấu chất lượng chi bộ trực thuộc
             const ctxPie = document.getElementById('dangPieChart').getContext('2d');
+            const pieData = data.co_cau_chi_bo;
             pieChartInstance = new Chart(ctxPie, {
                 type: 'pie',
                 data: {
                     labels: ['HT Xuất sắc', 'HT Tốt', 'HT Nhiệm vụ', 'Không HT'],
-                    datasets: [{ data: [22.4, 73.2, 4.4, 0], backgroundColor: ['rgba(16, 185, 129, 0.8)', 'rgba(14, 165, 233, 0.8)', 'rgba(245, 158, 11, 0.8)', 'rgba(239, 68, 68, 0.8)'], borderWidth: 1 }]
+                    datasets: [{ 
+                        data: [pieData.xuat_sac, pieData.hoan_thanh_tot, pieData.hoan_thanh_nhiem_vu, pieData.khong_hoan_thanh], 
+                        backgroundColor: ['rgba(16, 185, 129, 0.8)', 'rgba(14, 165, 233, 0.8)', 'rgba(245, 158, 11, 0.8)', 'rgba(239, 68, 68, 0.8)'], 
+                        borderWidth: 1 
+                    }]
                 },
                 options: {
                     responsive: true, maintainAspectRatio: false,
@@ -213,31 +302,7 @@
             });
         }
 
-        function renderTable() {
-            const container = document.getElementById('cong-tac-dang-container');
-            container.innerHTML = danhSachChiTieuDang.map((item, index) => `
-                <div class="row-container">
-                    <div class="row-flat">
-                        <div class="grid-row">
-                            <div class="col-stt font-black text-slate-400">${index + 1}</div>
-                            <div class="col-criterion font-bold text-slate-300 select-text-color">${item.criterion}</div>
-                            <div class="col-target font-semibold text-slate-400 text-center">${item.target}</div>
-                            <div class="col-current font-extrabold text-center">${item.current}</div>
-                            <div class="col-progress">
-                                <div class="w-full bg-slate-800/40 h-2 rounded-full overflow-hidden border border-slate-700/50">
-                                    <div class="${item.color} h-full rounded-full" style="width: ${item.num_rate}%"></div>
-                                </div>
-                            </div>
-                            <div class="col-rate">
-                                <span class="bg-slate-900 border border-slate-700 text-slate-200 px-2 py-0.5 rounded-md font-mono text-[10px] font-bold">${item.rate}</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // JAVASCRIPT ENGINE XỬ LÝ ĐỔI MÀU NỀN TRẮNG ĐEN (THEME SWAPPER)
+        // ĐIỀU HÀNH ENGINE THEME CHUYỂN ĐỔI CHỮ ĐỒ THỊ LINH HOẠT CHỐNG KHUYẾT TẬT ĐÈ MÀU
         window.setTheme = function(themeName) {
             const body = document.getElementById('body-context');
             const btnLight = document.getElementById('btn-theme-light');
@@ -246,30 +311,24 @@
             if(themeName === 'light') {
                 body.classList.remove('dark-theme');
                 body.classList.add('light-theme');
-                
-                // Đồng bộ màu sắc nút công tắc hoạt động
                 btnLight.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-sm border border-slate-200";
                 btnDark.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition text-slate-500 hover:text-slate-800";
                 
-                // Vẽ lại đồ thị với nhãn chữ màu tối (Dark Grey)
-                renderCharts('#334155');
+                currentLabelColor = '#334155';
             } else {
                 body.classList.remove('light-theme');
                 body.classList.add('dark-theme');
-
                 btnDark.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition bg-red-600 text-white shadow-sm";
                 btnLight.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition text-slate-400 hover:text-white";
                 
-                // Vẽ lại đồ thị với nhãn chữ màu sáng (Light Grey)
-                renderCharts('#94a3b8');
+                currentLabelColor = '#94a3b8';
+            }
+            
+            // Vẽ lại đồ thị khớp với nhãn chữ màu sắc giao diện mới
+            if(cachedData) {
+                renderChartsEngine(cachedData, currentLabelColor);
             }
         }
-
-        document.addEventListener("DOMContentLoaded", () => {
-            renderTable();
-            // Mặc định khởi chạy ban đầu với Nền đen (Dark Theme)
-            setTheme('dark');
-        });
     </script>
 </body>
 </html>
