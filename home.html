@@ -23,15 +23,15 @@
         .main-header {
             background-color: #0b4a8f;
             color: #ffffff;
-            padding: 35px 24px;
+            padding: 40px 24px;
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
             width: 100%;
             text-align: center;
         }
 
-        /* HERO REFINEMENT ANMTATION */
+        /* HERO REFINEMENT ANIMATION */
         .logo-main {
-            width: 85px;
+            width: 90px;
             animation: float 4s ease-in-out infinite;
         }
         @keyframes float {
@@ -43,36 +43,36 @@
         .menu-panel-wrapper {
             background-color: #80ffe8;
             border: 1px solid rgba(11, 74, 143, 0.25);
-            border-radius: 36px;
-            box-shadow: 0 25px 50px -15px rgba(12, 74, 110, 0.35);
-            padding: 40px 24px;
+            border-radius: 40px;
+            box-shadow: 0 30px 60px -15px rgba(12, 74, 110, 0.35);
+            padding: 45px 35px;
             width: 100%;
         }
 
-        /* GRID SYSTEM */
+        /* GRID SYSTEM: ĐIỀU CHỈNH THÀNH ĐỊNH DẠNG 6 CỘT X 2 HÀNG CỐ ĐỊNH */
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+            grid-template-columns: repeat(6, 1fr); /* 6 cột chuẩn tạo luồng 6x2 cho 12 nút */
             gap: 24px;
             width: 100%;
         }
 
-        /* CARD STYLE: Hiện đại, hiệu ứng hover có chiều sâu */
+        /* CARD STYLE: TĂNG KÍCH THƯỚC NÚT BẰNG ASPECT-RATIO 1:1 HÌNH VUÔNG LỚN */
         .nav-card { 
             position: relative;
             background-size: cover; 
             background-position: center; 
             background-repeat: no-repeat;
-            border-radius: 20px; 
-            aspect-ratio: 1 / 0.82; 
+            border-radius: 24px; 
+            aspect-ratio: 1 / 1; /* Biến nút thành hình vuông to lớn, vững chắc */
             display: flex; 
             flex-direction: column; 
             justify-content: flex-end;
             overflow: hidden; 
             cursor: pointer; 
-            border: 1px solid rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.85);
             background-color: #ffffff;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.03), 0 2px 4px -1px rgba(0, 0, 0, 0.02), inset 0 2px 4px rgba(255,255,255,0.8);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05), inset 0 2px 4px rgba(255,255,255,0.9);
             transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
         }
         
@@ -80,40 +80,41 @@
             content: '';
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0) 20%, rgba(15, 23, 42, 0.4) 60%, rgba(11, 37, 74, 0.85) 100%);
+            background: linear-gradient(180deg, rgba(15, 23, 42, 0) 15%, rgba(15, 23, 42, 0.45) 55%, rgba(11, 37, 74, 0.9) 100%);
             z-index: 1;
             transition: all 0.5s ease;
         }
 
         .nav-card:hover { 
-            transform: translateY(-6px); 
-            border-color: rgba(11, 74, 143, 0.4); 
-            box-shadow: 0 20px 30px -10px rgba(11, 74, 143, 0.25), 0 1px 3px rgba(0,0,0,0.05);
+            transform: translateY(-8px); 
+            border-color: rgba(11, 74, 143, 0.5); 
+            box-shadow: 0 25px 35px -10px rgba(11, 74, 143, 0.3), 0 2px 5px rgba(0,0,0,0.05);
         }
 
         .nav-card:hover::before {
-            background: linear-gradient(180deg, rgba(14, 165, 233, 0) 10%, rgba(11, 43, 91, 0.5) 50%, rgba(11, 74, 143, 0.95) 100%);
+            background: linear-gradient(180deg, rgba(14, 165, 233, 0) 5%, rgba(11, 43, 91, 0.5) 45%, rgba(11, 74, 143, 0.98) 100%);
         }
 
         /* TEXT OVERLAY IN CARD */
         .text-overlay {
             width: 100%;
-            padding: 20px;
+            padding: 22px;
             position: relative;
             z-index: 2;
             text-align: left;
         }
         
+        /* TĂNG CỠ CHỮ H3 CHO C N ĐỐI VỚI NÚT LỚN MỚI */
         .nav-card h3 { 
-            font-size: 15px; 
-            font-weight: 700; 
+            font-size: 16px; 
+            font-weight: 800; /* Đậm nét, uy nghiêm hơn */
             color: #ffffff;
             line-height: 1.4;
             letter-spacing: -0.2px;
             transition: transform 0.3s ease;
         }
         .nav-card:hover h3 {
-            transform: translateX(4px);
+            transform: translateX(5px);
         }
 
         /* FLOATING INPUT & MODAL */
@@ -137,11 +138,11 @@
         }
         .modal-overlay.open .modal-card { transform: scale(1) translateY(0); }
 
-        /* RESPONSIVE DESIGN */
-        @media (max-width: 1100px) { .grid-container { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
+        /* RESPONSIVE DESIGN PHÙ HỢP CÁC LOẠI MÀN HÌNH MÁY TÍNH BẢNG/DI ĐỘNG */
+        @media (max-width: 1280px) { .grid-container { grid-template-columns: repeat(3, 1fr); gap: 20px; } }
         @media (max-width: 768px) { 
             .grid-container { grid-template-columns: repeat(2, 1fr); gap: 16px; } 
-            .article-card { padding: 40px 30px; }
+            .menu-panel-wrapper { padding: 25px 16px; border-radius: 24px; }
         }
     </style>
 </head>
@@ -157,7 +158,7 @@
         </div>
     </header>
 
-    <div class="max-w-[1320px] w-full mx-auto px-6 my-10 space-y-8">
+    <div class="max-w-[1550px] w-full mx-auto px-6 my-10 space-y-8">
         
         <div class="menu-panel-wrapper">
             <main class="grid-container">
