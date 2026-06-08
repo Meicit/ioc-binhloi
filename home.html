@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IOC BINH HUNG</title>
+    <title>Trang chủ Điều hành - Xã Bình Hưng</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
     
@@ -20,45 +20,36 @@
             transition: background 0.4s ease, color 0.4s ease;
         }
 
-        /* 🔵 PHONG CÁCH MÀU XANH IOS (MẶC ĐỊNH CHÍNH PHỦ SỐ) */
+        /* ================= CHUYỂN ĐỔI THEME CHỈ TÁC ĐỘNG LÊN LỚP NỀN HEADER ================= */
+        
+        /* 🔵 PHONG CÁCH XANH IOS (MẶC ĐỊNH CHÍNH PHỦ SỐ) */
         body.theme-xanh-ios .main-header {
             background: linear-gradient(135deg, rgba(0, 122, 255, 0.85), rgba(9, 68, 143, 0.95));
             border-bottom: 1px solid rgba(0, 122, 255, 0.3);
             box-shadow: 0 8px 32px rgba(0, 122, 255, 0.15), inset 0 1px 0 rgba(255,255,255,0.25);
         }
-        body.theme-xanh-ios .menu-panel-wrapper {
-            background-color: rgba(128, 255, 232, 0.65);
-            border: 1px solid rgba(0, 122, 255, 0.2);
-            box-shadow: 0 30px 60px -15px rgba(0, 122, 255, 0.25);
-        }
-        body.theme-xanh-ios .nav-card:hover { 
-            border-color: rgba(0, 122, 255, 0.5); 
-            box-shadow: 0 20px 30px -10px rgba(0, 122, 255, 0.3);
-        }
-        body.theme-xanh-ios .nav-card:hover::before {
-            background: linear-gradient(180deg, rgba(0, 122, 255, 0) 5%, rgba(9, 68, 143, 0.5) 45%, rgba(0, 122, 255, 0.95) 100%);
-        }
         body.theme-xanh-ios .contact-indicator-dot { background-color: #007aff; }
 
-        /* 🔴 PHONG CÁCH MÀU ĐỎ HÀNH CHÍNH (CƠ QUAN ĐẢNG) */
+        /* 🔴 PHONG CÁCH ĐỎ HÀNH CHÍNH (CƠ QUAN ĐẢNG) */
         body.theme-do-hanhchinh .main-header {
             background: linear-gradient(135deg, rgba(220, 38, 38, 0.85), rgba(153, 27, 27, 0.95));
             border-bottom: 1px solid rgba(220, 38, 38, 0.3);
             box-shadow: 0 8px 32px rgba(153, 27, 27, 0.2), inset 0 1px 0 rgba(255,255,255,0.25);
         }
-        body.theme-do-hanhchinh .menu-panel-wrapper {
-            background-color: rgba(255, 179, 179, 0.65);
-            border: 1px solid rgba(220, 38, 38, 0.2);
-            box-shadow: 0 30px 60px -15px rgba(153, 27, 27, 0.3);
-        }
-        body.theme-do-hanhchinh .nav-card:hover { 
-            border-color: rgba(220, 38, 38, 0.5); 
-            box-shadow: 0 20px 30px -10px rgba(220, 38, 38, 0.35);
-        }
-        body.theme-do-hanhchinh .nav-card:hover::before {
-            background: linear-gradient(180deg, rgba(220, 38, 38, 0) 5%, rgba(153, 27, 27, 0.5) 45%, rgba(153, 27, 27, 0.95) 100%);
-        }
         body.theme-do-hanhchinh .contact-indicator-dot { background-color: #dc2626; }
+
+
+        /* KHỐI NỀN MÀU XANH NGỌC TRONG SUỐT - LUÔN CỐ ĐỊNH, KHÔNG BỊ THAY ĐỔI THEO THEME */
+        .menu-panel-wrapper {
+            background-color: rgba(128, 255, 232, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 40px;
+            box-shadow: 0 30px 60px -15px rgba(12, 74, 110, 0.35);
+            padding: 45px 35px;
+            width: 100%;
+        }
 
         /* LOGO MAIN ANIMATION */
         .logo-main {
@@ -67,16 +58,6 @@
         @keyframes float {
             0%, 100% { transform: translateY(0) scale(1); filter: drop-shadow(0 6px 12px rgba(255, 255, 255, 0.15)); }
             50% { transform: translateY(-4px) scale(1.03); filter: drop-shadow(0 12px 20px rgba(255, 255, 255, 0.3)); }
-        }
-
-        /* KHỐI NỀN MÀU TRONG SUỐT BAO PHỦ CẢ LƯỚI NÚT VÀ THÔNG TIN LIÊN HỆ */
-        .menu-panel-wrapper {
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 40px;
-            padding: 45px 35px;
-            width: 100%;
-            transition: all 0.4s ease;
         }
 
         /* GRID SYSTEM: ĐỊNH DẠNG 6 CỘT X 2 HÀNG CỐ ĐỊNH */
@@ -115,49 +96,36 @@
             transition: all 0.5s ease;
         }
 
+        /* Hiệu ứng di chuột lên các nút điều hành tương tác mượt mà trên nền ngọc bích */
         .nav-card:hover { 
             transform: translateY(-8px); 
+            border-color: rgba(0, 122, 255, 0.4); 
+            box-shadow: 0 20px 30px -10px rgba(12, 74, 110, 0.25);
+        }
+        .nav-card:hover::before {
+            background: linear-gradient(180deg, rgba(14, 165, 233, 0) 5%, rgba(11, 43, 91, 0.5) 45%, rgba(11, 37, 74, 0.95) 100%);
         }
 
-        /* TEXT OVERLAY IN CARD */
         .text-overlay {
-            width: 100%;
-            padding: 22px;
-            position: relative;
-            z-index: 2;
-            text-align: left;
+            width: 100%; padding: 22px; position: relative; z-index: 2; text-align: left;
         }
-        
         .nav-card h3 { 
-            font-size: 16px; 
-            font-weight: 800; 
-            color: #ffffff;
-            line-height: 1.4;
-            letter-spacing: -0.2px;
-            transition: transform 0.3s ease;
+            font-size: 16px; font-weight: 800; color: #ffffff; line-height: 1.4; letter-spacing: -0.2px; transition: transform 0.3s ease;
         }
-        .nav-card:hover h3 {
-            transform: translateX(5px);
-        }
+        .nav-card:hover h3 { transform: translateX(5px); }
 
-        /* FLOATING INPUT & MODAL */
+        /* MODAL KHUNG ĐĂNG NHẬP */
         .modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(15, 23, 42, 0.3); 
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
-            display: flex; align-items: center; justify-content: center; 
-            z-index: 1000; opacity: 0; pointer-events: none; 
+            background: rgba(15, 23, 42, 0.3); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
+            display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; pointer-events: none; 
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
         }
         .modal-overlay.open { opacity: 1; pointer-events: auto; }
-        
         .modal-card { 
-            background: rgba(255, 255, 255, 0.85); 
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 24px; width: 100%; max-width: 400px; padding: 36px; 
-            box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.15); 
-            transform: scale(0.95) translateY(10px); 
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+            background: rgba(255, 255, 255, 0.85); border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 24px; width: 100%; max-width: 400px; padding: 36px; box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.15); 
+            transform: scale(0.95) translateY(10px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
         }
         .modal-overlay.open .modal-card { transform: scale(1) translateY(0); }
 
@@ -170,26 +138,26 @@
 </head>
 <body class="theme-xanh-ios custom-scrollbar" id="dynamic-body">
 
-    <header class="main-header flex flex-row items-center justify-between py-4 px-10 select-none relative overflow-hidden h-auto min-h-0 transition-all duration-300">
+    <header class="main-header flex flex-col items-center justify-center py-5 px-4 select-none relative overflow-hidden h-auto min-h-0 transition-all duration-300">
         
-        <div class="absolute -top-16 left-10 w-64 h-12 bg-white/10 rounded-full blur-2xl pointer-events-none animate-pulse"></div>
+        <div class="absolute -top-16 w-80 h-12 bg-white/10 rounded-full blur-2xl pointer-events-none animate-pulse"></div>
 
-        <div class="flex items-center justify-center z-10">
-            <img src="logo.png" alt="Logo" class="logo-main w-14 h-auto mr-6 transition-all duration-500 hover:scale-105 filter drop-shadow-[0_4px_8px_rgba(0,0,0,0.4)]">
-        </div>
-
-        <div class="flex flex-col items-end justify-center space-y-2 z-10 flex-1 text-right">
-            <h1 class="title-main text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-[0.2em] bg-gradient-to-b from-white via-slate-100 to-slate-300 bg-clip-text text-transparent drop-shadow-[0_4px_6px_rgba(0,0,0,0.7)] font-['Montserrat'] leading-none m-0 p-0">
+        <div class="flex flex-col items-center justify-center text-center space-y-3 z-10 max-w-4xl w-full">
+            
+            <img src="logo.png" alt="Logo" class="logo-main w-14 h-auto transition-all duration-500 hover:scale-105 filter drop-shadow-[0_4px_8px_rgba(0,0,0,0.4)]">
+            
+            <h1 class="title-main text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-[0.25em] bg-gradient-to-b from-white via-slate-100 to-slate-300 bg-clip-text text-transparent drop-shadow-[0_4px_6px_rgba(0,0,0,0.7)] font-['Montserrat'] leading-none m-0 p-0">
                 Xã Bình Hưng
             </h1>
             
-            <div class="bg-slate-950/40 backdrop-blur-xl border border-white/10 px-5 py-1.5 rounded-full shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)]">
-                <p class="text-white font-semibold tracking-[0.1em] text-[9px] md:text-[11px] uppercase leading-none m-0 p-0">
+            <div class="bg-slate-950/40 backdrop-blur-xl border border-white/10 px-6 py-2 rounded-full shadow-[inset_0_1px_1px_rgba(255,255,255,0.2)]">
+                <p class="text-white font-semibold tracking-[0.12em] text-[9px] md:text-[11px] uppercase leading-none m-0 p-0">
                     Cổng thông tin và điều hành số xã Bình Hưng 
                     <span class="text-cyan-400 font-black px-1 inline-block animate-pulse">•</span> 
                     <span class="bg-gradient-to-r from-cyan-300 to-sky-300 bg-clip-text text-transparent font-extrabold">IOC BÌNH HƯNG</span>
                 </p>
             </div>
+            
         </div>
         
     </header>
@@ -369,7 +337,7 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // HÀM CHUYỂN ĐỔI THEME ĐỘNG: XANH IOS / ĐỎ HÀNH CHÍNH
+        // HÀM CHUYỂN ĐỔI THEME ĐỘNG: CHỈ HOÁN ĐỔI MÀU SẮC LỚP NỀN TRÊN THANH HEADER
         window.switchSystemTheme = function(modeName) {
             const body = document.getElementById('dynamic-body');
             const btnXanh = document.getElementById('btn-theme-xanh');
