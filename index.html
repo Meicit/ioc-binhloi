@@ -17,7 +17,7 @@
             overflow: hidden;
         }
 
-        /* 📹 VIDEO INTRO TRÀN MÀN HÌNH CHUẨN ĐỒNG BỘ */
+        /* 📹 VIDEO INTRO TOÀN MÀN HÌNH NỀN - GỠ BỎ HOÀN TOÀN LỚP CHẮN MỜ */
         .bg-video-container {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
@@ -29,14 +29,7 @@
             object-fit: cover;
         }
 
-        /* Lớp phủ tối mờ bảo vệ tầm nhìn chữ */
-        .video-overlay-mesh {
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(135deg, rgba(11, 74, 143, 0.8) 0%, rgba(3, 27, 74, 0.85) 100%);
-            z-index: 1;
-        }
-
+        /* Hiệu ứng chuyển trang mượt mà */
         .fade-out-system {
             opacity: 0;
             transform: scale(1.03);
@@ -49,35 +42,36 @@
 <body class="select-none" id="body-context">
 
     <div class="bg-video-container">
-        <div class="video-overlay-mesh"></div>
         <video id="intro-video-player" class="bg-video-content" autoplay muted playsinline preload="auto">
             <source src="intro.mp4" type="video/mp4">
             Trình duyệt của bạn không hỗ trợ phát thẻ video.
         </video>
     </div>
 
-    <div id="intro-container" class="max-w-4xl w-full mx-auto px-6 text-center space-y-8 z-10 transition-all duration-700">
+    <div id="intro-container" class="max-w-3xl w-full mx-auto px-8 py-10 text-center z-10 transition-all duration-700
+                                    bg-slate-950/40 backdrop-blur-md rounded-[32px] border border-white/10
+                                    shadow-[0_20px_50px_rgba(0,0,0,0.5)] space-y-6">
         
-        <div class="flex justify-center animate-pulse">
-            <img src="logo.png" alt="Logo Xã Bình Hưng" class="w-24 h-auto filter drop-shadow-[0_10px_20px_rgba(0,0,0,0.5)]">
+        <div class="flex justify-center">
+            <img src="logo.png" alt="Logo Xã Bình Hưng" class="w-20 h-auto filter drop-shadow-[0_4px_8px_rgba(0,0,0,0.4)]">
         </div>
 
         <div class="space-y-3">
-            <p class="text-cyan-300 font-bold text-xs md:text-sm uppercase tracking-[0.3em] m-0">ỦY BAN NHÂN DÂN XÃ BÌNH HƯNG</p>
-            <h1 class="text-3xl md:text-5xl lg:text-6xl font-black uppercase tracking-[0.2em] text-white font-['Montserrat'] leading-tight drop-shadow-md">
+            <p class="text-cyan-300 font-bold text-xs md:text-sm uppercase tracking-[0.25em] m-0">ỦY BAN NHÂN DÂN XÃ BÌNH HƯNG</p>
+            <h1 class="text-2xl md:text-4xl lg:text-5xl font-black uppercase tracking-[0.18em] text-white font-['Montserrat'] leading-tight drop-shadow-md">
                 TRUNG TÂM GIÁM SÁT<br class="hidden md:inline"> ĐIỀU HÀNH THÔNG MINH
             </h1>
         </div>
 
-        <div class="pt-4">
-            <button onclick="exitIntroImmediately()" class="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/25 text-white font-bold text-xs uppercase tracking-widest px-8 py-3.5 rounded-full shadow-lg backdrop-blur-md transition-all duration-300 hover:border-cyan-400 transform hover:-translate-y-0.5">
+        <div class="pt-2">
+            <button onclick="exitIntroImmediately()" class="inline-flex items-center gap-2 bg-blue-600/90 hover:bg-blue-600 border border-blue-500 text-white font-bold text-xs uppercase tracking-widest px-8 py-3 rounded-full shadow-lg transition-all duration-300 transform hover:-translate-y-0.5">
                 ⏩ Bỏ qua Intro & Vào Hệ Thống
             </button>
         </div>
 
     </div>
 
-    <footer class="absolute bottom-8 text-center text-white/40 font-medium text-[10px] uppercase tracking-widest w-full z-10">
+    <footer class="absolute bottom-6 text-center text-white/40 font-medium text-[10px] uppercase tracking-widest w-full z-10">
         &copy; 2026 IOC Bình Hưng — Smart Government Solution
     </footer>
 
@@ -85,17 +79,15 @@
         const videoPlayer = document.getElementById("intro-video-player");
         const bodyContext = document.getElementById("body-context");
 
-        // 🧠 LỆNH ÉP BUỘC PHÁT (Kể cả khi bộ duyệt chặn cứng)
+        // Bộ thiết lập và xử lý ép buộc tự động phát qua tường lửa bảo mật của các trình duyệt web
         document.addEventListener("DOMContentLoaded", () => {
-            videoPlayer.muted = true; // Ép tắt tiếng để qua cổng bảo mật Autoplay
-            
+            videoPlayer.muted = true; // Bắt buộc tắt tiếng để qua bộ lọc tự động phát của trình duyệt
             const playPromise = videoPlayer.play();
             if (playPromise !== undefined) {
                 playPromise.then(() => {
-                    console.log("Video tự khởi chạy thành công!");
+                    console.log("Video khởi chạy thành công!");
                 }).catch(error => {
-                    console.log("Trình duyệt chặn phát tự động, kích hoạt cơ chế dự phòng phát lập tức.");
-                    // Cơ chế dự phòng: Tự phát ngay khi người dùng chạm vào bất cứ đâu trên màn hình
+                    // Cơ chế dự phòng nếu trình duyệt cũ chặn cứng: Tự khởi chạy ngay khi người dùng tương tác lần đầu lên màn hình
                     document.addEventListener('click', () => {
                         videoPlayer.play();
                     }, { once: true });
@@ -103,7 +95,7 @@
             }
         });
 
-        // Tự động chuyển hướng khi video chạy xong thời lượng
+        // 🟢 LUỒNG TỰ ĐỘNG: Video chạy hết toàn bộ thời lượng -> Kích hoạt hiệu ứng chuyển cảnh mượt mà sang home.html
         videoPlayer.addEventListener("ended", () => {
             triggerTransitionToHome();
         });
@@ -115,6 +107,7 @@
             }, 800);
         }
 
+        // Hàm xử lý khi người dùng chủ động nhấn nút bỏ qua
         window.exitIntroImmediately = function() {
             videoPlayer.pause();
             triggerTransitionToHome();
