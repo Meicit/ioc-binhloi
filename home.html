@@ -20,7 +20,7 @@
             transition: background 0.4s ease, color 0.4s ease;
         }
 
-        /* ================= THEME PHẲNG ĐẶC - LOẠI BỎ TOÀN BỘ HIỆU ỨNG KÍNH MỜ MÀU MÈ ================= */
+        /* ================= THEME PHẲNG ĐẶC - CHỈ THAY ĐỔI THEME HEADER ================= */
         
         /* 🔵 PHONG CÁCH XANH IOS (MẶC ĐỊNH CHÍNH PHỦ SỐ) */
         body.theme-xanh-ios .main-header {
@@ -48,13 +48,13 @@
             width: 100%;
         }
 
-        /* LOGO ANIMATION CHUYỂN ĐỘNG NHẸ */
+        /* LOGO ANIMATION CHUYỂN ĐỘNG NHẸ TẠI T M */
         .logo-main {
             animation: float 4s ease-in-out infinite;
         }
         @keyframes float {
-            0%, 100% { transform: translateY(0); filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15)); }
-            50% { transform: translateY(-3px); filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.25)); }
+            0%, 100% { transform: translateY(0); filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.25)); }
+            50% { transform: translateY(-4px); filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.35)); }
         }
 
         /* GRID SYSTEM: ĐỊNH DẠNG 6 CỘT X 2 HÀNG CỐ ĐỊNH */
@@ -134,28 +134,36 @@
 </head>
 <body class="theme-xanh-ios custom-scrollbar" id="dynamic-body">
 
-    <header class="main-header flex items-center justify-center py-6 px-4 select-none width-full transition-all duration-300">
-        
-        <div class="flex flex-row items-center justify-center space-x-6 max-w-5xl w-auto">
+    <header class="main-header w-full py-6 px-8 select-none transition-all duration-300">
+        <div class="max-w-[1400px] mx-auto flex flex-col items-center space-y-4">
             
-            <img src="logo.png" alt="Logo" class="logo-main w-14 h-auto flex-shrink-0 filter drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
-            
-            <div class="flex flex-col items-start justify-center space-y-2.5 text-left">
-                <h1 class="title-main text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-[0.18em] text-white font-['Montserrat'] leading-none m-0 p-0">
-                    Xã Bình Hưng
-                </h1>
+            <div class="w-full grid grid-cols-1 md:grid-cols-3 gap-4 items-center">
                 
-                <div class="bg-black/25 border border-white/10 px-5 py-1.5 rounded-full">
-                    <p class="text-white/95 font-semibold tracking-[0.08em] text-[9px] md:text-[11px] uppercase leading-none m-0 p-0">
-                        Cổng thông tin và điều hành số xã Bình Hưng 
-                        <span class="text-cyan-300 font-black px-1">•</span> 
-                        <span class="text-cyan-300 font-extrabold">IOC BÌNH HƯNG</span>
+                <div class="text-center md:text-left order-2 md:order-1">
+                    <p class="text-white/90 font-bold tracking-[0.1em] text-xs md:text-sm uppercase leading-relaxed m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
+                        Cổng thông tin và điều hành số
                     </p>
                 </div>
+                
+                <div class="flex justify-center order-1 md:order-2">
+                    <img src="logo.png" alt="Logo" class="logo-main w-20 h-auto flex-shrink-0">
+                </div>
+                
+                <div class="text-center md:text-right order-3 md:order-3">
+                    <p class="text-cyan-300 font-extrabold tracking-[0.15em] text-sm md:text-base uppercase leading-relaxed m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
+                        IOC BÌNH HƯNG
+                    </p>
+                </div>
+                
+            </div>
+            
+            <div class="w-full text-center pt-2">
+                <h1 class="title-main text-xl md:text-2xl lg:text-3xl font-black uppercase tracking-[0.2em] text-white font-['Montserrat'] leading-none m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)]">
+                    Xã Bình Hưng - Thành phố Hồ Chí Minh
+                </h1>
             </div>
             
         </div>
-        
     </header>
 
     <div class="max-w-[1550px] w-full mx-auto px-6 mt-6 flex justify-end">
