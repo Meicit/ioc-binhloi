@@ -20,20 +20,31 @@
             transition: background 0.4s ease, color 0.4s ease;
         }
 
-        /* ================= THEME PHẲNG ĐẶC - CHỈ THAY ĐỔI THEME HEADER ================= */
+        /* ================= KỸ THUẬT NỀN ĐỘNG PHẲNG GIẢ LẬP FILE GIF HIỆU NĂNG CAO ================= */
         
-        /* 🔵 PHONG CÁCH XANH IOS (MẶC ĐỊNH CHÍNH PHỦ SỐ) */
+        /* 🔵 THEME XANH IOS - Sóng ánh sáng xanh neon chuyển động ngầm */
         body.theme-xanh-ios .main-header {
-            background-color: #0b4a8f; /* Màu xanh đặc công vụ */
+            background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d);
+            background-size: 400% 400%;
+            animation: gradientGIF 12s ease infinite;
             box-shadow: 0 4px 15px rgba(11, 74, 143, 0.2);
             border-bottom: 2px solid #032b5c;
         }
 
-        /* 🔴 PHONG CÁCH ĐỎ HÀNH CHÍNH (CƠ QUAN ĐẢNG) */
+        /* 🔴 THEME ĐỎ HÀNH CHÍNH - Sóng ánh sáng đỏ nhung & magma quyền lực chuyển động ngầm */
         body.theme-do-hanhchinh .main-header {
-            background-color: #dc2626; /* Màu đỏ đặc hành chính */
+            background: linear-gradient(-45deg, #dc2626, #7f1d1d, #ef4444, #450a0a);
+            background-size: 400% 400%;
+            animation: gradientGIF 12s ease infinite;
             box-shadow: 0 4px 15px rgba(220, 38, 38, 0.2);
             border-bottom: 2px solid #991b1b;
+        }
+
+        /* Engine dịch chuyển dải màu tạo hiệu ứng hoạt họa như file GIF */
+        @keyframes gradientGIF {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
 
         /* KHỐI NỀN MÀU XANH NGỌC TRONG SUỐT - LUÔN CỐ ĐỊNH PHÍA DƯỚI */
@@ -48,7 +59,7 @@
             width: 100%;
         }
 
-        /* LOGO ANIMATION CHUYỂN ĐỘNG NHẸ */
+        /* LOGO ANIMATION CHUYỂN ĐỘNG NHẸ TẠI TÂM */
         .logo-main {
             animation: float 4s ease-in-out infinite;
         }
@@ -335,7 +346,7 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // HÀM CHUYỂN ĐỔI THEME ĐỘNG: CHỈ HOÁN ĐỔI MÀU SẮC LỚP NỀN TRÊN THANH HEADER
+        // HÀM CHUYỂN ĐỔI THEME ĐỘNG: HOÁN ĐỔI MÀU SẮC LỚP NỀN TRÊN THANH HEADER
         window.switchSystemTheme = function(modeName) {
             const body = document.getElementById('dynamic-body');
             const btnXanh = document.getElementById('btn-theme-xanh');
