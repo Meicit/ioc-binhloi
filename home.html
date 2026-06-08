@@ -356,7 +356,7 @@
 
         window.openLoginModal = function() {
             if (auth.currentUser) {
-                window.location.href = "index.html";
+                window.location.href = "dashboard.html";
             } else {
                 document.getElementById('loginModal').classList.add('open');
                 document.getElementById('email').focus();
@@ -374,7 +374,7 @@
             signInWithEmailAndPassword(auth, emailInp, passInp)
                 .then(() => {
                     closeLoginModal();
-                    window.location.href = "index.html";
+                    window.location.href = "dashboard.html";
                 })
                 .catch(() => {
                     alert("⚠️ Email quản trị hoặc mật mã mật khẩu điều hành không chính xác!");
