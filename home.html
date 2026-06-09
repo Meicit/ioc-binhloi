@@ -11,13 +11,22 @@
         body {
             font-family: 'Inter', 'Be Vietnam Pro', sans-serif;
             margin: 0; padding: 0; min-height: 100vh;
-            /* PHÍA DƯỚI LÀ HÌNH NỀN LẤY FILE HINHNEN.PNG */
-            background: url('hinhnen.png') no-repeat center center fixed;
-            background-size: cover;
             color: #0f172a;
             display: flex;
             flex-direction: column;
             transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        /* ================= CẤU HÌNH LỰA CHỌN PH N NỀN BODY ================= */
+        /* Mặc định chạy nền ảnh hinhnen.png */
+        body.bg-image-mode {
+            background: url('hinhnen.png') no-repeat center center fixed;
+            background-size: cover;
+        }
+        /* Chuyển sang nền màu trắng tinh khôi */
+        body.bg-white-mode {
+            background-color: #ffffff;
+            background-image: none;
         }
 
         /* ================= KỸ THUẬT NỀN ĐỘNG PHẲNG GIẢ LẬP FILE GIF HIỆU NĂNG CAO ================= */
@@ -59,7 +68,7 @@
             width: 100%;
         }
 
-        /* LOGO ANIMATION CHUYỂN ĐỘNG NHẸ TẠI TÂM */
+        /* LOGO ANIMATION CHUYỂN ĐỘNG NHẸ */
         .logo-main {
             animation: float 4s ease-in-out infinite;
         }
@@ -143,7 +152,7 @@
         }
     </style>
 </head>
-<body class="theme-xanh-ios custom-scrollbar" id="dynamic-body">
+<body class="theme-xanh-ios bg-image-mode custom-scrollbar" id="dynamic-body">
 
     <header class="main-header w-full py-6 px-12 select-none transition-all duration-300">
         <div class="max-w-[1450px] mx-auto flex items-center justify-center">
@@ -155,15 +164,12 @@
                 </div>
                 
                 <div class="flex flex-col items-start justify-center space-y-2 text-left">
-                    
                     <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-['Montserrat']">
                         IOC BINH HUNG
                     </p>
-                    
                     <h1 class="title-main text-sm md:text-base lg:text-lg font-bold uppercase tracking-[0.08em] text-white/90 leading-tight m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
                         Cổng thông tin và điều hành xã Bình Hưng, Thành phố Hồ Chí Minh
                     </h1>
-                    
                 </div>
                 
             </div>
@@ -171,20 +177,32 @@
         </div>
     </header>
 
-    <div class="max-w-[1550px] w-full mx-auto px-6 mt-6 flex justify-end">
-        <div class="bg-white border border-slate-200 p-1.5 rounded-2xl flex items-center shadow-md select-none">
+    <div class="max-w-[1550px] w-full mx-auto px-6 mt-6 flex flex-col sm:flex-row items-end sm:items-center justify-end gap-3 select-none">
+        
+        <div class="bg-white border border-slate-200 p-1.5 rounded-2xl flex items-center shadow-md">
+            <span class="text-[10px] font-black uppercase tracking-wider px-3 text-slate-400">Giao diện nền:</span>
+            <button onclick="switchSystemBackground('image')" id="btn-bg-image" 
+                class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3.5 py-2 rounded-xl transition-all duration-300 bg-slate-800 text-white shadow-sm">
+                🏞️ Hình nền PNG
+            </button>
+            <button onclick="switchSystemBackground('white')" id="btn-bg-white" 
+                class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3.5 py-2 rounded-xl transition-all duration-300 text-slate-600 hover:text-slate-900 ml-1">
+                ⚪ Nền trắng
+            </button>
+        </div>
+
+        <div class="bg-white border border-slate-200 p-1.5 rounded-2xl flex items-center shadow-md">
             <span class="text-[10px] font-black uppercase tracking-wider px-3 text-slate-400">Chuyên đề chỉ đạo:</span>
-            
             <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" 
                 class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-4 py-2 rounded-xl transition-all duration-300 bg-blue-600 text-white shadow-md">
                 <span class="w-2.5 h-2.5 rounded-full bg-sky-300"></span> 🔵 Xanh iOS
             </button>
-            
             <button onclick="switchSystemTheme('do')" id="btn-theme-do" 
                 class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-4 py-2 rounded-xl transition-all duration-300 text-slate-600 hover:text-red-600 ml-1">
                 <span class="w-2.5 h-2.5 rounded-full bg-red-600"></span> 🔴 Đỏ Hành chính
             </button>
         </div>
+
     </div>
 
     <div class="max-w-[1550px] w-full mx-auto px-6 my-6">
@@ -346,7 +364,29 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // HÀM CHUYỂN ĐỔI THEME ĐỘNG: HOÁN ĐỔI MÀU SẮC LỚP NỀN TRÊN THANH HEADER
+        // HÀM CHUYỂN ĐỔI HÌNH NỀN HỆ THỐNG ĐỘNG (ẢNH PNG HOẶC MÀU TRẮNG)
+        window.switchSystemBackground = function(bgMode) {
+            const body = document.getElementById('dynamic-body');
+            const btnImg = document.getElementById('btn-bg-image');
+            const btnWhite = document.getElementById('btn-bg-white');
+
+            if (bgMode === 'white') {
+                body.classList.remove('bg-image-mode');
+                body.classList.add('bg-white-mode');
+                
+                // Cập nhật lại màu sắc của nút lựa chọn nền
+                btnWhite.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3.5 py-2 rounded-xl transition-all duration-300 bg-slate-800 text-white shadow-sm";
+                btnImg.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3.5 py-2 rounded-xl transition-all duration-300 text-slate-600 hover:text-slate-900 ml-1";
+            } else {
+                body.classList.remove('bg-white-mode');
+                body.classList.add('bg-image-mode');
+                
+                btnImg.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3.5 py-2 rounded-xl transition-all duration-300 bg-slate-800 text-white shadow-sm";
+                btnWhite.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3.5 py-2 rounded-xl transition-all duration-300 text-slate-600 hover:text-slate-900 ml-1";
+            }
+        }
+
+        // HÀM CHUYỂN ĐỔI THEME ĐỘNG HEADER
         window.switchSystemTheme = function(modeName) {
             const body = document.getElementById('dynamic-body');
             const btnXanh = document.getElementById('btn-theme-xanh');
