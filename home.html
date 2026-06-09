@@ -11,7 +11,7 @@
         body {
             font-family: 'Inter', 'Be Vietnam Pro', sans-serif;
             margin: 0; padding: 0; min-height: 100vh;
-            background-color: #f8fafc; /* Nền xám trắng nhẹ, loại bỏ hoàn toàn hinhnen.png */
+            background-color: #f8fafc;
             color: #0f172a;
             display: flex;
             flex-direction: column;
@@ -43,7 +43,7 @@
 
         /* KHỐI NỀN MÀU XANH NGỌC TRONG SUỐT - LUÔN CỐ ĐỊNH PHÍA DƯỚI */
         .menu-panel-wrapper {
-            background-color: rgba(128, 255, 232, 0.45); /* Giảm nhẹ độ đậm để hợp với nền trắng */
+            background-color: rgba(128, 255, 232, 0.45);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.6);
@@ -70,7 +70,7 @@
             width: 100%;
         }
 
-        /* CARD STYLE: ĐÃ TINH CHỈNH THU NHỎ PHẦN VIỀN MỜ VÀ ĐỔ BÓNG HOVER */
+        /* CARD STYLE: VUÔNG GỌN, CHỮ ÉP ĐÁY */
         .nav-card { 
             position: relative;
             background-size: cover; 
@@ -98,7 +98,6 @@
             transition: all 0.4s ease;
         }
 
-        /* Thu nhỏ độ nảy dọc và làm gọn phần đổ bóng mờ viền khi hover */
         .nav-card:hover { 
             transform: translateY(-4px); 
             border-color: rgba(11, 74, 143, 0.35); 
@@ -108,7 +107,6 @@
             background: linear-gradient(180deg, rgba(14, 165, 233, 0) 5%, rgba(11, 43, 91, 0.4) 45%, rgba(11, 37, 74, 0.95) 100%);
         }
 
-        /* ĐÃ KIỂM SOÁT TEXT-CENTER, GIẢM PADDING BOTTOM ĐỂ ÉP CHỮ SÁT ĐÁY */
         .text-overlay {
             width: 100%; 
             padding-left: 12px;
@@ -120,7 +118,6 @@
             text-align: center;
         }
         
-        /* ĐÃ THU NHỎ CHỮ TRONG CÁC NÚT XUỐNG MỨC TINH TẾ 13PX */
         .nav-card h3 { 
             font-size: 13px; 
             font-weight: 700; 
@@ -133,7 +130,7 @@
             transform: translateY(-1px);
         }
 
-        /* FLOATING INPUT & MODAL */
+        /* MODAL VÀ INPUT XÁC THỰC */
         .modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(15, 23, 42, 0.2); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
@@ -149,9 +146,15 @@
         .modal-overlay.open .modal-card { transform: scale(1) translateY(0); }
 
         @media (max-width: 1400px) { .grid-container { grid-template-columns: repeat(3, 1fr); gap: 18px; } }
+        
+        /* RESPONSIVE CHO KHỐI ĐIỀU HƯỚNG THEME TRÊN ĐIỆN THOẠI */
         @media (max-width: 1024px) {
-            .header-layout { flex-direction: column !important; space-y: 4; }
-            .theme-selector-box { position: relative !important; top: 0 !important; right: 0 !important; margin-top: 16px; }
+            .header-layout { flex-direction: column !important; }
+            .theme-selector-vertical { 
+                position: relative !important; top: 0 !important; right: 0 !important; 
+                margin-top: 16px; flex-direction: row !important; space-x: 2; width: auto !important;
+            }
+            .theme-selector-vertical button { margin-left: 4px; margin-right: 4px; }
         }
         @media (max-width: 768px) { 
             .grid-container { grid-template-columns: repeat(2, 1fr); gap: 14px; } 
@@ -172,26 +175,23 @@
                 </div>
                 
                 <div class="flex flex-col items-start justify-center space-y-2 text-left">
-                    
                     <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-['Montserrat']">
                         IOC BINH HUNG
                     </p>
-                    
                     <h1 class="title-main text-sm md:text-base lg:text-lg font-bold uppercase tracking-[0.08em] text-white/90 leading-tight m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
                         Cổng thông tin và điều hành xã Bình Hưng, Thành phố Hồ Chí Minh
                     </h1>
-                    
                 </div>
                 
             </div>
 
-            <div class="theme-selector-box lg:absolute lg:top-0 lg:right-0 bg-white/10 backdrop-blur-md border border-white/20 p-1 rounded-xl flex items-center shadow-inner select-none z-20">
+            <div class="theme-selector-vertical lg:absolute lg:top-0 lg:right-0 bg-white/10 backdrop-blur-md border border-white/20 p-1.5 rounded-xl flex flex-col space-y-1.5 w-[75px] z-20 shadow-inner">
                 <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" 
-                    class="flex items-center gap-1 text-[10px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md">
+                    class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md">
                     🔵 Xanh
                 </button>
                 <button onclick="switchSystemTheme('do')" id="btn-theme-do" 
-                    class="flex items-center gap-1 text-[10px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white ml-1">
+                    class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white">
                     🔴 Đỏ
                 </button>
             </div>
@@ -358,7 +358,7 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // HÀM CHUYỂN ĐỔI THEME ĐỘNG HEADER VÀ NÚT ĐIỀU HƯỚNG GÓC PHẢI
+        // HÀM CHUYỂN ĐỔI THEME ĐỘNG HEADER VÀ PHẦN NÚT HÀNG DỌC GÓC PHẢI
         window.switchSystemTheme = function(modeName) {
             const body = document.getElementById('dynamic-body');
             const btnXanh = document.getElementById('btn-theme-xanh');
@@ -368,14 +368,14 @@
                 body.classList.remove('theme-xanh-ios');
                 body.classList.add('theme-do-hanhchinh');
                 
-                btnDo.className = "flex items-center gap-1 text-[10px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all duration-300 bg-red-600 text-white shadow-md";
-                btnXanh.className = "flex items-center gap-1 text-[10px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white ml-1";
+                btnDo.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-red-600 text-white shadow-md";
+                btnXanh.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white";
             } else {
                 body.classList.remove('theme-do-hanhchinh');
                 body.classList.add('theme-xanh-ios');
                 
-                btnXanh.className = "flex items-center gap-1 text-[10px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md";
-                btnDo.className = "flex items-center gap-1 text-[10px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white ml-1";
+                btnXanh.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md";
+                btnDo.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white";
             }
         }
 
