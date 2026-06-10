@@ -75,10 +75,10 @@
             50% { transform: translateY(-3px); filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3)); }
         }
 
-        /* Khung chứa tài liệu PDF trực tiếp */
-        .pdf-viewer-container {
+        /* Khung chứa nội dung nhúng (Iframe/Object) */
+        .content-viewer-container {
             width: 100%;
-            height: 700px;
+            height: 750px;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
@@ -141,7 +141,7 @@
     <div class="max-w-[1550px] w-full mx-auto px-4 md:px-6 my-6 flex flex-col items-start">
         
         <div class="mb-6">
-            <a href="../home.html" class="btn-back-interactive inline-flex items-center gap-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 px-4 py-2 rounded-xl font-bold text-xs uppercase tracking-wider shadow-sm transition-all duration-300 hover:-translate-y-0.5">
+            <a href="home.html" class="btn-back-interactive inline-flex items-center gap-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 px-4 py-2 rounded-xl font-bold text-xs uppercase tracking-wider shadow-sm transition-all duration-300 hover:-translate-y-0.5">
                 ⬅️ Quay lại Trang chủ
             </a>
         </div>
@@ -158,18 +158,21 @@
             </div>
 
             <div class="w-full flex flex-row gap-2 overflow-x-auto pb-2 scrollbar-none snap-x touch-pan-x">
-                <button onclick="changePdf('Thủ tục_Lĩnh vực_LiênThông.pdf', this)" class="tab-btn active flex-shrink-0 snap-start bg-white border border-slate-200 text-slate-700 font-extrabold text-xs uppercase px-4 py-2.5 rounded-xl shadow-sm transition-all duration-200 hover:bg-slate-50 [&.active]:bg-blue-800 [&.active]:text-white [&.active]:border-blue-800">
+                <button onclick="changeContent('pdf', 'Thủ tục_Lĩnh vực_LiênThông.pdf', this)" class="tab-btn active flex-shrink-0 snap-start bg-white border border-slate-200 text-slate-700 font-extrabold text-xs uppercase px-4 py-2.5 rounded-xl shadow-sm transition-all duration-200 hover:bg-slate-50 [&.active]:bg-blue-800 [&.active]:text-white [&.active]:border-blue-800">
                     📦 Bộ TTHC Tổng Hợp
                 </button>
-                <button onclick="changePdf('ma-qr-tthc-2.pdf', this)" class="tab-btn flex-shrink-0 snap-start bg-white border border-slate-200 text-slate-700 font-extrabold text-xs uppercase px-4 py-2.5 rounded-xl shadow-sm transition-all duration-200 hover:bg-slate-50 [&.active]:bg-blue-800 [&.active]:text-white [&.active]:border-blue-800">
+                <button onclick="changeContent('pdf', 'ma-qr-tthc-2.pdf', this)" class="tab-btn flex-shrink-0 snap-start bg-white border border-slate-200 text-slate-700 font-extrabold text-xs uppercase px-4 py-2.5 rounded-xl shadow-sm transition-all duration-200 hover:bg-slate-50 [&.active]:bg-blue-800 [&.active]:text-white [&.active]:border-blue-800">
                     📋 Lĩnh Vực Đất Đai / Đô Thị
                 </button>
-                <button onclick="changePdf('ma-qr-tthc-3.pdf', this)" class="tab-btn flex-shrink-0 snap-start bg-white border border-slate-200 text-slate-700 font-extrabold text-xs uppercase px-4 py-2.5 rounded-xl shadow-sm transition-all duration-200 hover:bg-slate-50 [&.active]:bg-blue-800 [&.active]:text-white [&.active]:border-blue-800">
+                <button onclick="changeContent('pdf', 'ma-qr-tthc-3.pdf', this)" class="tab-btn flex-shrink-0 snap-start bg-white border border-slate-200 text-slate-700 font-extrabold text-xs uppercase px-4 py-2.5 rounded-xl shadow-sm transition-all duration-200 hover:bg-slate-50 [&.active]:bg-blue-800 [&.active]:text-white [&.active]:border-blue-800">
                     👤 Lĩnh Vực Tư Pháp / Hộ Tịch
+                </button>
+                <button onclick="changeContent('iframe', 'https://dichvucong.gov.vn/p/home/dvc-tra-cuu-thu-tuc.html', this)" class="tab-btn flex-shrink-0 snap-start bg-white border border-slate-200 text-slate-700 font-extrabold text-xs uppercase px-4 py-2.5 rounded-xl shadow-sm transition-all duration-200 hover:bg-slate-50 [&.active]:bg-blue-800 [&.active]:text-white [&.active]:border-blue-800 text-blue-700">
+                    🌐 Cổng Dịch vụ công Quốc gia
                 </button>
             </div>
 
-            <div class="pdf-viewer-container">
+            <div id="viewer-viewport" class="content-viewer-container">
                 <object id="pdf-viewer" data="Thủ tục_Lĩnh vực_LiênThông.pdf" type="application/pdf" width="100%" height="100%">
                     <p class="p-6 text-center text-sm font-bold text-slate-600">
                         Trình duyệt của bạn không hỗ trợ xem PDF trực tiếp. 
@@ -178,7 +181,7 @@
                 </object>
             </div>
             
-            <p class="instruction-text text-center text-xs font-bold text-blue-900 italic transition-colors duration-300">
+            <p id="helper-text" class="instruction-text text-center text-xs font-bold text-blue-900 italic transition-colors duration-300">
                 💡 Hướng dẫn: Người dân có thể đưa camera điện thoại quét trực tiếp các mã QR trên màn hình để truy cập và nộp hồ sơ trực tuyến.
             </p>
 
@@ -190,14 +193,34 @@
     </footer>
 
     <script>
-        // HÀM HOÁN ĐỔI TÀI LIỆU PDF TRÊN KHUNG NHÌN
-        function changePdf(pdfName, buttonElement) {
-            const viewer = document.getElementById('pdf-viewer');
-            viewer.setAttribute('data', pdfName);
+        // HÀM ĐA NĂNG: ÁNH XẠ WEBSITE HOẶC ĐỔ FILE PDF THEO YÊU CẦU NÚT BẤM
+        function changeContent(type, sourceUrl, buttonElement) {
+            const viewport = document.getElementById('viewer-viewport');
+            const helperText = document.getElementById('helper-text');
 
-            const fallback = document.getElementById('download-fallback');
-            fallback.setAttribute('href', pdfName);
+            if (type === 'iframe') {
+                // Thực hiện kỹ thuật ánh xạ trang web khác vào khung điều hành
+                viewport.innerHTML = `
+                    <iframe src="${sourceUrl}" width="100%" height="100%" style="border:none;" allowfullscreen>
+                        <p>Trình duyệt của bạn không hỗ trợ hiển thị khung Iframe.</p>
+                     frameBorder="0"></iframe>
+                `;
+                // Thay đổi dòng chú thích phù hợp với nền tảng liên kết web trực tiếp
+                helperText.innerHTML = `🌐 Bạn đang xem trang tra cứu trực tiếp của Cổng Dịch vụ công Quốc gia. Nếu khung hiển thị bị chặn, <a href="https://dichvucong.gov.vn/tra-cuu-thu-tuc/danh-sach" target="_blank" class="text-blue-600 underline font-black">bấm vào đây để mở trang bằng Tab mới.</a>`;
+            } else {
+                // Trả về trình xem PDF nội bộ của Xã
+                viewport.innerHTML = `
+                    <object id="pdf-viewer" data="${sourceUrl}" type="application/pdf" width="100%" height="100%">
+                        <p class="p-6 text-center text-sm font-bold text-slate-600">
+                            Trình duyệt của bạn không hỗ trợ xem PDF trực tiếp. 
+                            <a id="download-fallback" href="${sourceUrl}" class="text-blue-600 underline font-extrabold" download>Bấm vào đây để tải file PDF về máy.</a>
+                        </p>
+                    </object>
+                `;
+                helperText.innerHTML = `💡 Hướng dẫn: Người dân có thể đưa camera điện thoại quét trực tiếp các mã QR trên màn hình để truy cập và nộp hồ sơ trực tuyến.`;
+            }
 
+            // Đồng bộ hiệu ứng nút active
             const buttons = document.querySelectorAll('.tab-btn');
             buttons.forEach(btn => btn.classList.remove('active'));
             buttonElement.classList.add('active');
