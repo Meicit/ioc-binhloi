@@ -16,18 +16,10 @@
             transition: background 0.4s ease, color 0.4s ease;
         }
 
-        /* ================= CẤU HÌNH LỰA CHỌN GIAO DIỆN NỀN SÁNG / TỐI ================= */
-        body.bg-light-mode {
-            background-color: #f8fafc;
-            color: #0f172a;
-        }
-        body.bg-dark-mode {
-            background-color: #0f172a;
-            color: #f8fafc;
-        }
+        /* ================= CẤU HÌNH GIAO DIỆN NỀN SÁNG / TỐI ================= */
+        body.bg-light-mode { background-color: #f8fafc; color: #0f172a; }
+        body.bg-dark-mode { background-color: #0f172a; color: #f8fafc; }
 
-        /* Đổi màu chữ hướng dẫn & chân trang khi ở chế độ nền tối */
-        body.bg-dark-mode .instruction-text { color: #38bdf8 !important; }
         body.bg-dark-mode footer { background-color: #1e293b !important; border-color: #334155 !important; }
         body.bg-dark-mode .btn-back-interactive { background: #1e293b; border-color: #334155; color: #f1f5f9; }
         body.bg-dark-mode .btn-back-interactive:hover { border-color: #38bdf8; color: #38bdf8; }
@@ -55,7 +47,7 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* KHỐI NỀN MÀU XANH NGỌC TRONG SUỐT ĐÃ ĐƯỢC MỞ RỘNG DIỆN TÍCH PHÍA DƯỚI */
+        /* KHỐI NỀN MÀU XANH NGỌC TRONG SUỐT PHÍA DƯỚI */
         .menu-panel-wrapper {
             background-color: rgba(128, 255, 232, 0.45);
             backdrop-filter: blur(20px);
@@ -65,30 +57,6 @@
             box-shadow: 0 20px 50px -10px rgba(12, 74, 110, 0.15);
             width: 100%;
         }
-
-        /* LOGO ANIMATION CHUYỂN ĐỘNG NHẸ */
-        .logo-main {
-            animation: float 4s ease-in-out infinite;
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)); }
-            50% { transform: translateY(-3px); filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3)); }
-        }
-
-        /* Khung chứa nội dung nhúng (Iframe/Object) */
-        .content-viewer-container {
-            width: 100%;
-            height: 750px;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-            border: 1px solid rgba(255, 255, 255, 0.5);
-            background: #ffffff;
-        }
-
-        /* Ẩn thanh cuộn của nhóm nút tab chuyển đổi */
-        .scrollbar-none::-webkit-scrollbar { display: none; }
-        .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
 
         @media (max-width: 1024px) {
             .header-layout { flex-direction: column !important; }
@@ -105,11 +73,9 @@
         <div class="max-w-[1550px] mx-auto flex flex-col items-center justify-center relative header-layout">
             
             <div class="flex flex-row items-center space-x-6 w-auto">
-                
                 <div class="flex-shrink-0">
                     <img src="logo.png" alt="Logo" class="logo-main w-20 h-auto">
                 </div>
-                
                 <div class="flex flex-col items-start justify-center space-y-2 text-left">
                     <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-['Montserrat']">
                         IOC BINH HUNG
@@ -118,21 +84,17 @@
                         Cổng thông tin và điều hành xã Bình Hưng, Thành phố Hồ Chí Minh
                     </h1>
                 </div>
-                
             </div>
 
             <div class="control-panel-box lg:absolute lg:top-0 lg:right-0 flex flex-col space-y-2 w-auto items-end z-20 select-none">
-                
                 <div class="bg-white/10 backdrop-blur-md border border-white/20 p-1 rounded-xl flex items-center shadow-inner">
                     <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="text-[9px] font-extrabold uppercase px-2.5 py-1 rounded-md transition-all bg-blue-600 text-white shadow-sm">🔵 Xanh</button>
                     <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="text-[9px] font-extrabold uppercase px-2.5 py-1 rounded-md transition-all text-white/80 hover:text-white ml-1">🔴 Đỏ</button>
                 </div>
-
                 <div class="bg-white/10 backdrop-blur-md border border-white/20 p-1 rounded-xl flex items-center shadow-inner">
                     <button onclick="switchSystemBackground('light')" id="btn-bg-light" class="text-[9px] font-extrabold uppercase px-2.5 py-1 rounded-md transition-all bg-slate-800 text-white shadow-sm">☀️ Sáng</button>
                     <button onclick="switchSystemBackground('dark')" id="btn-bg-dark" class="text-[9px] font-extrabold uppercase px-2.5 py-1 rounded-md transition-all text-white/80 hover:text-white ml-1">🌙 Tối</button>
                 </div>
-
             </div>
             
         </div>
@@ -146,43 +108,32 @@
             </a>
         </div>
 
-        <article class="menu-panel-wrapper p-6 md:p-10 lg:p-12 flex flex-col space-y-6">
+        <article class="menu-panel-wrapper p-8 md:p-16 flex flex-col items-center justify-center space-y-8 min-h-[400px]">
             
-            <div class="text-center md:text-left border-b border-slate-900/10 dark:border-white/10 pb-4">
+            <div class="text-center space-y-2">
                 <h2 class="text-xl md:text-2xl lg:text-3xl font-black uppercase tracking-wide text-[#0b4a8f] font-['Montserrat']">
-                    Tra cứu bộ mã QR Thủ tục hành chính
+                    Liên thông Dịch vụ công Quốc gia
                 </h2>
-                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1">
-                    Quét mã nhanh công tác phục vụ hành chính công — Phân hệ IOC Xã Bình Hưng
+                <p class="text-xs md:text-sm font-semibold text-slate-600 max-w-xl mx-auto leading-relaxed">
+                    Hệ thống tự động mã hóa từ khóa và truyền dữ liệu qua tham số URL Parameters để tra cứu nhanh biểu mẫu điện tử.
                 </p>
             </div>
 
-            <div class="w-full flex flex-row gap-2 overflow-x-auto pb-2 scrollbar-none snap-x touch-pan-x">
-                <button onclick="changeContent('pdf', 'Thủ tục_Lĩnh vực_LiênThông.pdf', this)" class="tab-btn active flex-shrink-0 snap-start bg-white border border-slate-200 text-slate-700 font-extrabold text-xs uppercase px-4 py-2.5 rounded-xl shadow-sm transition-all duration-200 hover:bg-slate-50 [&.active]:bg-blue-800 [&.active]:text-white [&.active]:border-blue-800">
-                    📦 Bộ TTHC Tổng Hợp
+            <div class="w-full max-w-2xl bg-white p-4 rounded-2xl border border-slate-200 shadow-lg flex flex-col sm:flex-row gap-3 items-center">
+                
+                <div class="relative w-full flex-1">
+                    <span class="absolute left-4 top-3.5 text-lg text-slate-400">🔍</span>
+                    <input type="text" id="search_input" onkeypress="handleKeyPress(event)" placeholder="Nhập thủ tục cần tra cứu (Ví dụ: chứng thực, đất đai, hộ tịch...)" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-12 py-3.5 text-sm font-semibold text-slate-800 focus:outline-none focus:border-blue-700 focus:bg-white focus:ring-4 focus:ring-blue-700/10 placeholder-slate-400 font-['Inter'] transition-all">
+                </div>
+                
+                <button onclick="executeUrlSearch()" class="w-full sm:w-auto bg-blue-800 hover:bg-blue-900 text-white font-extrabold text-xs uppercase px-6 py-4 rounded-xl shadow-md shadow-blue-800/10 transition-all flex items-center justify-center gap-2 flex-shrink-0">
+                    <span>Tìm kiếm</span> 🚀
                 </button>
-                <button onclick="changeContent('pdf', 'ma-qr-tthc-2.pdf', this)" class="tab-btn flex-shrink-0 snap-start bg-white border border-slate-200 text-slate-700 font-extrabold text-xs uppercase px-4 py-2.5 rounded-xl shadow-sm transition-all duration-200 hover:bg-slate-50 [&.active]:bg-blue-800 [&.active]:text-white [&.active]:border-blue-800">
-                    📋 Lĩnh Vực Đất Đai / Đô Thị
-                </button>
-                <button onclick="changeContent('pdf', 'ma-qr-tthc-3.pdf', this)" class="tab-btn flex-shrink-0 snap-start bg-white border border-slate-200 text-slate-700 font-extrabold text-xs uppercase px-4 py-2.5 rounded-xl shadow-sm transition-all duration-200 hover:bg-slate-50 [&.active]:bg-blue-800 [&.active]:text-white [&.active]:border-blue-800">
-                    👤 Lĩnh Vực Tư Pháp / Hộ Tịch
-                </button>
-                <button onclick="changeContent('iframe', 'https://dichvucong.gov.vn/p/home/dvc-tra-cuu-thu-tuc.html', this)" class="tab-btn flex-shrink-0 snap-start bg-white border border-slate-200 text-slate-700 font-extrabold text-xs uppercase px-4 py-2.5 rounded-xl shadow-sm transition-all duration-200 hover:bg-slate-50 [&.active]:bg-blue-800 [&.active]:text-white [&.active]:border-blue-800 text-blue-700">
-                    🌐 Cổng Dịch vụ công Quốc gia
-                </button>
-            </div>
 
-            <div id="viewer-viewport" class="content-viewer-container">
-                <object id="pdf-viewer" data="Thủ tục_Lĩnh vực_LiênThông.pdf" type="application/pdf" width="100%" height="100%">
-                    <p class="p-6 text-center text-sm font-bold text-slate-600">
-                        Trình duyệt của bạn không hỗ trợ xem PDF trực tiếp. 
-                        <a id="download-fallback" href="Thủ tục_Lĩnh vực_LiênThông.pdf" class="text-blue-600 underline font-extrabold" download>Bấm vào đây để tải file PDF về máy.</a>
-                    </p>
-                </object>
             </div>
             
-            <p id="helper-text" class="instruction-text text-center text-xs font-bold text-blue-900 italic transition-colors duration-300">
-                💡 Hướng dẫn: Người dân có thể đưa camera điện thoại quét trực tiếp các mã QR trên màn hình để truy cập và nộp hồ sơ trực tuyến.
+            <p class="text-[11px] font-bold text-slate-400 uppercase tracking-widest italic">
+                * Hệ thống sẽ tự động điều hướng kết quả sang một thẻ tab mới bảo mật.
             </p>
 
         </article>
@@ -193,37 +144,33 @@
     </footer>
 
     <script>
-        // HÀM ĐA NĂNG: ÁNH XẠ WEBSITE HOẶC ĐỔ FILE PDF THEO YÊU CẦU NÚT BẤM
-        function changeContent(type, sourceUrl, buttonElement) {
-            const viewport = document.getElementById('viewer-viewport');
-            const helperText = document.getElementById('helper-text');
+        // Hàm bắt sự kiện khi người dùng nhấn nút Enter trên bàn phím
+        function handleKeyPress(event) {
+            if (event.key === 'Enter') {
+                executeUrlSearch();
+            }
+        }
 
-            if (type === 'iframe') {
-                // Thực hiện kỹ thuật ánh xạ trang web khác vào khung điều hành
-                viewport.innerHTML = `
-                    <iframe src="${sourceUrl}" width="100%" height="100%" style="border:none;" allowfullscreen>
-                        <p>Trình duyệt của bạn không hỗ trợ hiển thị khung Iframe.</p>
-                     frameBorder="0"></iframe>
-                `;
-                // Thay đổi dòng chú thích phù hợp với nền tảng liên kết web trực tiếp
-                helperText.innerHTML = `🌐 Bạn đang xem trang tra cứu trực tiếp của Cổng Dịch vụ công Quốc gia. Nếu khung hiển thị bị chặn, <a href="https://dichvucong.gov.vn/tra-cuu-thu-tuc/danh-sach" target="_blank" class="text-blue-600 underline font-black">bấm vào đây để mở trang bằng Tab mới.</a>`;
-            } else {
-                // Trả về trình xem PDF nội bộ của Xã
-                viewport.innerHTML = `
-                    <object id="pdf-viewer" data="${sourceUrl}" type="application/pdf" width="100%" height="100%">
-                        <p class="p-6 text-center text-sm font-bold text-slate-600">
-                            Trình duyệt của bạn không hỗ trợ xem PDF trực tiếp. 
-                            <a id="download-fallback" href="${sourceUrl}" class="text-blue-600 underline font-extrabold" download>Bấm vào đây để tải file PDF về máy.</a>
-                        </p>
-                    </object>
-                `;
-                helperText.innerHTML = `💡 Hướng dẫn: Người dân có thể đưa camera điện thoại quét trực tiếp các mã QR trên màn hình để truy cập và nộp hồ sơ trực tuyến.`;
+        // CƠ CHẾ CHÍNH: TRUYỀN DỮ LIỆU QUA URL PARAMETERS VÀ BẮT TỪ KHÓA
+        function executeUrlSearch() {
+            const inputElement = document.getElementById('search_input');
+            const keyword = inputElement.value.trim();
+
+            if (keyword === "") {
+                alert("⚠️ Vui lòng nhập từ khóa dữ liệu thủ tục hành chính cần tra cứu!");
+                inputElement.focus();
+                return;
             }
 
-            // Đồng bộ hiệu ứng nút active
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            buttonElement.classList.add('active');
+            // Bước 1: Mã hóa an toàn chuỗi ký tự Tiếng Việt (URL Encoding)
+            // Bước 2: Chuyển đổi ký tự khoảng trắng thành dấu cộng (+) theo đúng quy chuẩn cấu trúc của trang dịch vụ công
+            const formattedKeyword = encodeURIComponent(keyword).replace(/%20/g, '+');
+
+            // Bước 3: Ánh xạ và khớp nối chuỗi URL Parameters động dựa trên từ khóa vừa xử lý
+            const finalQueryUrl = `https://dichvucong.gov.vn/tra-cuu-thu-tuc/danh-sach?keyword=${formattedKeyword}&showAdvanced=false&formalityType=STANDARD&limit=10&activeKey=STANDARD`;
+
+            // Bước 4: Mở bung kết quả sang một Tab mới an toàn, không bị tường lửa chặn chặn
+            window.open(finalQueryUrl, '_blank');
         }
 
         // HÀM CHUYỂN ĐỔI CHẾ ĐỘ NỀN (LIGHT MODE / DARK MODE)
