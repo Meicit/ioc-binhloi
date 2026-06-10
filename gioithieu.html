@@ -61,7 +61,7 @@
             50% { transform: translateY(-3px); filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3)); }
         }
 
-        /* ================= HIỆU ỨNG DI CHUYỂN LÊN TRÊN BÊN TRÁI & HIỆN ĐOẠN GIỚI THIỆU ================= */
+        /* ================= HIỆU ỨNG DI CHUYỂN MƯỢT MÀ CỦA NÚT QUAY LẠI ================= */
         .btn-back-container {
             position: relative;
             display: inline-block;
@@ -80,42 +80,17 @@
             font-weight: 700;
             font-size: 12px;
             text-transform: uppercase;
-            tracking-width: 0.05em;
+            letter-spacing: 0.05em;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
+        /* Khi rê chuột: Nút di chuyển tịnh tiến mượt mà lên trên bên trái */
         .btn-back-container:hover .btn-back-interactive {
             transform: translate(-6px, -4px);
             border-color: #0b4a8f;
             color: #0b4a8f;
             box-shadow: 6px 6px 12px rgba(11, 74, 143, 0.15);
-        }
-
-        .btn-tooltip-box {
-            position: absolute;
-            top: calc(100% + 8px);
-            left: -6px;
-            width: 280px;
-            background-color: rgba(15, 23, 42, 0.85);
-            backdrop-filter: blur(8px);
-            -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            padding: 12px 14px;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
-            opacity: 0;
-            visibility: hidden;
-            transform: translateY(4px);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: 50;
-            pointer-events: none;
-        }
-
-        .btn-back-container:hover .btn-tooltip-box {
-            opacity: 1;
-            visibility: visible;
-            transform: translateY(0);
         }
 
         @media (max-width: 1024px) {
@@ -125,9 +100,6 @@
                 margin-top: 16px; flex-direction: row !important; space-x: 2; width: auto !important;
             }
             .theme-selector-vertical button { margin-left: 4px; margin-right: 4px; }
-        }
-        @media (max-width: 768px) {
-            .btn-tooltip-box { width: 230px; }
         }
     </style>
 </head>
@@ -173,12 +145,6 @@
             <a href="home.html" class="btn-back-interactive">
                 ⬅️ Quay lại Trang chủ
             </a>
-            <div class="btn-tooltip-box">
-                <p class="text-cyan-400 font-extrabold text-[10px] uppercase tracking-wider mb-1">Hệ Thống IOC Điều Hành</p>
-                <p class="text-white/90 font-medium text-xs leading-normal">
-                    Nhấp vào nút để thoát phân hệ xem báo cáo và quay trở lại Bảng lưới 12 giải pháp số hóa Trang chủ xã Bình Hưng.
-                </p>
-            </div>
         </div>
 
         <article class="menu-panel-wrapper p-6 md:p-12 lg:p-16 space-y-12">
