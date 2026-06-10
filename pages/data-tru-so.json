@@ -39,7 +39,7 @@
         "id": 7,
         "name": "Trạm Y tế xã Bình Hưng",
         "address": "Số 71A Đường số 1 Khu dân cư Bình Hưng, ấp 5, xã Bình Hưng, Thành phố Hồ Chí Minh",
-        "map_embed": "http://googleusercontent.com/image_generation_content/maps.google.com/3"
+        "map_embed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.054311931058!2d106.65146471022123!3d10.726475389375132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752e40756c6c4b%3A0xb4942b842b20a3c5!2zVHLhuqFtIHkgdOG6vyB4w6MgQsOsbmggSMawbmc!5e1!3m2!1svi!2s!4v1781082897534!5m2!1svi!2s"
     },
     {
         "id": 8,
@@ -51,6 +51,6 @@
         "id": 9,
         "name": "Ban Quản lý dự án đầu tư xây dựng xã Bình Hưng",
         "address": "920 đường Văn Tiến Dũng, xã Bình Hưng, Thành phố Hồ Chí Minh",
-        "map_embed": "http://googleusercontent.com/image_generation_content/maps.google.com/5"
+        "map_embed": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3624.156864449887!2d106.65296961022116!3d10.717912989383217!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x31752e3cffd87197%3A0x1b7b2366a39a13ec!2zOTIwIFbEg24gVGnhur9uIETFqW5nLCBCw6xuaCBIxrBuZywgSOG7kyBDaMOtIE1pbmgsIFZp4buHdCBOYW0!5e1!3m2!1svi!2s!4v1781082980446!5m2!1svi!2s"
     }
 ]
