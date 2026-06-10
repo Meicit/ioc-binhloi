@@ -3,226 +3,243 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thủ tục hành chính - Xã Bình Hưng</title>
+    <title>Bộ Thủ tục hành chính - Xã Bình Hưng</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    
     <style>
         body {
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Inter', 'Be Vietnam Pro', sans-serif;
             margin: 0; padding: 0; min-height: 100vh;
-            background: linear-gradient(rgba(15, 23, 42, 0.8), rgba(15, 23, 42, 0.95)), url('../hinhnen.png');
-            background-size: cover; background-position: center; background-attachment: fixed;
-            color: #f8fafc; display: flex; flex-direction: column;
+            display: flex;
+            flex-direction: column;
+            transition: background 0.4s ease, color 0.4s ease;
         }
-        .container-wrapper { max-width: 1550px; margin: 30px auto; padding: 0 24px; width: 100%; }
-        .glass-panel { background: rgba(30, 41, 59, 0.6); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 24px; box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5); }
-        .input-dark { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255, 255, 255, 0.15); border-radius: 12px; padding: 12px 16px; color: #ffffff; outline: none; transition: all 0.2s; }
-        .input-dark:focus { border-color: #0ea5e9; box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.25); }
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-track { background: rgba(0,0,0,0.1); }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.2); border-radius: 10px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.4); }
 
-        /* Cấu trúc hàng danh mục 3D nổi bật */
-        .grid-row { display: flex; align-items: center; width: 100%; padding: 16px 20px; font-family: 'Inter', sans-serif; }
-        .col-stt { width: 6%; text-align: center; }
-        .col-code { width: 18%; text-align: left; }
-        .col-name { width: 46%; padding-left: 10px; }
-        .col-type { width: 16%; text-align: center; }
-        .col-status { width: 14%; text-align: center; }
+        /* ================= CẤU HÌNH LỰA CHỌN GIAO DIỆN NỀN SÁNG / TỐI ================= */
+        body.bg-light-mode {
+            background-color: #f8fafc;
+            color: #0f172a;
+        }
+        body.bg-dark-mode {
+            background-color: #0f172a;
+            color: #f8fafc;
+        }
 
-        .header-row { background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%); color: white; font-size: 12px; font-weight: 900; text-transform: uppercase; border-radius: 14px; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.05); }
-        .row-container { margin-bottom: 8px; perspective: 1000px; }
-        .row-3d { position: relative; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px; overflow: hidden; transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1); cursor: pointer; }
-        .row-3d:hover { transform: translateY(-3px); background: rgba(14, 165, 233, 0.12); border-color: #0ea5e9; box-shadow: 0 8px 16px -5px rgba(14, 165, 233, 0.25); }
+        /* Đổi màu chữ hướng dẫn & chân trang khi ở chế độ nền tối */
+        body.bg-dark-mode .instruction-text { color: #38bdf8 !important; }
+        body.bg-dark-mode footer { background-color: #1e293b !important; border-color: #334155 !important; }
+        body.bg-dark-mode .btn-back-interactive { background: #1e293b; border-color: #334155; color: #f1f5f9; }
+        body.bg-dark-mode .btn-back-interactive:hover { border-color: #38bdf8; color: #38bdf8; }
 
-        /* Hệ thống nút Tab điều hướng lớn kiểu mới */
-        .main-tab-btn { padding: 14px 28px; border-radius: 16px; font-weight: 800; font-size: 13px; text-transform: uppercase; transition: all 0.3s ease; border: 1px solid rgba(255, 255, 255, 0.1); background: rgba(255,255,255,0.05); color: #94a3b8; tracking-wider: 0.5px; }
-        .main-tab-btn:hover { background: rgba(255,255,255,0.1); color: #ffffff; }
-        .main-tab-btn.active { background: linear-gradient(135deg, #0284c7 0%, #0ea5e9 100%); color: white; border-color: #0ea5e9; box-shadow: 0 10px 25px -5px rgba(14, 165, 233, 0.4); }
+        /* ================= KỸ THUẬT NỀN ĐỘNG GRADIENT TẠI HEADER ================= */
+        body.theme-xanh-ios .main-header {
+            background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d);
+            background-size: 400% 400%;
+            animation: gradientGIF 12s ease infinite;
+            box-shadow: 0 4px 15px rgba(11, 74, 143, 0.15);
+            border-bottom: 2px solid #032b5c;
+        }
 
-        .sub-tab-btn { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(255,255,255,0.15); padding: 10px 20px; border-radius: 12px; font-size: 12px; font-weight: 800; text-transform: uppercase; color: #94a3b8; transition: all 0.2s; }
-        .sub-tab-btn:hover { color: white; border-color: rgba(255,255,255,0.3); }
-        .sub-tab-btn.active { background: #0ea5e9; color: white; border-color: #0ea5e9; box-shadow: 0 4px 12px rgba(14, 165, 233, 0.2); }
+        body.theme-do-hanhchinh .main-header {
+            background: linear-gradient(-45deg, #dc2626, #7f1d1d, #ef4444, #450a0a);
+            background-size: 400% 400%;
+            animation: gradientGIF 12s ease infinite;
+            box-shadow: 0 4px 15px rgba(220, 38, 38, 0.15);
+            border-bottom: 2px solid #991b1b;
+        }
 
-        .pdf-viewer-container { width: 100%; height: 800px; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); border: 1px solid rgba(255, 255, 255, 0.1); background: #ffffff; }
-        .btn-back { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); color: #ffffff; padding: 12px 24px; border-radius: 14px; font-weight: 800; font-size: 12px; text-transform: uppercase; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.2); transition: all 0.3s ease; }
-        .btn-back:hover { transform: translateY(-2px); background: rgba(255,255,255,0.15); border-color: #0ea5e9; }
-        
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
+        @keyframes gradientGIF {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* KHỐI NỀN MÀU XANH NGỌC TRONG SUỐT ĐÃ ĐƯỢC MỞ RỘNG DIỆN TÍCH PHÍA DƯỚI */
+        .menu-panel-wrapper {
+            background-color: rgba(128, 255, 232, 0.45);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 40px;
+            box-shadow: 0 20px 50px -10px rgba(12, 74, 110, 0.15);
+            width: 100%;
+        }
+
+        /* LOGO ANIMATION CHUYỂN ĐỘNG NHẸ */
+        .logo-main {
+            animation: float 4s ease-in-out infinite;
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)); }
+            50% { transform: translateY(-3px); filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3)); }
+        }
+
+        /* Khung chứa tài liệu PDF trực tiếp */
+        .pdf-viewer-container {
+            width: 100%;
+            height: 700px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            background: #ffffff;
+        }
+
+        /* Ẩn thanh cuộn của nhóm nút tab chuyển đổi */
+        .scrollbar-none::-webkit-scrollbar { display: none; }
+        .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
+
+        @media (max-width: 1024px) {
+            .header-layout { flex-direction: column !important; }
+            .control-panel-box { 
+                position: relative !important; top: 0 !important; right: 0 !important; 
+                margin-top: 16px; flex-direction: row !important; space-x: 2; width: auto !important;
+            }
+        }
     </style>
 </head>
-<body class="custom-scrollbar">
+<body class="theme-xanh-ios bg-light-mode custom-scrollbar" id="dynamic-body">
 
-    <div class="container-wrapper space-y-6">
-        
-        <div class="flex justify-between items-center">
-            <a href="../home.html" class="btn-back">⬅️ Quay lại Trang chủ</a>
-            <span class="text-xs bg-sky-500/20 text-sky-400 font-extrabold px-3 py-1.5 rounded-full border border-sky-500/30 uppercase tracking-widest">Cổng dịch vụ hành chính điện tử</span>
-        </div>
-
-        <header class="glass-panel p-6 text-center">
-            <h1 class="text-xl md:text-2xl font-black uppercase tracking-wider bg-gradient-to-r from-white via-slate-200 to-sky-400 bg-clip-text text-transparent">
-                Thông tin Thủ tục hành chính điện tử — Xã Bình Hưng
-            </h1>
-            <p class="text-slate-400 font-medium text-xs uppercase tracking-[0.2em] mt-1">
-                Hệ thống công khai danh mục, hướng dẫn nghiệp vụ và tra cứu thủ tục công trực tuyến năm 2026
-            </p>
-        </header>
-
-        <div class="flex flex-col sm:flex-row gap-3 justify-center">
-            <button onclick="switchMainTab('tab-danhmuc', this)" class="main-tab-btn active">📋 Danh mục TTHC đã công bố</button>
-            <button onclick="switchMainTab('tab-thongdung', this)" class="main-tab-btn">📖 Hướng dẫn thực hiện TTHC thông dụng</button>
-            <button onclick="switchMainTab('tab-tracuu', this)" class="main-tab-btn">🔍 Hướng dẫn tra cứu TTHC</button>
-        </div>
-
-        <div class="glass-panel p-6">
+    <header class="main-header w-full py-6 px-6 md:px-12 select-none relative transition-all duration-300">
+        <div class="max-w-[1550px] mx-auto flex flex-col items-center justify-center relative header-layout">
             
-            <div id="tab-danhmuc" class="tab-content active space-y-4">
-                <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 border-b border-slate-700 pb-4">
-                    <div>
-                        <h2 class="text-xs font-black uppercase tracking-wider text-sky-400">📋 Bộ cơ sở dữ liệu danh mục TTHC liên thông công khai</h2>
-                        <p class="text-[10px] text-slate-400 font-medium mt-0.5">Người dân gõ từ khóa trực tiếp vào ô bên cạnh để hệ thống tự động lọc nghiệp vụ công</p>
-                    </div>
-                    <div class="relative w-full md:w-96">
-                        <span class="absolute left-4 top-3 text-xs">🔍</span>
-                        <input type="text" id="search_tthc" placeholder="Nhập tên thủ tục, lĩnh vực hoặc mã hồ sơ cần tra..." class="w-full bg-slate-900/80 border border-slate-700 rounded-xl pl-10 pr-4 py-2 text-xs font-semibold text-white focus:outline-none focus:border-sky-500 placeholder-slate-500 font-['Inter']">
-                    </div>
+            <div class="flex flex-row items-center space-x-6 w-auto">
+                
+                <div class="flex-shrink-0">
+                    <img src="logo.png" alt="Logo" class="logo-main w-20 h-auto">
                 </div>
-
-                <div class="w-full overflow-x-auto custom-scrollbar">
-                    <div class="min-w-[900px]">
-                        <div class="grid-row header-row">
-                            <div class="col-stt">STT</div>
-                            <div class="col-code">Mã thủ tục</div>
-                            <div class="col-name text-left uppercase">Tên thủ tục hành chính công bố công khai</div>
-                            <div class="col-type">Lĩnh vực quản lý</div>
-                            <div class="col-status">Trạng thái</div>
-                        </div>
-
-                        <div id="tthc-list-container" class="text-xs font-bold text-slate-300">
-                            </div>
-                    </div>
+                
+                <div class="flex flex-col items-start justify-center space-y-2 text-left">
+                    <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-['Montserrat']">
+                        IOC BINH HUNG
+                    </p>
+                    <h1 class="title-main text-sm md:text-base lg:text-lg font-bold uppercase tracking-[0.08em] text-white/90 leading-tight m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
+                        Cổng thông tin và điều hành xã Bình Hưng, Thành phố Hồ Chí Minh
+                    </h1>
                 </div>
+                
             </div>
 
-            <div id="tab-thongdung" class="tab-content space-y-6">
-                <div class="flex flex-wrap gap-3 border-b border-slate-700 pb-4">
-                    <button onclick="changePdf('ma-qr-tthc-1.pdf', this, 'viewer-thongdung', 'fallback-thongdung')" class="sub-tab-btn active">📦 Hướng dẫn Tổng Hợp</button>
-                    <button onclick="changePdf('ma-qr-tthc-2.pdf', this, 'viewer-thongdung', 'fallback-thongdung')" class="sub-tab-btn">📜 Lĩnh Vực Đất Đai</button>
-                    <button onclick="changePdf('ma-qr-tthc-3.pdf', this, 'viewer-thongdung', 'fallback-thongdung')" class="sub-tab-btn">👤 Tư Pháp / Hộ Tịch</button>
+            <div class="control-panel-box lg:absolute lg:top-0 lg:right-0 flex flex-col space-y-2 w-auto items-end z-20 select-none">
+                
+                <div class="bg-white/10 backdrop-blur-md border border-white/20 p-1 rounded-xl flex items-center shadow-inner">
+                    <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="text-[9px] font-extrabold uppercase px-2.5 py-1 rounded-md transition-all bg-blue-600 text-white shadow-sm">🔵 Xanh</button>
+                    <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="text-[9px] font-extrabold uppercase px-2.5 py-1 rounded-md transition-all text-white/80 hover:text-white ml-1">🔴 Đỏ</button>
                 </div>
 
-                <div class="pdf-viewer-container">
-                    <object id="viewer-thongdung" data="ma-qr-tthc-1.pdf" type="application/pdf" width="100%" height="100%">
-                        <p class="p-6 text-center text-xs font-bold text-slate-400 bg-slate-900/50 rounded-xl">Trình duyệt máy tính không hỗ trợ đọc file PDF trực tiếp. <a id="fallback-thongdung" href="ma-qr-tthc-1.pdf" class="text-sky-400 underline" download>Bấm vào đây để tải file cẩm nang hướng dẫn về máy.</a></p>
-                    </object>
+                <div class="bg-white/10 backdrop-blur-md border border-white/20 p-1 rounded-xl flex items-center shadow-inner">
+                    <button onclick="switchSystemBackground('light')" id="btn-bg-light" class="text-[9px] font-extrabold uppercase px-2.5 py-1 rounded-md transition-all bg-slate-800 text-white shadow-sm">☀️ Sáng</button>
+                    <button onclick="switchSystemBackground('dark')" id="btn-bg-dark" class="text-[9px] font-extrabold uppercase px-2.5 py-1 rounded-md transition-all text-white/80 hover:text-white ml-1">🌙 Tối</button>
                 </div>
-                <p class="text-center text-[11px] font-bold text-sky-400 italic">💡 Khuyến nghị: Công dân sử dụng camera điện thoại quét trực tiếp mã QR trên tệp cẩm nang để lấy tờ khai điện tử ngay lập tức.</p>
+
             </div>
-
-            <div id="tab-tracuu" class="tab-content space-y-6">
-                <div class="flex flex-wrap gap-3 border-b border-slate-700 pb-4">
-                    <button onclick="changePdf('huong-dan-tra-cuu.pdf', this, 'viewer-tracuu', 'fallback-tracuu')" class="sub-tab-btn active">📖 Sổ tay quy trình tra cứu trực tuyến</button>
-                </div>
-
-                <div class="pdf-viewer-container">
-                    <object id="viewer-tracuu" data="huong-dan-tra-cuu.pdf" type="application/pdf" width="100%" height="100%">
-                        <p class="p-6 text-center text-xs font-bold text-slate-400 bg-slate-900/50 rounded-xl">Trình duyệt không hỗ trợ xem trực tiếp. <a id="fallback-tracuu" href="huong-dan-tra-cuu.pdf" class="text-sky-400 underline" download>Bấm vào đây để tải cẩm nang hướng dẫn tra cứu hồ sơ.</a></p>
-                    </object>
-                </div>
-            </div>
-
+            
         </div>
+    </header>
+
+    <div class="max-w-[1550px] w-full mx-auto px-4 md:px-6 my-6 flex flex-col items-start">
+        
+        <div class="mb-6">
+            <a href="home.html" class="btn-back-interactive inline-flex items-center gap-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 px-4 py-2 rounded-xl font-bold text-xs uppercase tracking-wider shadow-sm transition-all duration-300 hover:-translate-y-0.5">
+                ⬅️ Quay lại Trang chủ
+            </a>
+        </div>
+
+        <article class="menu-panel-wrapper p-6 md:p-10 lg:p-12 flex flex-col space-y-6">
+            
+            <div class="text-center md:text-left border-b border-slate-900/10 dark:border-white/10 pb-4">
+                <h2 class="text-xl md:text-2xl lg:text-3xl font-black uppercase tracking-wide text-[#0b4a8f] font-['Montserrat']">
+                    Tra cứu bộ mã QR Thủ tục hành chính
+                </h2>
+                <p class="text-xs font-bold text-slate-500 uppercase tracking-widest mt-1">
+                    Quét mã nhanh công tác phục vụ hành chính công — Phân hệ IOC Xã Bình Hưng
+                </p>
+            </div>
+
+            <div class="w-full flex flex-row gap-2 overflow-x-auto pb-2 scrollbar-none snap-x touch-pan-x">
+                <button onclick="changePdf('Thủ tục_Lĩnh vực_LiênThông.pdf', this)" class="tab-btn active flex-shrink-0 snap-start bg-white border border-slate-200 text-slate-700 font-extrabold text-xs uppercase px-4 py-2.5 rounded-xl shadow-sm transition-all duration-200 hover:bg-slate-50 [&.active]:bg-blue-800 [&.active]:text-white [&.active]:border-blue-800">
+                    📦 Bộ TTHC Tổng Hợp
+                </button>
+                <button onclick="changePdf('ma-qr-tthc-2.pdf', this)" class="tab-btn flex-shrink-0 snap-start bg-white border border-slate-200 text-slate-700 font-extrabold text-xs uppercase px-4 py-2.5 rounded-xl shadow-sm transition-all duration-200 hover:bg-slate-50 [&.active]:bg-blue-800 [&.active]:text-white [&.active]:border-blue-800">
+                    📋 Lĩnh Vực Đất Đai / Đô Thị
+                </button>
+                <button onclick="changePdf('ma-qr-tthc-3.pdf', this)" class="tab-btn flex-shrink-0 snap-start bg-white border border-slate-200 text-slate-700 font-extrabold text-xs uppercase px-4 py-2.5 rounded-xl shadow-sm transition-all duration-200 hover:bg-slate-50 [&.active]:bg-blue-800 [&.active]:text-white [&.active]:border-blue-800">
+                    👤 Lĩnh Vực Tư Pháp / Hộ Tịch
+                </button>
+            </div>
+
+            <div class="pdf-viewer-container">
+                <object id="pdf-viewer" data="Thủ tục_Lĩnh vực_LiênThông.pdf" type="application/pdf" width="100%" height="100%">
+                    <p class="p-6 text-center text-sm font-bold text-slate-600">
+                        Trình duyệt của bạn không hỗ trợ xem PDF trực tiếp. 
+                        <a id="download-fallback" href="Thủ tục_Lĩnh vực_LiênThông.pdf" class="text-blue-600 underline font-extrabold" download>Bấm vào đây để tải file PDF về máy.</a>
+                    </p>
+                </object>
+            </div>
+            
+            <p class="instruction-text text-center text-xs font-bold text-blue-900 italic transition-colors duration-300">
+                💡 Hướng dẫn: Người dân có thể đưa camera điện thoại quét trực tiếp các mã QR trên màn hình để truy cập và nộp hồ sơ trực tuyến.
+            </p>
+
+        </article>
     </div>
 
-    <footer class="w-full text-center py-8 text-slate-500 font-bold text-[10px] uppercase tracking-[0.3em] border-t border-slate-900 bg-slate-950/20 backdrop-blur-md mt-auto">
-        &copy; 2026 IOC Xã Bình Hưng — Hệ thống số hóa dữ liệu dịch vụ hành chính công
+    <footer class="mt-auto text-center py-6 text-slate-400 font-medium text-[11px] uppercase tracking-widest border-t border-slate-200 bg-white shadow-sm transition-colors duration-300">
+        &copy; 2026 IOC Bình Hưng — Smart Government Solution
     </footer>
 
     <script>
-        // Kho cơ sở dữ liệu cấu trúc 12 lĩnh vực hành chính công của Xã Bình Hưng
-        const mockTthcData = [
-            { code: "1.002447.H29", name: "Thủ tục Đăng ký hộ kinh doanh cá thể liên thông cơ quan thuế", type: "Lĩnh vực liên thông", status: "Đang áp dụng" },
-            { code: "1.005112.H29", name: "Thủ tục Công nhận tổ chức tôn giáo có tư cách pháp nhân tại địa phương", type: "Dân tộc và Tôn giáo", status: "Đang áp dụng" },
-            { code: "1.003814.H29", name: "Thủ tục Cho phép cơ sở giáo dục mầm non độc lập quy mô nhỏ hoạt động", type: "Giáo dục và Đào tạo", status: "Đang áp dụng" },
-            { code: "2.000124.H29", name: "Thủ tục Tiếp nhận viên chức điều động công tác vào các cơ sở sự nghiệp công lập", type: "Lĩnh vực Nội vụ", status: "Đang áp dụng" },
-            { code: "2.000145.H29", name: "Thủ tục Phê duyệt quy hoạch tổng mặt bằng tỷ lệ chi tiết xây dựng dự án nhóm B, C", type: "Quy hoạch, Kiến trúc", status: "Đang áp dụng" },
-            { code: "2.000168.H29", name: "Thủ tục Quyết định sử dụng tài sản công của khối hành chính vào mục đích kinh doanh", type: "Lĩnh vực Tài chính", status: "Đang áp dụng" },
-            { code: "1.001245.H29", name: "Thủ tục Đăng ký biến động quyền sử dụng đất và tài sản gắn liền với đất đai", type: "Tài nguyên và Môi trường", status: "Đang áp dụng" },
-            { code: "1.005889.H29", name: "Thủ tục Cấp giấy xác nhận tình trạng độc thân, tình trạng hôn nhân thực tế", type: "Lĩnh vực Tư pháp", status: "Đang áp dụng" },
-            { code: "1.009224.H29", name: "Thủ tục Chứng thực bản sao điện tử từ bản chính các loại giấy tờ pháp lý", type: "Lĩnh vực Tư pháp", status: "Đang áp dụng" },
-            { code: "1.004112.H29", name: "Thủ tục Cấp giấy phép tổ chức các chương trình biểu diễn nghệ thuật quần chúng", type: "Văn hóa và Thể thao", status: "Đang áp dụng" },
-            { code: "1.004115.H29", name: "Thủ tục Cấp giấy phép sửa chữa, cải tạo công trình nhà ở riêng lẻ đô thị", type: "Lĩnh vực Xây dựng", status: "Đang áp dụng" },
-            { code: "1.003254.H29", name: "Thủ tục Cấp giấy phép thi công, điều chỉnh hạ tầng công trình ngầm đô thị", type: "Lĩnh vực Xây dựng", status: "Đang áp dụng" },
-            { code: "1.007662.H29", name: "Thủ tục Cấp giấy chứng nhận cơ sở đủ điều kiện an toàn vệ sinh thực phẩm", type: "Lĩnh vực Y tế", status: "Đang áp dụng" },
-            { code: "1.007665.H29", name: "Thủ tục Tiếp công dân định kỳ và thụ lý đơn thư khiếu nại, tố cáo hành chính", type: "Lĩnh vực Thanh tra", status: "Đang áp dụng" },
-            { code: "1.002114.H29", name: "Thủ tục Theo dõi, kiểm tra việc thực hiện kết luận thanh tra hành chính", type: "Lĩnh vực Thanh tra", status: "Đang áp dụng" }
-        ];
+        // HÀM HOÁN ĐỔI TÀI LIỆU PDF TRÊN KHUNG NHÌN
+        function changePdf(pdfName, buttonElement) {
+            const viewer = document.getElementById('pdf-viewer');
+            viewer.setAttribute('data', pdfName);
 
-        // 1. Hàm kết xuất dữ liệu tự động lên lưới bảng 3D
-        function renderTable(dataArray) {
-            const container = document.getElementById('tthc-list-container');
-            if (dataArray.length === 0) {
-                container.innerHTML = `<p class="p-6 text-center text-slate-400 font-bold font-['Inter']">❌ Không tìm thấy hồ sơ thủ tục nào khớp với từ khóa tra cứu!</p>`;
-                return;
-            }
+            const fallback = document.getElementById('download-fallback');
+            fallback.setAttribute('href', pdfName);
 
-            container.innerHTML = dataArray.map((item, index) => `
-                <div class="row-container">
-                    <div class="row-3d">
-                        <div class="grid-row">
-                            <div class="col-stt text-slate-500 font-extrabold text-xs">${index + 1}</div>
-                            <div class="col-code text-sky-400 font-mono tracking-tight font-bold text-xs">${item.code}</div>
-                            <div class="col-name font-bold text-slate-100 truncate text-[13px]">${item.name}</div>
-                            <div class="col-type">
-                                <span class="bg-slate-800/80 px-2.5 py-1 rounded-md text-[10px] font-bold border border-slate-700 text-slate-300">${item.type}</span>
-                            </div>
-                            <div class="col-status text-[10px] text-emerald-400 font-black uppercase italic">${item.status}</div>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // 2. Chuyển đổi qua lại giữa 3 Tab mục chính bự nhất
-        window.switchMainTab = function(tabId, btnElement) {
-            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-            document.querySelectorAll('.main-tab-btn').forEach(btn => btn.classList.remove('active'));
-            
-            document.getElementById(tabId).classList.add('active');
-            btnElement.classList.add('active');
-        }
-
-        // 3. Đổi file PDF cẩm nang chứa mã QR liên kết ứng dụng
-        window.changePdf = function(pdfName, buttonElement, viewerId, fallbackId) {
-            document.getElementById(viewerId).setAttribute('data', pdfName);
-            document.getElementById(fallbackId).setAttribute('href', pdfName);
-            
-            // Xóa active của các nút anh em cùng cấp
-            const siblings = buttonElement.parentElement.children;
-            for(let btn of siblings) {
-                btn.classList.remove('active');
-            }
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
             buttonElement.classList.add('active');
         }
 
-        // 4. Kích hoạt bộ lọc tìm kiếm Real-time Filter cho bảng danh mục TTHC
-        document.getElementById('search_tthc').addEventListener('input', function(e) {
-            const kw = e.target.value.toLowerCase().trim();
-            const filteredData = mockTthcData.filter(item => 
-                item.name.toLowerCase().includes(kw) || 
-                item.code.toLowerCase().includes(kw) || 
-                item.type.toLowerCase().includes(kw)
-            );
-            renderTable(filteredData);
-        });
+        // HÀM CHUYỂN ĐỔI CHẾ ĐỘ NỀN (LIGHT MODE / DARK MODE)
+        window.switchSystemBackground = function(bgMode) {
+            const body = document.getElementById('dynamic-body');
+            const btnLight = document.getElementById('btn-bg-light');
+            const btnDark = document.getElementById('btn-bg-dark');
 
-        // Tự động dựng bảng dữ liệu ngay khi mở trang
-        document.addEventListener("DOMContentLoaded", () => {
-            renderTable(mockTthcData);
-        });
+            if (bgMode === 'dark') {
+                body.classList.remove('bg-light-mode');
+                body.classList.add('bg-dark-mode');
+                btnDark.className = "text-[9px] font-extrabold uppercase px-2.5 py-1 rounded-md transition-all bg-slate-800 text-white shadow-sm";
+                btnLight.className = "text-[9px] font-extrabold uppercase px-2.5 py-1 rounded-md transition-all text-white/80 hover:text-white ml-1";
+            } else {
+                body.classList.remove('bg-dark-mode');
+                body.classList.add('bg-light-mode');
+                btnLight.className = "text-[9px] font-extrabold uppercase px-2.5 py-1 rounded-md transition-all bg-slate-800 text-white shadow-sm";
+                btnDark.className = "text-[9px] font-extrabold uppercase px-2.5 py-1 rounded-md transition-all text-white/80 hover:text-white ml-1";
+            }
+        }
+
+        // HÀM CHUYỂN ĐỔI CHUYÊN ĐỀ CHỈ ĐẠO HEADER (XANH / ĐỎ)
+        window.switchSystemTheme = function(modeName) {
+            const body = document.getElementById('dynamic-body');
+            const btnXanh = document.getElementById('btn-theme-xanh');
+            const btnDo = document.getElementById('btn-theme-do');
+
+            if (modeName === 'do') {
+                body.classList.remove('theme-xanh-ios');
+                body.classList.add('theme-do-hanhchinh');
+                btnDo.className = "w-full text-center text-[9px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-red-600 text-white shadow-md";
+                btnXanh.className = "w-full text-center text-[9px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white";
+            } else {
+                body.classList.remove('theme-do-hanhchinh');
+                body.classList.add('theme-xanh-ios');
+                btnXanh.className = "w-full text-center text-[9px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md";
+                btnDo.className = "w-full text-center text-[9px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white";
+            }
+        }
     </script>
 </body>
 </html>
