@@ -39,7 +39,7 @@
                 <button onclick="filterStatus('Đang xử lý')" class="filter-btn bg-white border border-slate-200 text-amber-600 font-bold text-xs uppercase px-4 py-2.5 rounded-xl transition hover:bg-slate-50">⚙️ Đang xử lý (<span id="count-processing">0</span>)</button>
                 <button onclick="filterStatus('Đã hoàn thành')" class="filter-btn bg-white border border-slate-200 text-emerald-600 font-bold text-xs uppercase px-4 py-2.5 rounded-xl transition hover:bg-slate-50">✓ Hoàn thành (<span id="count-done">0</span>)</button>
             </div>
-            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Cập nhật tự động: Real-time 🔄</span>
+            <span class="text-xs font-bold text-slate-400 uppercase tracking-wider">Thời hạn xử lý khẩn cấp: 24 GIỜ ⏱️</span>
         </div>
 
         <div class="admin-wrapper p-4 md:p-6 overflow-hidden">
@@ -50,7 +50,7 @@
                             <th class="py-3 px-4 w-[100px]">Mã Đơn</th>
                             <th class="py-3 px-4 w-[180px]">Thông Tin Người Dân</th>
                             <th class="py-3 px-4">Nội Dung Kiến Nghị</th>
-                            <th class="py-3 px-4 w-[180px] text-center">⏱️ Thời Gian Còn Lại (SLA)</th>
+                            <th class="py-3 px-4 w-[180px] text-center">⏱️ Thời Gian Còn Lại (24h SLA)</th>
                             <th class="py-3 px-4 w-[140px] text-center">Trạng Thái</th>
                             <th class="py-3 px-4 w-[240px]">Hành Động Cán Bộ</th>
                         </tr>
@@ -73,7 +73,7 @@
 
         let allComplaints = [];
         let currentFilter = "Tất cả";
-        const SLA_HOURS = 72; // Thời hạn quy định: 72 giờ
+        const SLA_HOURS = 24; // 🌟 ĐÃ CẬP NHẬT: Giới hạn xử lý rút gọn xuống còn 24 giờ công vụ
 
         // Lắng nghe dữ liệu Thời gian thực (Real-time Listener) từ Firestore
         onSnapshot(collection(db, "complaints"), (snapshot) => {
@@ -185,7 +185,7 @@
             newTab.document.write(`<body style="margin:0; background:#0f172a; display:flex; justify-content:center; align-items:center;"><img src="${base64Str}" style="max-width:100%; max-height:100vh; object-contain:scale-down; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.5);" /></body>`);
         }
 
-        // ENGINE ĐẾM NGƯỢC THỜI GIAN THỰC (SLA COUTNDOWN)
+        // ENGINE ĐẾM NGƯỢC THỜI GIAN THỰC (SLA COUNTDOWN)
         let slaIntervalId = null;
 
         function restartSlaTimer() {
@@ -202,7 +202,7 @@
                     }
 
                     const createdTime = new Date(item.createdAt).getTime();
-                    const expireTime = createdTime + (SLA_HOURS * 60 * 60 * 1000);
+                    const expireTime = createdTime + (SLA_HOURS * 60 * 60 * 1000); // Tự động cộng 24 tiếng
                     const currentTime = new Date().getTime();
                     const timeLeft = expireTime - currentTime;
 
@@ -219,7 +219,8 @@
                     const mStr = minutes.toString().padStart(2, '0');
                     const sStr = seconds.toString().padStart(2, '0');
 
-                    if (hours < 12) {
+                    // 🌟 ĐÃ CẬP NHẬT: Còn dưới 4 tiếng sẽ chuyển sang nhãn màu vàng báo động khẩn cấp
+                    if (hours < 4) {
                         el.innerHTML = `<span class="text-amber-500 font-bold bg-amber-50 px-2 py-1 rounded border border-amber-200">${hStr}:${mStr}:${sStr}</span>`;
                     } else {
                         el.innerHTML = `<span class="text-blue-700 font-bold bg-blue-50 px-2 py-1 rounded border border-blue-100">${hStr}:${mStr}:${sStr}</span>`;
