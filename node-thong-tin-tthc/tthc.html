@@ -54,24 +54,55 @@
             const viewport = document.getElementById('viewer-viewport');
             const searchBox = document.getElementById('dynamic-search-box');
             
-            // Xử lý logic hiển thị theo loại tab
             if (type === 'search-tool') {
                 searchBox.classList.remove('hidden'); searchBox.classList.add('flex');
-                viewport.innerHTML = `<div class="p-10 text-center">Vui lòng nhập từ khóa tìm kiếm và nhấn Tìm.</div>`;
+                viewport.innerHTML = `<div class="p-10 text-center font-bold">Vui lòng nhập từ khóa tìm kiếm.</div>`;
             } else if (type === 'accordion-guide') {
                 searchBox.classList.add('hidden');
-                viewport.innerHTML = `<div class="p-6 text-center font-bold">Hướng dẫn chi tiết sẽ được hiển thị tại đây.</div>`;
+                const guides = [
+                    "HƯỚNG DẪN ĐĂNG NHẬP CỔNG DỊCH VỤ CÔNG QUỐC GIA",
+                    "ĐĂNG KÝ KHAI SINH",
+                    "CẤP BẢN SAO TRÍCH LỤC HỘ TỊCH, BẢN SAO GIẤY KHAI SINH",
+                    "THỦ TỤC ĐĂNG KÝ KHAI TỬ",
+                    "QUY TRÌNH CHỨNG THỰC BẢN SAO ĐIỆN TỬ TOÀN TRÌNH",
+                    "QUY TRÌNH THỰC HIỆN THỦ TỤC HÀNH CHÍNH CUNG CẤP THÔNG TIN QUY HOẠCH TRỰC TUYẾN TOÀN TRÌNH",
+                    "HỖ TRỢ SINH ĐỦ 02 CON TRƯỚC 35 TUỔI",
+                    "HƯỚNG DẪN TRA CỨU BẢO HIỂM Y TẾ"
+                ];
+
+                let html = `<div class="p-6 space-y-3">`;
+                guides.forEach((title, index) => {
+                    html += `
+                        <div class="border border-slate-200 rounded-xl overflow-hidden bg-white">
+                            <button onclick="toggleAccordion(${index + 1})" class="w-full flex justify-between items-center px-5 py-4 font-bold text-xs uppercase text-slate-800 hover:bg-slate-50">
+                                ${index + 1}. ${title}
+                                <span id="arrow-${index + 1}">▼</span>
+                            </button>
+                            <div id="content-${index + 1}" class="hidden p-4 border-t bg-slate-50">
+                                <img src="icon/huongdan${index + 1}.png" alt="Hướng dẫn" class="w-full h-auto rounded-lg" onerror="this.src='https://placehold.co/800x400?text=Chua+co+hinh+anh'">
+                            </div>
+                        </div>`;
+                });
+                html += `</div>`;
+                viewport.innerHTML = html;
             } else {
                 searchBox.classList.add('hidden');
                 viewport.innerHTML = `<object data="${sourceUrl}" type="application/pdf" width="100%" height="100%"></object>`;
             }
 
-            // Xử lý active tab
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
             buttonElement.classList.add('active');
         }
 
-        // TỰ ĐỘNG MỞ TAB ĐẦU TIÊN KHI TRANG TẢI XONG
+        window.toggleAccordion = function(id) {
+            const content = document.getElementById(`content-${id}`);
+            const arrow = document.getElementById(`arrow-${id}`);
+            const isHidden = content.classList.contains('hidden');
+            document.querySelectorAll('[id^="content-"]').forEach(el => el.classList.add('hidden'));
+            document.querySelectorAll('[id^="arrow-"]').forEach(el => el.innerText = '▼');
+            if (isHidden) { content.classList.remove('hidden'); arrow.innerText = '▲'; }
+        };
+
         window.addEventListener('load', function() {
             const firstTab = document.querySelector('.tab-btn');
             if (firstTab) firstTab.click();
