@@ -18,7 +18,7 @@ function generateTrackingCode() {
 
 // Lắng nghe sự kiện gửi biểu mẫu phản ánh từ giao diện phan-anh.html
 document.getElementById('complaintForm').addEventListener('submit', async (e) => {
-    e.preventDefault(); // Ngăn chặn hành vi tải lại trang mặc định của form
+    e.preventDefault(); // Ngăn chặn hành vi tải lại trang mặc định
 
     const submitBtn = document.getElementById('submitBtn');
     const fullname = document.getElementById('fullname').value.trim();
@@ -35,59 +35,67 @@ document.getElementById('complaintForm').addEventListener('submit', async (e) =>
         return;
     }
 
-    // Khóa trạng thái nút bấm và hiển thị thông báo để tránh người dân click spam liên tục
+    // Khóa trạng thái nút bấm tránh người dân click spam
     submitBtn.disabled = true;
     submitBtn.innerHTML = `<span>Hệ thống đang tải dữ liệu lên...</span>`;
 
     try {
         let imageUrl = "";
 
-        // 2. Xử lý tải hình ảnh lên Cloud Storage nếu người dân có chọn tệp minh họa
+        // 2. Xử lý tải hình ảnh lên Cloud Storage nếu có chọn tệp
         if (imageFile) {
-            // Tách đuôi mở rộng của tệp (png, jpg,...)
-            const fileExtension = imageFile.name.split('.').pop();
-            // Khởi tạo tên file duy nhất bằng timestamp để không bị ghi đè dữ liệu trên Cloud
-            const uniqueFileName = `${Date.now()}_${Math.random().toString(36).substring(2, 7)}.${fileExtension}`;
-            
-            // Tạo đường dẫn tham chiếu đến thư mục complaints/ trên Storage
-            const storageRef = ref(storage, `complaints/${uniqueFileName}`);
-            
-            // Tiến hành upload dữ liệu thô
-            const uploadResult = await uploadBytes(storageRef, imageFile);
-            // Trích xuất link URL công khai của hình ảnh để lưu vào cơ sở dữ liệu chữ
-            imageUrl = await getDownloadURL(uploadResult.ref);
+            console.log("Đang tiến hành chuẩn bị tải hình ảnh lên Firebase Storage...");
+            try {
+                const fileExtension = imageFile.name.split('.').pop();
+                const uniqueFileName = `${Date.now()}_${Math.random().toString(36).substring(2, 7)}.${fileExtension}`;
+                const storageRef = ref(storage, `complaints/${uniqueFileName}`);
+                
+                const uploadResult = await uploadBytes(storageRef, imageFile);
+                imageUrl = await getDownloadURL(uploadResult.ref);
+                console.log("Tải ảnh thành công! URL ảnh công khai: ", imageUrl);
+            } catch (storageError) {
+                console.error("Lỗi phân khu Storage:", storageError);
+                throw new Error(`[Lỗi Tải Ảnh Storage] -> ${storageError.message}. Hãy kiểm tra lại cấu hình Storage Rules hoặc CORS.`);
+            }
         }
 
-        // 3. Khởi tạo cấu trúc bản ghi tài liệu đồng bộ dữ liệu Firestore
+        // 3. Khởi tạo cấu trúc bản ghi tài liệu dữ liệu Firestore
         const trackingCode = generateTrackingCode();
         const complaintData = {
-            trackingCode: trackingCode, // Mã 8 ký tự phục vụ công tác tra cứu của người dân
+            trackingCode: trackingCode,
             fullname: fullname,
             cccd: cccd,
             email: email,
             content: content,
-            imageUrl: imageUrl,         // Sẽ là chuỗi rỗng "" nếu đơn không đính kèm ảnh
-            status: "Đang tiếp nhận",   // Trạng thái xử lý khởi tạo mặc định
-            replyContent: "",           // Phản hồi từ ban ngành (mặc định để trống)
-            createdAt: new Date().toISOString() // Thời gian hệ thống ghi nhận đơn thư
+            imageUrl: imageUrl,
+            status: "Đang tiếp nhận",
+            replyContent: "",
+            createdAt: new Date().toISOString()
         };
 
-        // 4. Liên thông ghi bản ghi mới vào Bộ sưu tập (Collection) có tên là "complaints"
-        await addDoc(collection(db, "complaints"), complaintData);
+        // 4. Liên thông ghi bản ghi mới vào Bộ sưu tập "complaints" trên Firestore
+        console.log("Đang tiến hành ghi dữ liệu chữ vào Firestore Database...");
+        try {
+            await addDoc(collection(db, "complaints"), complaintData);
+            console.log("Ghi dữ liệu Firestore thành công với mã tra cứu: ", trackingCode);
+        } catch (firestoreError) {
+            console.error("Lỗi phân khu Firestore Database:", firestoreError);
+            throw new Error(`[Lỗi Ghi Bản Ghi Firestore] -> ${firestoreError.message}. Hãy kiểm tra lại Firestore Rules.`);
+        }
 
-        // 5. Đổ Mã tra cứu vừa sinh ra vào giao diện Modal và kích hoạt hiển thị bung màn hình
+        // 5. Đổ Mã tra cứu vào giao diện Modal và kích hoạt hiển thị bung màn hình khi mọi thứ hoàn hảo
         document.getElementById('trackingCodeDisplay').innerText = trackingCode;
-        
         const modal = document.getElementById('successModal');
         const card = document.getElementById('modalCard');
         modal.classList.remove('opacity-0', 'pointer-events-none');
         card.classList.remove('scale-95');
 
-    } catch (error) {
-        console.error("Lỗi xảy ra trong tiến trình lưu trữ dữ liệu Firebase:", error);
-        alert("⚠️ Đã xảy ra sự cố kết nối với hệ thống Backend Firebase. Vui lòng kiểm tra lại đường truyền internet!");
+    } catch (globalError) {
+        // BẬT THÔNG BÁO LỖI CHI TIẾT RA MÀN HÌNH NẾU BỊ TREO NGẦM
+        console.error("Lỗi toàn cục tiến trình:", globalError);
+        alert(`❌ Hệ thống lỗi kết nối:\n${globalError.message}`);
     } finally {
-        // Mở khóa lại nút bấm sau khi chu trình nộp đơn hoàn tất
+        // Mở khóa lại nút bấm để người dùng có thể chỉnh sửa dữ liệu hoặc bấm lại
         submitBtn.disabled = false;
         submitBtn.innerHTML = `<span>Xác nhận gửi phản ánh</span> 🚀`;
     }
