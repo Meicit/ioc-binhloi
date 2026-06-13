@@ -6,78 +6,78 @@
     <title>Trung tâm Điều hành số 70 ấp - Xã Bình Hưng</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* [Giữ nguyên CSS của bạn như cũ, thêm đoạn này vào] */
+        body { font-family: 'Montserrat', sans-serif; transition: background 0.3s, color 0.3s; min-height: 100vh; }
+        .glass-panel { backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; transition: all 0.3s; }
+        
+        /* Dark Theme */
+        body.dark-theme { background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98)), url('../hinhnen.png'); color: #38bdf8; }
+        body.dark-theme .glass-panel { background: rgba(15, 23, 42, 0.75); border-color: rgba(56, 189, 248, 0.2); }
+        
+        /* Light Theme */
+        body.light-theme { background: linear-gradient(rgba(241, 245, 249, 0.9), rgba(241, 245, 249, 0.98)), url('../hinhnen.png'); color: #0b4a8f; }
+        body.light-theme .glass-panel { background: rgba(226, 232, 240, 0.92); border-color: rgba(11, 74, 143, 0.3); }
+
         .tab-content { display: none; }
         .tab-content.active { display: block; }
+        .tab-btn-nav { border-bottom: 2px solid transparent; transition: all 0.3s; }
+        .tab-btn-nav.active { border-bottom: 2px solid #0ea5e9; color: #0ea5e9; font-weight: 800; }
     </style>
 </head>
-<body class="dark-theme custom-scrollbar" id="body-context">
-    <div class="container-wrapper space-y-6">
-        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <a href="../home.html" class="btn-back">⬅️ Quay lại Trang chủ</a>
-            <div class="bg-slate-900 border border-slate-700 p-1 rounded-xl flex items-center shadow-md backdrop-blur">
-                <button onclick="setTheme('light')" class="text-[11px] font-bold px-3 py-1.5 rounded-lg text-white">☀️ Sáng</button>
-                <button onclick="setTheme('dark')" class="text-[11px] font-bold px-3 py-1.5 rounded-lg bg-sky-600 text-white">🌙 Tối</button>
+<body class="dark-theme" id="body-context">
+
+    <div class="max-w-[1550px] mx-auto p-6 space-y-6">
+        <div class="flex justify-between items-center glass-panel p-4">
+            <h1 class="text-xl font-black uppercase tracking-wider">Trung tâm Điều hành Số 70 ấp</h1>
+            <div class="flex gap-2">
+                <button onclick="setTheme('light')" class="text-[10px] font-bold px-3 py-1 bg-white text-black rounded">SÁNG</button>
+                <button onclick="setTheme('dark')" class="text-[10px] font-bold px-3 py-1 bg-black text-white rounded">TỐI</button>
             </div>
         </div>
 
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
-             </div>
-
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div class="lg:col-span-8 glass-panel p-5">
-                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">📊 Biểu đồ so sánh</h2>
-                <div class="w-full relative h-[250px]">
-                    <canvas id="hamletsChart"></canvas>
-                </div>
+        <div class="lg:col-span-4 glass-panel p-5">
+            <h2 class="text-xs font-black uppercase tracking-wider mb-3">🏆 Bảng xếp hạng</h2>
+            <div class="flex border-b border-slate-700 text-[10px] font-bold uppercase mb-3" id="tab-nav-wrapper">
+                <button onclick="switchTab('tab_pop', this)" class="tab-btn-nav w-full text-center pb-1.5 active">Dân số</button>
+                <button onclick="switchTab('tab_house', this)" class="tab-btn-nav w-full text-center pb-1.5">Số hộ</button>
+                <button onclick="switchTab('tab_area', this)" class="tab-btn-nav w-full text-center pb-1.5">Diện tích</button>
             </div>
-
-            <div class="lg:col-span-4 glass-panel p-5">
-                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">🏆 Bảng xếp hạng</h2>
-                <div class="flex border-b border-slate-700 text-[10px] font-bold uppercase mb-3">
-                    <button onclick="switchTab('tab_pop', this)" class="tab-btn-nav w-full text-center pb-1.5 border-b-2 border-sky-500 text-sky-400">Dân số</button>
-                    <button onclick="switchTab('tab_house', this)" class="tab-btn-nav w-full text-center pb-1.5 border-b-2 border-transparent text-slate-500">Số hộ</button>
-                    <button onclick="switchTab('tab_area', this)" class="tab-btn-nav w-full text-center pb-1.5 border-b-2 border-transparent text-slate-500">Diện tích</button>
-                </div>
-                
-                <div id="tab_pop" class="tab-content active space-y-2.5"></div>
-                <div id="tab_house" class="tab-content space-y-2.5"></div>
-                <div id="tab_area" class="tab-content space-y-2.5"></div>
-            </div>
+            
+            <div id="tab_pop" class="tab-content active space-y-2.5"><p class="text-center">Đang tải dữ liệu Dân số...</p></div>
+            <div id="tab_house" class="tab-content space-y-2.5"><p class="text-center">Đang tải dữ liệu Số hộ...</p></div>
+            <div id="tab_area" class="tab-content space-y-2.5"><p class="text-center">Đang tải dữ liệu Diện tích...</p></div>
         </div>
     </div>
 
-    <script type="module">
-        // [CÁC IMPORT FIREBASE CỦA BẠN]
-        // ...
-        
-        // HÀM CHUYỂN TAB ĐÚNG CẤU TRÚC
+    <script>
+        // Hàm chuyển Tab
         window.switchTab = function(tabId, btnElement) {
-            // Ẩn tất cả nội dung tab
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
-            
+            // Ẩn tất cả tab nội dung
+            document.querySelectorAll('.tab-content').forEach(c => {
+                c.classList.remove('active');
+                c.classList.add('hidden');
+            });
             // Hiện tab được chọn
             document.getElementById(tabId).classList.add('active');
             document.getElementById(tabId).classList.remove('hidden');
 
-            // Đổi style nút
-            document.querySelectorAll('.tab-btn-nav').forEach(btn => {
-                btn.classList.remove('border-sky-500', 'text-sky-400');
-                btn.classList.add('border-transparent', 'text-slate-500');
-            });
-            btnElement.classList.add('border-sky-500', 'text-sky-400');
+            // Cập nhật trạng thái nút bấm
+            document.querySelectorAll('.tab-btn-nav').forEach(btn => btn.classList.remove('active'));
+            btnElement.classList.add('active');
         }
 
-        // Tự động khởi tạo tab đầu tiên khi trang load
+        // Hàm đổi Theme
+        window.setTheme = function(mode) {
+            const body = document.getElementById('body-context');
+            body.className = mode === 'dark' ? 'dark-theme' : 'light-theme';
+        }
+
+        // Tự động kích hoạt tab đầu tiên khi load
         document.addEventListener("DOMContentLoaded", () => {
             const firstTab = document.querySelector('.tab-btn-nav');
             if(firstTab) firstTab.click();
         });
-
-        // ... các hàm còn lại giữ nguyên ...
     </script>
 </body>
 </html>
