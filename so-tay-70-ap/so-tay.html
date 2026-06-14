@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trung tâm Điều hành số 70 ấp - Xã Bình Hưng</title>
+    <title>Trung tâm Điều hành số 39 ấp - Xã Bình Hưng</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -24,23 +24,13 @@
         .btn-back:hover { transform: translateY(-2px); border-color: #ef4444; background: rgba(239, 68, 68, 0.1); color: #ef4444 !important; }
         .tab-content { transition: all 0.2s; }
 
-        /* ================= CẤU HÌNH ĐỘC QUYỀN CHỮ TRẮNG TINH 3D ĐỘ TƯƠNG PHẢN CAO ================= */
         .text-3d-white-main {
             font-family: 'Montserrat', sans-serif;
             font-weight: 900;
             text-transform: uppercase;
             letter-spacing: 0.12em;
-            color: #ffffff; /* Sửa thành màu trắng tinh khiết */
-            /* Đổ bóng tối nâng khối chữ nổi lên khỏi background */
-            text-shadow: 
-                0 1px 0 #cbd5e1,
-                0 2px 0 #94a3b8,
-                0 3px 0 #64748b,
-                0 4px 0 #475569,
-                0 5px 0 #1e293b,
-                0 6px 3px rgba(0,0,0,0.4),
-                0 1px 5px rgba(0,0,0,0.5),
-                0 4px 10px rgba(0,0,0,0.45);
+            color: #ffffff;
+            text-shadow: 0 1px 0 #cbd5e1, 0 2px 0 #94a3b8, 0 3px 0 #64748b, 0 4px 0 #475569, 0 5px 0 #1e293b, 0 6px 3px rgba(0,0,0,0.4), 0 1px 5px rgba(0,0,0,0.5), 0 4px 10px rgba(0,0,0,0.45);
         }
 
         .text-3d-white-sub {
@@ -48,16 +38,10 @@
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.04em;
-            color: #ffffff; /* Sửa thành màu trắng tinh khiết */
-            /* Đổ bóng tinh gọn sắc nét cho dòng mô tả */
-            text-shadow: 
-                0 1px 0 #94a3b8,
-                0 2px 0 #475569,
-                0 3px 2px rgba(0,0,0,0.5),
-                0 1px 4px rgba(0,0,0,0.4);
+            color: #ffffff;
+            text-shadow: 0 1px 0 #94a3b8, 0 2px 0 #475569, 0 3px 2px rgba(0,0,0,0.5), 0 1px 4px rgba(0,0,0,0.4);
         }
 
-        /* ☀️ NỀN SÁNG (Mặc định) */
         body.light-theme { background-color: #f8fafc; color: #0b4a8f; }
         body.light-theme .text-dynamic-title { color: #031b4e !important; } 
         body.light-theme .text-dynamic-body { color: #1e3a8a !important; }  
@@ -69,7 +53,6 @@
         body.light-theme .input-dark { background: #ffffff; border-color: rgba(11, 74, 143, 0.25); color: #031b4e; }
         body.light-theme .btn-back { color: #0b4a8f; }
 
-        /* 🌙 NỀN TỐI */
         body.dark-theme { background-color: #0f172a; color: #38bdf8; }
         body.dark-theme .text-dynamic-title { color: #00f0ff !important; } 
         body.dark-theme .text-dynamic-body { color: #93c5fd !important; }  
@@ -81,7 +64,6 @@
         body.dark-theme .input-dark { background: rgba(15, 23, 42, 0.6); border-color: rgba(255, 255, 255, 0.15); color: #ffffff; }
         body.dark-theme .btn-back { color: #38bdf8; }
 
-        /* ================= CẤU HÌNH MÀU HEADER ĐỘNG KHÔNG BỊ PHÁ THEME ================= */
         .main-header { background-size: 400% 400%; animation: gradientGIF 12s ease infinite; }
         body.theme-xanh-ios .main-header { background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d); border-bottom: 2px solid #032b5c; box-shadow: 0 4px 15px rgba(11, 74, 143, 0.15); }
         body.theme-do-hanhchinh .main-header { background: linear-gradient(-45deg, #dc2626, #7f1d1d, #ef4444, #450a0a); border-bottom: 2px solid #991b1b; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.15); }
@@ -124,7 +106,7 @@
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
             <div class="glass-panel p-5 border-l-4 border-sky-500">
                 <p class="text-[10px] font-bold text-sky-500 uppercase tracking-wider">Đơn vị hành chính</p>
-                <h3 class="text-2xl font-black text-dynamic-title mt-1">70 <span class="text-sm font-bold text-dynamic-label">Ấp quản lý</span></h3>
+                <h3 class="text-2xl font-black text-dynamic-title mt-1">39 <span class="text-sm font-bold text-dynamic-label">Ấp quản lý</span></h3>
             </div>
             <div class="glass-panel p-5 border-l-4 border-emerald-500">
                 <p class="text-[10px] font-bold text-emerald-500 uppercase tracking-wider">Tổng diện tích tự nhiên</p>
@@ -132,11 +114,11 @@
             </div>
             <div class="glass-panel p-5 border-l-4 border-amber-500">
                 <p class="text-[10px] font-bold text-amber-500 uppercase tracking-wider">Quy mô dân cư</p>
-                <h3 class="text-2xl font-black text-dynamic-title mt-1">43.444 <span class="text-sm font-bold text-dynamic-label">Hộ dân</span></h3>
+                <h3 class="text-2xl font-black text-dynamic-title mt-1">50.603 <span class="text-sm font-bold text-dynamic-label">Hộ dân</span></h3>
             </div>
             <div class="glass-panel p-5 border-l-4 border-indigo-500">
                 <p class="text-[10px] font-bold text-indigo-500 uppercase tracking-wider">Quản lý tổng nhân khẩu</p>
-                <h3 class="text-2xl font-black text-dynamic-title mt-1">163.387 <span class="text-sm font-bold text-dynamic-label">Người</span></h3>
+                <h3 class="text-2xl font-black text-dynamic-title mt-1">153.255 <span class="text-sm font-bold text-dynamic-label">Người</span></h3>
             </div>
         </div>
 
@@ -219,7 +201,7 @@
             <div class="lg:col-span-7 glass-panel p-5 flex flex-col justify-between">
                 <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-3">
                     <div>
-                        <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title">🗂️ Danh bạ Hồ sơ chi tiết 70 Ấp</h2>
+                        <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title">🗂️ Danh bạ Hồ sơ chi tiết 39 Ấp</h2>
                         <p class="text-[9px] text-dynamic-label font-medium mt-0.5">Chọn ô để liên thông dữ liệu sang biểu mẫu bên trái</p>
                     </div>
                     <div class="relative w-full sm:w-64">
@@ -234,8 +216,6 @@
         </div>
     </div>
 
-    <footer class="mt-auto text-center py-6 text-slate-400 font-medium text-[11px] uppercase tracking-widest border-t border-slate-200 bg-white shadow-sm w-full">&copy; 2026 IOC BINH HƯNG — BẢN QUYỀN THUỘC UBND XÃ BÌNH HƯNG</footer>
-
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -248,18 +228,61 @@
         const db = getDatabase(app);
         const hamletsNodeRef = ref(db, 'dashboard_binhhung/so_tay_70_ap');
 
+        // 🌟 NẠP TRỌN VẸN MẢNG 39 ẤP THEO FILE JSON CHUẨN CỦA BẠN
+        const fallbackData = [
+            { name: "Ấp 1", area: "100 ha", area_num: 100, households: "1.344 hộ", households_num: 1344, population: "6.312 người", population_num: 6312, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 2", area: "100 ha", area_num: 100, households: "1.034 hộ", households_num: 1034, population: "4.196 người", population_num: 4196, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 3", area: "100 ha", area_num: 100, households: "1.184 hộ", households_num: 1184, population: "3.826 người", population_num: 3826, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 4", area: "100 ha", area_num: 100, households: "738 hộ", households_num: 738, population: "2.726 người", population_num: 2726, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 5", area: "100 ha", area_num: 100, households: "1.695 hộ", households_num: 1695, population: "3.909 người", population_num: 3909, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 6", area: "100 ha", area_num: 100, households: "706 hộ", households_num: 706, population: "1.810 người", population_num: 1810, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 7", area: "100 ha", area_num: 100, households: "810 hộ", households_num: 810, population: "2.199 người", population_num: 2199, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 8", area: "100 ha", area_num: 100, households: "1.122 hộ", households_num: 1122, population: "3.212 người", population_num: 3212, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 9", area: "100 ha", area_num: 100, households: "740 hộ", households_num: 740, population: "2.359 người", population_num: 2359, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 10", area: "100 ha", area_num: 100, households: "1.405 hộ", households_num: 1405, population: "3.624 người", population_num: 3624, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 11", area: "100 ha", area_num: 100, households: "1.355 hộ", households_num: 1355, population: "4.160 người", population_num: 4160, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 12", area: "100 ha", area_num: 100, households: "1.051 hộ", households_num: 1051, population: "2.854 người", population_num: 2854, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 13", area: "100 ha", area_num: 100, households: "1.182 hộ", households_num: 1182, population: "4.074 người", population_num: 4074, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 14", area: "100 ha", area_num: 100, households: "717 hộ", households_num: 717, population: "3.086 người", population_num: 3086, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 15", area: "100 ha", area_num: 100, households: "1.582 hộ", households_num: 1582, population: "5.291 người", population_num: 5291, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 16", area: "100 ha", area_num: 100, households: "809 hộ", households_num: 809, population: "1.883 người", population_num: 1883, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 17", area: "100 ha", area_num: 100, households: "1.168 hộ", households_num: 1168, population: "3.180 người", population_num: 3180, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 18", area: "100 ha", area_num: 100, households: "1.890 hộ", households_num: 1890, population: "4.231 người", population_num: 4231, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 19", area: "100 ha", area_num: 100, households: "1.602 hộ", households_num: 1602, population: "6.327 người", population_num: 6327, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 20", area: "100 ha", area_num: 100, households: "1.441 hộ", households_num: 1441, population: "2.978 người", population_num: 2978, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 21", area: "100 ha", area_num: 100, households: "1.567 hộ", households_num: 1567, population: "5.518 người", population_num: 5518, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 22", area: "100 ha", area_num: 100, households: "1.703 hộ", households_num: 1703, population: "7.026 người", population_num: 7026, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 23", area: "100 ha", area_num: 100, households: "885 hộ", households_num: 885, population: "3.985 người", population_num: 3985, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 24", area: "100 ha", area_num: 100, households: "1.357 hộ", households_num: 1357, population: "5.517 người", population_num: 5517, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 25", area: "100 ha", area_num: 100, households: "1.191 hộ", households_num: 1191, population: "4.177 người", population_num: 4177, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 26", area: "100 ha", area_num: 100, households: "1.286 hộ", households_num: 1286, population: "4.029 người", population_num: 4029, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 27", area: "100 ha", area_num: 100, households: "1.555 hộ", households_num: 1555, population: "4.498 người", population_num: 4498, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 28", area: "100 ha", area_num: 100, households: "933 hộ", households_num: 933, population: "3.470 người", population_num: 3470, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 29", area: "100 ha", area_num: 100, households: "1.590 hộ", households_num: 1590, population: "5.106 người", population_num: 5106, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 30", area: "100 ha", area_num: 100, households: "1.709 hộ", households_num: 1709, population: "5.259 người", population_num: 5259, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 31", area: "100 ha", area_num: 100, households: "1.770 hộ", households_num: 1770, population: "7.258 người", population_num: 7258, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 32", area: "100 ha", area_num: 100, households: "1.857 hộ", households_num: 1857, population: "4.891 người", population_num: 4891, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 33", area: "100 ha", area_num: 100, households: "1.694 hộ", households_num: 1694, population: "4.682 người", population_num: 4682, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 34", area: "100 ha", area_num: 100, households: "1.876 hộ", households_num: 1876, population: "3.080 người", population_num: 3080, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 35", area: "100 ha", area_num: 100, households: "1.216 hộ", households_num: 1216, population: "3.904 người", population_num: 3904, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 36", area: "100 ha", area_num: 100, households: "1.212 hộ", households_num: 1212, population: "2.716 người", population_num: 2716, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 37", area: "100 ha", area_num: 100, households: "1.831 hộ", households_num: 1831, population: "3.378 người", population_num: 3378, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 38", area: "100 ha", area_num: 100, households: "1.571 hộ", households_num: 1571, population: "2.271 người", population_num: 2271, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" },
+            { name: "Ấp 39", area: "100 ha", area_num: 100, households: "1.363 hộ", households_num: 1363, population: "3.246 người", population_num: 3246, secretary: "Đang cập nhật", leader: "Đang cập nhật", phone: "028.3981.0015", boundary: "Đang cập nhật" }
+        ];
+
         let hamletsData = []; 
         let chartInstance = null;
         let lastTheme = 'light'; 
-        let currentSelectedHamlet = 'Ấp 49';
+        let currentSelectedHamlet = 'Ấp 1';
 
         onValue(hamletsNodeRef, (snapshot) => {
             const remoteData = snapshot.val();
             if(!remoteData) {
-                document.getElementById('hamlets_grid').innerHTML = `<div class="col-span-full text-center text-red-400 py-10 font-bold">⚠️ Chưa cấu hình dữ liệu trên Firebase Realtime!</div>`;
-                return;
+                hamletsData = fallbackData;
+            } else {
+                hamletsData = Object.values(remoteData);
             }
-            hamletsData = Object.values(remoteData);
             renderGrid(hamletsData);
             renderRankings(hamletsData);
             setTheme(lastTheme); 
@@ -276,23 +299,23 @@
                     </div>
                     <div class="space-y-0.5 text-[10px] text-dynamic-body font-medium">
                         <p class="truncate">👤 BT: <span class="font-semibold text-dynamic-title">${h.secretary}</span></p>
-                        <p>🏠 Hộ: <span class="text-amber-500 font-bold">${h.households_num}</span></p>
-                        <p>👥 Dân: <span class="text-sky-500 font-bold">${h.population_num}</span></p>
+                        <p>🏠 Hộ: <span class="text-amber-500 font-bold">${h.households}</span></p>
+                        <p>👥 Dân: <span class="text-sky-500 font-bold">${h.population}</span></p>
                     </div>
                 </div>
             `).join('');
         }
 
         function renderRankings(data) {
-            const maxArea = Math.max(...data.map(h => h.area_num));
-            const maxHouse = Math.max(...data.map(h => h.households_num));
-            const maxPop = Math.max(...data.map(h => h.population_num));
+            const maxArea = Math.max(...data.map(h => h.area_num || 1));
+            const maxHouse = Math.max(...data.map(h => h.households_num || 1));
+            const maxPop = Math.max(...data.map(h => h.population_num || 1));
 
             const topPop = [...data].sort((a,b) => b.population_num - a.population_num).slice(0,5);
             document.getElementById('tab_pop').innerHTML = topPop.map((h, i) => `
                 <div class="space-y-0.5">
                     <div class="flex justify-between font-bold"><span>${i+1}. ${h.name}</span><span class="text-sky-500 font-extrabold">${h.population}</span></div>
-                    <div class="w-full bg-slate-300 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-sky-500 h-full rounded-full" style="width: ${(h.population_num/maxPop)*100}%"></div></div>
+                    <div class="w-full bg-slate-300 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-sky-500 h-full rounded-full" style="width: ${((h.population_num||0)/maxPop)*100}%"></div></div>
                 </div>
             `).join('');
 
@@ -300,7 +323,7 @@
             document.getElementById('tab_house').innerHTML = topHouse.map((h, i) => `
                 <div class="space-y-0.5">
                     <div class="flex justify-between font-bold"><span>${i+1}. ${h.name}</span><span class="text-amber-500 font-extrabold">${h.households}</span></div>
-                    <div class="w-full bg-slate-300 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-amber-500 h-full rounded-full" style="width: ${(h.households_num/maxHouse)*100}%"></div></div>
+                    <div class="w-full bg-slate-300 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-amber-500 h-full rounded-full" style="width: ${((h.households_num||0)/maxHouse)*100}%"></div></div>
                 </div>
             `).join('');
 
@@ -308,7 +331,7 @@
             document.getElementById('tab_area').innerHTML = topArea.map((h, i) => `
                 <div class="space-y-0.5">
                     <div class="flex justify-between font-bold"><span>${i+1}. ${h.name}</span><span class="text-emerald-500 font-extrabold">${h.area}</span></div>
-                    <div class="w-full bg-slate-300 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full rounded-full" style="width: ${(h.area_num/maxArea)*100}%"></div></div>
+                    <div class="w-full bg-slate-300 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full rounded-full" style="width: ${((h.area_num||0)/maxArea)*100}%"></div></div>
                 </div>
             `).join('');
             
@@ -359,9 +382,10 @@
             const txtPop = document.getElementById('f_population').value.trim();
 
             const payload = {
+                name: nameKey,
                 area: txtArea, area_num: parseFloat(txtArea) || 0,
-                households: txtHouse, households_num: parseInt(txtHouse) || 0,
-                population: txtPop, population_num: parseInt(txtPop) || 0,
+                households: txtHouse, households_num: parseInt(txtHouse.replace(/\D/g,'')) || 0,
+                population: txtPop, population_num: parseInt(txtPop.replace(/\D/g,'')) || 0,
                 secretary: document.getElementById('f_secretary').value.trim(),
                 leader: document.getElementById('f_leader').value.trim(),
                 phone: document.getElementById('f_phone').value.trim(),
