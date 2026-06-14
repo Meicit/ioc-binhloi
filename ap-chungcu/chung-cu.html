@@ -2,50 +2,81 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danh sách Chung cư - Xã Bình Hưng</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 p-8">
+<body class="bg-slate-100 p-8">
     <div class="max-w-7xl mx-auto">
-        <a href="ap-chungcu.html" class="mb-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg font-bold">⬅ Quay lại</a>
+        <a href="ap-so.html" class="mb-4 inline-block bg-blue-800 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-900 transition">⬅ Quay lại</a>
         
         <div class="bg-white p-6 rounded-2xl shadow-xl overflow-x-auto">
-            <h2 class="text-2xl font-black text-emerald-700 mb-6 uppercase text-center">Bảng thống kê chung cư xã Bình Hưng</h2>
+            <h2 class="text-2xl font-black text-emerald-800 mb-6 uppercase text-center border-b pb-4">
+                Bảng Thống kê Quản lý Nhà Chung cư Xã Bình Hưng
+            </h2>
             
             <table class="w-full text-left border-collapse">
                 <thead>
-                    <tr class="bg-emerald-600 text-white text-xs uppercase">
+                    <tr class="bg-emerald-700 text-white text-[11px] uppercase">
                         <th class="p-4">Tên Chung cư</th>
-                        <th class="p-4">Số Block</th>
+                        <th class="p-4 text-center">Block</th>
                         <th class="p-4">Chủ đầu tư</th>
-                        <th class="p-4">Năm XD</th>
-                        <th class="p-4">Căn hộ</th>
+                        <th class="p-4 text-center">Năm XD</th>
+                        <th class="p-4 text-center">Căn hộ</th>
                     </tr>
                 </thead>
-                <tbody id="chung-cu-body" class="text-sm">
+                <tbody id="chung-cu-table" class="text-sm text-slate-700">
                     </tbody>
             </table>
         </div>
     </div>
 
     <script>
-        const dataCC = [
+        const chungCuData = [
             { name: "CHUNG CƯ AVIEW 1", block: 1, cdt: "Tân Bình", nam: 2008, canHo: 192 },
             { name: "CHUNG CƯ AVIEW 2", block: 1, cdt: "Tân Bình", nam: 2019, canHo: 223 },
             { name: "CHUNG CƯ CONIC GARDEN", block: 2, cdt: "Lĩnh Phong", nam: 2006, canHo: 362 },
+            { name: "CHUNG CƯ CONIC ĐÌNH KHIÊM", block: 1, cdt: "Lĩnh Phong", nam: 2005, canHo: 158 },
+            { name: "CHUNG CƯ CONIC ĐÔNG NAM Á", block: 1, cdt: "Lĩnh Phong", nam: 2006, canHo: 242 },
+            { name: "CHUNG CƯ CONIC SKYWAY G", block: 1, cdt: "Lĩnh Phong", nam: 2016, canHo: 164 },
+            { name: "CHUNG CƯ CONIC SKYWAY H", block: 1, cdt: "Lĩnh Phong", nam: 2017, canHo: 146 },
+            { name: "CHUNG CƯ TERAROSSA B3, B4", block: 1, cdt: "Khang Nam", nam: 2012, canHo: 383 },
+            { name: "CHUNG CƯ TERAROSSA C2", block: 1, cdt: "Khang Nam", nam: 2018, canHo: 129 },
+            { name: "CHUNG CƯ THE MANSION", block: 5, cdt: "Quốc Cường GL", nam: 2012, canHo: 212 },
             { name: "CHUNG CƯ LOVERA VISTA", block: 1, cdt: "Khang Phúc", nam: 2021, canHo: 1310 },
-            { name: "CHUNG CƯ SÀI GÒN INTELA", block: 1, cdt: "Bắc Phước Kiển", nam: 2021, canHo: 1068 }
+            { name: "CHUNG CƯ SÀI GÒN INTELA", block: 1, cdt: "Bắc Phước Kiển", nam: 2021, canHo: 1068 },
+            { name: "CHUNG CƯ HẠNH PHÚC A", block: 1, cdt: "Tổng Cty Xây dựng số 1", nam: 2018, canHo: 336 },
+            { name: "CHUNG CƯ HẠNH PHÚC B", block: 1, cdt: "Tổng Cty Xây dựng số 1", nam: 2016, canHo: 218 },
+            { name: "CHUNG CƯ HẠNH PHÚC C", block: 1, cdt: "Tổng Cty Xây dựng số 1", nam: 2016, canHo: 190 },
+            { name: "CHUNG CƯ HẠNH PHÚC D", block: 1, cdt: "Tổng Cty Xây dựng số 1", nam: 2017, canHo: 0 },
+            { name: "CHUNG CƯ TĐC 194", block: 1, cdt: "ĐTXD 194", nam: 2020, canHo: 84 },
+            { name: "CHUNG CƯ SINH LỢI", block: 1, cdt: "Sinh Lợi", nam: 2010, canHo: 104 },
+            { name: "CHUNG CƯ HOÀNG THÁP", block: 1, cdt: "Sinh Lợi", nam: 2009, canHo: 152 },
+            { name: "CHUNG CƯ HỒNG LĨNH", block: 1, cdt: "Hồng Lĩnh", nam: 2009, canHo: 188 },
+            { name: "CHUNG CƯ CITIZEN.TS", block: 1, cdt: "Việt Tâm", nam: 2017, canHo: 69 },
+            { name: "THE EASTER CITY-6B", block: 1, cdt: "Quốc Cường GL", nam: 2016, canHo: 572 },
+            { name: "CHUNG CƯ HIM LAM 23", block: 4, cdt: "Him Lam", nam: 2007, canHo: 360 },
+            { name: "CHUNG CƯ SÀI GÒN MIA", block: 3, cdt: "Việt Tâm", nam: 2019, canHo: 964 },
+            { name: "FLORA MIZUKI MP1, MP2", block: 2, cdt: "NNH Mizuki", nam: 2019, canHo: 590 },
+            { name: "FLORA MIZUKI MP3-MP5", block: 3, cdt: "NNH Mizuki", nam: 2019, canHo: 847 },
+            { name: "FLORA MIZUKI MP6-MP8", block: 3, cdt: "NNH Mizuki", nam: 2022, canHo: 760 },
+            { name: "FLORA MIZUKI MP9, MPX", block: 2, cdt: "NNH Mizuki", nam: 2023, canHo: 177 },
+            { name: "FLORA PANORAMA FP1", block: 1, cdt: "NNH Mizuki", nam: 2023, canHo: 164 },
+            { name: "FLORA PANORAMA FP2, FP3", block: 2, cdt: "NNH Mizuki", nam: 2023, canHo: 252 },
+            { name: "EHOMES NAM SÀI GÒN A", block: 3, cdt: "Nguyễn Sơn", nam: 2018, canHo: 218 },
+            { name: "EHOMES NAM SÀI GÒN B,D,E,G,H", block: 2, cdt: "Nguyễn Sơn", nam: 2019, canHo: 1218 },
+            { name: "CHUNG CƯ TERRA MI-A", block: 1, cdt: "Khang Nam", nam: 2022, canHo: 440 }
         ];
 
-        const body = document.getElementById('chung-cu-body');
-        dataCC.forEach(item => {
-            body.innerHTML += `
-                <tr class="border-b hover:bg-emerald-50">
-                    <td class="p-4 font-bold text-emerald-800">${item.name}</td>
-                    <td class="p-4">${item.block}</td>
-                    <td class="p-4">${item.cdt}</td>
-                    <td class="p-4">${item.nam}</td>
-                    <td class="p-4 font-bold">${item.canHo}</td>
+        const tbody = document.getElementById('chung-cu-table');
+        chungCuData.forEach(cc => {
+            tbody.innerHTML += `
+                <tr class="border-b hover:bg-emerald-50 transition">
+                    <td class="p-4 font-bold text-emerald-900">${cc.name}</td>
+                    <td class="p-4 text-center">${cc.block}</td>
+                    <td class="p-4">${cc.cdt}</td>
+                    <td class="p-4 text-center">${cc.nam}</td>
+                    <td class="p-4 text-center font-bold text-blue-700">${cc.canHo.toLocaleString()}</td>
                 </tr>
             `;
         });
