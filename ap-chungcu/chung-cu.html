@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Danh sách Chung cư - Xã Bình Hưng</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-8">
+    <div class="max-w-7xl mx-auto">
+        <a href="ap-chungcu.html" class="mb-4 inline-block bg-blue-600 text-white px-4 py-2 rounded-lg font-bold">⬅ Quay lại</a>
+        
+        <div class="bg-white p-6 rounded-2xl shadow-xl overflow-x-auto">
+            <h2 class="text-2xl font-black text-emerald-700 mb-6 uppercase text-center">Bảng thống kê chung cư xã Bình Hưng</h2>
+            
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-emerald-600 text-white text-xs uppercase">
+                        <th class="p-4">Tên Chung cư</th>
+                        <th class="p-4">Số Block</th>
+                        <th class="p-4">Chủ đầu tư</th>
+                        <th class="p-4">Năm XD</th>
+                        <th class="p-4">Căn hộ</th>
+                    </tr>
+                </thead>
+                <tbody id="chung-cu-body" class="text-sm">
+                    </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        const dataCC = [
+            { name: "CHUNG CƯ AVIEW 1", block: 1, cdt: "Tân Bình", nam: 2008, canHo: 192 },
+            { name: "CHUNG CƯ AVIEW 2", block: 1, cdt: "Tân Bình", nam: 2019, canHo: 223 },
+            { name: "CHUNG CƯ CONIC GARDEN", block: 2, cdt: "Lĩnh Phong", nam: 2006, canHo: 362 },
+            { name: "CHUNG CƯ LOVERA VISTA", block: 1, cdt: "Khang Phúc", nam: 2021, canHo: 1310 },
+            { name: "CHUNG CƯ SÀI GÒN INTELA", block: 1, cdt: "Bắc Phước Kiển", nam: 2021, canHo: 1068 }
+        ];
+
+        const body = document.getElementById('chung-cu-body');
+        dataCC.forEach(item => {
+            body.innerHTML += `
+                <tr class="border-b hover:bg-emerald-50">
+                    <td class="p-4 font-bold text-emerald-800">${item.name}</td>
+                    <td class="p-4">${item.block}</td>
+                    <td class="p-4">${item.cdt}</td>
+                    <td class="p-4">${item.nam}</td>
+                    <td class="p-4 font-bold">${item.canHo}</td>
+                </tr>
+            `;
+        });
+    </script>
+</body>
+</html>
