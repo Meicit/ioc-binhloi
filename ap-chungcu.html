@@ -5,72 +5,84 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danh sách 39 Ấp - Xã Bình Hưng</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* CSS bổ trợ để khớp với header trong common.js */
+        body { font-family: 'Inter', sans-serif; }
+        .glass-panel { background: rgba(255, 255, 255, 0.9); border: 1px solid #e2e8f0; border-radius: 16px; transition: 0.3s; }
+        .glass-panel:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.1); }
+    </style>
 </head>
-<body class="bg-slate-50">
+<body class="bg-slate-100 min-h-screen">
 
-    <div id="header-placeholder"></div>
+    <div id="header-container"></div>
 
-    <div class="max-w-6xl mx-auto p-8">
-        <h1 class="text-3xl font-black text-blue-900 mb-8 text-center uppercase">Danh sách 39 Ấp - Xã Bình Hưng</h1>
+    <div class="max-w-[1550px] mx-auto p-8">
+        <h1 class="text-3xl font-black text-blue-900 mb-8 text-center uppercase tracking-wider">Danh sách 39 Ấp - Xã Bình Hưng</h1>
         
-        <div id="danh-sach-ap" class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4"></div>
+        <div id="danh-sach-ap" class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+            </div>
     </div>
 
     <script src="common.js"></script>
 
     <script>
-        // Gọi hàm render header từ common.js
-        renderHeader();
+        // Chèn header sau khi common.js đã tải
+        if (typeof renderHeader === 'function') {
+            document.getElementById('header-container').innerHTML = headerHTML;
+        }
 
+        // Dữ liệu 39 ấp chuẩn xác
         const duLieuAp = [
-            { "name": "Ấp 1", "households": "1.344 hộ", "population": "6.312 người" },
-            { "name": "Ấp 2", "households": "1.034 hộ", "population": "4.196 người" },
-            { "name": "Ấp 3", "households": "1.184 hộ", "population": "3.826 người" },
-            { "name": "Ấp 4", "households": "738 hộ", "population": "2.726 người" },
-            { "name": "Ấp 5", "households": "1.695 hộ", "population": "3.909 người" },
-            { "name": "Ấp 6", "households": "706 hộ", "population": "1.810 người" },
-            { "name": "Ấp 7", "households": "810 hộ", "population": "2.199 người" },
-            { "name": "Ấp 8", "households": "1.122 hộ", "population": "3.212 người" },
-            { "name": "Ấp 9", "households": "740 hộ", "population": "2.359 người" },
-            { "name": "Ấp 10", "households": "1.405 hộ", "population": "3.624 người" },
-            { "name": "Ấp 11", "households": "1.355 hộ", "population": "4.160 người" },
-            { "name": "Ấp 12", "households": "1.051 hộ", "population": "2.854 người" },
-            { "name": "Ấp 13", "households": "1.182 hộ", "population": "4.074 người" },
-            { "name": "Ấp 14", "households": "717 hộ", "population": "3.086 người" },
-            { "name": "Ấp 15", "households": "1.582 hộ", "population": "5.291 người" },
-            { "name": "Ấp 16", "households": "809 hộ", "population": "1.883 người" },
-            { "name": "Ấp 17", "households": "1.168 hộ", "population": "3.180 người" },
-            { "name": "Ấp 18", "households": "1.890 hộ", "population": "4.231 người" },
-            { "name": "Ấp 19", "households": "1.602 hộ", "population": "6.327 người" },
-            { "name": "Ấp 20", "households": "1.441 hộ", "population": "2.978 người" },
-            { "name": "Ấp 21", "households": "1.567 hộ", "population": "5.518 người" },
-            { "name": "Ấp 22", "households": "1.703 hộ", "population": "7.026 người" },
-            { "name": "Ấp 23", "households": "885 hộ", "population": "3.985 người" },
-            { "name": "Ấp 24", "households": "1.357 hộ", "population": "5.517 người" },
-            { "name": "Ấp 25", "households": "1.191 hộ", "population": "4.177 người" },
-            { "name": "Ấp 26", "households": "1.286 hộ", "population": "4.029 người" },
-            { "name": "Ấp 27", "households": "1.555 hộ", "population": "4.498 người" },
-            { "name": "Ấp 28", "households": "933 hộ", "population": "3.470 người" },
-            { "name": "Ấp 29", "households": "1.590 hộ", "population": "5.106 người" },
-            { "name": "Ấp 30", "households": "1.709 hộ", "population": "5.259 người" },
-            { "name": "Ấp 31", "households": "1.770 hộ", "population": "7.258 người" },
-            { "name": "Ấp 32", "households": "1.857 hộ", "population": "4.891 người" },
-            { "name": "Ấp 33", "households": "1.694 hộ", "population": "4.682 người" },
-            { "name": "Ấp 34", "households": "1.876 hộ", "population": "3.080 người" },
-            { "name": "Ấp 35", "households": "1.216 hộ", "population": "3.904 người" },
-            { "name": "Ấp 36", "households": "1.212 hộ", "population": "2.716 người" },
-            { "name": "Ấp 37", "households": "1.831 hộ", "population": "3.378 người" },
-            { "name": "Ấp 38", "households": "1.571 hộ", "population": "2.271 người" },
-            { "name": "Ấp 39", "households": "1.363 hộ", "population": "3.246 người" }
+            { "name": "Ấp 1", "households": "1.344", "population": "6.312" },
+            { "name": "Ấp 2", "households": "1.034", "population": "4.196" },
+            { "name": "Ấp 3", "households": "1.184", "population": "3.826" },
+            { "name": "Ấp 4", "households": "738", "population": "2.726" },
+            { "name": "Ấp 5", "households": "1.695", "population": "3.909" },
+            { "name": "Ấp 6", "households": "706", "population": "1.810" },
+            { "name": "Ấp 7", "households": "810", "population": "2.199" },
+            { "name": "Ấp 8", "households": "1.122", "population": "3.212" },
+            { "name": "Ấp 9", "households": "740", "population": "2.359" },
+            { "name": "Ấp 10", "households": "1.405", "population": "3.624" },
+            { "name": "Ấp 11", "households": "1.355", "population": "4.160" },
+            { "name": "Ấp 12", "households": "1.051", "population": "2.854" },
+            { "name": "Ấp 13", "households": "1.182", "population": "4.074" },
+            { "name": "Ấp 14", "households": "717", "population": "3.086" },
+            { "name": "Ấp 15", "households": "1.582", "population": "5.291" },
+            { "name": "Ấp 16", "households": "809", "population": "1.883" },
+            { "name": "Ấp 17", "households": "1.168", "population": "3.180" },
+            { "name": "Ấp 18", "households": "1.890", "population": "4.231" },
+            { "name": "Ấp 19", "households": "1.602", "population": "6.327" },
+            { "name": "Ấp 20", "households": "1.441", "population": "2.978" },
+            { "name": "Ấp 21", "households": "1.567", "population": "5.518" },
+            { "name": "Ấp 22", "households": "1.703", "population": "7.026" },
+            { "name": "Ấp 23", "households": "885", "population": "3.985" },
+            { "name": "Ấp 24", "households": "1.357", "population": "5.517" },
+            { "name": "Ấp 25", "households": "1.191", "population": "4.177" },
+            { "name": "Ấp 26", "households": "1.286", "population": "4.029" },
+            { "name": "Ấp 27", "households": "1.555", "population": "4.498" },
+            { "name": "Ấp 28", "households": "933", "population": "3.470" },
+            { "name": "Ấp 29", "households": "1.590", "population": "5.106" },
+            { "name": "Ấp 30", "households": "1.709", "population": "5.259" },
+            { "name": "Ấp 31", "households": "1.770", "population": "7.258" },
+            { "name": "Ấp 32", "households": "1.857", "population": "4.891" },
+            { "name": "Ấp 33", "households": "1.694", "population": "4.682" },
+            { "name": "Ấp 34", "households": "1.876", "population": "3.080" },
+            { "name": "Ấp 35", "households": "1.216", "population": "3.904" },
+            { "name": "Ấp 36", "households": "1.212", "population": "2.716" },
+            { "name": "Ấp 37", "households": "1.831", "population": "3.378" },
+            { "name": "Ấp 38", "households": "1.571", "population": "2.271" },
+            { "name": "Ấp 39", "households": "1.363", "population": "3.246" }
         ];
 
         const container = document.getElementById('danh-sach-ap');
         duLieuAp.forEach(ap => {
             container.innerHTML += `
-                <div class="bg-white p-4 rounded-xl shadow-sm border border-slate-200 hover:shadow-md transition">
-                    <h2 class="text-lg font-black text-blue-800">${ap.name}</h2>
-                    <p class="text-sm text-slate-600 mt-2">🏠 Số hộ: <span class="font-bold">${ap.households}</span></p>
-                    <p class="text-sm text-slate-600">👥 Dân số: <span class="font-bold text-sky-600">${ap.population}</span></p>
+                <div class="glass-panel p-4">
+                    <h2 class="text-lg font-black text-blue-900">${ap.name}</h2>
+                    <div class="mt-2 text-sm">
+                        <p class="text-slate-600">🏠 Số hộ: <strong>${ap.households}</strong></p>
+                        <p class="text-slate-600">👥 Dân số: <strong class="text-sky-600">${ap.population}</strong></p>
+                    </div>
                 </div>
             `;
         });
