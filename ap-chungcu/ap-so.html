@@ -1,0 +1,240 @@
+<div class="container-wrapper mb-6">
+    <div class="py-5 px-8 text-center border-b-4 border-emerald-300 shadow-lg rounded-2xl" style="background-color: #059669 !important;">
+        <h2 class="font-['Montserrat'] text-2xl md:text-4xl font-black text-white uppercase tracking-normal leading-tight">
+            TRANG THÔNG TIN <br> <span class="text-xl md:text-2xl opacity-90 text-emerald-100">ẤP SỐ - CHUNG CƯ SỐ</span>
+        </h2>
+    </div>
+</div>
+
+<div class="grid grid-cols-2 gap-2 container-wrapper mb-6">
+    <button class="bg-emerald-600 text-white font-black py-3 rounded-xl uppercase tracking-widest text-sm">ẤP SỐ</button>
+    <button class="bg-slate-600 text-white font-black py-3 rounded-xl uppercase tracking-widest text-sm">CHUNG CƯ SỐ</button>
+</div>
+
+<div class="container-wrapper space-y-6" id="body-context">
+    </div>
+
+<script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        const firebaseConfig = {
+            databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        const hamletsNodeRef = ref(db, 'dashboard_binhhung/du_lieu_39_ap');
+
+        let hamletsData = []; 
+        let chartInstance = null;
+        let lastTheme = 'light'; // 🌟 Khởi tạo nền sáng chuẩn
+        let currentSelectedHamlet = 'Ấp 1';
+
+        onValue(hamletsNodeRef, (snapshot) => {
+            const remoteData = snapshot.val();
+            if(!remoteData) {
+                document.getElementById('hamlets_grid').innerHTML = `<div class="col-span-full text-center text-red-400 py-10 font-bold">⚠️ Chưa cấu hình dữ liệu trên Firebase Realtime!</div>`;
+                return;
+            }
+            hamletsData = Object.values(remoteData);
+            renderGrid(hamletsData);
+            renderRankings(hamletsData);
+            setTheme(lastTheme); // Đồng bộ nạp lại theme khi dữ liệu cập nhật
+            selectHamlet(currentSelectedHamlet);
+        });
+
+        function renderGrid(data) {
+            const grid = document.getElementById('hamlets_grid');
+            grid.innerHTML = data.map(h => `
+                <div id="card_${h.name.replace(' ', '_')}" onclick="selectHamlet('${h.name}')" class="hamlet-card p-3.5 rounded-xl flex flex-col justify-between gap-1.5">
+                    <div class="flex justify-between items-center">
+                        <span class="font-black text-xs text-dynamic-title">${h.name}</span>
+                        <span class="text-[8px] bg-slate-900 border border-slate-700 text-amber-400 font-bold px-1.5 py-0.5 rounded">${h.area}</span>
+                    </div>
+                    <div class="space-y-0.5 text-[10px] text-dynamic-body font-medium">
+                        <p class="truncate">👤 BT: <span class="font-semibold text-dynamic-title">${h.secretary}</span></p>
+                        <p>🏠 Hộ: <span class="text-amber-500 font-bold">${h.households_num}</span></p>
+                        <p>👥 Dân: <span class="text-sky-500 font-bold">${h.population_num}</span></p>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderRankings(data) {
+            const maxArea = Math.max(...data.map(h => h.area_num));
+            const maxHouse = Math.max(...data.map(h => h.households_num));
+            const maxPop = Math.max(...data.map(h => h.population_num));
+
+            const topPop = [...data].sort((a,b) => b.population_num - a.population_num).slice(0,5);
+            document.getElementById('tab_pop').innerHTML = topPop.map((h, i) => `
+                <div class="space-y-0.5">
+                    <div class="flex justify-between font-bold"><span>${i+1}. ${h.name}</span><span class="text-sky-500 font-extrabold">${h.population}</span></div>
+                    <div class="w-full bg-slate-300 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-sky-500 h-full rounded-full" style="width: ${(h.population_num/maxPop)*100}%"></div></div>
+                </div>
+            `).join('');
+
+            const topHouse = [...data].sort((a,b) => b.households_num - a.households_num).slice(0,5);
+            document.getElementById('tab_house').innerHTML = topHouse.map((h, i) => `
+                <div class="space-y-0.5">
+                    <div class="flex justify-between font-bold"><span>${i+1}. ${h.name}</span><span class="text-amber-500 font-extrabold">${h.households}</span></div>
+                    <div class="w-full bg-slate-300 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-amber-500 h-full rounded-full" style="width: ${(h.households_num/maxHouse)*100}%"></div></div>
+                </div>
+            `).join('');
+
+            const topArea = [...data].sort((a,b) => b.area_num - a.area_num).slice(0,5);
+            document.getElementById('tab_area').innerHTML = topArea.map((h, i) => `
+                <div class="space-y-0.5">
+                    <div class="flex justify-between font-bold"><span>${i+1}. ${h.name}</span><span class="text-emerald-500 font-extrabold">${h.area}</span></div>
+                    <div class="w-full bg-slate-300 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden"><div class="bg-emerald-500 h-full rounded-full" style="width: ${(h.area_num/maxArea)*100}%"></div></div>
+                </div>
+            `).join('');
+            
+            const top10 = [...data].sort((a,b) => b.population_num - a.population_num).slice(0,10);
+            updateChartData(top10);
+        }
+
+        function updateChartData(top10Data) {
+            if(!chartInstance) return;
+            chartInstance.data.labels = top10Data.map(h => h.name);
+            chartInstance.data.datasets[0].data = top10Data.map(h => h.population_num);
+            chartInstance.data.datasets[1].data = top10Data.map(h => h.households_num);
+            chartInstance.update();
+        }
+
+        window.selectHamlet = function(name) {
+            currentSelectedHamlet = name;
+            const hamlet = hamletsData.find(h => h.name === name);
+            if(!hamlet) return;
+
+            document.getElementById('f_name').value = hamlet.name;
+            document.getElementById('f_area').value = hamlet.area;
+            document.getElementById('f_secretary').value = hamlet.secretary;
+            document.getElementById('f_households').value = hamlet.households;
+            document.getElementById('f_population').value = hamlet.population;
+            document.getElementById('f_leader').value = hamlet.leader;
+            document.getElementById('f_boundary').value = hamlet.boundary;
+            document.getElementById('f_phone').value = hamlet.phone;
+
+            document.querySelectorAll('.hamlet-card').forEach(c => c.classList.remove('active'));
+            const selectedCard = document.getElementById(`card_${name.replace(' ', '_')}`);
+            if(selectedCard) selectedCard.classList.add('active');
+        }
+
+        document.getElementById('hamletEditForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const btnSave = document.getElementById('btnSave');
+            btnSave.disabled = true;
+            btnSave.innerText = "⏳ Hệ thống đang đồng bộ dữ liệu lên Cloud...";
+            const nameKey = document.getElementById('f_name').value;
+            
+            const targetIndex = hamletsData.findIndex(h => h.name === nameKey);
+            if(targetIndex === -1) { alert("Không xác định được chỉ mục ấp!"); btnSave.disabled = false; return; }
+
+            const recordSpecificRef = ref(db, `dashboard_binhhung/du_lieu_39_ap/${targetIndex}`);
+            const txtArea = document.getElementById('f_area').value.trim();
+            const txtHouse = document.getElementById('f_households').value.trim();
+            const txtPop = document.getElementById('f_population').value.trim();
+
+            const payload = {
+                area: txtArea, area_num: parseFloat(txtArea) || 0,
+                households: txtHouse, households_num: parseInt(txtHouse) || 0,
+                population: txtPop, population_num: parseInt(txtPop) || 0,
+                secretary: document.getElementById('f_secretary').value.trim(),
+                leader: document.getElementById('f_leader').value.trim(),
+                phone: document.getElementById('f_phone').value.trim(),
+                boundary: document.getElementById('f_boundary').value.trim()
+            };
+
+            update(recordSpecificRef, payload)
+                .then(() => alert(`✅ Đã cập nhật thành công số liệu ${nameKey} thời gian thực lên Firebase Cloud!`))
+                .catch((err) => alert("🚨 Lỗi đường truyền Firebase: " + err.message))
+                .finally(() => { btnSave.disabled = false; btnSave.innerText = "💾 Cập nhật số liệu trực tiếp lên Firebase Cloud"; });
+        });
+
+        document.getElementById('search_hamlet').addEventListener('input', function(e) {
+            const kw = e.target.value.toLowerCase().trim();
+            const filtered = hamletsData.filter(h => 
+                h.name.toLowerCase().includes(kw) || h.secretary.toLowerCase().includes(kw) || h.leader.toLowerCase().includes(kw) || h.boundary.toLowerCase().includes(kw)
+            );
+            renderGrid(filtered);
+        });
+
+        window.renderChart = function(textColor) {
+            if(chartInstance) chartInstance.destroy();
+            const ctx = document.getElementById('hamletsChart').getContext('2d');
+            
+            chartInstance = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: [],
+                    datasets: [
+                        { label: 'Quy mô Nhân khẩu (Người)', data: [], backgroundColor: 'rgba(14, 165, 233, 0.75)', borderColor: '#0ea5e9', borderWidth: 1, borderRadius: 5 },
+                        { label: 'Số hộ dân cư (Hộ)', data: [], backgroundColor: 'rgba(245, 158, 11, 0.75)', borderColor: '#f59e0b', borderWidth: 1, borderRadius: 5 }
+                    ]
+                },
+                options: {
+                    responsive: true, maintainAspectRatio: false,
+                    plugins: { legend: { labels: { color: textColor, font: { weight: 'bold', size: 10 } } } },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: textColor, font: { weight: 'bold', size: 9 } } },
+                        y: { grid: { color: 'rgba(148, 163, 184, 0.1)' }, ticks: { color: textColor, font: { size: 9 } } }
+                    }
+                }
+            });
+            if(hamletsData.length > 0) {
+                const top10 = [...hamletsData].sort((a,b) => b.population_num - a.population_num).slice(0,10);
+                updateChartData(top10);
+            }
+        }
+
+        // 🌟 SỬA TRIỆT ĐỂ LỖI ĐỔI THEME VÀ CHỮ BIẾN MẤT
+        window.setTheme = function(themeName) {
+            lastTheme = themeName;
+            const body = document.getElementById('body-context');
+            const tabWrapper = document.getElementById('tab-nav-wrapper');
+            if(!tabWrapper) return;
+
+            if(themeName === 'light') {
+                document.body.classList.remove('dark-theme'); document.body.classList.add('light-theme');
+                document.getElementById('btn-theme-light').className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-blue-900 text-sky-200 shadow-md border border-blue-700";
+                document.getElementById('btn-theme-dark').className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-400 hover:text-blue-900";
+                for(let btn of tabWrapper.children) {
+                    if(!btn.classList.contains('text-sky-500')) btn.className = "w-full text-center pb-1.5 border-b-2 border-transparent text-blue-900 font-bold hover:text-sky-500";
+                }
+                renderChart('#031b4e');
+            } else {
+                document.body.classList.remove('light-theme'); document.body.classList.add('dark-theme');
+                document.getElementById('btn-theme-dark').className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-sky-700 text-white shadow-md border border-sky-500";
+                document.getElementById('btn-theme-light').className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-400 hover:text-sky-400";
+                for(let btn of tabWrapper.children) {
+                    if(!btn.classList.contains('text-sky-500')) btn.className = "w-full text-center pb-1.5 border-b-2 border-transparent text-slate-400 font-bold hover:text-white";
+                }
+                renderChart('#00f0ff');
+            }
+        }
+
+        window.switchSystemTheme = function(modeName) {
+            const body = document.getElementById('dynamic-body');
+            const btnXanh = document.getElementById('btn-theme-xanh');
+            const btnDo = document.getElementById('btn-theme-do');
+            if (modeName === 'do') {
+                body.classList.remove('theme-xanh-ios'); body.classList.add('theme-do-hanhchinh');
+                btnDo.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-red-600 text-white shadow-md";
+                btnXanh.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white";
+            } else {
+                body.classList.remove('theme-do-hanhchinh'); body.classList.add('theme-xanh-ios');
+                btnXanh.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md";
+                btnDo.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white";
+            }
+        }
+
+        window.switchTab = function(tabId, btnElement) {
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.add('hidden'));
+            document.getElementById(tabId).classList.remove('hidden');
+            for(let btn of btnElement.parentElement.children) {
+                btn.className = "w-full text-center pb-1.5 border-b-2 border-transparent text-slate-400 font-bold hover:text-sky-500";
+            }
+            btnElement.className = "w-full text-center pb-1.5 border-b-2 border-sky-500 text-sky-500 font-black";
+        }
+    </script>
