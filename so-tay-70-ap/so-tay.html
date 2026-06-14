@@ -14,9 +14,9 @@
             background-size: cover; background-position: center; background-attachment: fixed;
             color: #38bdf8;
         }
-        body.dark-theme .text-dynamic-title { color: #00f0ff; } 
-        body.dark-theme .text-dynamic-body { color: #93c5fd; }  
-        body.dark-theme .text-dynamic-label { color: #fbbf24; } 
+        body.dark-theme .text-dynamic-title { color: #00f0ff; } /* Cyan Neon */
+        body.dark-theme .text-dynamic-body { color: #93c5fd; }  /* Xanh dương tươi */
+        body.dark-theme .text-dynamic-label { color: #fbbf24; } /* Vàng hổ phách */
         body.dark-theme .glass-panel { background: rgba(15, 23, 42, 0.75); border-color: rgba(56, 189, 248, 0.2); }
         body.dark-theme .hamlet-card { background: rgba(255, 255, 255, 0.04); border-color: rgba(255, 255, 255, 0.06); }
         body.dark-theme .hamlet-card:hover { background: rgba(14, 165, 233, 0.12); border-color: #0ea5e9; }
@@ -40,9 +40,9 @@
         body.light-theme .btn-switcher-active { background: #0b4a8f; color: #bfdbfe; border-color: #0b4a8f; box-shadow: 0 2px 8px rgba(11, 74, 143, 0.2); }
         body.light-theme .input-dark { background: #ffffff; border-color: rgba(11, 74, 143, 0.25); color: #031b4e; }
 
-        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s, color 0.3s; }
-        .container-wrapper { max-width: 1550px; margin: 30px auto; padding: 0 24px; width: 100%; }
-        .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4); transition: all 0.3s; }
+        body { font-family: 'Inter', 'Be Vietnam Pro', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s, color 0.3s; }
+        .container-wrapper { max-width: 1550px; margin: 0 auto; padding: 0 24px; width: 100%; }
+        .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.15); transition: all 0.3s; }
         .input-dark { border-radius: 12px; padding: 10px 14px; outline: none; transition: all 0.2s; }
         .input-dark:focus { border-color: #0ea5e9; box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.25); }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
@@ -56,11 +56,56 @@
         .btn-back { display: inline-flex; align-items: center; gap: 8px; background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.3); color: inherit; padding: 12px 24px; border-radius: 14px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; }
         .btn-back:hover { transform: translateY(-2px); border-color: #ef4444; background: rgba(239, 68, 68, 0.1); }
         .tab-content { transition: all 0.2s; }
+
+        .logo-main { animation: float 4s ease-in-out infinite; }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)); }
+            50% { transform: translateY(-3px); filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3)); }
+        }
+        @media (max-width: 1024px) {
+            .header-layout { flex-direction: column !important; }
+            .theme-selector-vertical { 
+                position: relative !important; top: 0 !important; right: 0 !important; 
+                margin-top: 16px; flex-direction: row !important; space-x: 2; width: auto !important;
+            }
+            .theme-selector-vertical button { margin-left: 4px; margin-right: 4px; }
+        }
     </style>
 </head>
-<body class="light-theme custom-scrollbar" id="body-context">
+<body class="light-theme custom-scrollbar" id="dynamic-body">
 
-    <div class="container-wrapper space-y-6">
+    <header class="main-header w-full py-6 px-6 md:px-12 select-none relative transition-all duration-300 mb-6">
+        <div class="max-w-[1550px] mx-auto flex flex-col items-center justify-center relative header-layout">
+            
+            <div class="flex flex-row items-center space-x-6 w-auto">
+                <div class="flex-shrink-0">
+                    <img src="logo.png" alt="Logo" class="logo-main w-20 h-auto">
+                </div>
+                <div class="flex flex-col items-start justify-center space-y-2 text-left">
+                    <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-['Montserrat']">
+                        IOC BINH HUNG
+                    </p>
+                    <h1 class="title-main text-sm md:text-base lg:text-lg font-bold uppercase tracking-[0.08em] text-white/90 leading-tight m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
+                        Cổng thông tin và điều hành xã Bình Hưng, Thành phố Hồ Chí Minh
+                    </h1>
+                </div>
+            </div>
+
+            <div class="theme-selector-vertical lg:absolute lg:top-0 lg:right-0 bg-white/10 backdrop-blur-md border border-white/20 p-1.5 rounded-xl flex flex-col space-y-1.5 w-[75px] z-20 shadow-inner">
+                <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" 
+                    class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md">
+                    🔵 Xanh
+                </button>
+                <button onclick="switchSystemTheme('do')" id="btn-theme-do" 
+                    class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white">
+                    🔴 Đỏ
+                </button>
+            </div>
+            
+        </div>
+    </header>
+
+    <div class="container-wrapper space-y-6" id="body-context">
         
         <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
             <a href="../home.html" class="btn-back">⬅️ Quay lại Trang chủ</a>
@@ -75,15 +120,6 @@
                 </button>
             </div>
         </div>
-
-        <header class="glass-panel p-6 text-center">
-            <h1 class="text-xl md:text-2xl font-black uppercase tracking-wider text-dynamic-title">
-                Trung tâm Điều hành Số 70 ấp — Xã Bình Hưng
-            </h1>
-            <p class="text-dynamic-label font-bold text-xs uppercase tracking-[0.15em] mt-1">
-                Hệ thống dữ liệu số hóa hạ tầng cư dân, quản trị nhân khẩu và bản đồ xếp hạng trực quan
-            </p>
-        </header>
 
         <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
             <div class="glass-panel p-5 border-l-4 border-sky-500">
@@ -134,7 +170,6 @@
         </div>
 
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
-            
             <div class="lg:col-span-5 glass-panel p-5 flex flex-col justify-between">
                 <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label mb-3">📋 Biểu mẫu & Nhật ký điều hành ấp</h2>
                 <form id="hamletEditForm" class="space-y-3.5 text-[11px] font-['Inter'] flex-grow flex flex-col justify-between">
@@ -200,10 +235,13 @@
                     <div class="col-span-full text-center py-12 text-dynamic-body font-bold animate-pulse">⏳ Đang đồng bộ kho dữ liệu số Firebase Realtime Cloud...</div>
                 </div>
             </div>
-
         </div>
 
     </div>
+
+    <footer class="mt-auto text-center py-6 text-slate-400 font-medium text-[11px] uppercase tracking-widest border-t border-slate-200 bg-white shadow-sm w-full">
+        &copy; 2026 IOC BINH HƯNG — BẢN QUYỀN THUỘC UBND XÃ BÌNH HƯNG
+    </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -220,7 +258,6 @@
 
         let hamletsData = []; 
         let chartInstance = null;
-        // 🌟 ĐÃ CẬP NHẬT: Thay đổi biến trạng thái bộ nhớ theme sang 'light' để đồng bộ tiến trình load dữ liệu ban đầu
         let lastTheme = 'light';
         let currentSelectedHamlet = 'Ấp 49';
 
@@ -426,6 +463,25 @@
                     if(!btn.classList.contains('text-sky-400')) btn.className = "w-full text-center pb-1.5 border-b-2 border-transparent text-slate-400 font-bold hover:text-white";
                 }
                 renderChart('#00f0ff');
+            }
+        }
+
+        // 🌟 KHỐI SỬ LÝ CHUYỂN ĐỔI CHỦ ĐỀ CHUYÊN ĐỀ (XANH / ĐỎ) ĐƯỢC ĐỒNG BỘ LOGIC HÀM
+        window.switchSystemTheme = function(modeName) {
+            const body = document.getElementById('dynamic-body');
+            const btnXanh = document.getElementById('btn-theme-xanh');
+            const btnDo = document.getElementById('btn-theme-do');
+
+            if (modeName === 'do') {
+                body.classList.remove('theme-xanh-ios');
+                body.classList.add('theme-do-hanhchinh');
+                btnDo.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-red-600 text-white shadow-md";
+                btnXanh.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white";
+            } else {
+                body.classList.remove('theme-do-hanhchinh');
+                body.classList.add('theme-xanh-ios');
+                btnXanh.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md";
+                btnDo.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white";
             }
         }
 
