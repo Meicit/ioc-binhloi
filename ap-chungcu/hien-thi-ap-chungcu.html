@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trung tâm Điều hành số 70 ấp - Xã Bình Hưng</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Giữ nguyên toàn bộ CSS của bạn ở đây */
+        body { font-family: 'Inter', sans-serif; margin: 0; min-height: 100vh; display: flex; flex-direction: column; }
+        .main-header { background-size: 400% 400%; animation: gradientGIF 12s ease infinite; }
+        /* ... Các CSS còn lại từ code gốc của bạn ... */
+    </style>
+</head>
+<body class="theme-xanh-ios light-theme custom-scrollbar" id="dynamic-body">
+
+    <header class="main-header w-full py-6 px-6 md:px-12 select-none relative transition-all duration-300 mb-6">
+        </header>
+
+    <main id="main-content">
+        <div id="content-loader"></div>
+    </main>
+
+    <footer class="mt-auto text-center py-6 text-slate-400 font-medium text-[11px] uppercase tracking-widest border-t border-slate-200 bg-white shadow-sm w-full">&copy; 2026 IOC BINH HƯNG</footer>
+
+    <script>
+        // Tự động load nội dung ấp vào trang chính
+        fetch('ap-so.html')
+            .then(response => response.text())
+            .then(html => {
+                document.getElementById('content-loader').innerHTML = html;
+            });
+    </script>
+</body>
+</html>
