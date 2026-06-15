@@ -33,10 +33,19 @@
         body.light-theme .btn-switcher-active { background: #0b4a8f; color: #bfdbfe; border-color: #0b4a8f; box-shadow: 0 2px 8px rgba(11, 74, 143, 0.2); }
         body.light-theme .list-item-hover:hover { background: rgba(11, 74, 143, 0.05); }
 
+        /* CSS CHUNG */
         body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s, color 0.3s; }
-        .container-wrapper { max-width: 1550px; margin: 30px auto; padding: 0 24px; width: 100%; }
+        .container-wrapper { max-width: 1550px; margin: 0 auto 30px auto; padding: 0 24px; width: 100%; }
         .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4); transition: all 0.3s; }
         
+        /* HEADER DYNAMIC */
+        .main-header { background-size: 400% 400%; animation: gradientGIF 12s ease infinite; }
+        body.theme-xanh-ios .main-header { background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d); border-bottom: 2px solid #032b5c; box-shadow: 0 4px 15px rgba(11, 74, 143, 0.15); }
+        body.theme-do-hanhchinh .main-header { background: linear-gradient(-45deg, #dc2626, #7f1d1d, #ef4444, #450a0a); border-bottom: 2px solid #991b1b; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.15); }
+        @keyframes gradientGIF { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .logo-main { animation: float 4s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)); } 50% { transform: translateY(-3px); filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3)); } }
+
         /* Cấu trúc Slider hình ảnh */
         .slider-container { position: relative; width: 100%; height: 380px; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); }
         .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.6s ease-in-out; display: flex; align-items: center; justify-content: center; }
@@ -58,32 +67,49 @@
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.3); border-radius: 10px; }
     </style>
 </head>
-<body class="light-theme custom-scrollbar" id="body-context">
+<body class="theme-xanh-ios light-theme custom-scrollbar" id="body-context">
+
+    <header class="main-header w-full py-6 px-6 md:px-12 select-none relative transition-all duration-300 mb-6">
+        <div class="max-w-[1550px] mx-auto flex flex-col md:flex-row items-center justify-between relative header-layout">
+            
+            <div class="flex flex-row items-center space-x-6 w-auto">
+                <div class="flex-shrink-0">
+                    <img src="logo.png" alt="Logo" class="logo-main w-20 h-auto">
+                </div>
+                <div class="flex flex-col items-start justify-center space-y-2 text-left">
+                    <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-['Montserrat']">
+                        TRUNG TÂM THÔNG TIN TUYÊN TRUYỀN
+                    </p>
+                    <h1 class="title-main text-sm md:text-base lg:text-lg font-bold uppercase tracking-[0.08em] text-white/90 leading-tight m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
+                        Hệ thống cập nhật hoạt động chính trị, sự kiện kinh tế văn hóa xã hội — Xã Bình Hưng
+                    </h1>
+                </div>
+            </div>
+            
+            <div class="mt-4 md:mt-0 flex flex-col md:flex-row gap-2 md:gap-4 items-center bg-white/10 backdrop-blur-md border border-white/20 p-2 rounded-xl shadow-inner">
+                <div class="flex gap-2 border-b md:border-b-0 md:border-r border-white/30 pb-2 md:pb-0 md:pr-4">
+                    <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="text-[10px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all bg-blue-600 text-white shadow-md">🔵 Xanh</button>
+                    <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="text-[10px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all text-white/80 hover:text-white">🔴 Đỏ</button>
+                </div>
+
+                <div class="flex gap-2">
+                    <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border btn-switcher-active">
+                        💡 Nền trắng
+                    </button>
+                    <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white/80 hover:text-white">
+                        🌙 Nền đen
+                    </button>
+                </div>
+            </div>
+
+        </div>
+    </header>
 
     <div class="container-wrapper space-y-6">
         
-        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+        <div class="flex justify-start">
             <a href="../home.html" class="btn-back">⬅️ Quay lại Trang chủ</a>
-            
-            <div class="bg-slate-900 border border-slate-700 p-1 rounded-xl flex items-center shadow-md backdrop-blur">
-                <span class="text-[10px] font-black uppercase tracking-wider px-3 text-amber-500">Chế độ xem:</span>
-                <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border btn-switcher-active">
-                    🔵 Nền trắng
-                </button>
-                <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-400 hover:text-sky-400">
-                    🟠 Nền đen
-                </button>
-            </div>
         </div>
-
-        <header class="glass-panel p-5 text-center">
-            <h1 class="text-lg md:text-xl font-black uppercase tracking-wider text-dynamic-title">
-                Trung tâm Thông tin Tuyên truyền & Cổ động Số
-            </h1>
-            <p class="text-dynamic-label font-bold text-[11px] uppercase tracking-[0.2em] mt-1">
-                Hệ thống cập nhật hoạt động chính trị, sự kiện kinh tế văn hóa xã hội — Xã Bình Hưng
-            </p>
-        </header>
 
         <div class="glass-panel p-5">
             <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label border-l-4 border-sky-400 pl-3 mb-4">📰 Bài viết nổi bật / Tin tức tiêu điểm hành chính</h2>
@@ -225,7 +251,26 @@
 
         setInterval(() => { moveSlide(1); }, 5000);
 
-        // 2. Engine hoán đổi giao diện tĩnh mượt mà an toàn hệ thống
+        // 2. Cấu hình Theme Header (Xanh / Đỏ)
+        window.switchSystemTheme = function(modeName) {
+            const body = document.getElementById('body-context');
+            const btnXanh = document.getElementById('btn-theme-xanh');
+            const btnDo = document.getElementById('btn-theme-do');
+            
+            if (modeName === 'do') {
+                body.classList.remove('theme-xanh-ios');
+                body.classList.add('theme-do-hanhchinh');
+                btnDo.className = "text-[10px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all bg-red-600 text-white shadow-md";
+                btnXanh.className = "text-[10px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all text-white/80 hover:text-white";
+            } else {
+                body.classList.remove('theme-do-hanhchinh');
+                body.classList.add('theme-xanh-ios');
+                btnXanh.className = "text-[10px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all bg-blue-600 text-white shadow-md";
+                btnDo.className = "text-[10px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all text-white/80 hover:text-white";
+            }
+        }
+
+        // 3. Engine hoán đổi giao diện Nền Trắng / Đen
         window.setTheme = function(themeName) {
             const body = document.getElementById('body-context');
             const btnLight = document.getElementById('btn-theme-light');
@@ -235,16 +280,16 @@
                 body.classList.remove('dark-theme');
                 body.classList.add('light-theme');
                 btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-blue-900 text-sky-200 shadow-md border border-blue-700";
-                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-400 hover:text-sky-600";
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white/80 hover:text-white";
             } else {
                 body.classList.remove('light-theme');
                 body.classList.add('dark-theme');
                 btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border btn-switcher-active";
-                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-sky-400 hover:text-sky-300";
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white/80 hover:text-white";
             }
         }
 
-        // Đã sửa thành gọi 'light' làm theme mặc định khi mở trang
+        // Khởi tạo nền Trắng mặc định
         document.addEventListener("DOMContentLoaded", () => {
             setTheme('light');
         });
