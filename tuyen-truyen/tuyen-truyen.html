@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* QUẢN LÝ MÀU CHỮ NỔI BẬT CHO NỀN TỐI (DARK THEME) */
+        /* QUẢN LÝ MÀU CHỮ VÀ NỀN CHO CHẾ ĐỘ TỐI (DARK THEME) */
         body.dark-theme {
             background-color: #0f172a;
             color: #38bdf8;
@@ -18,10 +18,13 @@
         body.dark-theme .glass-panel { background: rgba(15, 23, 42, 0.75); border-color: rgba(56, 189, 248, 0.2); }
         body.dark-theme .btn-switcher-active { background: #0369a1; color: #00f0ff; border-color: #00f0ff; }
         body.dark-theme .list-item-hover:hover { background: rgba(56, 189, 248, 0.1); }
-        body.dark-theme .title-block { background-color: rgba(30, 58, 138, 0.4); border-color: #1e3a8a; }
-        body.dark-theme .title-text { color: #60a5fa; }
+        /* Thanh tiêu đề đậm hơn */
+        body.dark-theme .title-block { background-color: rgba(30, 58, 138, 0.7); border-color: #2563eb; }
+        body.dark-theme .title-text { color: #93c5fd; }
+        /* Vùng nền xanh ngọc bích */
+        body.dark-theme .teal-wrapper { background-color: rgba(20, 184, 166, 0.05); border: 1px solid rgba(20, 184, 166, 0.2); box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5); }
 
-        /* QUẢN LÝ MÀU CHỮ NỔI BẬT CHO NỀN SÁNG (LIGHT THEME) */
+        /* QUẢN LÝ MÀU CHỮ VÀ NỀN CHO CHẾ ĐỘ SÁNG (LIGHT THEME) */
         body.light-theme {
             background-color: #f8fafc;
             color: #0b4a8f;
@@ -29,17 +32,32 @@
         body.light-theme .text-dynamic-title { color: #031b4e; }
         body.light-theme .text-dynamic-body { color: #1e3a8a; }
         body.light-theme .text-dynamic-label { color: #b45309; }
-        body.light-theme .glass-panel { background: rgba(226, 232, 240, 0.92); border-color: rgba(11, 74, 143, 0.3); box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.2); }
+        body.light-theme .glass-panel { background: rgba(255, 255, 255, 0.95); border-color: rgba(11, 74, 143, 0.15); box-shadow: 0 10px 30px -10px rgba(12, 74, 110, 0.1); }
         body.light-theme .btn-switcher-active { background: #0b4a8f; color: #bfdbfe; border-color: #0b4a8f; box-shadow: 0 2px 8px rgba(11, 74, 143, 0.2); }
         body.light-theme .list-item-hover:hover { background: rgba(11, 74, 143, 0.05); }
-        body.light-theme .title-block { background-color: #eff6ff; border-color: #bfdbfe; }
-        body.light-theme .title-text { color: #1d4ed8; }
+        /* Thanh tiêu đề đậm hơn */
+        body.light-theme .title-block { background-color: #bfdbfe; border-color: #60a5fa; }
+        body.light-theme .title-text { color: #1e3a8a; }
+        /* Vùng nền xanh ngọc bích */
+        body.light-theme .teal-wrapper { background-color: rgba(20, 184, 166, 0.12); border: 1px solid rgba(20, 184, 166, 0.3); box-shadow: 0 20px 40px -15px rgba(20, 184, 166, 0.2); }
 
         /* CSS CHUNG */
         body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s, color 0.3s; }
         .container-wrapper { max-width: 1550px; margin: 0 auto 30px auto; padding: 0 24px; width: 100%; }
-        .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4); transition: all 0.3s; }
+        .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; transition: all 0.3s; }
         
+        /* Cấu hình khối xanh ngọc bích */
+        .teal-wrapper {
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 36px;
+            padding: 24px;
+            transition: all 0.4s ease;
+        }
+        @media (min-width: 768px) {
+            .teal-wrapper { padding: 36px; }
+        }
+
         /* HEADER DYNAMIC ĐỒNG BỘ HOME.HTML */
         .main-header { background-size: 400% 400%; animation: gradientGIF 12s ease infinite; }
         body.theme-xanh-ios .main-header { background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d); border-bottom: 2px solid #032b5c; box-shadow: 0 4px 15px rgba(11, 74, 143, 0.15); }
@@ -105,7 +123,7 @@
         </div>
     </header>
 
-    <!-- TIÊU ĐỀ NỀN CHỮ XANH DƯƠNG -->
+    <!-- TIÊU ĐỀ NỀN CHỮ XANH DƯƠNG ĐẬM HƠN -->
     <div class="max-w-[1550px] w-full mx-auto px-4 md:px-6 my-6">
         <div class="title-block py-4 md:py-5 px-8 text-center shadow-sm rounded-2xl border-b-4 transition-colors duration-300">
             <h2 class="title-text font-['Montserrat'] text-xl md:text-3xl font-black uppercase tracking-wider leading-tight">
@@ -114,129 +132,136 @@
         </div>
     </div>
 
-    <div class="container-wrapper space-y-6">
+    <div class="container-wrapper">
         
-        <!-- NÚT QUAY LẠI VÀ CHUYỂN ĐỔI SÁNG/TỐI -->
-        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <a href="../home.html" class="btn-back">⬅️ Quay lại Trang chủ</a>
-            <div class="bg-slate-900 border border-slate-700 p-1 rounded-xl flex items-center shadow-md backdrop-blur">
-                <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">Sáng</button>
-                <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">Tối</button>
-            </div>
-        </div>
-
-        <div class="glass-panel p-5">
-            <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label border-l-4 border-sky-400 pl-3 mb-4">📰 Bài viết nổi bật / Tin tức tiêu điểm hành chính</h2>
+        <!-- VÙNG NỀN XANH NGỌC BÍCH BAO BỌC TOÀN BỘ -->
+        <div class="teal-wrapper space-y-6">
             
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+            <!-- NÚT QUAY LẠI VÀ CHUYỂN ĐỔI SÁNG/TỐI -->
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <a href="../home.html" class="btn-back bg-white/50 backdrop-blur">⬅️ Quay lại Trang chủ</a>
+                <div class="bg-slate-900/90 border border-slate-700 p-1 rounded-xl flex items-center shadow-md backdrop-blur">
+                    <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">Sáng</button>
+                    <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">Tối</button>
+                </div>
+            </div>
+
+            <!-- BÀI VIẾT NỔI BẬT -->
+            <div class="glass-panel p-5 md:p-6">
+                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label border-l-4 border-sky-400 pl-3 mb-4">📰 Bài viết nổi bật / Tin tức tiêu điểm hành chính</h2>
                 
-                <div class="lg:col-span-6 xl:col-span-7 flex flex-col space-y-3 font-['Inter']">
-                    <a href="chi-tiet-tin.html" class="block rounded-xl overflow-hidden shadow-md aspect-video border border-slate-700/20 dark:border-slate-700/40 relative group">
-                        <img src="images/banner1.jpg" alt="Tin tức chính" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                        <span class="absolute top-3 left-3 text-[10px] font-black bg-blue-600/90 backdrop-blur text-white px-3 py-1 rounded-full uppercase shadow-md border border-white/20">Tiêu điểm</span>
-                    </a>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                     
-                    <div class="flex flex-col space-y-2 mt-2">
-                        <div class="flex items-center gap-3">
-                            <span class="text-[10px] font-bold text-dynamic-label bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded">Sự kiện nổi bật</span>
-                            <span class="text-[10px] font-medium text-dynamic-body italic">📅 25/05/2026</span>
+                    <div class="lg:col-span-6 xl:col-span-7 flex flex-col space-y-3 font-['Inter']">
+                        <a href="chi-tiet-tin.html" class="block rounded-xl overflow-hidden shadow-md aspect-video border border-slate-700/20 dark:border-slate-700/40 relative group">
+                            <img src="images/banner1.jpg" alt="Tin tức chính" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                            <span class="absolute top-3 left-3 text-[10px] font-black bg-blue-600/90 backdrop-blur text-white px-3 py-1 rounded-full uppercase shadow-md border border-white/20">Tiêu điểm</span>
+                        </a>
+                        
+                        <div class="flex flex-col space-y-2 mt-2">
+                            <div class="flex items-center gap-3">
+                                <span class="text-[10px] font-bold text-dynamic-label bg-amber-500/10 border border-amber-500/30 px-2 py-0.5 rounded">Sự kiện nổi bật</span>
+                                <span class="text-[10px] font-medium text-dynamic-body italic">📅 25/05/2026</span>
+                            </div>
+                            
+                            <a href="chi-tiet-tin.html" class="text-base md:text-lg xl:text-xl font-black text-dynamic-title leading-snug hover:text-sky-500 transition decoration-sky-500 decoration-2 underline-offset-4 hover:underline">
+                                Đảng ủy Xã Bình Hưng Tổ chức Hội nghị Quán triệt Nghị quyết Ban Chấp hành Trung ương Đảng và Chuyển đổi số nội bộ năm 2026
+                            </a>
+                            
+                            <p class="text-xs text-dynamic-body leading-relaxed text-justify line-clamp-3">
+                                Nhằm nâng cao năng lực thực thi công vụ và thống nhất tư tưởng chính trị, Thường trực Đảng ủy Xã Bình Hưng đã chủ trì hội nghị trực tuyến kết nối đến tất cả 70 chi bộ ấp trực thuộc. Hội nghị nhấn mạnh việc lồng ghép các chỉ tiêu phát triển kinh tế - xã hội vào mô hình chính quyền số, đôn đốc tiến độ giải ngân đầu tư công hạ tầng đô thị...
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="lg:col-span-6 xl:col-span-5 flex flex-col h-full font-['Inter']">
+                        <h3 class="text-[11px] font-black uppercase text-dynamic-title border-b border-slate-500/30 pb-2 mb-4">Tin tức mới cập nhật</h3>
+                        
+                        <div class="flex flex-col space-y-3">
+                            <a href="tin-phu-1.html" class="list-item-hover group flex gap-4 items-center p-2 -mx-2 rounded-xl transition cursor-pointer">
+                                <div class="w-24 h-16 md:w-28 md:h-20 flex-shrink-0 rounded-lg overflow-hidden border border-slate-700/20 dark:border-slate-700/40">
+                                    <img src="images/banner2.jpg" alt="Tin phụ" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+                                </div>
+                                <div class="flex flex-col space-y-1.5">
+                                    <h4 class="text-xs font-bold text-dynamic-title leading-snug group-hover:text-sky-500 transition line-clamp-2">
+                                        Triển khai hệ thống thanh toán trực tuyến phí dịch vụ công tại Bộ phận Một cửa
+                                    </h4>
+                                    <span class="text-[9px] text-dynamic-label font-medium">24/05/2026</span>
+                                </div>
+                            </a>
+
+                            <a href="tin-phu-2.html" class="list-item-hover group flex gap-4 items-center p-2 -mx-2 rounded-xl transition cursor-pointer">
+                                <div class="w-24 h-16 md:w-28 md:h-20 flex-shrink-0 rounded-lg overflow-hidden border border-slate-700/20 dark:border-slate-700/40">
+                                    <img src="images/banner1.jpg" alt="Tin phụ" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+                                </div>
+                                <div class="flex flex-col space-y-1.5">
+                                    <h4 class="text-xs font-bold text-dynamic-title leading-snug group-hover:text-sky-500 transition line-clamp-2">
+                                        Ra quân tổng vệ sinh môi trường, phòng chống dịch bệnh sốt xuất huyết mùa mưa
+                                    </h4>
+                                    <span class="text-[9px] text-dynamic-label font-medium">22/05/2026</span>
+                                </div>
+                            </a>
+
+                            <a href="tin-phu-3.html" class="list-item-hover group flex gap-4 items-center p-2 -mx-2 rounded-xl transition cursor-pointer">
+                                <div class="w-24 h-16 md:w-28 md:h-20 flex-shrink-0 rounded-lg overflow-hidden border border-slate-700/20 dark:border-slate-700/40">
+                                    <img src="images/banner2.jpg" alt="Tin phụ" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+                                </div>
+                                <div class="flex flex-col space-y-1.5">
+                                    <h4 class="text-xs font-bold text-dynamic-title leading-snug group-hover:text-sky-500 transition line-clamp-2">
+                                        Hội Liên hiệp Phụ nữ Xã trao tặng 50 suất học bổng cho học sinh nghèo vượt khó
+                                    </h4>
+                                    <span class="text-[9px] text-dynamic-label font-medium">20/05/2026</span>
+                                </div>
+                            </a>
+                            
+                            <a href="tin-phu-4.html" class="list-item-hover group flex gap-4 items-center p-2 -mx-2 rounded-xl transition cursor-pointer">
+                                <div class="w-24 h-16 md:w-28 md:h-20 flex-shrink-0 rounded-lg overflow-hidden border border-slate-700/20 dark:border-slate-700/40">
+                                    <img src="images/banner1.jpg" alt="Tin phụ" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
+                                </div>
+                                <div class="flex flex-col space-y-1.5">
+                                    <h4 class="text-xs font-bold text-dynamic-title leading-snug group-hover:text-sky-500 transition line-clamp-2">
+                                        Cập nhật tiến độ dự án mở rộng Quốc lộ 50 đoạn qua địa bàn Xã Bình Hưng
+                                    </h4>
+                                    <span class="text-[9px] text-dynamic-label font-medium">18/05/2026</span>
+                                </div>
+                            </a>
                         </div>
                         
-                        <a href="chi-tiet-tin.html" class="text-base md:text-lg xl:text-xl font-black text-dynamic-title leading-snug hover:text-sky-500 transition decoration-sky-500 decoration-2 underline-offset-4 hover:underline">
-                            Đảng ủy Xã Bình Hưng Tổ chức Hội nghị Quán triệt Nghị quyết Ban Chấp hành Trung ương Đảng và Chuyển đổi số nội bộ năm 2026
-                        </a>
-                        
-                        <p class="text-xs text-dynamic-body leading-relaxed text-justify line-clamp-3">
-                            Nhằm nâng cao năng lực thực thi công vụ và thống nhất tư tưởng chính trị, Thường trực Đảng ủy Xã Bình Hưng đã chủ trì hội nghị trực tuyến kết nối đến tất cả 70 chi bộ ấp trực thuộc. Hội nghị nhấn mạnh việc lồng ghép các chỉ tiêu phát triển kinh tế - xã hội vào mô hình chính quyền số, đôn đốc tiến độ giải ngân đầu tư công hạ tầng đô thị...
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="lg:col-span-6 xl:col-span-5 flex flex-col h-full font-['Inter']">
-                    <h3 class="text-[11px] font-black uppercase text-dynamic-title border-b border-slate-500/30 pb-2 mb-4">Tin tức mới cập nhật</h3>
-                    
-                    <div class="flex flex-col space-y-3">
-                        <a href="tin-phu-1.html" class="list-item-hover group flex gap-4 items-center p-2 -mx-2 rounded-xl transition cursor-pointer">
-                            <div class="w-24 h-16 md:w-28 md:h-20 flex-shrink-0 rounded-lg overflow-hidden border border-slate-700/20 dark:border-slate-700/40">
-                                <img src="images/banner2.jpg" alt="Tin phụ" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
-                            </div>
-                            <div class="flex flex-col space-y-1.5">
-                                <h4 class="text-xs font-bold text-dynamic-title leading-snug group-hover:text-sky-500 transition line-clamp-2">
-                                    Triển khai hệ thống thanh toán trực tuyến phí dịch vụ công tại Bộ phận Một cửa
-                                </h4>
-                                <span class="text-[9px] text-dynamic-label font-medium">24/05/2026</span>
-                            </div>
-                        </a>
-
-                        <a href="tin-phu-2.html" class="list-item-hover group flex gap-4 items-center p-2 -mx-2 rounded-xl transition cursor-pointer">
-                            <div class="w-24 h-16 md:w-28 md:h-20 flex-shrink-0 rounded-lg overflow-hidden border border-slate-700/20 dark:border-slate-700/40">
-                                <img src="images/banner1.jpg" alt="Tin phụ" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
-                            </div>
-                            <div class="flex flex-col space-y-1.5">
-                                <h4 class="text-xs font-bold text-dynamic-title leading-snug group-hover:text-sky-500 transition line-clamp-2">
-                                    Ra quân tổng vệ sinh môi trường, phòng chống dịch bệnh sốt xuất huyết mùa mưa
-                                </h4>
-                                <span class="text-[9px] text-dynamic-label font-medium">22/05/2026</span>
-                            </div>
-                        </a>
-
-                        <a href="tin-phu-3.html" class="list-item-hover group flex gap-4 items-center p-2 -mx-2 rounded-xl transition cursor-pointer">
-                            <div class="w-24 h-16 md:w-28 md:h-20 flex-shrink-0 rounded-lg overflow-hidden border border-slate-700/20 dark:border-slate-700/40">
-                                <img src="images/banner2.jpg" alt="Tin phụ" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
-                            </div>
-                            <div class="flex flex-col space-y-1.5">
-                                <h4 class="text-xs font-bold text-dynamic-title leading-snug group-hover:text-sky-500 transition line-clamp-2">
-                                    Hội Liên hiệp Phụ nữ Xã trao tặng 50 suất học bổng cho học sinh nghèo vượt khó
-                                </h4>
-                                <span class="text-[9px] text-dynamic-label font-medium">20/05/2026</span>
-                            </div>
-                        </a>
-                        
-                        <a href="tin-phu-4.html" class="list-item-hover group flex gap-4 items-center p-2 -mx-2 rounded-xl transition cursor-pointer">
-                            <div class="w-24 h-16 md:w-28 md:h-20 flex-shrink-0 rounded-lg overflow-hidden border border-slate-700/20 dark:border-slate-700/40">
-                                <img src="images/banner1.jpg" alt="Tin phụ" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
-                            </div>
-                            <div class="flex flex-col space-y-1.5">
-                                <h4 class="text-xs font-bold text-dynamic-title leading-snug group-hover:text-sky-500 transition line-clamp-2">
-                                    Cập nhật tiến độ dự án mở rộng Quốc lộ 50 đoạn qua địa bàn Xã Bình Hưng
-                                </h4>
-                                <span class="text-[9px] text-dynamic-label font-medium">18/05/2026</span>
-                            </div>
-                        </a>
-                    </div>
-                    
-                    <div class="mt-auto pt-4 text-right">
-                        <a href="danh-sach-tin.html" class="inline-flex items-center gap-1 text-[10px] font-black uppercase text-sky-600 dark:text-sky-500 hover:text-sky-500 transition bg-sky-500/10 px-3 py-1.5 rounded-lg border border-sky-500/20 hover:border-sky-500">
-                            Xem tất cả tin tức ❯
-                        </a>
+                        <div class="mt-auto pt-4 text-right">
+                            <a href="danh-sach-tin.html" class="inline-flex items-center gap-1 text-[10px] font-black uppercase text-sky-600 dark:text-sky-500 hover:text-sky-500 transition bg-sky-500/10 px-3 py-1.5 rounded-lg border border-sky-500/20 hover:border-sky-500">
+                                Xem tất cả tin tức ❯
+                            </a>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div class="glass-panel p-5">
-            <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label border-l-4 border-sky-400 pl-3 mb-4">📸 Hình ảnh Hoạt động trực quan & Cổ động</h2>
-            <div class="slider-container">
-                <button class="slider-btn btn-prev" onclick="moveSlide(-1)">❮</button>
-                <button class="slider-btn btn-next" onclick="moveSlide(1)">❯</button>
+            <!-- SLIDER HÌNH ẢNH -->
+            <div class="glass-panel p-5 md:p-6">
+                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label border-l-4 border-sky-400 pl-3 mb-4">📸 Hình ảnh Hoạt động trực quan & Cổ động</h2>
+                <div class="slider-container">
+                    <button class="slider-btn btn-prev" onclick="moveSlide(-1)">❮</button>
+                    <button class="slider-btn btn-next" onclick="moveSlide(1)">❯</button>
 
-                <div class="slide active"><img src="images/banner1.jpg" alt="Tuyên truyền 1"></div>
-                <div class="slide"><img src="images/banner2.jpg" alt="Tuyên truyền 2"></div>
-            </div>
-        </div>
-
-        <div class="glass-panel p-5">
-            <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label border-l-4 border-sky-400 pl-3 mb-4">🎥 Video Tư liệu / Bản tin thời sự cơ sở</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="video-card">
-                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/G8k02HjNTcQ" title="Video tuyên truyền số 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
-                </div>
-                <div class="video-card">
-                    <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video tuyên truyền số 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
+                    <div class="slide active"><img src="images/banner1.jpg" alt="Tuyên truyền 1"></div>
+                    <div class="slide"><img src="images/banner2.jpg" alt="Tuyên truyền 2"></div>
                 </div>
             </div>
-        </div>
 
+            <!-- VIDEO -->
+            <div class="glass-panel p-5 md:p-6">
+                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label border-l-4 border-sky-400 pl-3 mb-4">🎥 Video Tư liệu / Bản tin thời sự cơ sở</h2>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="video-card">
+                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/G8k02HjNTcQ" title="Video tuyên truyền số 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
+                    </div>
+                    <div class="video-card">
+                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video tuyên truyền số 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
+                    </div>
+                </div>
+            </div>
+
+        </div> <!-- END TEAL WRAPPER -->
     </div>
 
     <footer class="w-full text-center py-6 text-dynamic-label font-bold text-[10px] uppercase tracking-[0.3em] border-t border-slate-900/10 dark:border-slate-900 bg-slate-950/5 dark:bg-slate-950/20 backdrop-blur-md mt-auto">
