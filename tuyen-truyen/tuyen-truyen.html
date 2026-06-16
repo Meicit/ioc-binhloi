@@ -7,7 +7,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* QUẢN LÝ MÀU CHỮ NỔI BẬT CHO NỀN TỐI (DARK THEME) - ĐÃ BỎ ẢNH NỀN */
+        /* QUẢN LÝ MÀU CHỮ NỔI BẬT CHO NỀN TỐI (DARK THEME) */
         body.dark-theme {
             background-color: #0f172a;
             color: #38bdf8;
@@ -18,8 +18,10 @@
         body.dark-theme .glass-panel { background: rgba(15, 23, 42, 0.75); border-color: rgba(56, 189, 248, 0.2); }
         body.dark-theme .btn-switcher-active { background: #0369a1; color: #00f0ff; border-color: #00f0ff; }
         body.dark-theme .list-item-hover:hover { background: rgba(56, 189, 248, 0.1); }
+        body.dark-theme .title-block { background-color: rgba(30, 58, 138, 0.4); border-color: #1e3a8a; }
+        body.dark-theme .title-text { color: #60a5fa; }
 
-        /* QUẢN LÝ MÀU CHỮ NỔI BẬT CHO NỀN SÁNG (LIGHT THEME) - ĐÃ BỎ ẢNH NỀN */
+        /* QUẢN LÝ MÀU CHỮ NỔI BẬT CHO NỀN SÁNG (LIGHT THEME) */
         body.light-theme {
             background-color: #f8fafc;
             color: #0b4a8f;
@@ -30,6 +32,8 @@
         body.light-theme .glass-panel { background: rgba(226, 232, 240, 0.92); border-color: rgba(11, 74, 143, 0.3); box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.2); }
         body.light-theme .btn-switcher-active { background: #0b4a8f; color: #bfdbfe; border-color: #0b4a8f; box-shadow: 0 2px 8px rgba(11, 74, 143, 0.2); }
         body.light-theme .list-item-hover:hover { background: rgba(11, 74, 143, 0.05); }
+        body.light-theme .title-block { background-color: #eff6ff; border-color: #bfdbfe; }
+        body.light-theme .title-text { color: #1d4ed8; }
 
         /* CSS CHUNG */
         body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s, color 0.3s; }
@@ -81,7 +85,7 @@
             
             <div class="flex flex-row items-center space-x-6 w-auto">
                 <div class="flex-shrink-0">
-                    <img src="logo.png" alt="Logo" class="logo-main w-20 h-auto">
+                    <img src="logo.png" alt="Logo" class="logo-main w-20 h-auto" onerror="this.src='logo.png'">
                 </div>
                 <div class="flex flex-col items-start justify-center space-y-2 text-left">
                     <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-['Montserrat']">
@@ -100,6 +104,15 @@
             
         </div>
     </header>
+
+    <!-- TIÊU ĐỀ NỀN CHỮ XANH DƯƠNG -->
+    <div class="max-w-[1550px] w-full mx-auto px-4 md:px-6 my-6">
+        <div class="title-block py-4 md:py-5 px-8 text-center shadow-sm rounded-2xl border-b-4 transition-colors duration-300">
+            <h2 class="title-text font-['Montserrat'] text-xl md:text-3xl font-black uppercase tracking-wider leading-tight">
+                TRANG THÔNG TIN TUYÊN TRUYỀN
+            </h2>
+        </div>
+    </div>
 
     <div class="container-wrapper space-y-6">
         
