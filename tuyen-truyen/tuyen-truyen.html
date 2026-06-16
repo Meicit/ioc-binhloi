@@ -7,10 +7,9 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* QUẢN LÝ MÀU CHỮ NỔI BẬT CHO NỀN TỐI (DARK THEME) */
+        /* QUẢN LÝ MÀU CHỮ NỔI BẬT CHO NỀN TỐI (DARK THEME) - ĐÃ BỎ ẢNH NỀN */
         body.dark-theme {
-            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98)), url('../hinhnen.png');
-            background-size: cover; background-position: center; background-attachment: fixed;
+            background-color: #0f172a;
             color: #38bdf8;
         }
         body.dark-theme .text-dynamic-title { color: #00f0ff; }
@@ -20,10 +19,9 @@
         body.dark-theme .btn-switcher-active { background: #0369a1; color: #00f0ff; border-color: #00f0ff; }
         body.dark-theme .list-item-hover:hover { background: rgba(56, 189, 248, 0.1); }
 
-        /* QUẢN LÝ MÀU CHỮ NỔI BẬT CHO NỀN SÁNG (LIGHT THEME) */
+        /* QUẢN LÝ MÀU CHỮ NỔI BẬT CHO NỀN SÁNG (LIGHT THEME) - ĐÃ BỎ ẢNH NỀN */
         body.light-theme {
-            background: linear-gradient(rgba(241, 245, 249, 0.9), rgba(241, 245, 249, 0.98)), url('../hinhnen.png');
-            background-size: cover; background-position: center; background-attachment: fixed;
+            background-color: #f8fafc;
             color: #0b4a8f;
         }
         body.light-theme .text-dynamic-title { color: #031b4e; }
@@ -38,7 +36,7 @@
         .container-wrapper { max-width: 1550px; margin: 0 auto 30px auto; padding: 0 24px; width: 100%; }
         .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4); transition: all 0.3s; }
         
-        /* HEADER DYNAMIC */
+        /* HEADER DYNAMIC ĐỒNG BỘ HOME.HTML */
         .main-header { background-size: 400% 400%; animation: gradientGIF 12s ease infinite; }
         body.theme-xanh-ios .main-header { background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d); border-bottom: 2px solid #032b5c; box-shadow: 0 4px 15px rgba(11, 74, 143, 0.15); }
         body.theme-do-hanhchinh .main-header { background: linear-gradient(-45deg, #dc2626, #7f1d1d, #ef4444, #450a0a); border-bottom: 2px solid #991b1b; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.15); }
@@ -65,12 +63,21 @@
         .btn-back:hover { transform: translateY(-2px); border-color: #ef4444; background: rgba(239, 68, 68, 0.1); }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.3); border-radius: 10px; }
+
+        @media (max-width: 1024px) {
+            .header-layout { flex-direction: column !important; }
+            .theme-selector-vertical { 
+                position: relative !important; top: 0 !important; right: 0 !important; 
+                margin-top: 16px; flex-direction: row !important; space-x: 2; width: auto !important;
+            }
+            .theme-selector-vertical button { margin-left: 4px; margin-right: 4px; }
+        }
     </style>
 </head>
 <body class="theme-xanh-ios light-theme custom-scrollbar" id="body-context">
 
     <header class="main-header w-full py-6 px-6 md:px-12 select-none relative transition-all duration-300 mb-6">
-        <div class="max-w-[1550px] mx-auto flex flex-col md:flex-row items-center justify-between relative header-layout">
+        <div class="max-w-[1550px] mx-auto flex flex-col items-center justify-center relative header-layout">
             
             <div class="flex flex-row items-center space-x-6 w-auto">
                 <div class="flex-shrink-0">
@@ -78,37 +85,31 @@
                 </div>
                 <div class="flex flex-col items-start justify-center space-y-2 text-left">
                     <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-['Montserrat']">
-                        TRUNG TÂM THÔNG TIN TUYÊN TRUYỀN
+                        IOC BINH HUNG
                     </p>
                     <h1 class="title-main text-sm md:text-base lg:text-lg font-bold uppercase tracking-[0.08em] text-white/90 leading-tight m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
-                        Hệ thống cập nhật hoạt động chính trị, sự kiện kinh tế văn hóa xã hội — Xã Bình Hưng
+                        Cổng thông tin và điều hành xã Bình Hưng, Thành phố Hồ Chí Minh
                     </h1>
                 </div>
             </div>
             
-            <div class="mt-4 md:mt-0 flex flex-col md:flex-row gap-2 md:gap-4 items-center bg-white/10 backdrop-blur-md border border-white/20 p-2 rounded-xl shadow-inner">
-                <div class="flex gap-2 border-b md:border-b-0 md:border-r border-white/30 pb-2 md:pb-0 md:pr-4">
-                    <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="text-[10px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all bg-blue-600 text-white shadow-md">🔵 Xanh</button>
-                    <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="text-[10px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all text-white/80 hover:text-white">🔴 Đỏ</button>
-                </div>
-
-                <div class="flex gap-2">
-                    <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border btn-switcher-active">
-                        💡 Nền trắng
-                    </button>
-                    <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white/80 hover:text-white">
-                        🌙 Nền đen
-                    </button>
-                </div>
+            <div class="theme-selector-vertical lg:absolute lg:top-0 lg:right-0 bg-white/10 backdrop-blur-md border border-white/20 p-1.5 rounded-xl flex flex-col space-y-1.5 w-[75px] z-20 shadow-inner">
+                <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md">🔵 Xanh</button>
+                <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white">🔴 Đỏ</button>
             </div>
-
+            
         </div>
     </header>
 
     <div class="container-wrapper space-y-6">
         
-        <div class="flex justify-start">
+        <!-- NÚT QUAY LẠI VÀ CHUYỂN ĐỔI SÁNG/TỐI -->
+        <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
             <a href="../home.html" class="btn-back">⬅️ Quay lại Trang chủ</a>
+            <div class="bg-slate-900 border border-slate-700 p-1 rounded-xl flex items-center shadow-md backdrop-blur">
+                <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">Sáng</button>
+                <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">Tối</button>
+            </div>
         </div>
 
         <div class="glass-panel p-5">
@@ -260,13 +261,13 @@
             if (modeName === 'do') {
                 body.classList.remove('theme-xanh-ios');
                 body.classList.add('theme-do-hanhchinh');
-                btnDo.className = "text-[10px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all bg-red-600 text-white shadow-md";
-                btnXanh.className = "text-[10px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all text-white/80 hover:text-white";
+                btnDo.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-red-600 text-white shadow-md";
+                btnXanh.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white";
             } else {
                 body.classList.remove('theme-do-hanhchinh');
                 body.classList.add('theme-xanh-ios');
-                btnXanh.className = "text-[10px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all bg-blue-600 text-white shadow-md";
-                btnDo.className = "text-[10px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all text-white/80 hover:text-white";
+                btnXanh.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md";
+                btnDo.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white";
             }
         }
 
@@ -280,12 +281,12 @@
                 body.classList.remove('dark-theme');
                 body.classList.add('light-theme');
                 btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-blue-900 text-sky-200 shadow-md border border-blue-700";
-                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white/80 hover:text-white";
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-400 hover:text-blue-900";
             } else {
                 body.classList.remove('light-theme');
                 body.classList.add('dark-theme');
-                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border btn-switcher-active";
-                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white/80 hover:text-white";
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-sky-700 text-white shadow-md border border-sky-500";
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-400 hover:text-sky-400";
             }
         }
 
