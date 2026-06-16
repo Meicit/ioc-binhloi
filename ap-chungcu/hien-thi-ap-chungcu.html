@@ -33,7 +33,6 @@
         body.dark-theme .btn-back { color: #38bdf8; }
 
         /* ================= KỸ THUẬT NỀN ĐỘNG GRADIENT TẠI HEADER ĐỒNG BỘ HOME ================= */
-        /* Đã sửa lỗi đứng im bằng cách đặt background-size VÀ animation vào ngay trong class màu */
         body.theme-xanh-ios .main-header {
             background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d);
             background-size: 400% 400%;
@@ -116,45 +115,59 @@
         </div>
 
         <div class="text-center max-w-3xl mx-auto mb-10">
-            <h2 class="text-xl md:text-2xl font-bold text-sky-500 uppercase tracking-[0.2em] mb-2">Quản lý Hành chính</h2>
+            <h2 class="text-xs md:text-sm font-bold text-sky-500 uppercase tracking-[0.2em] mb-2">Hệ thống Quản lý Hành chính</h2>
             <h3 class="text-2xl md:text-4xl font-black uppercase text-dynamic-title font-['Montserrat'] tracking-tight">
-                ẤP SỐ - CHUNG CƯ SỐ <br> <br>
+                Phân hệ Dân cư & Cơ sở hạ tầng
             </h3>
-       <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+            <div class="h-1 w-24 bg-sky-500 rounded-full mx-auto mt-4 mb-4"></div>
+            <p class="text-sm md:text-base text-dynamic-body font-medium px-4">
+                Vui lòng lựa chọn phân hệ tương ứng bên dưới để tiến hành tra cứu, giám sát thống kê và điều hành các số liệu liên quan trên địa bàn.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
             
-            <div onclick="window.location.href='ap-so.html'" class="glass-panel module-card group hover:border-emerald-500">
-                <div class="h-48 bg-emerald-600/10 dark:bg-emerald-900/40 flex items-center justify-center relative border-b border-emerald-500/20">
-                    <div class="text-[80px] group-hover:scale-110 transition-transform duration-500 z-10 drop-shadow-md">🏘️</div>
+            <div onclick="window.location.href='ap-so.html'" class="glass-panel module-card group hover:border-emerald-500 h-full flex flex-col">
+                
+                <div class="h-28 sm:h-32 bg-emerald-600/10 dark:bg-emerald-900/40 flex items-center justify-center relative border-b border-emerald-500/20 shrink-0">
+                    <div class="text-[50px] sm:text-[55px] group-hover:scale-110 transition-transform duration-500 z-10 drop-shadow-md">🏘️</div>
                     <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent"></div>
                 </div>
-                <div class="p-8 text-center md:text-left">
-                    <h3 class="text-xl font-black text-dynamic-title mb-3 uppercase tracking-wide group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                
+                <div class="p-6 md:p-8 text-center md:text-left flex flex-col flex-grow">
+                    <h3 class="text-lg sm:text-xl font-black text-dynamic-title mb-3 uppercase tracking-wide group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                         Điều hành Ấp Số
                     </h3>
-                    <p class="text-sm text-dynamic-body leading-relaxed mb-8 min-h-[60px]">
+                    <p class="text-sm text-dynamic-body leading-relaxed mb-6 flex-grow">
                         Hệ thống thống kê nhân khẩu, quy mô diện tích, số hộ gia đình và hồ sơ nhân sự ban điều hành của toàn bộ các đơn vị Ấp trực thuộc địa bàn.
                     </p>
-                    <span class="inline-flex items-center gap-2 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 font-bold px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider group-hover:bg-emerald-600 group-hover:text-white transition-all shadow-sm">
-                        Truy cập phân hệ <span>➔</span>
-                    </span>
+                    <div class="mt-auto md:text-left text-center">
+                        <span class="inline-flex items-center gap-2 bg-emerald-100 dark:bg-emerald-900/50 text-emerald-700 dark:text-emerald-300 font-bold px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider group-hover:bg-emerald-600 group-hover:text-white transition-all shadow-sm">
+                            Truy cập phân hệ <span>➔</span>
+                        </span>
+                    </div>
                 </div>
             </div>
 
-            <div onclick="window.location.href='chung-cu-so.html'" class="glass-panel module-card group hover:border-sky-500">
-                <div class="h-48 bg-sky-600/10 dark:bg-sky-900/40 flex items-center justify-center relative border-b border-sky-500/20">
-                    <div class="text-[80px] group-hover:scale-110 transition-transform duration-500 z-10 drop-shadow-md">🏢</div>
+            <div onclick="window.location.href='chung-cu-so.html'" class="glass-panel module-card group hover:border-sky-500 h-full flex flex-col">
+                
+                <div class="h-28 sm:h-32 bg-sky-600/10 dark:bg-sky-900/40 flex items-center justify-center relative border-b border-sky-500/20 shrink-0">
+                    <div class="text-[50px] sm:text-[55px] group-hover:scale-110 transition-transform duration-500 z-10 drop-shadow-md">🏢</div>
                     <div class="absolute inset-0 bg-gradient-to-br from-sky-500/10 to-transparent"></div>
                 </div>
-                <div class="p-8 text-center md:text-left">
-                    <h3 class="text-xl font-black text-dynamic-title mb-3 uppercase tracking-wide group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
+                
+                <div class="p-6 md:p-8 text-center md:text-left flex flex-col flex-grow">
+                    <h3 class="text-lg sm:text-xl font-black text-dynamic-title mb-3 uppercase tracking-wide group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
                         Quản lý Chung cư Số
                     </h3>
-                    <p class="text-sm text-dynamic-body leading-relaxed mb-8 min-h-[60px]">
+                    <p class="text-sm text-dynamic-body leading-relaxed mb-6 flex-grow">
                         Phân hệ quản lý hồ sơ nhà chung cư, giám sát thông tin pháp lý chủ đầu tư, tiến độ bàn giao, số lượng block và quy mô căn hộ thực tế.
                     </p>
-                    <span class="inline-flex items-center gap-2 bg-sky-100 dark:bg-sky-900/50 text-sky-700 dark:text-sky-300 font-bold px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider group-hover:bg-sky-600 group-hover:text-white transition-all shadow-sm">
-                        Truy cập phân hệ <span>➔</span>
-                    </span>
+                    <div class="mt-auto md:text-left text-center">
+                        <span class="inline-flex items-center gap-2 bg-sky-100 dark:bg-sky-900/50 text-sky-700 dark:text-sky-300 font-bold px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider group-hover:bg-sky-600 group-hover:text-white transition-all shadow-sm">
+                            Truy cập phân hệ <span>➔</span>
+                        </span>
+                    </div>
                 </div>
             </div>
 
