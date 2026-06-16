@@ -3,83 +3,133 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danh sách Chung cư - Xã Bình Hưng</title>
+    <title>Hệ thống Tiếp nhận Phản ánh Dân cư - Xã Bình Hưng</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', 'Be Vietnam Pro', sans-serif; margin: 0; padding: 0; min-height: 100vh; background-color: #f8fafc; color: #0f172a; display: flex; flex-direction: column; transition: background 0.4s ease, color 0.4s ease; }
+        body.theme-xanh-ios .main-header { background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d); background-size: 400% 400%; animation: gradientGIF 12s ease infinite; box-shadow: 0 4px 15px rgba(11, 74, 143, 0.15); border-bottom: 2px solid #032b5c; }
+        body.theme-do-hanhchinh .main-header { background: linear-gradient(-45deg, #dc2626, #7f1d1d, #ef4444, #450a0a); background-size: 400% 400%; animation: gradientGIF 12s ease infinite; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.15); border-bottom: 2px solid #991b1b; }
+        @keyframes gradientGIF { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .menu-panel-wrapper { background-color: rgba(128, 255, 232, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 40px; box-shadow: 0 20px 50px -10px rgba(12, 74, 110, 0.15); width: 100%; }
+        .logo-main { animation: float 4s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)); } 50% { transform: translateY(-3px); filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3)); } }
+        @media (max-width: 1024px) { .header-layout { flex-direction: column !important; } .theme-selector-vertical { position: relative !important; top: 0 !important; right: 0 !important; margin-top: 16px; flex-direction: row !important; space-x: 2; width: auto !important; } }
+    </style>
 </head>
-<body class="bg-slate-100 p-8">
-    <div class="max-w-7xl mx-auto">
-        <a href="ap-so.html" class="mb-4 inline-block bg-blue-800 text-white px-6 py-2 rounded-lg font-bold hover:bg-blue-900 transition">⬅ Quay lại</a>
-        
-        <div class="bg-white p-6 rounded-2xl shadow-xl overflow-x-auto">
-            <h2 class="text-2xl font-black text-emerald-800 mb-6 uppercase text-center border-b pb-4">
-                Bảng Thống kê Quản lý Nhà Chung cư Xã Bình Hưng
+<body class="theme-xanh-ios custom-scrollbar" id="dynamic-body">
+
+    <header class="main-header w-full py-6 px-6 md:px-12 select-none relative transition-all duration-300">
+        <div class="max-w-[1550px] mx-auto flex flex-col items-center justify-center relative header-layout">
+            <div class="flex flex-row items-center space-x-6 w-auto">
+                <div class="flex-shrink-0"><img src="../logo.png" alt="Logo" class="logo-main w-20 h-auto" onerror="this.src='logo.png'"></div>
+                <div class="flex flex-col items-start justify-center space-y-2 text-left">
+                    <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-['Montserrat']">IOC BINH HUNG</p>
+                    <h1 class="title-main text-sm md:text-base lg:text-lg font-bold uppercase tracking-[0.08em] text-white/90 leading-tight m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">Cổng thông tin và điều hành xã Bình Hưng, Thành phố Hồ Chí Minh</h1>
+                </div>
+            </div>
+            <div class="theme-selector-vertical lg:absolute lg:top-0 lg:right-0 bg-white/10 backdrop-blur-md border border-white/20 p-1.5 rounded-xl flex flex-col space-y-1.5 w-[75px] z-20 shadow-inner">
+                <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md">🔵 Xanh</button>
+                <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white">🔴 Đỏ</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-[1550px] w-full mx-auto px-4 md:px-6 mt-6">
+        <div class="py-4 md:py-5 px-8 text-center shadow-lg rounded-2xl bg-sky-500 border-b-4 border-sky-600">
+            <h2 class="font-['Montserrat'] text-xl md:text-3xl font-black text-white uppercase tracking-wider leading-tight">
+                KẾT QUẢ GIẢI QUYẾT PHẢN ÁNH, KIẾN NGHỊ
             </h2>
-            
-            <table class="w-full text-left border-collapse">
-                <thead>
-                    <tr class="bg-emerald-700 text-white text-[11px] uppercase">
-                        <th class="p-4">Tên Chung cư</th>
-                        <th class="p-4 text-center">Block</th>
-                        <th class="p-4">Chủ đầu tư</th>
-                        <th class="p-4 text-center">Năm XD</th>
-                        <th class="p-4 text-center">Căn hộ</th>
-                    </tr>
-                </thead>
-                <tbody id="chung-cu-table" class="text-sm text-slate-700">
-                    </tbody>
-            </table>
         </div>
     </div>
 
-    <script>
-        const chungCuData = [
-            { name: "CHUNG CƯ AVIEW 1", block: 1, cdt: "Tân Bình", nam: 2008, canHo: 192 },
-            { name: "CHUNG CƯ AVIEW 2", block: 1, cdt: "Tân Bình", nam: 2019, canHo: 223 },
-            { name: "CHUNG CƯ CONIC GARDEN", block: 2, cdt: "Lĩnh Phong", nam: 2006, canHo: 362 },
-            { name: "CHUNG CƯ CONIC ĐÌNH KHIÊM", block: 1, cdt: "Lĩnh Phong", nam: 2005, canHo: 158 },
-            { name: "CHUNG CƯ CONIC ĐÔNG NAM Á", block: 1, cdt: "Lĩnh Phong", nam: 2006, canHo: 242 },
-            { name: "CHUNG CƯ CONIC SKYWAY G", block: 1, cdt: "Lĩnh Phong", nam: 2016, canHo: 164 },
-            { name: "CHUNG CƯ CONIC SKYWAY H", block: 1, cdt: "Lĩnh Phong", nam: 2017, canHo: 146 },
-            { name: "CHUNG CƯ TERAROSSA B3, B4", block: 1, cdt: "Khang Nam", nam: 2012, canHo: 383 },
-            { name: "CHUNG CƯ TERAROSSA C2", block: 1, cdt: "Khang Nam", nam: 2018, canHo: 129 },
-            { name: "CHUNG CƯ THE MANSION", block: 5, cdt: "Quốc Cường GL", nam: 2012, canHo: 212 },
-            { name: "CHUNG CƯ LOVERA VISTA", block: 1, cdt: "Khang Phúc", nam: 2021, canHo: 1310 },
-            { name: "CHUNG CƯ SÀI GÒN INTELA", block: 1, cdt: "Bắc Phước Kiển", nam: 2021, canHo: 1068 },
-            { name: "CHUNG CƯ HẠNH PHÚC A", block: 1, cdt: "Tổng Cty Xây dựng số 1", nam: 2018, canHo: 336 },
-            { name: "CHUNG CƯ HẠNH PHÚC B", block: 1, cdt: "Tổng Cty Xây dựng số 1", nam: 2016, canHo: 218 },
-            { name: "CHUNG CƯ HẠNH PHÚC C", block: 1, cdt: "Tổng Cty Xây dựng số 1", nam: 2016, canHo: 190 },
-            { name: "CHUNG CƯ HẠNH PHÚC D", block: 1, cdt: "Tổng Cty Xây dựng số 1", nam: 2017, canHo: 0 },
-            { name: "CHUNG CƯ TĐC 194", block: 1, cdt: "ĐTXD 194", nam: 2020, canHo: 84 },
-            { name: "CHUNG CƯ SINH LỢI", block: 1, cdt: "Sinh Lợi", nam: 2010, canHo: 104 },
-            { name: "CHUNG CƯ HOÀNG THÁP", block: 1, cdt: "Sinh Lợi", nam: 2009, canHo: 152 },
-            { name: "CHUNG CƯ HỒNG LĨNH", block: 1, cdt: "Hồng Lĩnh", nam: 2009, canHo: 188 },
-            { name: "CHUNG CƯ CITIZEN.TS", block: 1, cdt: "Việt Tâm", nam: 2017, canHo: 69 },
-            { name: "THE EASTER CITY-6B", block: 1, cdt: "Quốc Cường GL", nam: 2016, canHo: 572 },
-            { name: "CHUNG CƯ HIM LAM 23", block: 4, cdt: "Him Lam", nam: 2007, canHo: 360 },
-            { name: "CHUNG CƯ SÀI GÒN MIA", block: 3, cdt: "Việt Tâm", nam: 2019, canHo: 964 },
-            { name: "FLORA MIZUKI MP1, MP2", block: 2, cdt: "NNH Mizuki", nam: 2019, canHo: 590 },
-            { name: "FLORA MIZUKI MP3-MP5", block: 3, cdt: "NNH Mizuki", nam: 2019, canHo: 847 },
-            { name: "FLORA MIZUKI MP6-MP8", block: 3, cdt: "NNH Mizuki", nam: 2022, canHo: 760 },
-            { name: "FLORA MIZUKI MP9, MPX", block: 2, cdt: "NNH Mizuki", nam: 2023, canHo: 177 },
-            { name: "FLORA PANORAMA FP1", block: 1, cdt: "NNH Mizuki", nam: 2023, canHo: 164 },
-            { name: "FLORA PANORAMA FP2, FP3", block: 2, cdt: "NNH Mizuki", nam: 2023, canHo: 252 },
-            { name: "EHOMES NAM SÀI GÒN A", block: 3, cdt: "Nguyễn Sơn", nam: 2018, canHo: 218 },
-            { name: "EHOMES NAM SÀI GÒN B,D,E,G,H", block: 2, cdt: "Nguyễn Sơn", nam: 2019, canHo: 1218 },
-            { name: "CHUNG CƯ TERRA MI-A", block: 1, cdt: "Khang Nam", nam: 2022, canHo: 440 }
-        ];
+    <div class="max-w-[1550px] w-full mx-auto px-4 md:px-6 my-6 flex flex-col items-start space-y-4 flex-grow mb-12">
+        <div class="menu-panel-wrapper p-6 md:p-8 lg:p-10 space-y-6">
+            
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 w-full">
+                <a href="../home.html" class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-sm transition-all duration-300 hover:-translate-y-0.5 shrink-0">
+                    ⬅️ Quay lại Trang chủ
+                </a>
 
-        const tbody = document.getElementById('chung-cu-table');
-        chungCuData.forEach(cc => {
-            tbody.innerHTML += `
-                <tr class="border-b hover:bg-emerald-50 transition">
-                    <td class="p-4 font-bold text-emerald-900">${cc.name}</td>
-                    <td class="p-4 text-center">${cc.block}</td>
-                    <td class="p-4">${cc.cdt}</td>
-                    <td class="p-4 text-center">${cc.nam}</td>
-                    <td class="p-4 text-center font-bold text-blue-700">${cc.canHo.toLocaleString()}</td>
-                </tr>
-            `;
-        });
+                <div class="flex gap-2 bg-white/40 backdrop-blur p-1.5 rounded-xl border border-white/50 shadow-sm w-full md:w-auto overflow-x-auto">
+                    <a href="phan-anh.html" class="bg-white/80 text-slate-700 hover:text-blue-700 hover:bg-white px-6 py-2.5 rounded-lg text-xs font-bold uppercase transition-all shadow-sm whitespace-nowrap">
+                        ✍️ Tạo phản ánh
+                    </a>
+                    <a href="lookup.html" class="bg-blue-700 text-white px-6 py-2.5 rounded-lg text-xs font-bold uppercase shadow-md transition-all hover:bg-blue-800 whitespace-nowrap">
+                        🔍 Tra cứu tiến độ
+                    </a>
+                </div>
+            </div>
+
+            <div class="bg-white/90 backdrop-blur-xl border border-white rounded-3xl p-6 md:p-10 shadow-lg w-full">
+                <div class="border-b border-slate-200/60 pb-4 mb-6">
+                    <h2 class="text-lg md:text-xl font-black text-slate-900 uppercase tracking-wide">Tra cứu kết quả giải quyết kiến nghị</h2>
+                    <p class="text-xs font-medium text-slate-500 mt-1">Nhập chính xác 8 ký tự mã tra cứu hệ thống đã cấp cho bạn khi nộp đơn thư.</p>
+                </div>
+
+                <div class="flex flex-col sm:flex-row gap-3">
+                    <input type="text" id="trackingCodeInput" placeholder="Ví dụ: R2P8K9XW" class="flex-1 uppercase font-mono tracking-widest text-center sm:text-left bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 outline-none focus:border-blue-700 focus:bg-white focus:ring-4 focus:ring-blue-700/10 transition">
+                    <button id="searchBtn" class="bg-blue-950 hover:bg-blue-900 text-white font-extrabold text-xs uppercase tracking-wider px-8 py-4 rounded-xl shadow-md transition flex-shrink-0">Kiểm tra hồ sơ</button>
+                </div>
+
+                <div id="errorBox" class="hidden mt-5 bg-red-50 border border-red-200 text-red-700 px-4 py-3 rounded-xl font-bold text-xs uppercase text-center tracking-wide"></div>
+
+                <div id="resultBox" class="hidden mt-6 border-t border-slate-200/60 pt-6 space-y-5 text-xs font-bold">
+                    <div class="flex justify-between items-center p-4 rounded-xl bg-blue-50 border border-blue-100">
+                        <span class="text-slate-500 uppercase tracking-wider">Tiến độ hồ sơ:</span>
+                        <span id="statusDisplay" class="px-3 py-1 rounded-lg uppercase tracking-wide text-[10px] text-white shadow-sm">--</span>
+                    </div>
+                    
+                    <div class="space-y-4 font-bold text-slate-800">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 bg-slate-50/50 p-4 rounded-xl border border-slate-100">
+                            <p class="text-slate-400 font-semibold">Người gửi đơn: <span id="nameDisplay" class="text-slate-900 font-bold ml-1">--</span></p>
+                            <p class="text-slate-400 font-semibold">Ngày tiếp nhận: <span id="timeDisplay" class="text-slate-900 font-bold ml-1">--</span></p>
+                        </div>
+                        
+                        <div class="bg-slate-50/50 p-4 rounded-xl border border-slate-100">
+                            <span class="text-slate-400 font-semibold block mb-1">Nội dung phản ánh gốc:</span>
+                            <p id="contentDisplay" class="text-slate-800 font-bold leading-relaxed text-justify">--</p>
+                        </div>
+                        
+                        <div id="imgContainer" class="hidden bg-slate-50/50 p-4 rounded-xl border border-slate-100 text-center">
+                            <span class="text-slate-400 font-semibold block text-left mb-2">Hình ảnh hiện trường đính kèm:</span>
+                            <img id="imageDisplay" src="" alt="Hiện trường" class="max-h-64 mx-auto rounded-lg object-contain shadow-sm border border-slate-200 bg-white">
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-2 bg-emerald-50 border border-emerald-100 p-5 rounded-xl text-emerald-950">
+                        <h3 class="text-emerald-800 uppercase tracking-wider font-black">💬 Ý kiến phản hồi xử lý từ Cơ quan chức năng:</h3>
+                        <p id="replyDisplay" class="font-bold leading-relaxed text-justify italic">Hiện tại hồ sơ đang trong quá trình rà soát, kiểm tra hiện trường thực tế theo quy định. Kết quả xác minh sẽ được cập nhật sớm nhất.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-auto text-center py-6 text-slate-400 font-medium text-[11px] uppercase tracking-widest border-t border-slate-200 bg-white shadow-sm">
+        &copy; 2026 IOC BINH HƯNG — BẢN QUYỀN THUỘC UBND XÃ BÌNH HƯNG
+    </footer>
+
+    <script type="module" src="lookup.js"></script>
+    <script>
+        window.switchSystemTheme = function(modeName) { 
+            const body = document.getElementById('dynamic-body'); 
+            const btnXanh = document.getElementById('btn-theme-xanh'); 
+            const btnDo = document.getElementById('btn-theme-do'); 
+            
+            if (modeName === 'do') { 
+                body.classList.remove('theme-xanh-ios'); 
+                body.classList.add('theme-do-hanhchinh'); 
+                btnDo.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition bg-red-600 text-white shadow-md"; 
+                btnXanh.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition text-white/80 hover:text-white"; 
+            } else { 
+                body.classList.remove('theme-do-hanhchinh'); 
+                body.classList.add('theme-xanh-ios'); 
+                btnXanh.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition bg-blue-600 text-white shadow-md"; 
+                btnDo.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition text-white/80 hover:text-white"; 
+            } 
+        }
     </script>
 </body>
 </html>
