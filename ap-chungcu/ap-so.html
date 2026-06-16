@@ -78,25 +78,7 @@
             </div>
         </div>
     </header>
-<div class="container-wrapper mb-6">
-    <div class="py-5 px-8 text-center border-b-4 border-emerald-300 shadow-lg rounded-2xl" 
-         style="background-color: #059669 !important;">
-        
-        <h2 class="font-['Be Vietnam Pro'] text-2xl md:text-4xl font-black text-white uppercase tracking-normal leading-tight">
-            TRANG THÔNG TIN <br> 
-            <span class="text-xl md:text-2xl opacity-90 text-emerald-100">ẤP SỐ - CHUNG CƯ SỐ</span>
-        </h2>
-    </div>
-</div>
-    <div class="grid grid-cols-2 gap-2 bg-white dark:bg-slate-800 py-3 px-3 rounded-b-2xl shadow-md border-x border-b border-emerald-200 dark:border-emerald-900">
-        <button id="btn-ap" class="bg-emerald-600 hover:bg-emerald-700 text-white font-black py-3 rounded-xl shadow-lg transition uppercase tracking-widest text-xs md:text-sm">
-            ẤP SỐ
-        </button>
-        <button id="btn-chungcu" class="bg-slate-600 hover:bg-slate-700 text-white font-black py-3 rounded-xl shadow-lg transition uppercase tracking-widest text-xs md:text-sm">
-            CHUNG CƯ SỐ
-        </button>
-    </div>
-</div>
+
     <div class="container-wrapper space-y-6" id="body-context">
         <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
             <a href="home.html" class="btn-back">⬅️ Quay lại Trang chủ</a>
@@ -235,7 +217,7 @@
 
         let hamletsData = []; 
         let chartInstance = null;
-        let lastTheme = 'light'; // 🌟 Khởi tạo nền sáng chuẩn
+        let lastTheme = 'light'; 
         let currentSelectedHamlet = 'Ấp 1';
 
         onValue(hamletsNodeRef, (snapshot) => {
@@ -247,7 +229,7 @@
             hamletsData = Object.values(remoteData);
             renderGrid(hamletsData);
             renderRankings(hamletsData);
-            setTheme(lastTheme); // Đồng bộ nạp lại theme khi dữ liệu cập nhật
+            setTheme(lastTheme); 
             selectHamlet(currentSelectedHamlet);
         });
 
