@@ -84,6 +84,7 @@
         }
         /* Đồng bộ đổi màu chữ trong tab active */
         .tab-flat-item.active p { color: rgba(255, 255, 255, 0.8) !important; }
+        .tab-flat-item.active .dynamic-phone { color: #f59e0b !important; } /* Màu vàng nổi bật khi tab active */
         .tab-flat-item.active h3 { color: #ffffff !important; }
 
         @media (max-width: 1024px) {
@@ -164,60 +165,69 @@
     <script>
         let localDataStore = [];
 
-        // ĐỒNG BỘ KHO DỮ LIỆU ĐẦY ĐỦ 9 THẺ CƠ QUAN HÀNH CHÍNH QUY CHUẨN
+        // ĐỒNG BỘ KHO DỮ LIỆU ĐẦY ĐỦ 9 THỂ CƠ QUAN HÀNH CHÍNH QUY CHUẨN KÈM SỐ ĐIỆN THOẠI[cite: 2, 4]
         const fallbackData = [
             {
                 "id": 1,
                 "name": "Đảng ủy xã Bình Hưng",
                 "address": "A10/26A, đường số 10, KDC Bình Hưng, ấp 6, xã Bình Hưng, thành phố Hồ Chí Minh",
+                "phone": "028.3981.0015",
                 "map_embed": "https://maps.google.com/maps?q=A10/26A%20%C4%91%C6%B0%E1%BB%9Dng%20s%E1%BB%91%2010%20KDC%20B%C3%ACnh%20H%C6%B0ng&t=&z=15&ie=UTF8&iwloc=&output=embed"
             },
             {
                 "id": 2,
                 "name": "Hội đồng nhân dân xã Bình Hưng",
                 "address": "A10/26A, đường số 10, KDC Bình Hưng, ấp 6, xã Bình Hưng, thành phố Hồ Chí Minh",
+                "phone": "028.3981.0015",
                 "map_embed": "https://maps.google.com/maps?q=A10/26A%20%C4%91%C6%B0%E1%BB%9Dng%20s%E1%BB%91%2010%20KDC%20B%C3%ACnh%20H%C6%B0ng&t=&z=15&ie=UTF8&iwloc=&output=embed"
             },
             {
                 "id": 3,
                 "name": "Ủy ban nhân dân xã Bình Hưng",
                 "address": "A10/26A, đường số 10, KDC Bình Hưng, ấp 6, xã Bình Hưng, thành phố Hồ Chí Minh",
+                "phone": "028.3981.0015",
                 "map_embed": "https://maps.google.com/maps?q=A10/26A%20%C4%91%C6%B0%E1%BB%9Dng%20s%E1%BB%91%2010%20KDC%20B%C3%ACnh%20H%C6%B0ng&t=&z=15&ie=UTF8&iwloc=&output=embed"
             },
             {
                 "id": 4,
                 "name": "Ủy ban MTTQ Việt Nam xã Bình Hưng",
                 "address": "A10/26A, đường số 10, KDC Bình Hưng, ấp 6, xã Bình Hưng, thành phố Hồ Chí Minh",
+                "phone": "028.3981.0015",
                 "map_embed": "https://maps.google.com/maps?q=A10/26A%20%C4%91%C6%B0%E1%BB%9Dng%20s%E1%BB%91%2010%20KDC%20B%C3%ACnh%20H%C6%B0ng&t=&z=15&ie=UTF8&iwloc=&output=embed"
             },
             {
                 "id": 5,
                 "name": "Công an xã Bình Hưng",
                 "address": "517 Quốc lộ 50, xã Bình Hưng, Thành phố Hồ Chí Minh",
+                "phone": "028.3758.0113",
                 "map_embed": "https://maps.google.com/maps?q=517%20Qu%E1%BB%91c%20l%E1%BB%99%2050%20B%C3%ACnh%20H%C6%B0ng&t=&z=15&ie=UTF8&iwloc=&output=embed"
             },
             {
                 "id": 6,
                 "name": "Ban chỉ huy Quân sự xã Bình Hưng",
                 "address": "đường số 9, khu dân cư Phong Phú 4 ấp 57, xã Bình Hưng, Thành phố Hồ Chí Minh",
+                "phone": "028.3758.0224",
                 "map_embed": "https://maps.google.com/maps?q=Khu%20d%C3%A2n%20c%C6%B0%20Phong%20Ph%C3%BA%204%20B%C3%ACnh%20Ch%C3%A1nh&t=&z=15&ie=UTF8&iwloc=&output=embed"
             },
             {
                 "id": 7,
                 "name": "Trạm Y tế xã Bình Hưng",
                 "address": "Số 71A Đường số 1 Khu dân cư Bình Hưng, ấp 5, xã Bình Hưng, Thành phố Hồ Chí Minh",
+                "phone": "028.3758.1115",
                 "map_embed": "https://maps.google.com/maps?q=Tr%E1%BB%A1m%20Y%20t%E1%BA%BF%20x%C3%A3%20B%C3%ACnh%20H%C6%B0ng&t=&z=15&ie=UTF8&iwloc=&output=embed"
             },
             {
                 "id": 8,
                 "name": "Trung tâm Cung ứng dịch vụ công xã Bình Hưng",
                 "address": "Đường số 19, Khu dân cư Phong Phú 4, ấp 57, xã Bình Hưng, Thành phố Hồ Chí Minh",
+                "phone": "028.3981.0015",
                 "map_embed": "https://maps.google.com/maps?q=%C4%90%C6%B0%E1%BB%9Dng%20s%E1%BB%91%2019%20KDC%20Phong%20Ph%C3%BA%204&t=&z=15&ie=UTF8&iwloc=&output=embed"
             },
             {
                 "id": 9,
                 "name": "Ban Quản lý dự án đầu tư xây dựng xã Bình Hưng",
                 "address": "920 đường Văn Tiến Dũng, xã Bình Hưng, Thành phố Hồ Chí Minh",
+                "phone": "028.3981.0016",
                 "map_embed": "https://maps.google.com/maps?q=920%20%C4%91%C6%B0%E1%BB%9Dng%20V%C4%83n%20Ti%E1%BA%BFn%20D%C5%A9ng%20B%C3%ACnh%20H%C6%B0ng&t=&z=15&ie=UTF8&iwloc=&output=embed"
             }
         ];
@@ -238,7 +248,7 @@
             }
         }
 
-        // HÀM BIẾN ĐỔI DANH SÁCH THÀNH CÁC TAB CHỮ NGANG PHẲNG
+        // HÀM BIẾN ĐỔI DANH SÁCH THÀNH CÁC TAB CHỮ NGANG PHẲNG HIỆN ĐẠI (ĐÃ THÊM SỐ ĐIỆN THOẠI)[cite: 2]
         function renderHorizontalMenu(dataArray) {
             const container = document.getElementById('list_container');
             if (dataArray.length === 0) {
@@ -248,16 +258,21 @@
 
             container.innerHTML = dataArray.map(item => `
                 <div id="card_item_${item.id}" onclick="switchMapLocation('${item.map_embed}', ${item.id})" 
-                     class="tab-flat-item flex-shrink-0 snap-start px-5 py-3 rounded-xl cursor-pointer flex flex-col justify-center min-w-[240px] md:min-w-[280px] max-w-[320px]">
-                    <div class="flex items-center gap-2">
-                    <h3 class="text-xs md:text-sm font-extrabold text-slate-900 truncate tracking-tight">${item.name}</h3>
+                     class="tab-flat-item flex-shrink-0 snap-start px-5 py-4 rounded-2xl cursor-pointer flex flex-col justify-center min-w-[260px] md:min-w-[300px] max-w-[340px] shadow-sm">
+                    <div class="flex items-center gap-2 mb-1.5">
+                        <h3 class="text-xs md:text-sm font-black text-slate-900 truncate tracking-tight">${item.name}</h3>
                     </div>
-                    <p class="text-[10px] md:text-[11px] font-medium text-slate-500 truncate mt-1 pl-6">${item.address}</p>
+                    <p class="text-[10px] md:text-[11px] font-medium text-slate-500 truncate flex items-center gap-1.5 mb-1">
+                        <span class="opacity-70 flex-shrink-0">📍</span> ${item.address}
+                    </p>
+                    <p class="text-[10px] md:text-[11px] font-bold text-sky-600 truncate flex items-center gap-1.5 dynamic-phone">
+                        <span class="opacity-70 flex-shrink-0">📞</span> ${item.phone}
+                    </p>
                 </div>
             `).join('');
         }
 
-        // ĐIỀU HƯỚNG BẢN ĐỒ IFRAME VÀ ACTIVE TAB NGANG VỪA CHỌN
+        // ĐIỀU HƯỚNG BẢN ĐỒ IFRAME VÀ ACTIVE TAB NGANG VỪA CHỌN[cite: 2]
         window.switchMapLocation = function(embedUrl, id) {
             const mapFrame = document.getElementById('map_frame');
             mapFrame.setAttribute('src', embedUrl);
@@ -266,12 +281,12 @@
             const activeTab = document.getElementById(`card_item_${id}`);
             if(activeTab) {
                 activeTab.classList.add('active');
-                // Tự động cuộn tab được chọn ra giữa tầm nhìn của thanh menu ngang
+                // Tự động cuộn tab được chọn ra giữa tầm nhìn của thanh menu ngang[cite: 2]
                 activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
             }
         }
 
-        // TRA CỨU ĐỊA ĐIỂM DỰA TRÊN Ô INPUT
+        // TRA CỨU ĐỊA ĐIỂM DỰA TRÊN Ô INPUT[cite: 2]
         document.getElementById('search_input').addEventListener('input', function(e) {
             const keyword = e.target.value.toLowerCase().trim();
             const filteredData = localDataStore.filter(item => 
@@ -280,13 +295,13 @@
             );
             renderHorizontalMenu(filteredData);
             
-            // Nếu có kết quả sau bộ lọc, tự động kích hoạt địa điểm đầu tiên
+            // Nếu có kết quả sau bộ lọc, tự động kích hoạt địa điểm đầu tiên[cite: 2]
             if(filteredData.length > 0) {
                 switchMapLocation(filteredData[0].map_embed, filteredData[0].id);
             }
         });
 
-        // HÀM CHUYỂN ĐỔI THEME ĐỘNG HEADER
+        // HÀM CHUYỂN ĐỔI THEME ĐỘNG HEADER[cite: 2]
         window.switchSystemTheme = function(modeName) {
             const body = document.getElementById('dynamic-body');
             const btnXanh = document.getElementById('btn-theme-xanh');
