@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang chủ Điều hành - Xã Bình Hưng</title>
+    <title>Trụ sở cơ quan hành chính - Xã Bình Hưng</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
     
     <style>
         body {
             font-family: 'Inter', 'Be Vietnam Pro', sans-serif;
             margin: 0; padding: 0; min-height: 100vh;
-            background-color: #f8fafc;
+            background-color: #f8fafc; /* Nền phẳng xám trắng sạch sẽ đồng bộ home.html */
             color: #0f172a;
             display: flex;
             flex-direction: column;
             transition: background 0.4s ease, color 0.4s ease;
         }
 
-        /* ================= KỸ THUẬT NỀN ĐỘNG GRADIENT TẠI HEADER ĐỒNG BỘ TRU-SO-HANH-CHINH.HTML ================= */
+        /* ================= KỸ THUẬT NỀN ĐỘNG GRADIENT TẠI HEADER ĐỒNG BỘ HOME.HTML ================= */
         body.theme-xanh-ios .main-header {
             background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d);
             background-size: 400% 400%;
@@ -41,6 +41,17 @@
             100% { background-position: 0% 50%; }
         }
 
+        /* KHỐI NỀN TRONG SUỐT PHÍA DƯỚI CHỨA PH N HỆ BẢN ĐỒ */
+        .menu-panel-wrapper {
+            background-color: rgba(128, 255, 232, 0.45);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.6);
+            border-radius: 32px;
+            box-shadow: 0 20px 50px -10px rgba(12, 74, 110, 0.15);
+            width: 100%;
+        }
+
         /* LOGO ANIMATION CHUYỂN ĐỘNG NHẸ */
         .logo-main {
             animation: float 4s ease-in-out infinite;
@@ -50,105 +61,31 @@
             50% { transform: translateY(-3px); filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3)); }
         }
 
-        /* KHỐI NỀN MÀU XANH NGỌC TRONG SUỐT - LUÔN CỐ ĐỊNH PHÍA DƯỚI */
-        .menu-panel-wrapper {
-            background-color: rgba(128, 255, 232, 0.45);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 40px;
-            box-shadow: 0 20px 50px -10px rgba(12, 74, 110, 0.15);
-            padding: 45px 35px;
-            width: 100%;
-        }
+        /* Ẩn thanh cuộn của menu ngang trên các trình duyệt nhưng vẫn giữ tính năng vuốt trượt */
+        .scrollbar-none::-webkit-scrollbar { display: none; }
+        .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
 
-        /* GRID SYSTEM: ĐỊNH DẠNG 6 CỘT X 2 HÀNG CỐ ĐỊNH */
-        .grid-container {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr); 
-            gap: 24px;
-            width: 100%;
+        /* MENU TABS ĐỊA ĐIỂM NGANG PHẲNG */
+        .tab-flat-item {
+            background: #ffffff;
+            border: 1px solid rgba(14, 165, 233, 0.15);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
+        .tab-flat-item:hover {
+            transform: translateY(-2px);
+            border-color: #0ea5e9;
+            background-color: rgba(255, 255, 255, 0.95);
+        }
+        .tab-flat-item.active {
+            border-color: #0b4a8f;
+            background-color: #0b4a8f;
+            color: #ffffff !important;
+            box-shadow: 0 4px 12px rgba(11, 74, 143, 0.2);
+        }
+        /* Đồng bộ đổi màu chữ trong tab active */
+        .tab-flat-item.active p { color: rgba(255, 255, 255, 0.8) !important; }
+        .tab-flat-item.active h3 { color: #ffffff !important; }
 
-        /* CARD STYLE: VUÔNG GỌN, CHỮ ÉP ĐÁY */
-        .nav-card { 
-            position: relative;
-            background-size: cover; 
-            background-position: center; 
-            background-repeat: no-repeat;
-            border-radius: 20px; 
-            aspect-ratio: 1 / 1; 
-            display: flex; 
-            flex-direction: column; 
-            justify-content: flex-end;
-            overflow: hidden; 
-            cursor: pointer; 
-            border: 1px solid rgba(255, 255, 255, 0.8);
-            background-color: #ffffff;
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.04), inset 0 1px 2px rgba(255,255,255,0.8);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-        
-        .nav-card::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(180deg, rgba(15, 23, 42, 0) 50%, rgba(15, 23, 42, 0.25) 75%, rgba(11, 37, 74, 0.65) 100%);
-            z-index: 1;
-            transition: all 0.4s ease;
-        }
-
-        .nav-card:hover { 
-            transform: translateY(-4px); 
-            border-color: rgba(11, 74, 143, 0.35); 
-            box-shadow: 0 12px 20px -8px rgba(12, 74, 110, 0.2), 0 1px 3px rgba(0,0,0,0.04);
-        }
-        
-        .nav-card:hover::before {
-            background: linear-gradient(180deg, rgba(14, 165, 233, 0) 45%, rgba(11, 43, 91, 0.3) 70%, rgba(11, 37, 74, 0.75) 100%);
-        }
-
-        .text-overlay {
-            width: 100%; 
-            padding-left: 12px;
-            padding-right: 12px;
-            padding-top: 12px;
-            padding-bottom: 10px; 
-            position: relative; 
-            z-index: 2; 
-            text-align: center;
-        }
-        
-        .nav-card h3 { 
-            font-size: 13px; 
-            font-weight: 700; 
-            color: #ffffff;
-            line-height: 1.35;
-            letter-spacing: -0.1px;
-            transition: transform 0.3s ease;
-        }
-        .nav-card:hover h3 {
-            transform: translateY(-1px);
-        }
-
-        /* MODAL VÀ INPUT XÁC THỰC */
-        .modal-overlay { 
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(15, 23, 42, 0.2); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
-            display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; pointer-events: none; 
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
-        }
-        .modal-overlay.open { opacity: 1; pointer-events: auto; }
-        .modal-card { 
-            background: rgba(255, 255, 255, 0.9); border: 1px solid rgba(255, 255, 255, 0.6);
-            border-radius: 24px; width: 100%; max-width: 400px; padding: 36px; box-shadow: 0 25px 50px -12px rgba(15, 23, 42, 0.1); 
-            transform: scale(0.95) translateY(10px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
-        }
-        .modal-overlay.open .modal-card { transform: scale(1) translateY(0); }
-
-        @media (max-width: 1400px) { .grid-container { grid-template-columns: repeat(3, 1fr); gap: 18px; } }
-        
-        /* RESPONSIVE CHO KHỐI ĐIỀU HƯỚNG THEME TRÊN ĐIỆN THOẠI ĐỒNG BỘ TRU-SO-HANH-CHINH */
         @media (max-width: 1024px) {
             .header-layout { flex-direction: column !important; }
             .theme-selector-vertical { 
@@ -156,11 +93,6 @@
                 margin-top: 16px; flex-direction: row !important; space-x: 2; width: auto !important;
             }
             .theme-selector-vertical button { margin-left: 4px; margin-right: 4px; }
-        }
-        @media (max-width: 768px) { 
-            .grid-container { grid-template-columns: repeat(2, 1fr); gap: 14px; } 
-            .menu-panel-wrapper { padding: 20px 16px; border-radius: 24px; }
-            .nav-card h3 { font-size: 12px; }
         }
     </style>
 </head>
@@ -200,214 +132,161 @@
         </div>
     </header>
 
-    <div class="max-w-[1550px] w-full mx-auto px-6 my-8">
+    <div class="max-w-[1550px] w-full mx-auto px-4 md:px-6 my-6 flex flex-col items-start space-y-4">
         
-        <div class="menu-panel-wrapper space-y-10">
-            
-            <main class="grid-container">
-                
-                <a href="gioithieu.html" class="nav-card" style="background-image: url('icon/gioithieu.png');">
-                    <div class="text-overlay">
-                        <h3>Giới thiệu</h3>
-                    </div>
-                </a>
-                
-                <a href="pages/tru-so-hanh-chinh.html" class="nav-card" style="background-image: url('icon/truso.png');">
-                    <div class="text-overlay">
-                        <h3>Trụ sở cơ quan hành chính</h3>
-                    </div>
-                </a>
-                
-                <div onclick="openLoginModal()" class="nav-card" style="background-image: url('icon/dashboard.png');">
-                    <div class="text-overlay">
-                        <h3>Hệ thống i-Dashboard</h3>
-                    </div>
-                </div>
-                
-                <a href="node-thong-tin-tthc/tthc.html" class="nav-card" style="background-image: url('icon/tthc.png');">
-                    <div class="text-overlay">
-                        <h3>Thông tin Thủ tục hành chính</h3>
-                    </div>
-                </a>        
-                
-                <div onclick="alert('Hệ thống Bản đồ số địa chính đang được chuẩn hóa dữ liệu liên thông.')" class="nav-card" style="background-image: url('icon/bandoso.png');">
-                    <div class="text-overlay">
-                        <h3>Bản đồ số xã Bình Hưng</h3>
-                    </div>
-                </div>
-                
-               <div onclick="window.open('https://xabinhhung.hcm.edu.vn/homegd1413', '_blank')" class="nav-card" style="background-image: url('icon/truonghoc.png');">
-                <div class="text-overlay">
-                <h3>Trang điện tử trường học</h3>
-                </div>
-                </div>
-                
-             <div onclick="window.open('https://khohoclieusobinhhung.vstudy.edu.vn/hoc-truc-tuyen', '_blank')" class="nav-card" style="background-image: url('icon/hoclieu.png');">
-            <div class="text-overlay">
-            <h3>Kho học liệu số<br>giáo dục</h3>
-            </div>
-            </div>
-                
-                <a href="ap-chungcu/hien-thi-ap-chungcu.html" class="nav-card" style="background-image: url('icon/dieuhanhap.png');">
-                    <div class="text-overlay">
-                        <h3>Ấp số - Chung cư số</h3>
-                    </div>
-                </a>
-
-                <a href="tuyen-truyen/tuyen-truyen.html" class="nav-card" style="background-image: url('icon/tuyentruyen.png');">
-                    <div class="text-overlay">
-                        <h3>Thông tin - Tuyên truyền</h3>
-                    </div>
-                </a>
-
-                <a href="https://www.facebook.com/p/X%C3%A3-B%C3%ACnh-H%C3%B9ng-Th%C3%A0nh-Ph%E1%BB%91-H%E1%BB%93-Ch%C3%AD-Minh-100063653432652/" target="_blank" class="nav-card" style="background-image: url('icon/fanpage.png');">
-                    <div class="text-overlay">
-                        <h3>Fanpage xã Bình Hưng</h3>
-                    </div>
-                </a>
-
-                <div onclick="alert('Trợ lý ảo AI hành chính công phục vụ nhân dân đang chạy thử nghiệm nội bộ.')" class="nav-card" style="background-image: url('icon/trolyao.png');">
-                    <div class="text-overlay">
-                        <h3>Trợ lý Ảo</h3>
-                    </div>
-                </div>
-
-              <a href="phan-anh/phan-anh.html" class="nav-card" style="background-image: url('icon/phananh.png');">
-            <div class="text-overlay">
-            <h3>Phản ánh trực tuyến</h3>
-            </div>
+        <div class="btn-back-container">
+            <a href="home.html" class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 px-4 py-2 rounded-xl font-bold text-xs uppercase tracking-wider shadow-sm transition-all duration-300 hover:-translate-y-0.5">
+                ⬅️ Quay lại Trang chủ
             </a>
-            </main>
-
-            <section class="w-full pt-6 border-t border-slate-200">
-                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-                    
-                    <div class="bg-red-600/90 border border-red-500/30 rounded-2xl p-5 shadow-sm text-white flex flex-col justify-between transition-transform duration-300 hover:scale-[1.02]">
-                        <div>
-                            <h2 class="text-sm font-black uppercase tracking-wider pb-2 border-b border-white/20 mb-3 flex items-center gap-2">
-                                🏛️ Đảng ủy xã Bình Hưng
-                            </h2>
-                            <div class="space-y-2 text-[11px] md:text-xs font-medium">
-                                <p class="flex items-start gap-2"><span class="flex-shrink-0">📍</span> <span>A10/26A đường số 10, KDC Bình Hưng, Ấp 6, Xã Bình Hưng, TP. Hồ Chí Minh</span></p>
-                                <p class="flex items-center gap-2"><span class="flex-shrink-0">📞</span> <span>028.3981.0015</span></p>
-                                <p class="flex items-center gap-2"><span class="flex-shrink-0">📧</span> <span class="break-all">binhhung@tphcm.gov.vn</span></p>
-                            </div>
-                        </div>
-                        <div class="mt-4 pt-2 border-t border-white/10 text-[10px] text-red-100 font-semibold bg-black/10 px-2.5 py-1 rounded-lg">
-                            🕒 Sáng: 07:30 – 11:30 | Chiều: 13:00 – 17:00 (T2 - T6)<br>Sáng thứ Bảy: 07:30 – 11:30
-                        </div>
-                    </div>
-
-                    <div class="bg-sky-500/90 border border-sky-400/30 rounded-2xl p-5 shadow-sm text-white flex flex-col justify-between transition-transform duration-300 hover:scale-[1.02]">
-                        <div>
-                            <h2 class="text-sm font-black uppercase tracking-wider pb-2 border-b border-white/20 mb-3 flex items-center gap-2">
-                                🏛️ HĐND xã Bình Hưng
-                            </h2>
-                            <div class="space-y-2 text-[11px] md:text-xs font-medium">
-                                <p class="flex items-start gap-2"><span class="flex-shrink-0">📍</span> <span>A10/26A đường số 10, KDC Bình Hưng, Ấp 6, Xã Bình Hưng, TP. Hồ Chí Minh</span></p>
-                                <p class="flex items-center gap-2"><span class="flex-shrink-0">📞</span> <span>028.3981.0015</span></p>
-                                <p class="flex items-center gap-2"><span class="flex-shrink-0">📧</span> <span class="break-all">binhhung@tphcm.gov.vn</span></p>
-                            </div>
-                        </div>
-                        <div class="mt-4 pt-2 border-t border-white/10 text-[10px] text-sky-50 font-semibold bg-black/10 px-2.5 py-1 rounded-lg">
-                            🕒 Sáng: 07:30 – 11:30 | Chiều: 13:00 – 17:00 (T2 - T6)<br>Sáng thứ Bảy: 07:30 – 11:30
-                        </div>
-                    </div>
-
-                    <div class="bg-blue-700/90 border border-blue-600/30 rounded-2xl p-5 shadow-sm text-white flex flex-col justify-between transition-transform duration-300 hover:scale-[1.02]">
-                        <div>
-                            <h2 class="text-sm font-black uppercase tracking-wider pb-2 border-b border-white/20 mb-3 flex items-center gap-2">
-                                🏛️ UBND xã Bình Hưng
-                            </h2>
-                            <div class="space-y-2 text-[11px] md:text-xs font-medium">
-                                <p class="flex items-start gap-2"><span class="flex-shrink-0">📍</span> <span>A10/26A đường số 10, KDC Bình Hưng, Ấp 6, Xã Bình Hưng, TP. Hồ Chí Minh</span></p>
-                                <p class="flex items-center gap-2"><span class="flex-shrink-0">📞</span> <span>028.3981.0015</span></p>
-                                <p class="flex items-center gap-2"><span class="flex-shrink-0">📧</span> <span class="break-all">binhhung@tphcm.gov.vn</span></p>
-                            </div>
-                        </div>
-                        <div class="mt-4 pt-2 border-t border-white/10 text-[10px] text-blue-50 font-semibold bg-black/10 px-2.5 py-1 rounded-lg">
-                            🕒 Sáng: 07:30 – 11:30 | Chiều: 13:00 – 17:00 (T2 - T6)<br>Sáng thứ Bảy: 07:30 – 11:30
-                        </div>
-                    </div>
-
-                    <div class="bg-emerald-600/90 border border-emerald-500/30 rounded-2xl p-5 shadow-sm text-white flex flex-col justify-between transition-transform duration-300 hover:scale-[1.02]">
-                        <div>
-                            <h2 class="text-sm font-black uppercase tracking-wider pb-2 border-b border-white/20 mb-3 flex items-center gap-2">
-                                🏛️ Ủy ban MTTQ Việt Nam xã
-                            </h2>
-                            <div class="space-y-2 text-[11px] md:text-xs font-medium">
-                                <p class="flex items-start gap-2"><span class="flex-shrink-0">📍</span> <span>A10/26A đường số 10, KDC Bình Hưng, Ấp 6, Xã Bình Hưng, TP. Hồ Chí Minh</span></p>
-                                <p class="flex items-center gap-2"><span class="flex-shrink-0">📞</span> <span>028.3981.0015</span></p>
-                                <p class="flex items-center gap-2"><span class="flex-shrink-0">📧</span> <span class="break-all">binhhung@tphcm.gov.vn</span></p>
-                            </div>
-                        </div>
-                        <div class="mt-4 pt-2 border-t border-white/10 text-[10px] text-emerald-50 font-semibold bg-black/10 px-2.5 py-1 rounded-lg">
-                            🕒 Sáng: 07:30 – 11:30 | Chiều: 13:00 – 17:00 (T2 - T6)<br>Sáng thứ Bảy: 07:30 – 11:30
-                        </div>
-                    </div>
-
-                </div>
-            </section>
-            
         </div>
-    </div>
 
-    <div id="loginModal" class="modal-overlay">
-        <div class="modal-card">
-            <div class="text-center mb-8">
-                <div class="w-12 h-12 bg-sky-50 text-sky-600 rounded-full flex items-center justify-center mx-auto mb-3 text-xl shadow-sm border border-sky-100">🔒</div>
-                <h2 class="text-lg font-bold text-slate-900 tracking-tight">Quyền điều hành hệ thống</h2>
-                <p class="text-[11px] text-slate-400 font-medium uppercase mt-1 tracking-wider">Xác thực điện tử qua Google Firebase</p>
+        <div class="menu-panel-wrapper p-4 md:p-8 space-y-6">
+            
+            <div class="relative w-full max-w-xl mx-auto">
+                <span class="absolute left-4 top-3.5 text-lg text-slate-400">🔍</span>
+                <input type="text" id="search_input" placeholder="Nhập tên cơ quan hoặc từ khóa địa chỉ để tra cứu nhanh..." class="w-full bg-white border border-slate-200 rounded-xl px-12 py-3 text-sm font-semibold text-slate-800 focus:outline-none focus:border-blue-700 focus:ring-4 focus:ring-blue-700/10 shadow-sm placeholder-slate-400 font-['Inter'] transition-all">
+            </div>
+
+            <div id="list_container" class="w-full flex flex-row gap-3 overflow-x-auto pb-3 pt-1 scrollbar-none snap-x touch-pan-x">
+                </div>
+
+            <div class="w-full h-[400px] md:h-[550px] lg:h-[650px] rounded-2xl overflow-hidden border border-slate-200 shadow-lg bg-white relative transition-all duration-300">
+                <iframe id="map_frame" src="" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
             
-            <form id="loginForm" class="space-y-5" onsubmit="submitAuth(event)">
-                <div>
-                    <label class="text-xs font-semibold text-slate-700 block mb-2 ml-1">Email quản trị</label>
-                    <input type="email" id="email" required placeholder="name@tphcm.gov.vn" 
-                        class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-900 outline-none transition focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-500/10">
-                </div>
-                <div>
-                    <label class="text-xs font-semibold text-slate-700 block mb-2 ml-1">Mật mã bảo mật</label>
-                    <input type="password" id="password" required placeholder="••••••••" 
-                        class="w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-900 outline-none transition focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-500/10">
-                </div>
-                <div class="grid grid-cols-2 gap-4 pt-4">
-                    <button type="button" onclick="closeLoginModal()" 
-                        class="w-full bg-slate-100 text-slate-600 py-3 rounded-xl font-semibold text-xs uppercase tracking-wider transition hover:bg-slate-200">
-                        Hủy
-                    </button>
-                    <button type="submit" 
-                        class="w-full bg-gradient-to-r from-sky-600 to-sky-700 text-white py-3 rounded-xl font-semibold text-xs uppercase tracking-wider shadow-md shadow-sky-600/10 hover:opacity-95 transition">
-                        Xác nhận
-                    </button>
-                </div>
-            </form>
         </div>
     </div>
 
     <footer class="mt-auto text-center py-6 text-slate-400 font-medium text-[11px] uppercase tracking-widest border-t border-slate-200 bg-white shadow-sm">
-        &copy; IOC BINH HƯNG — BẢN QUYỀN THUỘC UBND XÃ BÌNH HƯNG
+        &copy; 2026 IOC Bình Hưng — Smart Government Solution
     </footer>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    <script>
+        let localDataStore = [];
 
-        const firebaseConfig = {
-            apiKey: "AIzaSyCjS8jJtoV5HLcYIpVTX1zP5DbyYmXsbh4",
-            authDomain: "dashboard-demo-ce0da.firebaseapp.com",
-            databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "dashboard-demo-ce0da",
-            storageBucket: "dashboard-demo-ce0da.firebasestorage.app",
-            messagingSenderId: "969593884637",
-            appId: "1:969593884637:web:47d4e6b03a51e7dcfbb034",
-            measurementId: "G-EVMDSWWRFG"
-        };
+        // ĐỒNG BỘ KHO DỮ LIỆU ĐẦY ĐỦ 9 THẺ CƠ QUAN HÀNH CHÍNH QUY CHUẨN
+        const fallbackData = [
+            {
+                "id": 1,
+                "name": "Đảng ủy xã Bình Hưng",
+                "address": "A10/26A, đường số 10, KDC Bình Hưng, ấp 6, xã Bình Hưng, thành phố Hồ Chí Minh",
+                "map_embed": "https://maps.google.com/maps?q=A10/26A%20%C4%91%C6%B0%E1%BB%9Dng%20s%E1%BB%91%2010%20KDC%20B%C3%ACnh%20H%C6%B0ng&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            },
+            {
+                "id": 2,
+                "name": "Hội đồng nhân dân xã Bình Hưng",
+                "address": "A10/26A, đường số 10, KDC Bình Hưng, ấp 6, xã Bình Hưng, thành phố Hồ Chí Minh",
+                "map_embed": "https://maps.google.com/maps?q=A10/26A%20%C4%91%C6%B0%E1%BB%9Dng%20s%E1%BB%91%2010%20KDC%20B%C3%ACnh%20H%C6%B0ng&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            },
+            {
+                "id": 3,
+                "name": "Ủy ban nhân dân xã Bình Hưng",
+                "address": "A10/26A, đường số 10, KDC Bình Hưng, ấp 6, xã Bình Hưng, thành phố Hồ Chí Minh",
+                "map_embed": "https://maps.google.com/maps?q=A10/26A%20%C4%91%C6%B0%E1%BB%9Dng%20s%E1%BB%91%2010%20KDC%20B%C3%ACnh%20H%C6%B0ng&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            },
+            {
+                "id": 4,
+                "name": "Ủy ban MTTQ Việt Nam xã Bình Hưng",
+                "address": "A10/26A, đường số 10, KDC Bình Hưng, ấp 6, xã Bình Hưng, thành phố Hồ Chí Minh",
+                "map_embed": "https://maps.google.com/maps?q=A10/26A%20%C4%91%C6%B0%E1%BB%9Dng%20s%E1%BB%91%2010%20KDC%20B%C3%ACnh%20H%C6%B0ng&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            },
+            {
+                "id": 5,
+                "name": "Công an xã Bình Hưng",
+                "address": "517 Quốc lộ 50, xã Bình Hưng, Thành phố Hồ Chí Minh",
+                "map_embed": "https://maps.google.com/maps?q=517%20Qu%E1%BB%91c%20l%E1%BB%99%2050%20B%C3%ACnh%20H%C6%B0ng&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            },
+            {
+                "id": 6,
+                "name": "Ban chỉ huy Quân sự xã Bình Hưng",
+                "address": "đường số 9, khu dân cư Phong Phú 4 ấp 57, xã Bình Hưng, Thành phố Hồ Chí Minh",
+                "map_embed": "https://maps.google.com/maps?q=Khu%20d%C3%A2n%20c%C6%B0%20Phong%20Ph%C3%BA%204%20B%C3%ACnh%20Ch%C3%A1nh&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            },
+            {
+                "id": 7,
+                "name": "Trạm Y tế xã Bình Hưng",
+                "address": "Số 71A Đường số 1 Khu dân cư Bình Hưng, ấp 5, xã Bình Hưng, Thành phố Hồ Chí Minh",
+                "map_embed": "https://maps.google.com/maps?q=Tr%E1%BB%A1m%20Y%20t%E1%BA%BF%20x%C3%A3%20B%C3%ACnh%20H%C6%B0ng&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            },
+            {
+                "id": 8,
+                "name": "Trung tâm Cung ứng dịch vụ công xã Bình Hưng",
+                "address": "Đường số 19, Khu dân cư Phong Phú 4, ấp 57, xã Bình Hưng, Thành phố Hồ Chí Minh",
+                "map_embed": "https://maps.google.com/maps?q=%C4%90%C6%B0%E1%BB%9Dng%20s%E1%BB%91%2019%20KDC%20Phong%20Ph%C3%BA%204&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            },
+            {
+                "id": 9,
+                "name": "Ban Quản lý dự án đầu tư xây dựng xã Bình Hưng",
+                "address": "920 đường Văn Tiến Dũng, xã Bình Hưng, Thành phố Hồ Chí Minh",
+                "map_embed": "https://maps.google.com/maps?q=920%20%C4%91%C6%B0%E1%BB%9Dng%20V%C4%83n%20Ti%E1%BA%BFn%20D%C5%A9ng%20B%C3%ACnh%20H%C6%B0ng&t=&z=15&ie=UTF8&iwloc=&output=embed"
+            }
+        ];
 
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
+        async function fetchTruSoData() {
+            try {
+                const response = await fetch('data-tru-so.json');
+                if (!response.ok) throw new Error("Không tìm thấy file JSON");
+                localDataStore = await response.json();
+            } catch (error) {
+                console.log("Sử dụng cơ sở dữ liệu tích hợp sẵn của hệ thống.");
+                localDataStore = fallbackData;
+            } finally {
+                renderHorizontalMenu(localDataStore);
+                if(localDataStore.length > 0) {
+                    switchMapLocation(localDataStore[0].map_embed, localDataStore[0].id);
+                }
+            }
+        }
 
-        // HÀM CHUYỂN ĐỔI THEME ĐỘNG HEADER ĐỒNG BỘ
+        // HÀM BIẾN ĐỔI DANH SÁCH THÀNH CÁC TAB CHỮ NGANG PHẲNG
+        function renderHorizontalMenu(dataArray) {
+            const container = document.getElementById('list_container');
+            if (dataArray.length === 0) {
+                container.innerHTML = `<p class="p-4 w-full text-center text-slate-500 font-bold text-xs">❌ Không tìm thấy kết quả phù hợp!</p>`;
+                return;
+            }
+
+            container.innerHTML = dataArray.map(item => `
+                <div id="card_item_${item.id}" onclick="switchMapLocation('${item.map_embed}', ${item.id})" 
+                     class="tab-flat-item flex-shrink-0 snap-start px-5 py-3 rounded-xl cursor-pointer flex flex-col justify-center min-w-[240px] md:min-w-[280px] max-w-[320px]">
+                    <div class="flex items-center gap-2">
+                    <h3 class="text-xs md:text-sm font-extrabold text-slate-900 truncate tracking-tight">${item.name}</h3>
+                    </div>
+                    <p class="text-[10px] md:text-[11px] font-medium text-slate-500 truncate mt-1 pl-6">${item.address}</p>
+                </div>
+            `).join('');
+        }
+
+        // ĐIỀU HƯỚNG BẢN ĐỒ IFRAME VÀ ACTIVE TAB NGANG VỪA CHỌN
+        window.switchMapLocation = function(embedUrl, id) {
+            const mapFrame = document.getElementById('map_frame');
+            mapFrame.setAttribute('src', embedUrl);
+            
+            document.querySelectorAll('.tab-flat-item').forEach(el => el.classList.remove('active'));
+            const activeTab = document.getElementById(`card_item_${id}`);
+            if(activeTab) {
+                activeTab.classList.add('active');
+                // Tự động cuộn tab được chọn ra giữa tầm nhìn của thanh menu ngang
+                activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+            }
+        }
+
+        // TRA CỨU ĐỊA ĐIỂM DỰA TRÊN Ô INPUT
+        document.getElementById('search_input').addEventListener('input', function(e) {
+            const keyword = e.target.value.toLowerCase().trim();
+            const filteredData = localDataStore.filter(item => 
+                item.name.toLowerCase().includes(keyword) || 
+                item.address.toLowerCase().includes(keyword)
+            );
+            renderHorizontalMenu(filteredData);
+            
+            // Nếu có kết quả sau bộ lọc, tự động kích hoạt địa điểm đầu tiên
+            if(filteredData.length > 0) {
+                switchMapLocation(filteredData[0].map_embed, filteredData[0].id);
+            }
+        });
+
+        // HÀM CHUYỂN ĐỔI THEME ĐỘNG HEADER
         window.switchSystemTheme = function(modeName) {
             const body = document.getElementById('dynamic-body');
             const btnXanh = document.getElementById('btn-theme-xanh');
@@ -416,46 +295,17 @@
             if (modeName === 'do') {
                 body.classList.remove('theme-xanh-ios');
                 body.classList.add('theme-do-hanhchinh');
-                
                 btnDo.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-red-600 text-white shadow-md";
                 btnXanh.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white";
             } else {
                 body.classList.remove('theme-do-hanhchinh');
                 body.classList.add('theme-xanh-ios');
-                
                 btnXanh.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md";
                 btnDo.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white";
             }
         }
 
-        window.openLoginModal = function() {
-            if (auth.currentUser) {
-                window.location.href = "dashboard.html";
-            } else {
-                document.getElementById('loginModal').classList.add('open');
-                document.getElementById('email').focus();
-            }
-        }
-        window.closeLoginModal = function() {
-            document.getElementById('loginModal').classList.remove('open');
-            document.getElementById('loginForm').reset();
-        }
-        window.submitAuth = function(e) {
-            e.preventDefault();
-            const emailInp = document.getElementById('email').value.trim();
-            const passInp = document.getElementById('password').value;
-
-            signInWithEmailAndPassword(auth, emailInp, passInp)
-                .then(() => {
-                    closeLoginModal();
-                    window.location.href = "dashboard.html";
-                })
-                .catch(() => {
-                    alert("⚠️ Email quản trị hoặc mật mã mật khẩu điều hành không chính xác!");
-                    document.getElementById('password').value = "";
-                    document.getElementById('password').focus();
-                });
-        }
+        document.addEventListener("DOMContentLoaded", fetchTruSoData);
     </script>
 </body>
 </html>
