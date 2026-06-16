@@ -11,14 +11,14 @@
         body {
             font-family: 'Inter', 'Be Vietnam Pro', sans-serif;
             margin: 0; padding: 0; min-height: 100vh;
-            background-color: #f8fafc;
+            background-color: #f8fafc; /* Nền phẳng xám trắng sạch sẽ đồng bộ home.html */
             color: #0f172a;
             display: flex;
             flex-direction: column;
             transition: background 0.4s ease, color 0.4s ease;
         }
 
-        /* ================= KỸ THUẬT NỀN ĐỘNG GRADIENT TẠI HEADER ================= */
+        /* ================= KỸ THUẬT NỀN ĐỘNG GRADIENT TẠI HEADER ĐỒNG BỘ HOME.HTML ================= */
         body.theme-xanh-ios .main-header {
             background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d);
             background-size: 400% 400%;
@@ -41,6 +41,7 @@
             100% { background-position: 0% 50%; }
         }
 
+        /* KHỐI NỀN TRONG SUỐT PHÍA DƯỚI CHỨA PH N HỆ BẢN ĐỒ */
         .menu-panel-wrapper {
             background-color: rgba(128, 255, 232, 0.45);
             backdrop-filter: blur(20px);
@@ -51,6 +52,7 @@
             width: 100%;
         }
 
+        /* LOGO ANIMATION CHUYỂN ĐỘNG NHẸ */
         .logo-main {
             animation: float 4s ease-in-out infinite;
         }
@@ -59,9 +61,11 @@
             50% { transform: translateY(-3px); filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3)); }
         }
 
+        /* Ẩn thanh cuộn của menu ngang trên các trình duyệt nhưng vẫn giữ tính năng vuốt trượt */
         .scrollbar-none::-webkit-scrollbar { display: none; }
         .scrollbar-none { -ms-overflow-style: none; scrollbar-width: none; }
 
+        /* MENU TABS ĐỊA ĐIỂM NGANG PHẲNG */
         .tab-flat-item {
             background: #ffffff;
             border: 1px solid rgba(14, 165, 233, 0.15);
@@ -78,10 +82,9 @@
             color: #ffffff !important;
             box-shadow: 0 4px 12px rgba(11, 74, 143, 0.2);
         }
-        
-        /* Đổi màu chữ khi tab active */
+        /* Đồng bộ đổi màu chữ trong tab active */
         .tab-flat-item.active p { color: rgba(255, 255, 255, 0.8) !important; }
-        .tab-flat-item.active .dynamic-phone { color: #f59e0b !important; } /* Số ĐT vàng khi active */
+        .tab-flat-item.active .dynamic-phone { color: #f59e0b !important; } /* Màu vàng nổi bật khi tab active */
         .tab-flat-item.active h3 { color: #ffffff !important; }
 
         @media (max-width: 1024px) {
@@ -103,6 +106,7 @@
                 <div class="flex-shrink-0">
                     <img src="logo.png" alt="Logo" class="logo-main w-20 h-auto">
                 </div>
+                
                 <div class="flex flex-col items-start justify-center space-y-2 text-left">
                     <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-['Montserrat']">
                         IOC BINH HUNG
@@ -127,19 +131,27 @@
         </div>
     </header>
 
+    <div class="max-w-[1550px] w-full mx-auto px-4 md:px-6 mt-6">
+        <div class="py-4 md:py-5 px-8 text-center shadow-lg rounded-2xl bg-sky-500 border-b-4 border-sky-600">
+            <h2 class="font-['Montserrat'] text-xl md:text-3xl font-black text-white uppercase tracking-wider leading-tight">
+                TRỤ SỞ CƠ QUAN HÀNH CHÍNH XÃ BÌNH HƯNG
+            </h2>
+        </div>
+    </div>
+
     <div class="max-w-[1550px] w-full mx-auto px-4 md:px-6 my-6 flex flex-col items-start space-y-4">
         
-        <div class="btn-back-container">
-            <a href="../home.html" class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 px-4 py-2 rounded-xl font-bold text-xs uppercase tracking-wider shadow-sm transition-all duration-300 hover:-translate-y-0.5">
-                ⬅️ Quay lại Trang chủ
-            </a>
-        </div>
-
         <div class="menu-panel-wrapper p-4 md:p-8 space-y-6">
             
-            <div class="relative w-full max-w-xl mx-auto">
-                <span class="absolute left-4 top-3.5 text-lg text-slate-400">🔍</span>
-                <input type="text" id="search_input" placeholder="Nhập tên cơ quan hoặc từ khóa địa chỉ để tra cứu nhanh..." class="w-full bg-white border border-slate-200 rounded-xl px-12 py-3 text-sm font-semibold text-slate-800 focus:outline-none focus:border-blue-700 focus:ring-4 focus:ring-blue-700/10 shadow-sm placeholder-slate-400 font-['Inter'] transition-all">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 w-full">
+                <a href="home.html" class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-sm transition-all duration-300 hover:-translate-y-0.5 shrink-0">
+                    ⬅️ Quay lại Trang chủ
+                </a>
+
+                <div class="relative w-full md:w-80 lg:w-96 shrink-0">
+                    <span class="absolute left-3.5 top-2.5 text-base text-slate-400">🔍</span>
+                    <input type="text" id="search_input" placeholder="Tra cứu cơ quan..." class="w-full bg-white border border-slate-200 rounded-xl pl-10 pr-4 py-2.5 text-sm font-semibold text-slate-800 focus:outline-none focus:border-blue-700 focus:ring-4 focus:ring-blue-700/10 shadow-sm placeholder-slate-400 font-['Inter'] transition-all">
+                </div>
             </div>
 
             <div id="list_container" class="w-full flex flex-row gap-3 overflow-x-auto pb-3 pt-1 scrollbar-none snap-x touch-pan-x">
@@ -157,8 +169,10 @@
     </footer>
 
     <script>
-        // SỬ DỤNG TRỰC TIẾP DỮ LIỆU CHUẨN KÈM SỐ ĐIỆN THOẠI
-        const localDataStore = [
+        let localDataStore = [];
+
+        // ĐỒNG BỘ KHO DỮ LIỆU ĐẦY ĐỦ 9 THỂ CƠ QUAN HÀNH CHÍNH QUY CHUẨN KÈM SỐ ĐIỆN THOẠI
+        const fallbackData = [
             {
                 "id": 1,
                 "name": "Đảng ủy xã Bình Hưng",
@@ -224,7 +238,7 @@
             }
         ];
 
-        // HÀM HIỂN THỊ DANH SÁCH
+        // HÀM HIỂN THỊ DANH SÁCH THẺ NGANG
         function renderHorizontalMenu(dataArray) {
             const container = document.getElementById('list_container');
             if (dataArray.length === 0) {
@@ -248,7 +262,7 @@
             `).join('');
         }
 
-        // ĐIỀU HƯỚNG BẢN ĐỒ VÀ ACTIVE TAB
+        // ĐIỀU HƯỚNG BẢN ĐỒ VÀ KÍCH HOẠT TAB
         window.switchMapLocation = function(embedUrl, id) {
             const mapFrame = document.getElementById('map_frame');
             mapFrame.setAttribute('src', embedUrl);
@@ -297,6 +311,7 @@
 
         // KHỞI CHẠY KHI MỞ TRANG
         document.addEventListener("DOMContentLoaded", () => {
+            localDataStore = fallbackData;
             renderHorizontalMenu(localDataStore);
             if(localDataStore.length > 0) {
                 switchMapLocation(localDataStore[0].map_embed, localDataStore[0].id);
