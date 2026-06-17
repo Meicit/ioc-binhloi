@@ -6,40 +6,37 @@
     <title>Công tác Đảng - Xã Bình Hưng</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         /* ================= QUẢN LÝ MÀU NỀN & THEME ================= */
-        /* CSS MẶC ĐỊNH CHO NỀN TỐI (DARK MODE) - Đổi từ đen sang Xanh Biển Sâu (Deep Blue) */
-        body.dark-theme {
-            background-color: #082f49; /* Xanh Navy sâu thay vì xám đen */
-            color: #f0f9ff;
-        }
+        /* CSS MẶC ĐỊNH CHO NỀN TỐI (DARK MODE) */
+        body.dark-theme { background-color: #082f49; color: #f0f9ff; }
         body.dark-theme .glass-panel { background: rgba(12, 74, 110, 0.65); border-color: rgba(255, 255, 255, 0.1); }
         body.dark-theme .row-flat { background: rgba(255, 255, 255, 0.05); border-color: rgba(255, 255, 255, 0.08); color: #e0f2fe; }
         body.dark-theme .text-main-title { color: #ffffff; }
         body.dark-theme .insight-card { background: rgba(8, 47, 73, 0.4); border-color: rgba(255, 255, 255, 0.05); }
         body.dark-theme .teal-wrapper { background-color: rgba(20, 184, 166, 0.05); border: 1px solid rgba(20, 184, 166, 0.2); box-shadow: 0 20px 40px -15px rgba(8, 47, 73, 0.5); }
+        body.dark-theme .bg-widget-card { background-color: rgba(15, 23, 42, 0.6); border-color: rgba(255, 255, 255, 0.1); }
+        body.dark-theme .bg-widget-inner { background-color: rgba(15, 23, 42, 0.8); border-color: rgba(255, 255, 255, 0.05); }
 
         /* CSS CHUYỂN ĐỔI SANG NỀN SÁNG (LIGHT THEME) */
-        body.light-theme {
-            background-color: #f8fafc;
-            color: #1e3a8a; /* Xanh đậm thay vì màu đen/xám đen */
-        }
+        body.light-theme { background-color: #f8fafc; color: #1e3a8a; }
         body.light-theme .glass-panel { background: rgba(255, 255, 255, 0.85); border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.1); }
         body.light-theme .row-flat { background: #ffffff; border-color: rgba(14, 165, 233, 0.2); color: #1e40af; box-shadow: 0 4px 6px -1px rgba(12, 74, 110, 0.05); }
         body.light-theme .text-main-title { color: #0b4a8f; }
         body.light-theme .insight-card { background: #f0f9ff; border-color: rgba(14, 165, 233, 0.15); }
         body.light-theme .teal-wrapper { background-color: rgba(20, 184, 166, 0.12); border: 1px solid rgba(20, 184, 166, 0.3); box-shadow: 0 20px 40px -15px rgba(20, 184, 166, 0.2); }
-        /* Ghi đè màu chữ trên nền sáng, loại bỏ xám đen */
-        body.light-theme .text-slate-400 { color: #3b82f6; } /* Trở thành xanh nước biển */
-        body.light-theme .text-slate-300 { color: #1e3a8a; } /* Trở thành xanh navy */
-        body.light-theme .bg-slate-900 { background-color: #bfdbfe; border-color: #93c5fd; color: #1e3a8a; } /* Nút tỉ lệ % */
+        body.light-theme .text-slate-400 { color: #3b82f6; }
+        body.light-theme .text-slate-300 { color: #1e3a8a; }
+        body.light-theme .bg-slate-900 { background-color: #bfdbfe; border-color: #93c5fd; color: #1e3a8a; }
+        body.light-theme .bg-widget-card { background-color: #ffffff; border-color: rgba(14, 165, 233, 0.2); }
+        body.light-theme .bg-widget-inner { background-color: #ffffff; border-color: rgba(14, 165, 233, 0.1); }
 
         body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s, color 0.3s; }
         .container-wrapper { max-width: 1550px; margin: 0 auto 30px auto; padding: 0 24px; width: 100%; }
         .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.3); transition: all 0.3s; }
         
-        /* Cấu hình khối xanh ngọc bích */
         .teal-wrapper { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 36px; padding: 24px; transition: all 0.4s ease; }
         @media (min-width: 768px) { .teal-wrapper { padding: 36px; } }
 
@@ -52,7 +49,6 @@
         .col-progress { width: 16%; padding: 0 10px; }
         .col-rate { width: 10%; text-align: right; }
 
-        /* Đổi gradient thanh tiêu đề bảng từ đen sang Xanh Dương Đậm */
         .header-row { background: linear-gradient(135deg, #1e3a8a 0%, #0c4a6e 100%); color: white; font-size: 11px; font-weight: 900; text-transform: uppercase; border-radius: 14px; margin-bottom: 10px; box-shadow: 0 4px 15px rgba(12, 74, 110, 0.3); border: 1px solid rgba(255,255,255,0.05); }
         body.light-theme .header-row { background: linear-gradient(135deg, #0b4a8f 0%, #05234a 100%); border: none; box-shadow: 0 4px 15px rgba(11, 74, 143, 0.3); }
 
@@ -70,7 +66,7 @@
 
     <div class="container-wrapper mt-8">
         
-        <div class="teal-wrapper space-y-6">
+        <div class="teal-wrapper space-y-8">
             
             <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
                 <a href="../home.html" class="btn-back bg-white/50 backdrop-blur text-blue-900">⬅️ Quay lại Trang chủ</a>
@@ -81,40 +77,202 @@
                 </div>
             </div>
 
-            <header class="glass-panel p-6 text-center">
-                <h1 class="text-xl md:text-2xl font-black uppercase tracking-wider bg-gradient-to-r from-sky-700 via-blue-600 to-red-500 dark:from-white dark:via-sky-200 dark:to-red-400 bg-clip-text text-transparent text-main-title">
-                    Chỉ tiêu Công tác Đảng hằng năm — Xã Bình Hưng
+            <header class="glass-panel p-6 text-center mb-4">
+                <h1 class="text-xl md:text-3xl font-black uppercase tracking-wider bg-gradient-to-r from-sky-700 via-blue-600 to-red-500 dark:from-white dark:via-sky-200 dark:to-red-400 bg-clip-text text-transparent text-main-title">
+                    Bảng Thống Kê & Phân Tích Công Tác Đảng
                 </h1>
-                <p class="text-sky-600 dark:text-sky-300 font-medium text-xs uppercase tracking-[0.2em] mt-2">
-                    Hệ thống theo dõi tiến độ, phân tích số liệu trực quan phục vụ công tác xây dựng tổ chức Đảng vững mạnh
+                <p class="text-sky-600 dark:text-sky-300 font-medium text-xs md:text-sm uppercase tracking-[0.2em] mt-2">
+                    Xã Bình Hưng, Huyện Bình Chánh — Năm 2026
                 </p>
             </header>
 
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="glass-panel p-5 border-l-4 border-red-600">
-                    <p class="text-[10px] font-bold text-red-500 uppercase tracking-wider">Kết nạp Đảng viên mới (2026)</p>
-                    <h3 id="card_ket_nap" class="text-2xl font-black mt-1">-- <span class="text-xs font-bold text-sky-600 dark:text-sky-300">/ Chỉ tiêu --</span></h3>
+            <div class="flex flex-col space-y-6 font-['Inter']">
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div class="bg-widget-card border-2 rounded-3xl p-6 shadow-sm hover:-translate-y-1 transition-transform duration-300">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-sm font-black text-blue-700 dark:text-blue-300 uppercase tracking-wider">Mạng lưới Tổ chức Đảng</h3>
+                                <p class="text-[11px] font-bold text-blue-500/80 dark:text-blue-400 uppercase mt-1">Toàn Đảng bộ Xã Bình Hưng</p>
+                            </div>
+                            <div class="w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl shadow-inner">🏛️</div>
+                        </div>
+                        <div class="flex items-end gap-3 mb-6">
+                            <span class="text-5xl font-black text-blue-800 dark:text-blue-100">98</span>
+                            <span class="text-sm font-bold text-blue-600 dark:text-blue-300 mb-1">Tổ chức</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 border-t border-blue-200/60 dark:border-blue-800/60 pt-4">
+                            <div class="bg-widget-inner rounded-xl p-3 text-center border shadow-sm">
+                                <span class="block text-xl font-black text-indigo-700 dark:text-indigo-300">03</span>
+                                <span class="block text-[10px] font-bold text-blue-600 dark:text-blue-400 mt-1 uppercase">Đảng bộ CS</span>
+                            </div>
+                            <div class="bg-widget-inner rounded-xl p-3 text-center border shadow-sm">
+                                <span class="block text-xl font-black text-indigo-700 dark:text-indigo-300">07</span>
+                                <span class="block text-[10px] font-bold text-blue-600 dark:text-blue-400 mt-1 uppercase">Chi bộ CS</span>
+                            </div>
+                            <div class="bg-widget-inner rounded-xl p-3 text-center border shadow-sm">
+                                <span class="block text-xl font-black text-indigo-700 dark:text-indigo-300">88</span>
+                                <span class="block text-[10px] font-bold text-blue-600 dark:text-blue-400 mt-1 uppercase">Chi bộ Trực thuộc</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="bg-widget-card border-2 rounded-3xl p-6 shadow-sm hover:-translate-y-1 transition-transform duration-300">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-sm font-black text-teal-700 dark:text-teal-300 uppercase tracking-wider">Lực lượng Đảng viên</h3>
+                                <p class="text-[11px] font-bold text-teal-500/80 dark:text-teal-400 uppercase mt-1">Nguồn nhân lực chính trị</p>
+                            </div>
+                            <div class="w-12 h-12 bg-teal-600 text-white rounded-2xl flex items-center justify-center text-2xl shadow-inner">👥</div>
+                        </div>
+                        <div class="flex items-end gap-3 mb-6">
+                            <span class="text-5xl font-black text-teal-800 dark:text-teal-100">1.915</span>
+                            <span class="text-sm font-bold text-teal-600 dark:text-teal-300 mb-1">Đồng chí</span>
+                        </div>
+                        <div class="grid grid-cols-3 gap-2 border-t border-teal-200/60 dark:border-teal-800/60 pt-4">
+                            <div class="bg-widget-inner rounded-xl p-3 text-center border shadow-sm">
+                                <span class="block text-xl font-black text-emerald-700 dark:text-emerald-300">1.864</span>
+                                <span class="block text-[10px] font-bold text-teal-600 dark:text-teal-400 mt-1 uppercase">Chính thức</span>
+                            </div>
+                            <div class="bg-widget-inner rounded-xl p-3 text-center border shadow-sm">
+                                <span class="block text-xl font-black text-emerald-700 dark:text-emerald-300">51</span>
+                                <span class="block text-[10px] font-bold text-teal-600 dark:text-teal-400 mt-1 uppercase">Dự bị</span>
+                            </div>
+                            <div class="bg-widget-inner rounded-xl p-3 text-center border shadow-sm">
+                                <span class="block text-xl font-black text-emerald-700 dark:text-emerald-300">211</span>
+                                <span class="block text-[10px] font-bold text-teal-600 dark:text-teal-400 mt-1 uppercase">Miễn sinh hoạt</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="glass-panel p-5 border-l-4 border-amber-500">
-                    <p class="text-[10px] font-bold text-amber-500 uppercase tracking-wider">Tổ chức Đảng đạt "4 tốt"</p>
-                    <h3 id="card_bon_tot" class="text-2xl font-black mt-1">-- <span class="text-xs font-bold text-emerald-500">(--)</span></h3>
+
+                <div class="bg-widget-card border-2 border-indigo-200 dark:border-indigo-800/50 rounded-3xl p-6 md:p-8 shadow-sm">
+                    <h3 class="text-base font-black text-indigo-800 dark:text-indigo-300 uppercase tracking-wider mb-6 flex items-center gap-2">
+                        🚀 Tiến độ Công tác Tạo nguồn & Phát triển Đảng viên (2026)
+                    </h3>
+                    
+                    <div class="bg-widget-inner rounded-2xl p-5 border shadow-sm mb-6">
+                        <div class="flex justify-between items-end mb-3">
+                            <div>
+                                <span class="text-3xl font-black text-indigo-700 dark:text-indigo-300">36</span>
+                                <span class="text-sm font-bold text-indigo-400">/ 56 Chỉ tiêu</span>
+                            </div>
+                            <span class="text-xl font-black text-rose-600 dark:text-rose-400">64.29%</span>
+                        </div>
+                        <div class="w-full bg-slate-200 dark:bg-slate-700 h-4 rounded-full overflow-hidden">
+                            <div class="bg-gradient-to-r from-indigo-500 to-rose-500 h-full rounded-full" style="width: 64.29%"></div>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                        <div class="bg-widget-inner p-4 rounded-2xl border text-center relative overflow-hidden">
+                            <div class="absolute -right-4 -bottom-4 text-6xl opacity-10">✍️</div>
+                            <span class="block text-2xl font-black text-indigo-600 dark:text-indigo-300">79</span>
+                            <span class="block text-[10px] font-bold text-indigo-800 dark:text-indigo-200 uppercase mt-1">Đang viết lý lịch</span>
+                        </div>
+                        <div class="bg-widget-inner p-4 rounded-2xl border text-center relative overflow-hidden">
+                            <div class="absolute -right-4 -bottom-4 text-6xl opacity-10">🔍</div>
+                            <span class="block text-2xl font-black text-indigo-600 dark:text-indigo-300">26</span>
+                            <span class="block text-[10px] font-bold text-indigo-800 dark:text-indigo-200 uppercase mt-1">Đang xác minh</span>
+                        </div>
+                        <div class="bg-widget-inner p-4 rounded-2xl border text-center relative overflow-hidden">
+                            <div class="absolute -right-4 -bottom-4 text-6xl opacity-10">📑</div>
+                            <span class="block text-2xl font-black text-indigo-600 dark:text-indigo-300">10</span>
+                            <span class="block text-[10px] font-bold text-indigo-800 dark:text-indigo-200 uppercase mt-1">Trình Tiêu chuẩn CT</span>
+                        </div>
+                        <div class="bg-widget-inner p-4 rounded-2xl border text-center relative overflow-hidden">
+                            <div class="absolute -right-4 -bottom-4 text-6xl opacity-10">⚙️</div>
+                            <span class="block text-2xl font-black text-indigo-600 dark:text-indigo-300">05</span>
+                            <span class="block text-[10px] font-bold text-indigo-800 dark:text-indigo-200 uppercase mt-1">Thực hiện Nghiệp vụ</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="glass-panel p-5 border-l-4 border-sky-500">
-                    <p class="text-[10px] font-bold text-sky-500 uppercase tracking-wider">Phân loại Hoàn thành tốt trở lên</p>
-                    <h3 id="card_hoan_thanh" class="text-2xl font-black mt-1">-- <span class="text-xs font-bold text-emerald-500">(--)</span></h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-widget-card border-2 border-amber-200 dark:border-amber-800/50 rounded-3xl p-6 shadow-sm">
+                        <h3 class="text-xs font-black text-amber-800 dark:text-amber-300 uppercase border-b border-amber-200/60 dark:border-amber-800/60 pb-3 mb-4">🔄 Biến động Đảng viên</h3>
+                        <ul class="space-y-3">
+                            <li class="flex justify-between items-center bg-widget-inner p-3 rounded-xl border">
+                                <span class="text-xs font-bold text-amber-900 dark:text-amber-100">📥 Tiếp nhận chuyển đến</span>
+                                <span class="text-sm font-black text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/40 px-2 py-1 rounded-lg">+62</span>
+                            </li>
+                            <li class="flex justify-between items-center bg-widget-inner p-3 rounded-xl border">
+                                <span class="text-xs font-bold text-amber-900 dark:text-amber-100">📤 Chuyển sinh hoạt đi</span>
+                                <span class="text-sm font-black text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/40 px-2 py-1 rounded-lg">-19</span>
+                            </li>
+                            <li class="pl-4 text-[10px] font-bold text-amber-700/80 dark:text-amber-400/80 italic list-disc list-inside">13 về nơi công tác, 06 về thường trú</li>
+                            <li class="flex justify-between items-center bg-widget-inner p-3 rounded-xl border mt-2">
+                                <span class="text-xs font-bold text-amber-900 dark:text-amber-100">🔄 Chuyển sinh hoạt nội bộ</span>
+                                <span class="text-sm font-black text-amber-600 dark:text-amber-400 bg-amber-100 dark:bg-amber-900/40 px-2 py-1 rounded-lg">03</span>
+                            </li>
+                            <li class="flex justify-between items-center bg-widget-inner p-3 rounded-xl border">
+                                <span class="text-xs font-bold text-amber-900 dark:text-amber-100">🎓 Chuyển Đảng chính thức</span>
+                                <span class="text-sm font-black text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-900/40 px-2 py-1 rounded-lg">18</span>
+                            </li>
+                            <li class="flex justify-between items-center bg-widget-inner p-3 rounded-xl border">
+                                <span class="text-xs font-bold text-amber-900 dark:text-amber-100">❌ Xóa tên Đảng viên</span>
+                                <span class="text-sm font-black text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/40 px-2 py-1 rounded-lg">02</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-widget-card border-2 border-cyan-200 dark:border-cyan-800/50 rounded-3xl p-6 shadow-sm">
+                        <h3 class="text-xs font-black text-cyan-800 dark:text-cyan-300 uppercase border-b border-cyan-200/60 dark:border-cyan-800/60 pb-3 mb-4">📑 Thẩm tra & Nhận xét</h3>
+                        <ul class="space-y-3">
+                            <li class="bg-widget-inner p-3 rounded-xl border">
+                                <span class="block text-2xl font-black text-cyan-700 dark:text-cyan-300 mb-1">80 <span class="text-[10px] font-bold text-cyan-600/70 uppercase">Trường hợp</span></span>
+                                <span class="text-xs font-bold text-cyan-900 dark:text-cyan-100">Thẩm tra, xác minh người xin vào Đảng</span>
+                            </li>
+                            <li class="bg-widget-inner p-3 rounded-xl border">
+                                <span class="block text-2xl font-black text-cyan-700 dark:text-cyan-300 mb-1">47 <span class="text-[10px] font-bold text-cyan-600/70 uppercase">Trường hợp</span></span>
+                                <span class="text-xs font-bold text-cyan-900 dark:text-cyan-100">Thẩm tra phục vụ công tác Cán bộ</span>
+                            </li>
+                            <li class="bg-widget-inner p-3 rounded-xl border">
+                                <span class="block text-2xl font-black text-cyan-700 dark:text-cyan-300 mb-1">65 <span class="text-[10px] font-bold text-cyan-600/70 uppercase">Trường hợp</span></span>
+                                <span class="text-xs font-bold text-cyan-900 dark:text-cyan-100">Nhận xét Đảng viên nơi khác chuyển đến</span>
+                            </li>
+                            <li class="flex justify-between items-center bg-widget-inner p-3 rounded-xl border">
+                                <span class="text-xs font-bold text-cyan-900 dark:text-cyan-100">Nhận xét Cấp ủy cư trú (ĐV dự bị)</span>
+                                <span class="text-sm font-black text-cyan-700 dark:text-cyan-300 bg-cyan-100 dark:bg-cyan-900/40 px-2 py-1 rounded-lg">10</span>
+                            </li>
+                            <li class="flex justify-between items-center bg-widget-inner p-3 rounded-xl border">
+                                <span class="text-xs font-bold text-cyan-900 dark:text-cyan-100">Nhận xét xin vào Đảng (nơi cư trú)</span>
+                                <span class="text-sm font-black text-cyan-700 dark:text-cyan-300 bg-cyan-100 dark:bg-cyan-900/40 px-2 py-1 rounded-lg">27</span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-widget-card border-2 border-rose-200 dark:border-rose-800/50 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-xs font-black text-rose-800 dark:text-rose-300 uppercase border-b border-rose-200/60 dark:border-rose-800/60 pb-3 mb-4">✈️ Đảng viên đi nước ngoài</h3>
+                            <div class="bg-widget-inner p-5 rounded-2xl border text-center mb-4 shadow-sm">
+                                <div class="text-5xl mb-2">🌍</div>
+                                <span class="block text-4xl font-black text-rose-600 dark:text-rose-400">43</span>
+                                <span class="block text-xs font-bold text-rose-800 dark:text-rose-200 uppercase mt-2">Đã được phê duyệt đi nước ngoài</span>
+                            </div>
+                        </div>
+                        
+                        <div class="bg-rose-600 p-5 rounded-2xl text-center shadow-md relative overflow-hidden mt-4">
+                            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diagonal-stripes.png')] opacity-20"></div>
+                            <div class="relative z-10">
+                                <span class="block text-3xl font-black text-white">04</span>
+                                <span class="block text-xs font-bold text-rose-100 uppercase mt-2 leading-snug">Trường hợp đang được Công an Xã thẩm tra, xác minh</span>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 <div class="lg:col-span-7 glass-panel p-5">
-                    <h2 class="text-xs font-black uppercase tracking-wider text-red-500 mb-3">📊 Đồ thị Đối chiếu Tiến độ hoàn thành Chỉ tiêu (%)</h2>
-                    <div class="w-full relative h-[280px]">
+                    <h2 class="text-xs font-black uppercase tracking-wider text-sky-600 dark:text-sky-300 mb-3">📊 Đồ thị Đối chiếu Tiến độ hoàn thành Chỉ tiêu (Số liệu Thực tế)</h2>
+                    <div class="w-full relative h-[320px]">
                         <canvas id="dangBarChart"></canvas>
                     </div>
                 </div>
                 <div class="lg:col-span-5 glass-panel p-5 flex flex-col justify-between">
-                    <h2 class="text-xs font-black uppercase tracking-wider text-sky-600 dark:text-sky-400 mb-3">🎯 Cơ cấu Phân loại Chất lượng Chi bộ trực thuộc</h2>
-                    <div class="w-full relative h-[240px] flex justify-center">
+                    <h2 class="text-xs font-black uppercase tracking-wider text-sky-600 dark:text-sky-300 mb-3">🎯 Cơ cấu Phân loại Chất lượng Chi bộ trực thuộc (%)</h2>
+                    <div class="w-full relative h-[320px] flex justify-center">
                         <canvas id="dangPieChart"></canvas>
                     </div>
                 </div>
@@ -173,6 +331,9 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
+        // Đăng ký Plugin Datalabels để hiển thị số trên biểu đồ
+        Chart.register(ChartDataLabels);
+
         const firebaseConfig = {
             databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app"
         };
@@ -184,9 +345,9 @@
         let barChartInstance = null;
         let pieChartInstance = null;
         let cachedData = null;
-        let currentLabelColor = '#1e3a8a'; // Đổi từ xám đen sang Xanh Navy
+        let currentLabelColor = '#1e3a8a'; 
 
-        // 🟢 ENGINE LẮNG NGHE DỮ LIỆU THỜI GIAN THỰC (REALTIME LISTENER)
+        // 🟢 ENGINE LẮNG NGHE DỮ LIỆU THỜI GIAN THỰC
         onValue(dangNodeRef, (snapshot) => {
             const data = snapshot.val();
             if(!data) {
@@ -194,14 +355,7 @@
                 return;
             }
             cachedData = data;
-            
-            // 1. Thực thi dựng bảng và tự động tính tỷ lệ phần trăm
             renderTableEngine(data.chi_tieu_co_so);
-            
-            // 2. Thực thi tính toán và cập nhật số liệu lên 3 ô Card Stat lớn
-            syncStatCards(data.chi_tieu_co_so);
-
-            // 3. Thực thi dựng lại biểu đồ Chart.js phối hợp màu sắc
             renderChartsEngine(data, currentLabelColor);
         });
 
@@ -210,15 +364,10 @@
             container.innerHTML = chiTieuList.map((item, index) => {
                 const targetNum = parseFloat(item.target_val);
                 const currentNum = parseFloat(item.current_val);
-                
                 let percentRate = 100;
-                if(targetNum > 0) {
-                    percentRate = parseFloat(((currentNum / targetNum) * 100).toFixed(1));
-                }
-                
+                if(targetNum > 0) percentRate = parseFloat(((currentNum / targetNum) * 100).toFixed(1));
                 const barWidth = percentRate > 100 ? 100 : percentRate;
 
-                // Loại bỏ màu đen ở nền % rate
                 return `
                     <div class="row-container">
                         <div class="row-flat">
@@ -242,20 +391,6 @@
             }).join('');
         }
 
-        function syncStatCards(chiTieuList) {
-            const kn = chiTieuList[0];
-            const knRate = ((kn.current_val / kn.target_val) * 100).toFixed(0);
-            document.getElementById('card_ket_nap').innerHTML = `${kn.current_val} <span class="text-xs font-bold text-sky-600 dark:text-sky-300">/ Chỉ tiêu ${kn.target_val} (Đạt ${knRate}%)</span>`;
-
-            const bt = chiTieuList[1];
-            const btDiff = (bt.current_val - bt.target_val).toFixed(1);
-            document.getElementById('card_bon_tot').innerHTML = `${bt.current_val}% <span class="text-xs font-bold text-emerald-500">(Vượt ${btDiff}%)</span>`;
-
-            const ht = chiTieuList[3];
-            const htDiff = (ht.current_val - ht.target_val).toFixed(1);
-            document.getElementById('card_hoan_thanh').innerHTML = `${ht.current_val}% <span class="text-xs font-bold text-emerald-500">(Vượt ${htDiff}%)</span>`;
-        }
-
         function renderChartsEngine(data, textColor) {
             if(barChartInstance) barChartInstance.destroy();
             if(pieChartInstance) pieChartInstance.destroy();
@@ -263,19 +398,30 @@
             const chartTargets = data.chi_tieu_co_so.map(item => item.target_val);
             const chartCurrents = data.chi_tieu_co_so.map(item => item.current_val);
 
+            // ================== BAR CHART: THÊM DATA LABELS ==================
             const ctxBar = document.getElementById('dangBarChart').getContext('2d');
             barChartInstance = new Chart(ctxBar, {
                 type: 'bar',
                 data: {
                     labels: ['Kết nạp mới', 'Tổ chức 4 tốt', 'Kiểm tra định kỳ', 'HT tốt nhiệm vụ', 'Học tập kế hoạch', 'Sinh hoạt chuyên đề'],
                     datasets: [
-                        { label: 'Chỉ tiêu đề ra', data: chartTargets, backgroundColor: 'rgba(56, 189, 248, 0.4)', borderColor: '#38bdf8', borderWidth: 1, borderRadius: 4 }, /* Đổi màu cột từ xám sang xanh */
+                        { label: 'Chỉ tiêu đề ra', data: chartTargets, backgroundColor: 'rgba(56, 189, 248, 0.4)', borderColor: '#38bdf8', borderWidth: 1, borderRadius: 4 },
                         { label: 'Kết quả thực tế', data: chartCurrents, backgroundColor: 'rgba(239, 68, 68, 0.9)', borderColor: '#ef4444', borderWidth: 1, borderRadius: 4 }
                     ]
                 },
                 options: {
                     responsive: true, maintainAspectRatio: false,
-                    plugins: { legend: { labels: { color: textColor, font: { weight: 'bold', size: 10 } } } },
+                    plugins: { 
+                        legend: { labels: { color: textColor, font: { weight: 'bold', size: 10 } } },
+                        // Kích hoạt plugin DataLabels để hiển thị con số trên cột
+                        datalabels: {
+                            color: textColor,
+                            anchor: 'end',
+                            align: 'top',
+                            font: { weight: 'bold', size: 9 },
+                            formatter: Math.round
+                        }
+                    },
                     scales: {
                         x: { grid: { display: false }, ticks: { color: textColor, font: { size: 9, weight: 'bold' } } },
                         y: { grid: { color: 'rgba(56, 189, 248, 0.2)' }, ticks: { color: textColor, font: { size: 9 } } }
@@ -283,22 +429,40 @@
                 }
             });
 
+            // ================== PIE CHART: THÊM DATA LABELS (%) ==================
             const ctxPie = document.getElementById('dangPieChart').getContext('2d');
-            const pieData = data.co_cau_chi_bo;
+            const pieDataObj = data.co_cau_chi_bo;
+            const pieDataValues = [pieDataObj.xuat_sac, pieDataObj.hoan_thanh_tot, pieDataObj.hoan_thanh_nhiem_vu, pieDataObj.khong_hoan_thanh];
+            
             pieChartInstance = new Chart(ctxPie, {
                 type: 'pie',
                 data: {
                     labels: ['HT Xuất sắc', 'HT Tốt', 'HT Nhiệm vụ', 'Không HT'],
                     datasets: [{ 
-                        data: [pieData.xuat_sac, pieData.hoan_thanh_tot, pieData.hoan_thanh_nhiem_vu, pieData.khong_hoan_thanh], 
+                        data: pieDataValues, 
                         backgroundColor: ['rgba(16, 185, 129, 0.9)', 'rgba(14, 165, 233, 0.9)', 'rgba(245, 158, 11, 0.9)', 'rgba(239, 68, 68, 0.9)'], 
                         borderWidth: 1,
-                        borderColor: '#ffffff' /* Border trắng chia cắt hình tròn */
+                        borderColor: '#ffffff' 
                     }]
                 },
                 options: {
                     responsive: true, maintainAspectRatio: false,
-                    plugins: { legend: { position: 'right', labels: { color: textColor, font: { weight: 'bold', size: 9 } } } }
+                    layout: { padding: 10 },
+                    plugins: { 
+                        legend: { position: 'right', labels: { color: textColor, font: { weight: 'bold', size: 9 } } },
+                        // Kích hoạt plugin DataLabels để hiển thị % trên miếng bánh
+                        datalabels: {
+                            color: '#ffffff',
+                            font: { weight: 'bold', size: 12 },
+                            formatter: (value, ctx) => {
+                                let sum = 0;
+                                let dataArr = ctx.chart.data.datasets[0].data;
+                                dataArr.map(data => { sum += data; });
+                                let percentage = (value * 100 / sum).toFixed(1) + "%";
+                                return percentage;
+                            }
+                        }
+                    }
                 }
             });
         }
@@ -312,27 +476,20 @@
             if(themeName === 'light') {
                 body.classList.remove('dark-theme');
                 body.classList.add('light-theme');
-                // Nút "Sáng" active có màu trắng chữ xanh
                 btnLight.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-sm border border-blue-200";
-                // Nút "Tối" không active có màu trong suốt chữ xanh nhạt
                 btnDark.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition text-blue-200 hover:text-white";
                 
-                currentLabelColor = '#1e3a8a'; // Xanh Navy cho chữ đồ thị nền sáng
+                currentLabelColor = '#1e3a8a'; 
             } else {
                 body.classList.remove('light-theme');
                 body.classList.add('dark-theme');
-                // Nút "Tối" active có màu đỏ
                 btnDark.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition bg-red-600 text-white shadow-sm";
-                // Nút "Sáng" không active có màu trong suốt chữ xanh nhạt
                 btnLight.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition text-blue-200 hover:text-white";
                 
-                currentLabelColor = '#e0f2fe'; // Xanh ngọc nhạt cho chữ đồ thị nền tối
+                currentLabelColor = '#e0f2fe'; 
             }
             
-            // Vẽ lại đồ thị khớp với nhãn chữ màu sắc giao diện mới
-            if(cachedData) {
-                renderChartsEngine(cachedData, currentLabelColor);
-            }
+            if(cachedData) { renderChartsEngine(cachedData, currentLabelColor); }
         }
 
         // Khởi động trang với nền Sáng
