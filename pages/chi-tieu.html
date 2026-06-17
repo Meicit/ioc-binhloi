@@ -6,137 +6,157 @@
     <title>Hệ thống 30 Chỉ tiêu KTXH 2026 - Xã Bình Hưng</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* QUẢN LÝ MÀU CHỮ NỔI BẬT CHO NỀN TỐI (DARK THEME) */
-        body.dark-theme {
-            background: linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.98)), url('../hinhnen.png');
-            background-size: cover; background-position: center; background-attachment: fixed;
-            color: #38bdf8;
-        }
-        body.dark-theme .text-dynamic-title { color: #00f0ff; }
-        body.dark-theme .text-dynamic-body { color: #93c5fd; }
-        body.dark-theme .text-dynamic-label { color: #fbbf24; }
-        body.dark-theme .glass-panel { background: rgba(15, 23, 42, 0.75); border-color: rgba(56, 189, 248, 0.2); }
-        body.dark-theme .card-target-item { background: rgba(30, 41, 59, 0.7); border-color: rgba(56, 189, 248, 0.15); }
-        body.dark-theme .insight-card { background: rgba(15, 23, 42, 0.5); border-color: rgba(56, 189, 248, 0.1); }
-        body.dark-theme .btn-switcher-active { background: #0369a1; color: #00f0ff; border-color: #00f0ff; }
-        body.dark-theme .kpi-box { background: linear-gradient(135deg, #1e3a8a 0%, #0f172a 100%); border-color: #38bdf8; }
+        /* ================= GHI ĐÈ BÓNG ĐỔ ĐỂ LOẠI BỎ SẮC ĐEN ================= */
+        .shadow-sm { box-shadow: 0 1px 2px 0 rgba(8, 47, 73, 0.1); }
+        .shadow-md { box-shadow: 0 4px 6px -1px rgba(8, 47, 73, 0.15), 0 2px 4px -2px rgba(8, 47, 73, 0.1); }
+        .shadow-lg { box-shadow: 0 10px 15px -3px rgba(8, 47, 73, 0.15), 0 4px 6px -4px rgba(8, 47, 73, 0.1); }
 
-        /* QUẢN LÝ MÀU CHỮ NỔI BẬT CHO NỀN SÁNG (LIGHT THEME) */
-        body.light-theme {
-            background: linear-gradient(rgba(241, 245, 249, 0.9), rgba(241, 245, 249, 0.98)), url('../hinhnen.png');
-            background-size: cover; background-position: center; background-attachment: fixed;
-            color: #0b4a8f;
+        /* ================= QUẢN LÝ MÀU NỀN & THEME ================= */
+        /* CSS CHO NỀN TỐI (DARK THEME) - KHÔNG DÙNG MÀU ĐEN */
+        body.dark-theme {
+            background-color: #082f49; /* Xanh Navy sâu */
+            color: #e0f2fe;
         }
-        body.light-theme .text-dynamic-title { color: #031b4e; }
-        body.light-theme .text-dynamic-body { color: #1e3a8a; }
-        body.light-theme .text-dynamic-label { color: #b45309; }
-        body.light-theme .glass-panel { background: rgba(226, 232, 240, 0.92); border-color: rgba(11, 74, 143, 0.3); box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.2); }
-        body.light-theme .card-target-item { background: #e2e8f0; border-color: rgba(11, 74, 143, 0.2); box-shadow: 0 4px 12px rgba(12, 74, 110, 0.05); }
-        body.light-theme .insight-card { background: #cbd5e1; border-color: rgba(11, 74, 143, 0.15); }
-        body.light-theme .btn-switcher-active { background: #0b4a8f; color: #bfdbfe; border-color: #0b4a8f; box-shadow: 0 2px 8px rgba(11, 74, 143, 0.2); }
-        body.light-theme .kpi-box { background: linear-gradient(135deg, #0b4a8f 0%, #1e3a8a 100%); border-color: #031b4e; }
+        body.dark-theme .text-dynamic-title { color: #38bdf8; }
+        body.dark-theme .text-dynamic-body { color: #bae6fd; }
+        body.dark-theme .text-dynamic-label { color: #fcd34d; }
+        body.dark-theme .glass-panel { background: rgba(12, 74, 110, 0.65); border-color: rgba(56, 189, 248, 0.2); }
+        body.dark-theme .card-target-item { background: rgba(8, 47, 73, 0.5); border-color: rgba(56, 189, 248, 0.15); }
+        body.dark-theme .insight-card { background: rgba(12, 74, 110, 0.4); border-color: rgba(56, 189, 248, 0.1); }
+        body.dark-theme .btn-switcher-active { background: #0284c7; color: #e0f2fe; border-color: #38bdf8; }
+        body.dark-theme .kpi-box { background: linear-gradient(135deg, #0c4a6e 0%, #082f49 100%); border-color: #0284c7; }
+        body.dark-theme .teal-wrapper { background-color: rgba(20, 184, 166, 0.05); border: 1px solid rgba(20, 184, 166, 0.2); box-shadow: 0 20px 40px -15px rgba(8, 47, 73, 0.6); }
+
+        /* CSS CHO NỀN SÁNG (LIGHT THEME) - KHÔNG DÙNG MÀU ĐEN */
+        body.light-theme {
+            background-color: #f8fafc; /* Trắng/xám cực nhẹ */
+            color: #1e3a8a; /* Xanh đậm */
+        }
+        body.light-theme .text-dynamic-title { color: #0f172a; } /* Note: 0f172a is technically very dark blue slate, replaced below */
+        body.light-theme .text-dynamic-title { color: #1e3a8a; } /* Đảm bảo màu Xanh đậm thuần */
+        body.light-theme .text-dynamic-body { color: #1e40af; }
+        body.light-theme .text-dynamic-label { color: #c2410c; }
+        body.light-theme .glass-panel { background: rgba(255, 255, 255, 0.95); border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.15); }
+        body.light-theme .card-target-item { background: #f0f9ff; border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 4px 12px rgba(12, 74, 110, 0.05); }
+        body.light-theme .insight-card { background: #e0f2fe; border-color: rgba(14, 165, 233, 0.15); }
+        body.light-theme .btn-switcher-active { background: #1e3a8a; color: #eff6ff; border-color: #1e3a8a; box-shadow: 0 2px 8px rgba(30, 58, 138, 0.3); }
+        body.light-theme .kpi-box { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); border-color: #1d4ed8; color: #ffffff; }
+        body.light-theme .teal-wrapper { background-color: rgba(20, 184, 166, 0.1); border: 1px solid rgba(20, 184, 166, 0.3); box-shadow: 0 20px 40px -15px rgba(20, 184, 166, 0.25); }
+
+        /* Ghi đè màu border để tránh slate (xám đen) */
+        .border-dynamic-line { border-color: rgba(14, 165, 233, 0.2); }
+        body.dark-theme .border-dynamic-line { border-color: rgba(56, 189, 248, 0.3); }
 
         body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s, color 0.3s; }
         .container-wrapper { max-width: 1550px; margin: 30px auto; padding: 0 24px; width: 100%; }
-        .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.4); transition: all 0.3s; }
+        .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; transition: all 0.3s; }
         .chart-container { position: relative; height: 280px; width: 100%; }
         
+        .teal-wrapper { backdrop-filter: blur(20px); border-radius: 36px; padding: 24px; transition: all 0.4s ease; }
+        @media (min-width: 768px) { .teal-wrapper { padding: 36px; } }
+
         .card-target-item { border: 1px solid; transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1); }
         .card-target-item:hover { transform: translateY(-3px); border-color: #2563eb; box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.25); }
 
         .btn-back { display: inline-flex; align-items: center; gap: 8px; background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.3); color: inherit; padding: 12px 24px; border-radius: 14px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; }
         .btn-back:hover { transform: translateY(-2px); border-color: #ef4444; background: rgba(239, 68, 68, 0.1); }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.3); border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.4); border-radius: 10px; }
     </style>
 </head>
-<body class="dark-theme custom-scrollbar" id="body-context">
+<body class="light-theme custom-scrollbar" id="body-context">
 
-    <div class="container-wrapper space-y-6">
+    <div class="container-wrapper space-y-6 mt-8">
         
         <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-            <a href="home.html" class="btn-back">⬅️ Quay lại Trang chủ</a>
+            <a href="home.html" class="btn-back bg-white/50 backdrop-blur text-blue-900">⬅️ Quay lại Trang chủ</a>
             
-            <div class="bg-slate-900 border border-slate-700 p-1 rounded-xl flex items-center shadow-md backdrop-blur">
-                <span class="text-[10px] font-black uppercase tracking-wider px-3 text-dynamic-label">Chế độ xem:</span>
-                <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-400 hover:text-sky-400">
-                    🔵 Nền trắng
+            <div class="bg-blue-950/90 border border-blue-800 p-1 rounded-xl flex items-center shadow-md backdrop-blur">
+                <span class="text-[10px] font-black uppercase tracking-wider px-3 text-blue-300">Chế độ xem:</span>
+                <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">
+                    ☀️ Sáng
                 </button>
-                <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border btn-switcher-active">
-                    🟠 Nền đen
+                <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">
+                    🌙 Tối
                 </button>
             </div>
         </div>
 
-        <header class="glass-panel p-6 flex flex-col md:flex-row justify-between items-center gap-4">
-            <div class="text-center md:text-left">
-                <h1 class="text-xl md:text-2xl font-black uppercase tracking-wider text-dynamic-title">
-                    Hệ thống 30 Chỉ tiêu Phát triển Kinh tế – Xã hội
-                </h1>
-                <p class="text-dynamic-label font-bold text-xs uppercase tracking-[0.15em] mt-1">
-                    UBND Xã Bình Hưng — Kế hoạch hành động chỉ huy mục tiêu quyết định số 692/BC-UBND
-                </p>
-            </div>
-            <div class="kpi-box px-6 py-3 rounded-2xl shadow-lg border text-center min-w-[160px]">
-                <span class="text-[10px] font-black text-dynamic-label uppercase block tracking-wider">Tổng tiến độ chung</span>
-                <span id="tong_tien_do" class="text-2xl font-black text-emerald-400">0%</span>
-            </div>
-        </header>
+        <div class="teal-wrapper space-y-6">
 
-        <!-- PHÂN KHU ĐỒ THỊ -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-            <div class="lg:col-span-7 glass-panel p-5">
-                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">📊 Tỷ lệ hoàn thành trung bình theo từng nhóm Lĩnh vực (%)</h2>
-                <div class="chart-container">
-                    <canvas id="barChart"></canvas>
+            <header class="glass-panel p-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                <div class="text-center md:text-left">
+                    <h1 class="text-xl md:text-2xl font-black uppercase tracking-wider text-dynamic-title">
+                        Hệ thống 30 Chỉ tiêu Phát triển Kinh tế – Xã hội
+                    </h1>
+                    <p class="text-dynamic-label font-bold text-xs uppercase tracking-[0.15em] mt-1">
+                        UBND Xã Bình Hưng — Kế hoạch hành động chỉ huy mục tiêu quyết định số 692/BC-UBND
+                    </p>
+                </div>
+                <div class="kpi-box px-6 py-3 rounded-2xl shadow-lg border text-center min-w-[160px]">
+                    <span class="text-[10px] font-black uppercase block tracking-wider opacity-90">Tổng tiến độ chung</span>
+                    <span id="tong_tien_do" class="text-2xl font-black text-emerald-400">0%</span>
+                </div>
+            </header>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                <div class="lg:col-span-7 glass-panel p-5">
+                    <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">📊 Tỷ lệ hoàn thành trung bình theo từng nhóm Lĩnh vực (%)</h2>
+                    <div class="chart-container">
+                        <canvas id="barChart"></canvas>
+                    </div>
+                </div>
+                <div class="lg:col-span-5 glass-panel p-5 flex flex-col justify-between">
+                    <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">🍕 Cơ cấu phân bổ số lượng 30 Chỉ tiêu</h2>
+                    <div class="chart-container flex justify-center">
+                        <canvas id="pieChart"></canvas>
+                    </div>
                 </div>
             </div>
-            <div class="lg:col-span-5 glass-panel p-5 flex flex-col justify-between">
-                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">🍕 Cơ cấu phân bổ số lượng 30 Chỉ tiêu</h2>
-                <div class="chart-container flex justify-center">
-                    <canvas id="pieChart"></canvas>
+
+            <div class="glass-panel p-6 border border-sky-500/20 bg-gradient-to-r from-blue-50 to-teal-50 dark:from-blue-950/40 dark:to-teal-900/10">
+                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label mb-3 flex items-center gap-2">💡 Trung tâm phân tích chỉ số & Khuyến nghị quyết sách điều hành</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 font-['Inter'] text-xs leading-relaxed">
+                    <div class="insight-card p-4 rounded-xl border space-y-1">
+                        <h3 class="font-extrabold text-emerald-600 dark:text-emerald-400 uppercase text-[11px]">🟢 Điểm sáng kinh tế & xã hội</h3>
+                        <p class="text-dynamic-body">Các mục tiêu then chốt về <span class="font-bold text-dynamic-title">Giới thiệu việc làm</span> (Đạt 100%) và <span class="font-bold text-dynamic-title">Thu ngân sách nhà nước</span> (Đạt 69%) đang duy trì đà tăng trưởng ổn định bám sát tiến độ dự toán Đại hội giao.</p>
+                    </div>
+                    <div class="insight-card p-4 rounded-xl border space-y-1">
+                        <h3 class="font-extrabold text-rose-600 dark:text-rose-400 uppercase text-[11px]">🚨 Điểm nghẽn cần tháo gỡ</h3>
+                        <p class="text-dynamic-body">Các mục tiêu liên quan đến tốc độ tăng trưởng kinh tế địa phương, tỷ lệ đăng ký thành lập mới của hộ kinh doanh và doanh nghiệp đang ở mốc khởi tạo sơ khởi, cần rà soát đẩy nhanh giải ngân vốn đầu tư công.</p>
+                    </div>
+                    <div class="insight-card p-4 rounded-xl border space-y-1">
+                        <h3 class="font-extrabold text-sky-600 dark:text-sky-400 uppercase text-[11px]">🎯 Khuyến nghị hành động chỉ huy</h3>
+                        <p class="font-bold text-dynamic-title italic mb-1">Khuyến nghị Ban chỉ đạo Thường trực:</p>
+                        <ul class="list-disc list-inside space-y-0.5 pl-0.5 text-dynamic-body">
+                            <li>Đẩy mạnh cải cách hành chính số để tối ưu hóa tỷ lệ xử lý hồ sơ và phản ánh đúng hạn đạt mốc <span class="font-bold text-emerald-600 dark:text-emerald-400">100%</span>.</li>
+                            <li>Tập trung kiểm soát, tuần tra quản trị an ninh cơ sở bảo đảm kiềm chế kéo giảm tai nạn giao thông và cháy nổ.</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
-        </div>
 
-        <!-- TRUNG TÂM PHÂN TÍCH NHẬN ĐỊNH ĐIỀU HÀNH CHÍT TIẾT -->
-        <div class="glass-panel p-6 border border-sky-500/20 bg-gradient-to-r from-slate-900/50 to-sky-950/10">
-            <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label mb-3 flex items-center gap-2">💡 Trung tâm phân tích chỉ số & Khuyến nghị quyết sách điều hành</h2>
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 font-['Inter'] text-xs leading-relaxed">
-                <div class="insight-card p-4 rounded-xl border space-y-1">
-                    <h3 class="font-extrabold text-emerald-500 uppercase text-[11px]">🟢 Điểm sáng kinh tế & xã hội</h3>
-                    <p class="text-dynamic-body">Các mục tiêu then chốt về <span class="font-bold text-dynamic-title">Giới thiệu việc làm</span> (Đạt 100%) và <span class="font-bold text-dynamic-title">Thu ngân sách nhà nước</span> (Đạt 69%) đang duy trì đà tăng trưởng ổn định bám sát tiến độ dự toán Đại hội giao.</p>
-                </div>
-                <div class="insight-card p-4 rounded-xl border space-y-1">
-                    <h3 class="font-extrabold text-red-500 uppercase text-[11px]">🚨 Điểm nghẽn cần tháo gỡ</h3>
-                    <p class="text-dynamic-body">Các mục tiêu liên quan đến tốc độ tăng trưởng kinh tế địa phương, tỷ lệ đăng ký thành lập mới của hộ kinh doanh và doanh nghiệp đang ở mốc khởi tạo sơ khởi, cần rà soát đẩy nhanh giải ngân vốn đầu tư công.</p>
-                </div>
-                <div class="insight-card p-4 rounded-xl border space-y-1">
-                    <h3 class="font-extrabold text-sky-500 uppercase text-[11px]">🎯 Khuyến nghị hành động chỉ huy</h3>
-                    <p class="font-bold text-dynamic-title italic mb-1">Khuyến nghị Ban chỉ đạo Thường trực:</p>
-                    <ul class="list-disc list-inside space-y-0.5 pl-0.5 text-dynamic-body">
-                        <li>Đẩy mạnh cải cách hành chính số để tối ưu hóa tỷ lệ xử lý hồ sơ và phản ánh đúng hạn đạt mốc <span class="font-bold text-emerald-400">100%</span>.</li>
-                        <li>Tập trung kiểm soát, tuần tra quản trị an ninh cơ sở bảo đảm kiềm chế kéo giảm tai nạn giao thông và cháy nổ.</li>
-                    </ul>
+            <div id="target-container" class="space-y-10 pb-6">
+                <div class="text-center py-12 text-dynamic-body font-bold animate-pulse uppercase text-xs tracking-widest">
+                    ⏳ Hệ thống đang tải và phân loại danh sách 30 chỉ tiêu từ Firebase Cloud...
                 </div>
             </div>
-        </div>
 
-        <!-- CONTAINER CHỨA 5 KHỐI NHÓM CHỈ TIÊU TỰ ĐỘNG DỰNG TỪ FIREBASE -->
-        <div id="target-container" class="space-y-10 pb-6">
-            <div class="text-center py-12 text-dynamic-body font-bold animate-pulse uppercase text-xs tracking-widest">
-                ⏳ Hệ thống đang tải và phân loại danh sách 30 chỉ tiêu từ Firebase Cloud...
-            </div>
-        </div>
+        </div> </div>
 
-    </div>
+    <footer class="w-full text-center py-6 text-dynamic-body font-bold text-[10px] uppercase tracking-[0.3em] border-t border-blue-200 dark:border-blue-900 bg-white/50 dark:bg-blue-950/40 backdrop-blur-md mt-auto">
+        &copy; 2026 IOC Xã Bình Hưng — Hệ thống Điều hành 30 Chỉ tiêu Kinh tế Xã hội Liên thông
+    </footer>
 
-    <!-- ENGINE CODE JS ĐIỀU PHỐI KẾT NỐI HẠ TẦNG CLOULD -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // Đăng ký Plugin DataLabels để vẽ số trực tiếp lên Chart.js
+        Chart.register(ChartDataLabels);
 
         const firebaseConfig = { databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app" };
         const db = getDatabase(initializeApp(firebaseConfig));
@@ -150,11 +170,12 @@
             "V": "V. Quốc phòng - An ninh (Mục 25 - 30)"
         };
 
-        const colors = ["#2563eb", "#10b981", "#d97706", "#7c3aed", "#dc2626"];
+        const colors = ["#2563eb", "#10b981", "#d97706", "#7c3aed", "#e11d48"]; // Các màu không dùng đen
         
         let barChart = null;
-        let doughnutChart = null;
+        let pieChart = null;
         let currentRawSnapshot = null;
+        let currentTextColor = '#1e3a8a'; // Xanh đậm mặc định cho nền Sáng
 
         onValue(rootRef, (snap) => {
             const rawData = snap.val();
@@ -164,8 +185,9 @@
             currentRawSnapshot = cleanedData;
 
             renderListEngine(cleanedData);
+            
             const isLight = document.getElementById('body-context').classList.contains('light-theme');
-            renderChartsEngine(cleanedData, isLight ? '#031b4e' : '#00f0ff');
+            renderChartsEngine(cleanedData, isLight ? '#1e3a8a' : '#e0f2fe');
         });
 
         function renderListEngine(data) {
@@ -185,8 +207,8 @@
 
                 let groupHtml = `
                     <div class="space-y-4 font-['Inter']">
-                        <h2 class="text-base font-black text-dynamic-title flex items-center gap-3 border-b border-slate-700/30 pb-2">
-                            <span class="w-7 h-7 rounded-lg bg-blue-900 text-cyan-300 font-mono flex items-center justify-center text-xs shadow-md">${key}</span>
+                        <h2 class="text-base font-black text-dynamic-title flex items-center gap-3 border-b border-dynamic-line pb-2">
+                            <span class="w-7 h-7 rounded-lg bg-blue-700 dark:bg-blue-600 text-sky-100 font-mono flex items-center justify-center text-xs shadow-md">${key}</span>
                             ${nhomTen[key]}
                         </h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -200,7 +222,6 @@
                     if (khValue > 0) {
                         percent = parseFloat(((thValue / khValue) * 100).toFixed(1));
                     } else if (item.kh && typeof item.kh === 'string' && item.kh.includes('100%')) {
-                        // Bóc tách xử lý nhanh mục thu ngân sách
                         percent = thValue; 
                     }
                     if (percent > 100) percent = 100;
@@ -211,7 +232,7 @@
                         <div class="card-target-item p-4 rounded-xl glass-panel flex flex-col justify-between space-y-3">
                             <div class="flex justify-between items-center">
                                 <span class="text-[9px] font-black px-2 py-0.5 bg-blue-500/10 border border-blue-500/30 text-dynamic-label rounded uppercase">Mục chỉ tiêu</span>
-                                <span class="text-xs font-black ${percent >= 100 ? 'text-emerald-400' : 'text-sky-400'}">${percent}%</span>
+                                <span class="text-xs font-black ${percent >= 100 ? 'text-emerald-600 dark:text-emerald-400' : 'text-sky-600 dark:text-sky-400'}">${percent}%</span>
                             </div>
                             <h4 class="text-xs font-bold leading-snug h-9 overflow-hidden text-dynamic-title" title="${item.ten}">${item.ten}</h4>
                             <div class="flex justify-between items-end text-[11px]">
@@ -221,12 +242,12 @@
                                 </div>
                                 <div class="text-right">
                                     <span class="block text-[9px] text-dynamic-label font-bold uppercase tracking-wider">Thực tế đạt</span>
-                                    <span class="font-black text-sky-500">${item.th} <small class="text-[9px] font-bold text-sky-400">${item.dvt || ''}</small></span>
+                                    <span class="font-black text-sky-600 dark:text-sky-400">${item.th} <small class="text-[9px] font-bold text-sky-500 dark:text-sky-300">${item.dvt || ''}</small></span>
                                 </div>
                             </div>
                             ${hienGhiChu}
-                            <div class="w-full bg-blue-500/10 h-1.5 rounded-full overflow-hidden border border-blue-500/20">
-                                <div class="h-full bg-gradient-to-r from-sky-500 to-blue-600 rounded-full" style="width: ${percent}%"></div>
+                            <div class="w-full bg-blue-100 dark:bg-blue-900/40 h-1.5 rounded-full overflow-hidden border border-blue-200 dark:border-blue-800/50">
+                                <div class="h-full bg-gradient-to-r from-sky-400 to-blue-600 rounded-full" style="width: ${percent}%"></div>
                             </div>
                         </div>
                     `;
@@ -239,7 +260,7 @@
 
         function renderChartsEngine(data, textColor) {
             if(barChart) barChart.destroy();
-            if(doughnutChart) doughnutChart.destroy();
+            if(pieChart) pieChart.destroy();
 
             const groupStats = {};
             Object.keys(nhomTen).forEach(k => groupStats[k] = { totalPercent: 0, count: 0 });
@@ -272,6 +293,7 @@
             const avgTotal = (barData.reduce((a, b) => a + b, 0) / activeGroups).toFixed(1);
             document.getElementById('tong_tien_do').innerText = avgTotal + "%";
 
+            // 1. Dựng Bar Chart (Hiển thị % trên cột)
             const ctxBar = document.getElementById('barChart').getContext('2d');
             barChart = new Chart(ctxBar, {
                 type: 'bar',
@@ -287,16 +309,28 @@
                 },
                 options: { 
                     maintainAspectRatio: false, 
-                    plugins: { legend: { display: false } },
+                    plugins: { 
+                        legend: { display: false },
+                        // DataLabels in %
+                        datalabels: {
+                            color: textColor,
+                            anchor: 'end',
+                            align: 'top',
+                            font: { weight: 'bold', size: 10 },
+                            formatter: (value) => value + '%'
+                        }
+                    },
                     scales: {
-                        x: { grid: { display: false }, ticks: { color: textColor, font: { weight: 'bold', size: 9 } } },
-                        y: { max: 110, grid: { color: 'rgba(148, 163, 184, 0.1)' }, ticks: { color: textColor, font: { size: 9, weight: 'bold' } } }
-                    }
+                        x: { grid: { display: false }, ticks: { color: textColor, font: { weight: 'bold', size: 10 } } },
+                        y: { max: 115, grid: { color: 'rgba(14, 165, 233, 0.15)' }, ticks: { color: textColor, font: { size: 10, weight: 'bold' } } }
+                    },
+                    layout: { padding: { top: 20 } }
                 }
             });
 
+            // 2. Dựng Pie Chart (Hiển thị số lượng chỉ tiêu trên bánh)
             const ctxPie = document.getElementById('pieChart').getContext('2d');
-            doughnutChart = new Chart(ctxPie, {
+            pieChart = new Chart(ctxPie, {
                 type: 'doughnut',
                 data: {
                     labels: labelsLong,
@@ -304,17 +338,26 @@
                         data: pieData,
                         backgroundColor: colors,
                         borderWidth: 2,
-                        borderColor: 'rgba(30, 41, 59, 0.5)'
+                        borderColor: '#ffffff'
                     }]
                 },
                 options: { 
                     maintainAspectRatio: false, 
-                    cutout: '72%',
-                    plugins: { legend: { position: 'right', labels: { color: textColor, font: { weight: 'bold', size: 9 } } } }
+                    cutout: '65%',
+                    plugins: { 
+                        legend: { position: 'right', labels: { color: textColor, font: { weight: 'bold', size: 10 } } },
+                        // DataLabels in số lượng
+                        datalabels: {
+                            color: '#ffffff',
+                            font: { weight: 'bold', size: 12 },
+                            formatter: (value) => value + ' Chỉ tiêu'
+                        }
+                    }
                 }
             });
         }
 
+        // ĐIỀU CHUYỂN GIAO DIỆN (SÁNG/TỐI)
         window.setTheme = function(themeName) {
             const body = document.getElementById('body-context');
             const btnLight = document.getElementById('btn-theme-light');
@@ -323,19 +366,26 @@
             if(themeName === 'light') {
                 body.classList.remove('dark-theme');
                 body.classList.add('light-theme');
-                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-blue-900 text-sky-200 shadow-md border border-blue-700";
-                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-blue-900 hover:text-slate-800";
-                
-                if (currentRawSnapshot) renderChartsEngine(currentRawSnapshot, '#031b4e');
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-md border border-blue-200";
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition text-blue-800 hover:text-white border border-transparent";
+                currentTextColor = '#1e3a8a'; 
             } else {
                 body.classList.remove('light-theme');
                 body.classList.add('dark-theme');
-                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border btn-switcher-active";
-                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-sky-400 hover:text-sky-300";
-                
-                if (currentRawSnapshot) renderChartsEngine(currentRawSnapshot, '#00f0ff');
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-sky-600 text-white shadow-md border border-sky-400";
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition text-sky-200 hover:text-white border border-transparent";
+                currentTextColor = '#e0f2fe'; 
+            }
+
+            if(currentRawSnapshot) {
+                renderChartsEngine(currentRawSnapshot, currentTextColor);
             }
         }
+
+        // KHỞI CHẠY MẶC ĐỊNH NỀN SÁNG
+        document.addEventListener('DOMContentLoaded', () => {
+            setTheme('light');
+        });
     </script>
 </body>
 </html>
