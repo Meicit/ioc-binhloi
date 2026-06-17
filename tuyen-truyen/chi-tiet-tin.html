@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi tiết tin tức - Xã Bình Hưng</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        /* QUẢN LÝ MÀU CHỮ VÀ NỀN CHO CHẾ ĐỘ TỐI (DARK THEME) */
+        body.dark-theme { background-color: #0f172a; color: #38bdf8; }
+        body.dark-theme .text-dynamic-title { color: #00f0ff; }
+        body.dark-theme .text-dynamic-body { color: #e2e8f0; } 
+        body.dark-theme .text-dynamic-label { color: #fbbf24; }
+        body.dark-theme .glass-panel { background: rgba(15, 23, 42, 0.75); border-color: rgba(56, 189, 248, 0.2); }
+        body.dark-theme .btn-switcher-active { background: #0369a1; color: #00f0ff; border-color: #00f0ff; }
+        body.dark-theme .title-block { background-color: rgba(30, 58, 138, 0.7); border-color: #2563eb; }
+        body.dark-theme .title-text { color: #93c5fd; }
+        body.dark-theme .teal-wrapper { background-color: rgba(20, 184, 166, 0.05); border: 1px solid rgba(20, 184, 166, 0.2); box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5); }
+        body.dark-theme .article-content blockquote { border-left-color: #38bdf8; background: rgba(56, 189, 248, 0.1); }
+
+        /* QUẢN LÝ MÀU CHỮ VÀ NỀN CHO CHẾ ĐỘ SÁNG (LIGHT THEME) */
+        body.light-theme { background-color: #f8fafc; color: #0b4a8f; }
+        body.light-theme .text-dynamic-title { color: #031b4e; }
+        body.light-theme .text-dynamic-body { color: #334155; } 
+        body.light-theme .text-dynamic-label { color: #b45309; }
+        body.light-theme .glass-panel { background: rgba(255, 255, 255, 0.95); border-color: rgba(11, 74, 143, 0.15); box-shadow: 0 10px 30px -10px rgba(12, 74, 110, 0.1); }
+        body.light-theme .btn-switcher-active { background: #0b4a8f; color: #bfdbfe; border-color: #0b4a8f; box-shadow: 0 2px 8px rgba(11, 74, 143, 0.2); }
+        body.light-theme .title-block { background-color: #bfdbfe; border-color: #60a5fa; }
+        body.light-theme .title-text { color: #1e3a8a; }
+        body.light-theme .teal-wrapper { background-color: rgba(20, 184, 166, 0.12); border: 1px solid rgba(20, 184, 166, 0.3); box-shadow: 0 20px 40px -15px rgba(20, 184, 166, 0.2); }
+        body.light-theme .article-content blockquote { border-left-color: #0ea5e9; background: rgba(14, 165, 233, 0.05); }
+
+        /* CSS CHUNG */
+        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s, color 0.3s; }
+        .container-wrapper { max-width: 1200px; margin: 0 auto 30px auto; padding: 0 24px; width: 100%; }
+        .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; transition: all 0.3s; }
+        
+        .teal-wrapper { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 36px; padding: 24px; transition: all 0.4s ease; }
+        @media (min-width: 768px) { .teal-wrapper { padding: 36px; } }
+
+        /* HEADER DYNAMIC */
+        .main-header { background-size: 400% 400%; animation: gradientGIF 12s ease infinite; }
+        body.theme-xanh-ios .main-header { background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d); border-bottom: 2px solid #032b5c; box-shadow: 0 4px 15px rgba(11, 74, 143, 0.15); }
+        body.theme-do-hanhchinh .main-header { background: linear-gradient(-45deg, #dc2626, #7f1d1d, #ef4444, #450a0a); border-bottom: 2px solid #991b1b; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.15); }
+        @keyframes gradientGIF { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .logo-main { animation: float 4s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)); } 50% { transform: translateY(-3px); filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3)); } }
+
+        .btn-back { display: inline-flex; align-items: center; gap: 8px; background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.3); color: inherit; padding: 12px 24px; border-radius: 14px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; }
+        .btn-back:hover { transform: translateY(-2px); border-color: #ef4444; background: rgba(239, 68, 68, 0.1); }
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.3); border-radius: 10px; }
+
+        @media (max-width: 1024px) {
+            .header-layout { flex-direction: column !important; }
+            .theme-selector-vertical { position: relative !important; top: 0 !important; right: 0 !important; margin-top: 16px; flex-direction: row !important; space-x: 2; width: auto !important; }
+            .theme-selector-vertical button { margin-left: 4px; margin-right: 4px; }
+        }
+
+        /* Tùy chỉnh vùng nội dung bài viết */
+        .article-content p { margin-bottom: 1.25rem; font-family: 'Inter', sans-serif; text-align: justify; line-height: 1.8; }
+        .article-content img { width: 100%; border-radius: 12px; margin: 20px 0; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1); }
+        .article-content h3 { font-family: 'Montserrat', sans-serif; font-size: 1.25rem; font-weight: 800; margin-top: 2rem; margin-bottom: 1rem; }
+        .article-content blockquote { border-left-width: 4px; padding: 1rem; margin: 1.5rem 0; font-style: italic; border-radius: 0 12px 12px 0; text-align: center; }
+    </style>
+</head>
+<body class="theme-xanh-ios light-theme custom-scrollbar" id="body-context">
+
+    <header class="main-header w-full py-6 px-6 md:px-12 select-none relative transition-all duration-300 mb-6">
+        <div class="max-w-[1550px] mx-auto flex flex-col items-center justify-center relative header-layout">
+            <div class="flex flex-row items-center space-x-6 w-auto">
+                <div class="flex-shrink-0">
+                    <img src="logo.png" alt="Logo" class="logo-main w-20 h-auto" onerror="this.src='logo.png'">
+                </div>
+                <div class="flex flex-col items-start justify-center space-y-2 text-left">
+                    <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-['Montserrat']">
+                        IOC BINH HUNG
+                    </p>
+                    <h1 class="title-main text-sm md:text-base lg:text-lg font-bold uppercase tracking-[0.08em] text-white/90 leading-tight m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
+                        Cổng thông tin và điều hành xã Bình Hưng, Thành phố Hồ Chí Minh
+                    </h1>
+                </div>
+            </div>
+            
+            <div class="theme-selector-vertical lg:absolute lg:top-0 lg:right-0 bg-white/10 backdrop-blur-md border border-white/20 p-1.5 rounded-xl flex flex-col space-y-1.5 w-[75px] z-20 shadow-inner">
+                <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md">🔵 Xanh</button>
+                <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white">🔴 Đỏ</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-[1550px] w-full mx-auto px-4 md:px-6 mt-5 mb-4">
+        <div class="title-block py-4 md:py-5 px-8 text-center shadow-sm rounded-2xl border-b-4 transition-colors duration-300">
+            <h2 class="title-text font-['Montserrat'] text-xl md:text-3xl font-black uppercase tracking-wider leading-tight">
+                CHI TIẾT TIN TỨC
+            </h2>
+        </div>
+    </div>
+
+    <div class="container-wrapper">
+        <div class="teal-wrapper space-y-6">
+            
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
+                <a href="tuyen-truyen.html" class="btn-back bg-white/50 backdrop-blur">⬅️ Quay lại Tin tức</a>
+                <div class="bg-slate-900/90 border border-slate-700 p-1 rounded-xl flex items-center shadow-md backdrop-blur">
+                    <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">Sáng</button>
+                    <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">Tối</button>
+                </div>
+            </div>
+
+            <div class="glass-panel p-6 md:p-10 lg:p-14">
+                
+                <div class="flex flex-wrap items-center gap-3 mb-6 border-b border-slate-300/30 pb-4">
+                    <span class="text-xs font-bold text-white bg-sky-600 px-3 py-1 rounded-md uppercase tracking-wider shadow-sm">Hoạt động Đoàn thể</span>
+                    <span class="text-xs font-medium text-dynamic-body flex items-center gap-1">
+                        📅 Khởi động: 16/06/2026
+                    </span>
+                    <span class="text-xs font-medium text-dynamic-body flex items-center gap-1">
+                        ✍️ Đăng bởi: Ban Tổ Chức
+                    </span>
+                </div>
+
+                <h1 class="text-2xl md:text-3xl lg:text-4xl font-black text-dynamic-title leading-tight mb-8 uppercase text-center">
+                    Xã Bình Hưng tổ chức Hội thi chùm ảnh Online "Bình Hưng Trong Trái Tim Tôi"
+                </h1>
+
+                <div class="w-full rounded-2xl overflow-hidden mb-8 shadow-md border border-slate-200/50 bg-white">
+                    <img src="images/anh-tin-1.jpg" alt="Poster Hội Thi" onerror="this.src='https://placehold.co/1200x600?text=Hinh+Anh+Hoi+Thi'" class="w-full h-auto object-cover max-h-[600px] hover:scale-105 transition-transform duration-700">
+                    <p class="text-center text-[10px] text-dynamic-body py-2 italic bg-slate-100/50 dark:bg-slate-900/50">Poster chính thức của Hội thi chùm ảnh online "Bình Hưng Trong Trái Tim Tôi".</p>
+                </div>
+
+                <div class="article-content text-sm md:text-base text-dynamic-body font-['Inter']">
+                    
+                    <p>Nhằm tôn vinh vẻ đẹp của quê hương, con người và sự phát triển không ngừng của địa phương, <strong>Xã Bình Hưng chính thức phát động Hội thi chùm ảnh online với chủ đề “BÌNH HƯNG TRONG TRÁI TIM TÔI”</strong>. Đây là cơ hội tuyệt vời để mỗi người dân tự hào thể hiện góc nhìn và tình cảm của mình dành cho mảnh đất nơi mình đang gắn bó.</p>
+
+                    <h3 class="text-sky-600 dark:text-sky-400">🎯 Đối tượng tham gia</h3>
+                    <p>Toàn bộ <strong>Công dân Việt Nam</strong> đang sinh sống, học tập và lao động trên địa bàn xã Bình Hưng.</p>
+
+                    <h3 class="text-sky-600 dark:text-sky-400">⏰ Thời gian nhận bài dự thi</h3>
+                    <p>Ban tổ chức bắt đầu nhận bài dự thi từ ngày <strong>16/6/2026</strong> đến <strong>18g00 ngày 15/7/2026</strong>.</p>
+
+                    <h3 class="text-sky-600 dark:text-sky-400">📜 Thể lệ hội thi</h3>
+                    <ul class="list-disc ml-6 space-y-3 mb-6">
+                        <li>Gửi dự thi một chùm ảnh gồm từ <strong>03 đến 05 ảnh</strong> được chụp trực tiếp tại xã Bình Hưng.</li>
+                        <li>Trong chùm ảnh, yêu cầu có <strong>ít nhất 01 ảnh</strong> chụp về chủ đề con người, văn hóa hoặc tôn giáo.</li>
+                        <li>Mỗi bài dự thi cần đính kèm một đoạn viết cảm nhận ngắn khoảng <strong>50 từ</strong> về tác phẩm của mình.</li>
+                        <li><strong>Lưu ý:</strong> Ảnh chụp phải được thực hiện trong khoảng thời gian từ <strong>25/5/2026 đến 15/7/2026</strong>.</li>
+                    </ul>
+
+                    <h3 class="text-amber-600 dark:text-amber-400">🏆 Cơ cấu giải thưởng</h3>
+                    <ul class="list-none space-y-3 mb-8 bg-amber-50 dark:bg-amber-900/10 p-5 rounded-xl border border-amber-200 dark:border-amber-700/30">
+                        <li class="font-bold text-lg">🥇 01 Giải Nhất: <span class="text-red-600 dark:text-red-400">3.000.000 đồng</span></li>
+                        <li class="font-bold text-lg">🥈 02 Giải Nhì: <span class="text-orange-600 dark:text-orange-400">2.000.000 đồng/giải</span></li>
+                        <li class="font-bold text-lg">🥉 02 Giải Ba: <span class="text-yellow-600 dark:text-yellow-400">1.000.000 đồng/giải</span></li>
+                        <li class="font-bold text-base">🎖️ 10 Giải Khuyến khích: <span class="text-slate-600 dark:text-slate-300">500.000 đồng/giải</span></li>
+                    </ul>
+
+                    <blockquote class="text-xl md:text-2xl font-black text-sky-700 dark:text-sky-400 uppercase tracking-wide">
+                        "Cùng lưu giữ và lan tỏa những hình ảnh đẹp về quê hương Bình Hưng!"
+                    </blockquote>
+                    
+                </div>
+
+                <div class="mt-12 pt-6 border-t border-slate-300/30 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="flex flex-wrap gap-2">
+                        <span class="text-[10px] font-bold text-slate-500 uppercase tracking-wider mr-2">Thẻ:</span>
+                        <a href="#" class="text-[10px] font-bold bg-slate-200/50 hover:bg-sky-100 text-sky-700 px-2 py-1 rounded transition">#HộiThiẢnh</a>
+                        <a href="#" class="text-[10px] font-bold bg-slate-200/50 hover:bg-sky-100 text-sky-700 px-2 py-1 rounded transition">#BìnhHưngTrongTráiTimTôi</a>
+                        <a href="#" class="text-[10px] font-bold bg-slate-200/50 hover:bg-sky-100 text-sky-700 px-2 py-1 rounded transition">#VănHóaXãHội</a>
+                    </div>
+                    
+                    <div class="flex gap-2">
+                        <button class="bg-blue-600 hover:bg-blue-700 text-white text-[10px] font-bold px-4 py-2 rounded-lg transition shadow-sm">👍 Chia sẻ Facebook</button>
+                        <button class="bg-sky-500 hover:bg-sky-600 text-white text-[10px] font-bold px-4 py-2 rounded-lg transition shadow-sm">🔗 Copy Link</button>
+                    </div>
+                </div>
+
+            </div>
+        </div> 
+    </div>
+
+    <footer class="w-full text-center py-6 text-dynamic-label font-bold text-[10px] uppercase tracking-[0.3em] border-t border-slate-900/10 dark:border-slate-900 bg-slate-950/5 dark:bg-slate-950/20 backdrop-blur-md mt-auto">
+        &copy; 2026 IOC Xã Bình Hưng — Hệ thống thông tin tuyên truyền và thông điệp cổ động số liên thông
+    </footer>
+
+    <script>
+        // Cấu hình Theme Header (Xanh / Đỏ)
+        window.switchSystemTheme = function(modeName) {
+            const body = document.getElementById('body-context');
+            const btnXanh = document.getElementById('btn-theme-xanh');
+            const btnDo = document.getElementById('btn-theme-do');
+            
+            if (modeName === 'do') {
+                body.classList.remove('theme-xanh-ios');
+                body.classList.add('theme-do-hanhchinh');
+                btnDo.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-red-600 text-white shadow-md";
+                btnXanh.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white";
+            } else {
+                body.classList.remove('theme-do-hanhchinh');
+                body.classList.add('theme-xanh-ios');
+                btnXanh.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md";
+                btnDo.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white";
+            }
+        }
+
+        // Engine hoán đổi giao diện Nền Trắng / Đen
+        window.setTheme = function(themeName) {
+            const body = document.getElementById('body-context');
+            const btnLight = document.getElementById('btn-theme-light');
+            const btnDark = document.getElementById('btn-theme-dark');
+
+            if(themeName === 'light') {
+                body.classList.remove('dark-theme');
+                body.classList.add('light-theme');
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-blue-900 text-sky-200 shadow-md border border-blue-700";
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-400 hover:text-blue-900";
+            } else {
+                body.classList.remove('light-theme');
+                body.classList.add('dark-theme');
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-sky-700 text-white shadow-md border border-sky-500";
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-400 hover:text-sky-400";
+            }
+        }
+
+        // Khởi tạo nền Trắng mặc định
+        document.addEventListener("DOMContentLoaded", () => {
+            setTheme('light');
+        });
+    </script>
+</body>
+</html>
