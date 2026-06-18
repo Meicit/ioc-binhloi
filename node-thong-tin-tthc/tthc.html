@@ -18,36 +18,42 @@
         body.dark-theme { background-color: #082f49; color: #e0f2fe; }
 
         /* ================= HEADER GRADIENT (SÁNG/TỐI/XANH/ĐỎ) ================= */
-        /* Chỉ áp dụng Xanh/Đỏ khi ở Theme Sáng */
         body.light-theme.theme-xanh-ios .main-header { background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d); background-size: 400% 400%; animation: gradientGIF 12s ease infinite; box-shadow: 0 4px 15px rgba(11, 74, 143, 0.15); border-bottom: 2px solid #032b5c; }
         body.light-theme.theme-do-hanhchinh .main-header { background: linear-gradient(-45deg, #dc2626, #7f1d1d, #ef4444, #450a0a); background-size: 400% 400%; animation: gradientGIF 12s ease infinite; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.15); border-bottom: 2px solid #991b1b; }
-
-        /* Khi ở Theme Tối: Header chuyển sang màu Tối chuyên biệt (Deep Navy) */
+        
+        /* Theme Tối chuyên dụng */
         body.dark-theme .main-header { background: linear-gradient(-45deg, #020617, #0f172a, #082f49, #020617); background-size: 400% 400%; animation: gradientGIF 12s ease infinite; box-shadow: 0 4px 15px rgba(8, 47, 73, 0.5); border-bottom: 2px solid #082f49; }
 
         @keyframes gradientGIF { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-        /* ẨN NÚT CHỌN XANH/ĐỎ KHI Ở THEME TỐI ĐỂ ĐỒNG BỘ UX */
+        /* ẨN NÚT CHỌN XANH/ĐỎ KHI Ở THEME TỐI */
         body.dark-theme .theme-selector-vertical { display: none !important; }
 
-        /* LOGO ANIMATION CHUYỂN ĐỘNG NHẸ */
+        /* LOGO ANIMATION */
         .logo-main { animation: float 4s ease-in-out infinite; }
         @keyframes float { 0%, 100% { transform: translateY(0); filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)); } 50% { transform: translateY(-3px); filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3)); } }
 
-        /* ================= KHỐI NỀN ĐỘNG BAO BỌC CHI CHÚT (XANH NGỌC HOẶC ĐỎ TƯƠI) ================= */
-        .menu-panel-wrapper { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 40px; width: 100%; padding: 45px 35px; transition: all 0.5s ease; }
+        /* ================= KHỐI NỀN ĐỘNG BAO BỌC CHÍNH ================= */
+        .menu-panel-wrapper { 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 32px; 
+            width: 100%; 
+            /* Thu hẹp padding-top để các nút sát lên trên hơn */
+            padding: 24px 32px 32px 32px; 
+            transition: all 0.5s ease; 
+        }
         
-        /* Nền Xanh / Đỏ chỉ áp dụng cho Theme Sáng */
+        /* Nền Xanh ngọc */
         body.light-theme.theme-xanh-ios .menu-panel-wrapper { background-color: rgba(128, 255, 232, 0.45); box-shadow: 0 20px 50px -10px rgba(12, 74, 110, 0.15); }
-        body.light-theme.theme-do-hanhchinh .menu-panel-wrapper { background-color: rgba(220, 38, 38, 0.85); box-shadow: 0 20px 50px -10px rgba(185, 28, 28, 0.4); border-color: rgba(239, 68, 68, 1); }
-        
+        /* Nền Đỏ Tươi rực rỡ */
+        body.light-theme.theme-do-hanhchinh .menu-panel-wrapper { background-color: rgba(239, 68, 68, 0.95); box-shadow: 0 20px 50px -10px rgba(185, 28, 28, 0.4); border-color: rgba(254, 202, 202, 0.8); }
         /* Nền Tối chuyên dụng */
         body.dark-theme .menu-panel-wrapper { background-color: rgba(8, 47, 73, 0.6); box-shadow: 0 20px 50px -10px rgba(8, 47, 73, 0.4); border-color: rgba(56, 189, 248, 0.2); }
 
         /* ĐỒNG BỘ MÀU BANNER TIÊU ĐỀ */
         .title-banner { transition: all 0.5s ease; }
-        body.light-theme.theme-xanh-ios .title-banner { background-color: #14b8a6; border-bottom-color: #0d9488; color: white; }
-        body.light-theme.theme-do-hanhchinh .title-banner { background-color: #ef4444; border-bottom-color: #b91c1c; color: white; }
+        body.light-theme.theme-xanh-ios .title-banner { background-color: #0ea5e9; border-bottom-color: #0284c7; color: white; }
+        body.light-theme.theme-do-hanhchinh .title-banner { background-color: #ef4444; border-bottom-color: #dc2626; color: white; }
         body.dark-theme .title-banner { background-color: rgba(15, 23, 42, 0.7); border-bottom-color: rgba(56, 189, 248, 0.5); color: #38bdf8; backdrop-filter: blur(10px); }
 
         /* KHUNG HIỂN THỊ NỘI DUNG CHÍNH */
@@ -57,28 +63,44 @@
 
         /* TAB BUTTONS */
         .tab-btn { border: 1px solid; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; padding: 12px 24px; border-radius: 12px; transition: all 0.2s; white-space: nowrap; }
-        body.light-theme .tab-btn { background: #ffffff; border-color: #e2e8f0; color: #1e3a8a; }
-        body.light-theme .tab-btn.active { background: #1e40af; color: white; border-color: #1e40af; }
+        
+        body.light-theme .tab-btn { background: #ffffff; border-color: #e2e8f0; }
+        body.light-theme.theme-xanh-ios .tab-btn { color: #1e3a8a; }
+        body.light-theme.theme-xanh-ios .tab-btn.active { background: #1e40af; color: white; border-color: #1e40af; }
+        
+        body.light-theme.theme-do-hanhchinh .tab-btn { color: #991b1b; }
+        body.light-theme.theme-do-hanhchinh .tab-btn.active { background: #991b1b; color: white; border-color: #991b1b; } /* Nút active màu đỏ đậm để nổi trên nền đỏ tươi */
+
         body.dark-theme .tab-btn { background: rgba(8, 47, 73, 0.6); border-color: rgba(56, 189, 248, 0.3); color: #38bdf8; }
         body.dark-theme .tab-btn.active { background: #0284c7; color: white; border-color: #38bdf8; }
 
         /* NÚT QUAY LẠI */
-        .btn-back { display: inline-flex; align-items: center; gap: 8px; border: 1px solid; padding: 10px 20px; border-radius: 12px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; }
-        body.light-theme .btn-back { background: #ffffff; border-color: #e2e8f0; color: #1e3a8a; }
-        body.light-theme .btn-back:hover { transform: translateY(-2px); border-color: #0ea5e9; color: #0ea5e9; }
-        body.dark-theme .btn-back { background: rgba(8, 47, 73, 0.6); border-color: rgba(56, 189, 248, 0.3); color: #38bdf8; }
-        body.dark-theme .btn-back:hover { transform: translateY(-2px); border-color: #7dd3fc; background: rgba(8, 47, 73, 0.9); }
+        .btn-back { display: inline-flex; align-items: center; gap: 8px; border: 1px solid; padding: 10px 20px; border-radius: 12px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; background: #ffffff; border-color: #e2e8f0; }
+        body.light-theme.theme-xanh-ios .btn-back { color: #1e3a8a; }
+        body.light-theme.theme-xanh-ios .btn-back:hover { transform: translateY(-2px); border-color: #0ea5e9; color: #0ea5e9; }
+        
+        body.light-theme.theme-do-hanhchinh .btn-back { color: #991b1b; }
+        body.light-theme.theme-do-hanhchinh .btn-back:hover { transform: translateY(-2px); border-color: #ef4444; color: #ef4444; }
 
-        /* ACCORDION TỐI ƯU DARK THEME */
+        body.dark-theme .btn-back { background: rgba(8, 47, 73, 0.6); border-color: rgba(56, 189, 248, 0.3); color: #38bdf8; }
+        body.dark-theme .btn-back:hover { transform: translateY(-2px); border-color: #7dd3fc; background: rgba(8, 47, 73, 0.9); color: white;}
+
+        /* ACCORDION (HƯỚNG DẪN) TỐI ƯU CẢ 3 THEMES BẰNG CSS */
         .acc-btn { transition: all 0.3s; }
-        body.light-theme .acc-btn { border-color: #e2e8f0; background: #ffffff; color: #1e3a8a; }
-        body.light-theme .acc-btn:hover { background: #f8fafc; }
-        body.light-theme .acc-content { background: #f8fafc; border-color: #f1f5f9; }
+        
+        body.light-theme.theme-xanh-ios .acc-btn { border-color: #e2e8f0; background: #ffffff; color: #1e3a8a; }
+        body.light-theme.theme-xanh-ios .acc-btn:hover { background: #f0f9ff; color: #0ea5e9; }
+        body.light-theme.theme-xanh-ios .acc-content { background: #f8fafc; border-color: #f1f5f9; }
+        
+        body.light-theme.theme-do-hanhchinh .acc-btn { border-color: #fecaca; background: #ffffff; color: #991b1b; }
+        body.light-theme.theme-do-hanhchinh .acc-btn:hover { background: #fef2f2; color: #e11d48; }
+        body.light-theme.theme-do-hanhchinh .acc-content { background: #fef2f2; border-color: #ffe4e6; }
+
         body.dark-theme .acc-btn { border-color: rgba(56, 189, 248, 0.3); background: rgba(8, 47, 73, 0.6); color: #38bdf8; }
         body.dark-theme .acc-btn:hover { background: rgba(8, 47, 73, 0.9); }
         body.dark-theme .acc-content { background: rgba(15, 23, 42, 0.5); border-color: rgba(56, 189, 248, 0.2); }
 
-        /* LOOKUP LINKS TỐI ƯU DARK THEME */
+        /* LOOKUP LINKS TỐI ƯU THEMES */
         .lookup-card { transition: all 0.3s; }
         body.light-theme .lookup-card { background: #ffffff; border-color: #e2e8f0; color: #1e3a8a; }
         body.light-theme .lookup-card:hover { border-color: #0ea5e9; background: #f0f9ff; }
@@ -96,12 +118,13 @@
             .header-layout { flex-direction: column !important; }
             .theme-selector-vertical { position: relative !important; top: 0 !important; right: 0 !important; margin-top: 16px; flex-direction: row !important; space-x: 2; width: auto !important; }
             .theme-selector-vertical button { margin-left: 4px; margin-right: 4px; }
-            .menu-panel-wrapper { padding: 25px 20px; }
+            .menu-panel-wrapper { padding: 20px 20px 24px; }
         }
     </style>
 </head>
 <body class="theme-xanh-ios light-theme custom-scrollbar" id="dynamic-body">
 
+    <!-- HEADER ĐỒNG BỘ CHỨA IOC BINH HUNG -->
     <header class="main-header w-full py-6 px-6 md:px-12 select-none relative transition-all duration-300">
         <div class="max-w-[1550px] mx-auto flex flex-col items-center justify-center relative header-layout">
             
@@ -119,6 +142,7 @@
                 </div>
             </div>
 
+            <!-- CHUYỂN ĐỔI THEME XANH / ĐỎ -->
             <div class="theme-selector-vertical lg:absolute lg:top-0 lg:right-0 bg-white/10 backdrop-blur-md border border-white/20 p-1.5 rounded-xl flex flex-col space-y-1.5 w-[75px] z-20 shadow-inner">
                 <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md">🔵 Xanh</button>
                 <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white">🔴 Đỏ</button>
@@ -137,14 +161,18 @@
 
     <div class="max-w-[1550px] w-full mx-auto px-4 md:px-6 my-2 pb-12 flex flex-col flex-grow">
 
-        <article class="menu-panel-wrapper flex flex-col space-y-6">
+        <!-- THU HẸP KHOẢNG CÁCH: space-y-4 -->
+        <article class="menu-panel-wrapper flex flex-col space-y-4">
             
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4 border-b border-white/40 pb-4">
+            <!-- THU HẸP KHOẢNG CÁCH: pb-3 -->
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 border-b border-white/40 pb-3">
+                <!-- CỤM NÚT ĐIỀU HƯỚNG BÊN TRÁI -->
                 <div class="flex flex-wrap items-center gap-3 w-full md:w-auto shrink-0">
                     <a href="../home.html" class="btn-back">
                         ⬅️ Quay lại Trang chủ
                     </a>
                     
+                    <!-- CỤM NÚT SÁNG TỐI -->
                     <div class="bg-blue-900/10 dark:bg-sky-500/10 border border-blue-200 dark:border-sky-500/20 p-1 rounded-xl flex items-center shadow-sm backdrop-blur">
                         <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-blue-900">☀️ Sáng</button>
                         <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-500 hover:text-blue-900 dark:text-sky-200 dark:hover:text-white">🌙 Tối</button>
@@ -160,7 +188,7 @@
 
             <div id="viewer-viewport" class="content-viewer-container custom-scrollbar"></div>
             
-            <p id="helper-text" class="text-center text-xs font-bold italic opacity-80">💡 Hướng dẫn: Xem hướng dẫn chi tiết hoặc bấm sang tab Tra cứu trực tuyến để thao tác.</p>
+            <p id="helper-text" class="text-center text-xs font-bold italic opacity-80 mt-2">💡 Hướng dẫn: Xem chi tiết phía trên hoặc bấm sang tab Tra cứu trực tuyến để thao tác.</p>
         </article>
         
     </div>
@@ -187,7 +215,7 @@
             }
         }
 
-        // HÀM CHUYỂN ĐỔI THEME SÁNG / TỐI KHÔNG DÙNG MÀU ĐEN
+        // HÀM CHUYỂN ĐỔI THEME SÁNG / TỐI TỔNG THỂ
         window.setTheme = function(themeName) {
             const body = document.getElementById('dynamic-body');
             const btnLight = document.getElementById('btn-theme-light');
@@ -213,7 +241,7 @@
             }
         }
 
-        // HÀM ĐỔI TAB NỘI DUNG TTHC CÓ THÍCH ỨNG THEME SÁNG/TỐI
+        // HÀM ĐỔI TAB NỘI DUNG TTHC
         function changeContent(type, sourceUrl, buttonElement) {
             const viewport = document.getElementById('viewer-viewport');
             const isDark = document.body.classList.contains('dark-theme');
@@ -237,12 +265,12 @@
                     const arrowIcon = isFirst ? '▲' : '▼';
 
                     html += `
-                        <div class="border rounded-xl overflow-hidden shadow-sm transition-all duration-300 acc-btn">
-                            <button onclick="toggleAccordion(${index + 1})" class="w-full flex justify-between items-center px-5 py-4 font-bold text-xs uppercase transition-colors">
+                        <div class="border rounded-xl overflow-hidden shadow-sm transition-all duration-300">
+                            <button onclick="toggleAccordion(${index + 1})" class="acc-btn w-full flex justify-between items-center px-5 py-4 font-bold text-xs uppercase transition-colors">
                                 ${index + 1}. ${title}
                                 <span id="arrow-${index + 1}" class="opacity-70 text-sm font-black">${arrowIcon}</span>
                             </button>
-                            <div id="content-${index + 1}" class="${hiddenClass} p-4 md:p-6 border-t acc-content transition-all">
+                            <div id="content-${index + 1}" class="${hiddenClass} acc-content p-4 md:p-6 border-t transition-all">
                                 <img src="hinh-anh/huongdan${index + 1}.png" alt="Hướng dẫn ${index + 1}" class="w-full h-auto rounded-xl shadow-sm border border-slate-200/60" onerror="this.onerror=null; this.src='https://via.placeholder.com/800x400.png?text=Hinh+Anh+Huong+Dan+Thu+Tuc+${index + 1}'">
                             </div>
                         </div>`;
@@ -321,7 +349,7 @@
 
         // KÍCH HOẠT KHI TẢI TRANG
         document.addEventListener('DOMContentLoaded', function() {
-            setTheme('light'); // Khởi tạo mặc định
+            setTheme('light'); // Khởi tạo mặc định Sáng
             const firstTab = document.querySelector('.tab-btn');
             if (firstTab) firstTab.click();
         });
