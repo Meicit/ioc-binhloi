@@ -11,14 +11,14 @@
         body {
             font-family: 'Inter', 'Be Vietnam Pro', sans-serif;
             margin: 0; padding: 0; min-height: 100vh;
-            background-color: #f8fafc; /* Nền phẳng xám trắng sạch sẽ đồng bộ home.html */
+            background-color: #f8fafc;
             color: #0f172a;
             display: flex;
             flex-direction: column;
             transition: background 0.4s ease, color 0.4s ease;
         }
 
-        /* ================= KỸ THUẬT NỀN ĐỘNG GRADIENT TẠI HEADER ĐỒNG BỘ HOME.HTML ================= */
+        /* ================= KỸ THUẬT NỀN ĐỘNG GRADIENT TẠI HEADER ================= */
         body.theme-xanh-ios .main-header {
             background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d);
             background-size: 400% 400%;
@@ -41,15 +41,36 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* KHỐI NỀN MÀU XANH NGỌC TRONG SUỐT ĐÃ ĐƯỢC MỞ RỘNG DIỆN TÍCH PHÍA DƯỚI */
+        /* ================= KHỐI NỘI DUNG HIỂN THỊ ĐỘNG THEO THEME ================= */
         .menu-panel-wrapper {
-            background-color: rgba(128, 255, 232, 0.45);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.6);
             border-radius: 40px;
-            box-shadow: 0 20px 50px -10px rgba(12, 74, 110, 0.15);
             width: 100%;
+            transition: all 0.5s ease; /* Chuyển màu mượt mà */
+        }
+
+        .theme-text {
+            transition: color 0.5s ease; /* Chuyển màu chữ tiêu đề mượt mà */
+        }
+
+        /* Khi ở Theme XANH */
+        body.theme-xanh-ios .menu-panel-wrapper {
+            background-color: rgba(128, 255, 232, 0.45); /* Màu xanh ngọc nguyên bản */
+            box-shadow: 0 20px 50px -10px rgba(12, 74, 110, 0.15);
+        }
+        body.theme-xanh-ios .theme-text {
+            color: #0b4a8f; /* Chữ tiêu đề xanh đậm */
+        }
+
+        /* Khi ở Theme ĐỎ */
+        body.theme-do-hanhchinh .menu-panel-wrapper {
+            background-color: rgba(254, 202, 202, 0.5); /* Màu đỏ nhạt / hồng phấn */
+            box-shadow: 0 20px 50px -10px rgba(153, 27, 27, 0.15); /* Bóng đổ chuyển sang tone đỏ */
+        }
+        body.theme-do-hanhchinh .theme-text {
+            color: #991b1b; /* Chữ tiêu đề chuyển sang đỏ sậm */
         }
 
         /* LOGO ANIMATION CHUYỂN ĐỘNG NHẸ */
@@ -85,12 +106,16 @@
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
-        /* Khi rê chuột: Nút di chuyển tịnh tiến mượt mà lên trên bên trái */
-        .btn-back-container:hover .btn-back-interactive {
+        /* Nút quay lại: Rê chuột đổi màu theo Theme */
+        body.theme-xanh-ios .btn-back-container:hover .btn-back-interactive {
             transform: translate(-6px, -4px);
-            border-color: #0b4a8f;
-            color: #0b4a8f;
+            border-color: #0b4a8f; color: #0b4a8f;
             box-shadow: 6px 6px 12px rgba(11, 74, 143, 0.15);
+        }
+        body.theme-do-hanhchinh .btn-back-container:hover .btn-back-interactive {
+            transform: translate(-6px, -4px);
+            border-color: #991b1b; color: #991b1b;
+            box-shadow: 6px 6px 12px rgba(153, 27, 27, 0.15);
         }
 
         @media (max-width: 1024px) {
@@ -109,11 +134,9 @@
         <div class="max-w-[1550px] mx-auto flex flex-col items-center justify-center relative header-layout">
             
             <div class="flex flex-row items-center space-x-6 w-auto">
-                
                 <div class="flex-shrink-0">
                     <img src="logo.png" alt="Logo" class="logo-main w-20 h-auto">
                 </div>
-                
                 <div class="flex flex-col items-start justify-center space-y-2 text-left">
                     <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-['Montserrat']">
                         IOC BINH HUNG
@@ -122,7 +145,6 @@
                         Cổng thông tin và điều hành xã Bình Hưng, Thành phố Hồ Chí Minh
                     </h1>
                 </div>
-                
             </div>
 
             <div class="theme-selector-vertical lg:absolute lg:top-0 lg:right-0 bg-white/10 backdrop-blur-md border border-white/20 p-1.5 rounded-xl flex flex-col space-y-1.5 w-[75px] z-20 shadow-inner">
@@ -150,13 +172,13 @@
         <article class="menu-panel-wrapper p-6 md:p-12 lg:p-16 space-y-12">
             
             <div class="text-center md:text-left border-b border-slate-900/10 pb-6">
-                <h1 class="text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-wide text-[#0b4a8f] font-['Montserrat'] drop-shadow-sm">
+                <h1 class="theme-text text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-wide font-['Montserrat'] drop-shadow-sm">
                     Giới thiệu chung về xã Bình Hưng
                 </h1>
             </div>
             
             <div class="space-y-4">
-                <h2 class="text-lg md:text-xl lg:text-2xl font-black uppercase tracking-wide text-[#0b4a8f] border-l-4 border-red-500 pl-4">
+                <h2 class="theme-text text-lg md:text-xl lg:text-2xl font-black uppercase tracking-wide border-l-4 border-red-500 pl-4">
                     Quá trình hình thành xã Bình Hưng
                 </h2>
                 <p class="text-sm md:text-base lg:text-lg font-bold text-slate-900 leading-relaxed md:leading-loose text-justify">
@@ -170,7 +192,7 @@
             </div>
 
             <div class="space-y-4">
-                <h2 class="text-lg md:text-xl lg:text-2xl font-black uppercase tracking-wide text-[#0b4a8f] border-l-4 border-red-500 pl-4">
+                <h2 class="theme-text text-lg md:text-xl lg:text-2xl font-black uppercase tracking-wide border-l-4 border-red-500 pl-4">
                     Đặc điểm tình hình
                 </h2>
                 <p class="text-sm md:text-base lg:text-lg font-bold text-slate-900 leading-relaxed md:leading-loose text-justify">
@@ -184,7 +206,7 @@
             </div>
 
             <div class="space-y-4">
-                <h2 class="text-lg md:text-xl lg:text-2xl font-black uppercase tracking-wide text-[#0b4a8f] border-l-4 border-red-500 pl-4">
+                <h2 class="theme-text text-lg md:text-xl lg:text-2xl font-black uppercase tracking-wide border-l-4 border-red-500 pl-4">
                     Động lực phát triển trong tương lai
                 </h2>
                 <p class="text-sm md:text-base lg:text-lg font-bold text-slate-900 leading-relaxed md:leading-loose text-justify">
