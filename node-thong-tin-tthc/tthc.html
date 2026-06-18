@@ -37,40 +37,31 @@
         .menu-panel-wrapper { 
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
             border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 32px; 
-            width: 100%; 
-            /* Thu hẹp padding-top để các nút sát lên trên hơn */
-            padding: 24px 32px 32px 32px; 
-            transition: all 0.5s ease; 
+            width: 100%; padding: 24px 32px 32px 32px; transition: all 0.5s ease; 
         }
         
-        /* Nền Xanh ngọc */
         body.light-theme.theme-xanh-ios .menu-panel-wrapper { background-color: rgba(128, 255, 232, 0.45); box-shadow: 0 20px 50px -10px rgba(12, 74, 110, 0.15); }
-        /* Nền Đỏ Tươi rực rỡ */
         body.light-theme.theme-do-hanhchinh .menu-panel-wrapper { background-color: rgba(239, 68, 68, 0.95); box-shadow: 0 20px 50px -10px rgba(185, 28, 28, 0.4); border-color: rgba(254, 202, 202, 0.8); }
-        /* Nền Tối chuyên dụng */
         body.dark-theme .menu-panel-wrapper { background-color: rgba(8, 47, 73, 0.6); box-shadow: 0 20px 50px -10px rgba(8, 47, 73, 0.4); border-color: rgba(56, 189, 248, 0.2); }
 
         /* ĐỒNG BỘ MÀU BANNER TIÊU ĐỀ */
         .title-banner { transition: all 0.5s ease; }
-        body.light-theme.theme-xanh-ios .title-banner { background-color: #0ea5e9; border-bottom-color: #0284c7; color: white; }
+        body.light-theme.theme-xanh-ios .title-banner { background-color: #14b8a6; border-bottom-color: #0d9488; color: white; }
         body.light-theme.theme-do-hanhchinh .title-banner { background-color: #ef4444; border-bottom-color: #dc2626; color: white; }
         body.dark-theme .title-banner { background-color: rgba(15, 23, 42, 0.7); border-bottom-color: rgba(56, 189, 248, 0.5); color: #38bdf8; backdrop-filter: blur(10px); }
 
         /* KHUNG HIỂN THỊ NỘI DUNG CHÍNH */
-        .content-viewer-container { width: 100%; height: 750px; border-radius: 20px; overflow-y: auto; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); border: 1px solid; transition: all 0.3s; }
+        .content-viewer-container { width: 100%; height: 750px; border-radius: 20px; overflow-y: auto; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); border: 1px solid; transition: all 0.3s; position: relative; }
         body.light-theme .content-viewer-container { background: #ffffff; border-color: rgba(14, 165, 233, 0.2); }
         body.dark-theme .content-viewer-container { background: rgba(15, 23, 42, 0.6); border-color: rgba(56, 189, 248, 0.3); }
 
         /* TAB BUTTONS */
         .tab-btn { border: 1px solid; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; padding: 12px 24px; border-radius: 12px; transition: all 0.2s; white-space: nowrap; }
-        
         body.light-theme .tab-btn { background: #ffffff; border-color: #e2e8f0; }
         body.light-theme.theme-xanh-ios .tab-btn { color: #1e3a8a; }
         body.light-theme.theme-xanh-ios .tab-btn.active { background: #1e40af; color: white; border-color: #1e40af; }
-        
         body.light-theme.theme-do-hanhchinh .tab-btn { color: #991b1b; }
-        body.light-theme.theme-do-hanhchinh .tab-btn.active { background: #991b1b; color: white; border-color: #991b1b; } /* Nút active màu đỏ đậm để nổi trên nền đỏ tươi */
-
+        body.light-theme.theme-do-hanhchinh .tab-btn.active { background: #991b1b; color: white; border-color: #991b1b; } 
         body.dark-theme .tab-btn { background: rgba(8, 47, 73, 0.6); border-color: rgba(56, 189, 248, 0.3); color: #38bdf8; }
         body.dark-theme .tab-btn.active { background: #0284c7; color: white; border-color: #38bdf8; }
 
@@ -78,24 +69,19 @@
         .btn-back { display: inline-flex; align-items: center; gap: 8px; border: 1px solid; padding: 10px 20px; border-radius: 12px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; background: #ffffff; border-color: #e2e8f0; }
         body.light-theme.theme-xanh-ios .btn-back { color: #1e3a8a; }
         body.light-theme.theme-xanh-ios .btn-back:hover { transform: translateY(-2px); border-color: #0ea5e9; color: #0ea5e9; }
-        
         body.light-theme.theme-do-hanhchinh .btn-back { color: #991b1b; }
         body.light-theme.theme-do-hanhchinh .btn-back:hover { transform: translateY(-2px); border-color: #ef4444; color: #ef4444; }
-
         body.dark-theme .btn-back { background: rgba(8, 47, 73, 0.6); border-color: rgba(56, 189, 248, 0.3); color: #38bdf8; }
         body.dark-theme .btn-back:hover { transform: translateY(-2px); border-color: #7dd3fc; background: rgba(8, 47, 73, 0.9); color: white;}
 
         /* ACCORDION (HƯỚNG DẪN) TỐI ƯU CẢ 3 THEMES BẰNG CSS */
         .acc-btn { transition: all 0.3s; }
-        
         body.light-theme.theme-xanh-ios .acc-btn { border-color: #e2e8f0; background: #ffffff; color: #1e3a8a; }
         body.light-theme.theme-xanh-ios .acc-btn:hover { background: #f0f9ff; color: #0ea5e9; }
         body.light-theme.theme-xanh-ios .acc-content { background: #f8fafc; border-color: #f1f5f9; }
-        
         body.light-theme.theme-do-hanhchinh .acc-btn { border-color: #fecaca; background: #ffffff; color: #991b1b; }
         body.light-theme.theme-do-hanhchinh .acc-btn:hover { background: #fef2f2; color: #e11d48; }
         body.light-theme.theme-do-hanhchinh .acc-content { background: #fef2f2; border-color: #ffe4e6; }
-
         body.dark-theme .acc-btn { border-color: rgba(56, 189, 248, 0.3); background: rgba(8, 47, 73, 0.6); color: #38bdf8; }
         body.dark-theme .acc-btn:hover { background: rgba(8, 47, 73, 0.9); }
         body.dark-theme .acc-content { background: rgba(15, 23, 42, 0.5); border-color: rgba(56, 189, 248, 0.2); }
@@ -127,7 +113,6 @@
     <!-- HEADER ĐỒNG BỘ CHỨA IOC BINH HUNG -->
     <header class="main-header w-full py-6 px-6 md:px-12 select-none relative transition-all duration-300">
         <div class="max-w-[1550px] mx-auto flex flex-col items-center justify-center relative header-layout">
-            
             <div class="flex flex-row items-center space-x-6 w-auto">
                 <div class="flex-shrink-0">
                     <img src="logo.png" alt="Logo" class="logo-main w-20 h-auto" onerror="this.src='logo.png'">
@@ -147,7 +132,6 @@
                 <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md">🔵 Xanh</button>
                 <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white">🔴 Đỏ</button>
             </div>
-            
         </div>
     </header>
 
@@ -161,18 +145,15 @@
 
     <div class="max-w-[1550px] w-full mx-auto px-4 md:px-6 my-2 pb-12 flex flex-col flex-grow">
 
-        <!-- THU HẸP KHOẢNG CÁCH: space-y-4 -->
         <article class="menu-panel-wrapper flex flex-col space-y-4">
             
-            <!-- THU HẸP KHOẢNG CÁCH: pb-3 -->
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 border-b border-white/40 pb-3">
-                <!-- CỤM NÚT ĐIỀU HƯỚNG BÊN TRÁI -->
+                <!-- CỤM NÚT ĐIỀU HƯỚNG BÊN TRÁI (QUAY LẠI & SÁNG/TỐI) -->
                 <div class="flex flex-wrap items-center gap-3 w-full md:w-auto shrink-0">
                     <a href="../home.html" class="btn-back">
                         ⬅️ Quay lại Trang chủ
                     </a>
                     
-                    <!-- CỤM NÚT SÁNG TỐI -->
                     <div class="bg-blue-900/10 dark:bg-sky-500/10 border border-blue-200 dark:border-sky-500/20 p-1 rounded-xl flex items-center shadow-sm backdrop-blur">
                         <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-blue-900">☀️ Sáng</button>
                         <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-500 hover:text-blue-900 dark:text-sky-200 dark:hover:text-white">🌙 Tối</button>
@@ -180,12 +161,16 @@
                 </div>
             </div>
             
+            <!-- MENU TABS: 2 TAB MỚI Ở ĐẦU -->
             <div class="flex flex-row gap-3 overflow-x-auto pb-2 custom-scrollbar">
+                <button onclick="changeContent('intro', '', this)" class="tab-btn shrink-0">🏛️ TT Phục vụ Hành chính công</button>
+                <button onclick="changeContent('qr-slider', '', this)" class="tab-btn shrink-0">📱 Mã QR TTHC</button>
                 <button onclick="changeContent('accordion-guide', '', this)" class="tab-btn shrink-0">📖 Hướng dẫn TTHC</button>
                 <button onclick="changeContent('pdf', 'danh-sach-tthc-2026-06-10-19-37.pdf', this)" class="tab-btn shrink-0">📦 Danh mục Thủ tục hành chính</button>
                 <button onclick="changeContent('lookup-links', '', this)" class="tab-btn shrink-0">🔍 Tra cứu trực tuyến</button>
             </div>
 
+            <!-- KHUNG HIỂN THỊ NỘI DUNG -->
             <div id="viewer-viewport" class="content-viewer-container custom-scrollbar"></div>
             
             <p id="helper-text" class="text-center text-xs font-bold italic opacity-80 mt-2">💡 Hướng dẫn: Xem chi tiết phía trên hoặc bấm sang tab Tra cứu trực tuyến để thao tác.</p>
@@ -198,6 +183,30 @@
     </footer>
 
     <script>
+        // TRÌNH QUẢN LÝ SLIDER ẢNH QR
+        let currentSlide = 1;
+        const totalSlides = 6;
+        
+        window.moveSlide = function(direction) {
+            currentSlide += direction;
+            if (currentSlide > totalSlides) currentSlide = 1;
+            if (currentSlide < 1) currentSlide = totalSlides;
+            
+            const imgEl = document.getElementById('qr-slide-img');
+            const counterEl = document.getElementById('slide-counter');
+            
+            if (imgEl && counterEl) {
+                // Hiệu ứng Fade out nhẹ
+                imgEl.style.opacity = 0.2;
+                setTimeout(() => {
+                    imgEl.src = `hinh-anh/ma_qr_tthc_${currentSlide}.jpg`;
+                    imgEl.alt = `Mã QR TTHC ${currentSlide}`;
+                    counterEl.innerText = `Hình ${currentSlide} / ${totalSlides}`;
+                    imgEl.style.opacity = 1;
+                }, 150);
+            }
+        };
+
         // HÀM CHUYỂN ĐỔI THEME HEADER (XANH / ĐỎ)
         window.switchSystemTheme = function(modeName) {
             const body = document.getElementById('dynamic-body');
@@ -215,7 +224,7 @@
             }
         }
 
-        // HÀM CHUYỂN ĐỔI THEME SÁNG / TỐI TỔNG THỂ
+        // HÀM CHUYỂN ĐỔI THEME SÁNG / TỐI KHÔNG DÙNG MÀU ĐEN
         window.setTheme = function(themeName) {
             const body = document.getElementById('dynamic-body');
             const btnLight = document.getElementById('btn-theme-light');
@@ -233,10 +242,12 @@
                 btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-sky-400 hover:text-sky-300";
             }
 
-            // Gọi lại hàm đổi nội dung Tab hiện tại để cập nhật màu chữ bên trong khối Nội dung sinh bằng JS
+            // Gọi lại hàm đổi nội dung Tab hiện tại để cập nhật màu chữ bên trong khối Nội dung
             const activeTabBtn = document.querySelector('.tab-btn.active');
             if(activeTabBtn) {
-                if(activeTabBtn.innerText.includes('Hướng dẫn')) changeContent('accordion-guide', '', activeTabBtn);
+                if(activeTabBtn.innerText.includes('TT Phục vụ Hành chính công')) changeContent('intro', '', activeTabBtn);
+                else if(activeTabBtn.innerText.includes('Mã QR')) changeContent('qr-slider', '', activeTabBtn);
+                else if(activeTabBtn.innerText.includes('Hướng dẫn')) changeContent('accordion-guide', '', activeTabBtn);
                 else if(activeTabBtn.innerText.includes('Tra cứu')) changeContent('lookup-links', '', activeTabBtn);
             }
         }
@@ -246,7 +257,53 @@
             const viewport = document.getElementById('viewer-viewport');
             const isDark = document.body.classList.contains('dark-theme');
             
-            if (type === 'accordion-guide') {
+            if (type === 'intro') {
+                // Tab 1: Giới thiệu TT Phục vụ Hành chính công
+                const textClass = isDark ? "text-sky-100" : "text-slate-700";
+                const titleClass = isDark ? "text-sky-400" : "text-[#0b4a8f]";
+                viewport.innerHTML = `
+                    <div class="p-6 md:p-12 flex flex-col items-center justify-start h-full space-y-8 overflow-y-auto">
+                        <div class="text-center mb-2">
+                            <h3 class="text-xl md:text-2xl lg:text-3xl font-black uppercase tracking-wide ${titleClass}">Trung tâm Phục vụ Hành chính công xã Bình Hưng</h3>
+                            <div class="h-1.5 w-24 bg-sky-500 mx-auto mt-4 rounded-full"></div>
+                        </div>
+                        <div class="max-w-4xl text-sm md:text-base leading-relaxed md:leading-loose text-justify font-medium ${textClass} space-y-5">
+                            <p>Trung tâm Phục vụ Hành chính công xã Bình Hưng được thành lập với mục tiêu đổi mới phương thức phục vụ nhân dân, lấy người dân và doanh nghiệp làm trung tâm. Trung tâm là đầu mối tập trung để tiếp nhận, hướng dẫn, giải quyết và trả kết quả giải quyết thủ tục hành chính, đảm bảo sự nhanh chóng, minh bạch và hiệu quả.</p>
+                            <p>Chúng tôi ứng dụng mạnh mẽ công nghệ thông tin, chuyển đổi số và liên thông dữ liệu nhằm cắt giảm thời gian chờ đợi, nâng cao tính công khai trong hoạt động của bộ máy hành chính nhà nước. Người dân có thể dễ dàng tra cứu, theo dõi tiến độ hồ sơ ngay trên các thiết bị di động.</p>
+                            <p>Với phương châm <span class="font-black text-sky-600 dark:text-sky-400">"Chuyên nghiệp - Tận tâm - Chính xác - Đúng hẹn"</span>, đội ngũ cán bộ, công chức của Trung tâm luôn sẵn sàng hỗ trợ, tư vấn và cam kết mang đến sự hài lòng cao nhất cho mọi tổ chức và công dân đến giao dịch.</p>
+                        </div>
+                    </div>
+                `;
+
+            } else if (type === 'qr-slider') {
+                // Tab 2: Slider Mã QR
+                currentSlide = 1; // reset về hình 1 mỗi khi mở tab
+                const titleClass = isDark ? "text-sky-400" : "text-[#0b4a8f]";
+                viewport.innerHTML = `
+                    <div class="w-full h-full flex flex-col items-center justify-start md:justify-center p-4 md:p-8 bg-slate-50/50 dark:bg-slate-900/30 relative">
+                        <h3 class="text-lg md:text-xl font-black uppercase tracking-wide mb-6 md:mb-8 text-center ${titleClass}">Quét Mã QR - Tra cứu nhanh Thủ tục Hành chính</h3>
+                        
+                        <div class="relative w-full max-w-3xl flex items-center justify-center">
+                            <!-- Nút Trái -->
+                            <button onclick="moveSlide(-1)" class="absolute -left-2 md:-left-12 z-10 w-10 h-10 md:w-12 md:h-12 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-full shadow-md hover:bg-sky-50 dark:hover:bg-slate-600 flex items-center justify-center text-xl text-sky-600 dark:text-sky-300 font-bold transition-transform hover:scale-110">❮</button>
+                            
+                            <!-- Khung Ảnh -->
+                            <div class="overflow-hidden relative w-full aspect-[4/5] md:aspect-video rounded-2xl shadow-inner border-[6px] border-white dark:border-slate-700 flex items-center justify-center bg-slate-100 dark:bg-slate-800">
+                                <img id="qr-slide-img" src="hinh-anh/ma_qr_tthc_1.jpg" alt="Mã QR TTHC 1" class="w-full h-full object-contain transition-opacity duration-300" onerror="this.src='https://via.placeholder.com/1200x800.png?text=Hinh+Anh+Ma+QR+TTHC+1'">
+                            </div>
+                            
+                            <!-- Nút Phải -->
+                            <button onclick="moveSlide(1)" class="absolute -right-2 md:-right-12 z-10 w-10 h-10 md:w-12 md:h-12 bg-white dark:bg-slate-700 border border-slate-200 dark:border-slate-600 rounded-full shadow-md hover:bg-sky-50 dark:hover:bg-slate-600 flex items-center justify-center text-xl text-sky-600 dark:text-sky-300 font-bold transition-transform hover:scale-110">❯</button>
+                        </div>
+
+                        <!-- Đếm số -->
+                        <div class="mt-8">
+                            <span id="slide-counter" class="bg-blue-900/10 dark:bg-sky-500/20 text-blue-800 dark:text-sky-200 px-5 py-2 rounded-full text-sm font-bold border border-blue-200 dark:border-sky-500/30 shadow-sm tracking-wider">HÌNH 1 / 6</span>
+                        </div>
+                    </div>
+                `;
+
+            } else if (type === 'accordion-guide') {
                 const guides = [
                     "HƯỚNG DẪN ĐĂNG NHẬP CỔNG DỊCH VỤ CÔNG QUỐC GIA",
                     "ĐĂNG KÝ KHAI SINH",
@@ -265,13 +322,13 @@
                     const arrowIcon = isFirst ? '▲' : '▼';
 
                     html += `
-                        <div class="border rounded-xl overflow-hidden shadow-sm transition-all duration-300">
-                            <button onclick="toggleAccordion(${index + 1})" class="acc-btn w-full flex justify-between items-center px-5 py-4 font-bold text-xs uppercase transition-colors">
-                                ${index + 1}. ${title}
-                                <span id="arrow-${index + 1}" class="opacity-70 text-sm font-black">${arrowIcon}</span>
+                        <div class="border rounded-xl overflow-hidden shadow-sm transition-all duration-300 acc-btn">
+                            <button onclick="toggleAccordion(${index + 1})" class="w-full flex justify-between items-center px-5 py-4 font-bold text-xs uppercase transition-colors text-left">
+                                <span class="mr-4 leading-relaxed">${index + 1}. ${title}</span>
+                                <span id="arrow-${index + 1}" class="opacity-70 text-sm font-black shrink-0">${arrowIcon}</span>
                             </button>
                             <div id="content-${index + 1}" class="${hiddenClass} acc-content p-4 md:p-6 border-t transition-all">
-                                <img src="hinh-anh/huongdan${index + 1}.png" alt="Hướng dẫn ${index + 1}" class="w-full h-auto rounded-xl shadow-sm border border-slate-200/60" onerror="this.onerror=null; this.src='https://via.placeholder.com/800x400.png?text=Hinh+Anh+Huong+Dan+Thu+Tuc+${index + 1}'">
+                                <img src="hinh-anh/huongdan${index + 1}.png" alt="Hướng dẫn ${index + 1}" class="w-full h-auto rounded-xl shadow-sm border border-slate-200/60 dark:border-slate-600" onerror="this.onerror=null; this.src='https://via.placeholder.com/800x400.png?text=Hinh+Anh+Huong+Dan+Thu+Tuc+${index + 1}'">
                             </div>
                         </div>`;
                 });
@@ -347,9 +404,9 @@
             }
         };
 
-        // KÍCH HOẠT KHI TẢI TRANG
+        // KÍCH HOẠT KHI TẢI TRANG (Mặc định chọn tab Intro đầu tiên)
         document.addEventListener('DOMContentLoaded', function() {
-            setTheme('light'); // Khởi tạo mặc định Sáng
+            setTheme('light'); 
             const firstTab = document.querySelector('.tab-btn');
             if (firstTab) firstTab.click();
         });
