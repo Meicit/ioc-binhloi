@@ -239,7 +239,7 @@
                 btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-sky-400 hover:text-sky-300";
             }
 
-            // Gọi lại hàm đổi nội dung Tab hiện tại để cập nhật màu chữ bên trong khối Nội dung
+            // Gọi lại hàm đổi nội dung Tab hiện tại để cập nhật màu chữ bên trong khối Nội dung sinh bằng JS
             const activeTabBtn = document.querySelector('.tab-btn.active');
             if(activeTabBtn) {
                 if(activeTabBtn.innerText.includes('TT Phục vụ Hành chính công')) changeContent('intro', '', activeTabBtn);
@@ -249,7 +249,7 @@
             }
         }
 
-        // HÀM ĐỔI TAB NỘI DUNG TTHC
+        // HÀM ĐỔI TAB NỘI DUNG TTHC CÓ THÍCH ỨNG THEME SÁNG/TỐI
         function changeContent(type, sourceUrl, buttonElement) {
             const viewport = document.getElementById('viewer-viewport');
             const isDark = document.body.classList.contains('dark-theme');
@@ -275,7 +275,7 @@
                 currentSlide = 1; 
                 const titleClass = isDark ? "text-sky-400" : "text-[#0b4a8f]";
                 viewport.innerHTML = `
-                    <div class="w-full h-full flex flex-col items-center justify-start md:justify-center p-4 md:p-8 relative">
+                    <div class="w-full h-full flex flex-col items-center justify-start p-6 md:p-10 relative">
                         <h3 class="text-lg md:text-xl font-black uppercase tracking-wide mb-6 md:mb-8 text-center ${titleClass}">Quét Mã QR - Tra cứu nhanh Thủ tục Hành chính</h3>
                         
                         <div class="relative w-full max-w-3xl flex items-center justify-center">
@@ -397,9 +397,9 @@
             }
         };
 
-        // KÍCH HOẠT KHI TẢI TRANG (Mặc định chọn tab Intro đầu tiên)
+        // KÍCH HOẠT KHI TẢI TRANG
         document.addEventListener('DOMContentLoaded', function() {
-            setTheme('light'); 
+            setTheme('light'); // Khởi tạo mặc định Sáng
             const firstTab = document.querySelector('.tab-btn');
             if (firstTab) firstTab.click();
         });
