@@ -239,7 +239,7 @@
                 btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-sky-400 hover:text-sky-300";
             }
 
-            // Cập nhật nội dung hiển thị
+            // Gọi lại hàm đổi nội dung Tab hiện tại để cập nhật màu chữ bên trong khối Nội dung
             const activeTabBtn = document.querySelector('.tab-btn.active');
             if(activeTabBtn) {
                 if(activeTabBtn.innerText.includes('TT Phục vụ Hành chính công')) changeContent('intro', '', activeTabBtn);
@@ -302,8 +302,10 @@
                     "THỦ TỤC ĐĂNG KÝ KHAI TỬ",
                     "QUY TRÌNH CHỨNG THỰC BẢN SAO ĐIỆN TỬ TOÀN TRÌNH",
                     "QUY TRÌNH THỰC HIỆN THỦ TỤC HÀNH CHÍNH CUNG CẤP THÔNG TIN QUY HOẠCH TRỰC TUYẾN TOÀN TRÌNH",
-                    "HỖ TRỢ SINH ĐỦ 02 CON TRƯỚC 35 TUỔI",
-                    "HƯỚNG DẪN TRA CỨU BẢO HIỂM Y TẾ"
+                    "QUY TRÌNH CẤP PHÉP XÂY DỰNG TRỰC TUYẾN",
+                    "HƯỚNG DẪN TRA CỨU BẢO HIỂM Y TẾ",
+                    "QUY TRÌNH CẤP GIẤY ĐĂNG KÝ HỘ KINH DOANH",
+                    "QUY TRÌNH CẤP GIẤY CHỨNG NHẬN QUYỀN SỬ DỤNG ĐẤT, QUYỀN SỞ HỮU NHÀ Ở VÀ TÀI SẢN GẮN LIỀN VỚI ĐẤT (LẦN ĐẦU)"
                 ];
 
                 let html = `<div class="p-6 space-y-4">`;
@@ -395,9 +397,9 @@
             }
         };
 
-        // KÍCH HOẠT KHI TẢI TRANG
+        // KÍCH HOẠT KHI TẢI TRANG (Mặc định chọn tab Intro đầu tiên)
         document.addEventListener('DOMContentLoaded', function() {
-            setTheme('light'); // Khởi tạo mặc định Sáng
+            setTheme('light'); 
             const firstTab = document.querySelector('.tab-btn');
             if (firstTab) firstTab.click();
         });
