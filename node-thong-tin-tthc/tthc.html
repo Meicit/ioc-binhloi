@@ -43,19 +43,13 @@
         }
         
         body.light-theme.theme-xanh-ios .menu-panel-wrapper { background-color: rgba(128, 255, 232, 0.45); box-shadow: 0 20px 50px -10px rgba(12, 74, 110, 0.15); }
-        
-        /* Ép nền đỏ cờ tươi rực, chống xỉn màu */
         body.light-theme.theme-do-hanhchinh .menu-panel-wrapper { background-color: rgba(218, 37, 29, 0.95); box-shadow: 0 20px 50px -10px rgba(168, 28, 21, 0.4); border-color: rgba(255, 255, 255, 0.8); }
-        
         body.dark-theme .menu-panel-wrapper { background-color: rgba(8, 47, 73, 0.6); box-shadow: 0 20px 50px -10px rgba(8, 47, 73, 0.4); border-color: rgba(56, 189, 248, 0.2); }
 
         /* ĐỒNG BỘ MÀU BANNER TIÊU ĐỀ */
         .title-banner { transition: all 0.5s ease; }
         body.light-theme.theme-xanh-ios .title-banner { background-color: #14b8a6; border-bottom-color: #0d9488; color: white; }
-        
-        /* Banner Tiêu đề: Đỏ Cờ */
         body.light-theme.theme-do-hanhchinh .title-banner { background-color: #da251d; border-bottom-color: #a81c15; color: white; }
-        
         body.dark-theme .title-banner { background-color: rgba(15, 23, 42, 0.7); border-bottom-color: rgba(56, 189, 248, 0.5); color: #38bdf8; backdrop-filter: blur(10px); }
 
         /* KHUNG HIỂN THỊ NỘI DUNG CHÍNH */
@@ -68,11 +62,8 @@
         body.light-theme .tab-btn { background: #ffffff; border-color: #e2e8f0; }
         body.light-theme.theme-xanh-ios .tab-btn { color: #1e3a8a; }
         body.light-theme.theme-xanh-ios .tab-btn.active { background: #1e40af; color: white; border-color: #1e40af; }
-        
-        /* Tab Button: Đỏ Cờ */
         body.light-theme.theme-do-hanhchinh .tab-btn { color: #da251d; border-color: #fca5a5; }
         body.light-theme.theme-do-hanhchinh .tab-btn.active { background: #da251d; color: white; border-color: #da251d; } 
-        
         body.dark-theme .tab-btn { background: rgba(8, 47, 73, 0.6); border-color: rgba(56, 189, 248, 0.3); color: #38bdf8; }
         body.dark-theme .tab-btn.active { background: #0284c7; color: white; border-color: #38bdf8; }
 
@@ -80,11 +71,8 @@
         .btn-back { display: inline-flex; align-items: center; gap: 8px; border: 1px solid; padding: 10px 20px; border-radius: 12px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; background: #ffffff; border-color: #e2e8f0; }
         body.light-theme.theme-xanh-ios .btn-back { color: #1e3a8a; }
         body.light-theme.theme-xanh-ios .btn-back:hover { transform: translateY(-2px); border-color: #0ea5e9; color: #0ea5e9; }
-        
-        /* Nút quay lại: Đỏ Cờ */
         body.light-theme.theme-do-hanhchinh .btn-back { color: #da251d; border-color: #fca5a5; }
         body.light-theme.theme-do-hanhchinh .btn-back:hover { transform: translateY(-2px); border-color: #da251d; color: #da251d; }
-        
         body.dark-theme .btn-back { background: rgba(8, 47, 73, 0.6); border-color: rgba(56, 189, 248, 0.3); color: #38bdf8; }
         body.dark-theme .btn-back:hover { transform: translateY(-2px); border-color: #7dd3fc; background: rgba(8, 47, 73, 0.9); color: white;}
 
@@ -93,12 +81,9 @@
         body.light-theme.theme-xanh-ios .acc-btn { border-color: #e2e8f0; background: #ffffff; color: #1e3a8a; }
         body.light-theme.theme-xanh-ios .acc-btn:hover { background: #f0f9ff; color: #0ea5e9; }
         body.light-theme.theme-xanh-ios .acc-content { background: #f8fafc; border-color: #f1f5f9; }
-        
-        /* Accordion: Đỏ Cờ */
         body.light-theme.theme-do-hanhchinh .acc-btn { border-color: #fecaca; background: #ffffff; color: #da251d; }
         body.light-theme.theme-do-hanhchinh .acc-btn:hover { background: #fef2f2; color: #a81c15; }
         body.light-theme.theme-do-hanhchinh .acc-content { background: #fef2f2; border-color: #ffe4e6; }
-        
         body.dark-theme .acc-btn { border-color: rgba(56, 189, 248, 0.3); background: rgba(8, 47, 73, 0.6); color: #38bdf8; }
         body.dark-theme .acc-btn:hover { background: rgba(8, 47, 73, 0.9); }
         body.dark-theme .acc-content { background: rgba(15, 23, 42, 0.5); border-color: rgba(56, 189, 248, 0.2); }
@@ -127,9 +112,9 @@
 </head>
 <body class="theme-xanh-ios light-theme custom-scrollbar" id="dynamic-body">
 
+    <!-- HEADER ĐỒNG BỘ CHỨA IOC BINH HUNG -->
     <header class="main-header w-full py-6 px-6 md:px-12 select-none relative transition-all duration-300">
         <div class="max-w-[1550px] mx-auto flex flex-col items-center justify-center relative header-layout">
-            
             <div class="flex flex-row items-center space-x-6 w-auto">
                 <div class="flex-shrink-0">
                     <img src="logo.png" alt="Logo" class="logo-main w-20 h-auto" onerror="this.src='logo.png'">
@@ -144,11 +129,11 @@
                 </div>
             </div>
 
+            <!-- CHUYỂN ĐỔI THEME XANH / ĐỎ -->
             <div class="theme-selector-vertical lg:absolute lg:top-0 lg:right-0 bg-white/10 backdrop-blur-md border border-white/20 p-1.5 rounded-xl flex flex-col space-y-1.5 w-[75px] z-20 shadow-inner">
                 <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md">🔵 Xanh</button>
                 <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white">🔴 Đỏ</button>
             </div>
-            
         </div>
     </header>
 
@@ -185,6 +170,7 @@
                 <button onclick="changeContent('lookup-links', '', this)" class="tab-btn shrink-0">🌐 Cổng DVC Trực tuyến</button>
             </div>
 
+            <!-- CONTAINER HIỂN THỊ NỘI DUNG TỪ JAVASCRIPT -->
             <div id="viewer-viewport" class="content-viewer-container custom-scrollbar"></div>
             
             <p id="helper-text" class="text-center text-xs font-bold italic opacity-80 mt-2">💡 Hướng dẫn: Xem chi tiết phía trên hoặc bấm các tab chức năng để thao tác.</p>
@@ -443,7 +429,7 @@
                             <div class="h-1.5 w-16 ${lineClass} mx-auto mt-4 rounded-full"></div>
                         </div>
                         
-                        <div class="w-full max-w-4xl flex flex-col md:flex-row gap-3 mb-8">
+                        <div class="w-full max-w-4xl flex flex-col md:flex-row gap-3 mb-4">
                             <div class="relative flex-1">
                                 <span class="absolute left-4 top-3.5 text-slate-400">🔍</span>
                                 <input type="text" id="searchInput" placeholder="Nhập mã số (VD: 3.000580) hoặc tên thủ tục..." 
@@ -454,9 +440,18 @@
                                 TÌM KIẾM
                             </button>
                         </div>
+
+                        <!-- KHỐI THÔNG BÁO NỔI BẬT -->
+                        <div class="w-full max-w-4xl mb-6 p-4 rounded-xl border border-amber-300 bg-amber-50 dark:bg-amber-900/20 dark:border-amber-700/50 flex items-start gap-3 shadow-sm">
+                            <span class="text-xl shrink-0 mt-0.5">💡</span>
+                            <p class="text-sm font-semibold text-amber-800 dark:text-amber-200 leading-relaxed text-justify md:text-left">
+                                Người dân có thể sử dụng <span class="font-black underline decoration-amber-400">Mã TTHC</span> tìm được, sau đó truy cập vào <a href="https://dichvucong.gov.vn/" target="_blank" class="font-black text-blue-600 dark:text-sky-400 hover:text-blue-800 dark:hover:text-sky-300 hover:underline transition-colors">Cổng dịch vụ công Quốc gia (https://dichvucong.gov.vn/)</a> để tìm kiếm và nộp hồ sơ.
+                            </p>
+                        </div>
                         
                         <div id="searchResults" class="w-full max-w-4xl flex-1 overflow-y-auto space-y-3 custom-scrollbar pr-2 pb-4">
-                            </div>
+                            <!-- Kết quả sẽ render tại đây -->
+                        </div>
                     </div>
                 `;
                 
