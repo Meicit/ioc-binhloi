@@ -106,9 +106,9 @@
         /* LOOKUP LINKS TỐI ƯU THEMES */
         .lookup-card { transition: all 0.3s; }
         body.light-theme .lookup-card { background: #ffffff; border-color: #e2e8f0; color: #1e3a8a; }
-        body.light-theme .lookup-card:hover { border-color: #0ea5e9; background: #f0f9ff; }
+        body.light-theme .lookup-card:hover { transform: translateY(-4px); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.1); }
         body.dark-theme .lookup-card { background: rgba(8, 47, 73, 0.6); border-color: rgba(56, 189, 248, 0.3); color: #e0f2fe; }
-        body.dark-theme .lookup-card:hover { border-color: #38bdf8; background: rgba(8, 47, 73, 0.9); }
+        body.dark-theme .lookup-card:hover { transform: translateY(-4px); border-color: #38bdf8; background: rgba(8, 47, 73, 0.9); box-shadow: 0 10px 25px -5px rgba(0,0,0,0.4); }
 
         /* SCROLLBAR */
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
@@ -273,7 +273,7 @@
             renderResults(exactResults.slice(0, 100), resultsContainer, cardClass, codeClass, exactResults.length);
         }
 
-        // HÀM HIỂN THỊ KẾT QUẢ TÌM KIẾM
+        // HÀM HIỂN THỊ KẾT QUẢ TÌM KIẾM CÓ CHỨC NĂNG SAO CHÉP
         function renderResults(data, container, cardClass, codeClass, totalFound = null) {
             if (data.length === 0) {
                 container.innerHTML = `<p class="text-center text-red-500 font-bold mt-10">Không tìm thấy kết quả phù hợp cho từ khóa của bạn.</p>`;
@@ -287,8 +287,13 @@
 
             container.innerHTML = extraInfo + data.map(item => `
                 <div class="p-4 rounded-xl border ${cardClass} flex flex-col md:flex-row gap-4 items-start md:items-center hover:-translate-y-0.5 transition-transform duration-200">
-                    <div class="shrink-0 px-3 py-1.5 rounded-lg font-black text-sm tracking-wider ${codeClass}">
-                        ${item["Mã số"]}
+                    <div class="shrink-0 flex flex-col gap-2 w-full md:w-32">
+                        <div class="px-3 py-1.5 rounded-lg font-black text-sm tracking-wider ${codeClass} text-center">
+                            ${item["Mã số"]}
+                        </div>
+                        <button onclick="copyToClipboard('${item["Mã số"]}', this)" class="text-[10px] bg-slate-100 hover:bg-slate-200 dark:bg-slate-700 dark:hover:bg-slate-600 text-slate-600 dark:text-slate-300 font-bold py-1.5 px-2 rounded-lg flex items-center justify-center gap-1 transition-colors border border-slate-200 dark:border-slate-600">
+                            <span>📋</span> Sao chép
+                        </button>
                     </div>
                     <div class="font-medium text-sm leading-relaxed flex-1">
                         ${item["Nội dung"]}
@@ -296,6 +301,23 @@
                 </div>
             `).join('');
         }
+
+        // HÀM COPY MÃ SỐ VÀO CLIPBOARD
+        window.copyToClipboard = function(text, buttonElement) {
+            navigator.clipboard.writeText(text).then(() => {
+                const originalHTML = buttonElement.innerHTML;
+                buttonElement.innerHTML = `<span class="text-xs">✅</span> Đã chép`;
+                buttonElement.classList.add('text-emerald-600', 'dark:text-emerald-400', 'border-emerald-300', 'dark:border-emerald-500', 'bg-emerald-50', 'dark:bg-emerald-900/30');
+                
+                setTimeout(() => {
+                    buttonElement.innerHTML = originalHTML;
+                    buttonElement.classList.remove('text-emerald-600', 'dark:text-emerald-400', 'border-emerald-300', 'dark:border-emerald-500', 'bg-emerald-50', 'dark:bg-emerald-900/30');
+                }, 2000);
+            }).catch(err => {
+                console.error('Lỗi khi sao chép: ', err);
+                alert('Không thể sao chép mã số.');
+            });
+        };
 
         // TRÌNH QUẢN LÝ SLIDER ẢNH QR
         let currentSlide = 1;
