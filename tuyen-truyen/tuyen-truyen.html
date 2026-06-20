@@ -5,95 +5,139 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thông tin Tuyên truyền - Xã Bình Hưng</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    
     <style>
-        /* QUẢN LÝ MÀU CHỮ VÀ NỀN CHO CHẾ ĐỘ TỐI (DARK THEME) */
-        body.dark-theme {
-            background-color: #0f172a;
-            color: #38bdf8;
-        }
-        body.dark-theme .text-dynamic-title { color: #00f0ff; }
-        body.dark-theme .text-dynamic-body { color: #93c5fd; }
-        body.dark-theme .text-dynamic-label { color: #fbbf24; }
-        body.dark-theme .glass-panel { background: rgba(15, 23, 42, 0.75); border-color: rgba(56, 189, 248, 0.2); }
-        body.dark-theme .btn-switcher-active { background: #0369a1; color: #00f0ff; border-color: #00f0ff; }
-        body.dark-theme .list-item-hover:hover { background: rgba(56, 189, 248, 0.1); }
-        body.dark-theme .title-block { background-color: rgba(30, 58, 138, 0.7); border-color: #2563eb; }
-        body.dark-theme .title-text { color: #93c5fd; }
-        body.dark-theme .teal-wrapper { background-color: rgba(20, 184, 166, 0.05); border: 1px solid rgba(20, 184, 166, 0.2); box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5); }
-
-        /* QUẢN LÝ MÀU CHỮ VÀ NỀN CHO CHẾ ĐỘ SÁNG (LIGHT THEME) */
-        body.light-theme {
-            background-color: #f8fafc;
-            color: #0b4a8f;
-        }
-        body.light-theme .text-dynamic-title { color: #031b4e; }
-        body.light-theme .text-dynamic-body { color: #1e3a8a; }
-        body.light-theme .text-dynamic-label { color: #b45309; }
-        body.light-theme .glass-panel { background: rgba(255, 255, 255, 0.95); border-color: rgba(11, 74, 143, 0.15); box-shadow: 0 10px 30px -10px rgba(12, 74, 110, 0.1); }
-        body.light-theme .btn-switcher-active { background: #0b4a8f; color: #bfdbfe; border-color: #0b4a8f; box-shadow: 0 2px 8px rgba(11, 74, 143, 0.2); }
-        body.light-theme .list-item-hover:hover { background: rgba(11, 74, 143, 0.05); }
-        body.light-theme .title-block { background-color: #bfdbfe; border-color: #60a5fa; }
-        body.light-theme .title-text { color: #1e3a8a; }
-        body.light-theme .teal-wrapper { background-color: rgba(20, 184, 166, 0.12); border: 1px solid rgba(20, 184, 166, 0.3); box-shadow: 0 20px 40px -15px rgba(20, 184, 166, 0.2); }
-
-        /* CSS CHUNG */
-        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s, color 0.3s; }
-        .container-wrapper { max-width: 1550px; margin: 0 auto 30px auto; padding: 0 24px; width: 100%; }
-        .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; transition: all 0.3s; }
+        /* ================= QUẢN LÝ MÀU NỀN & THEME TỔNG THỂ ================= */
+        body { font-family: 'Inter', 'Be Vietnam Pro', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background 0.4s ease, color 0.4s ease; }
         
-        /* Cấu hình khối xanh ngọc bích */
-        .teal-wrapper {
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-radius: 36px;
-            padding: 24px;
-            transition: all 0.4s ease;
-        }
-        @media (min-width: 768px) {
-            .teal-wrapper { padding: 36px; }
-        }
+        /* THEME SÁNG (MẶC ĐỊNH) */
+        body.light-theme { background-color: #f8fafc; color: #1e3a8a; }
+        
+        /* THEME TỐI (UNIFIED DARK MODE - KHÔNG DÙNG MÀU ĐEN) */
+        body.dark-theme { background-color: #082f49; color: #e0f2fe; }
 
-        /* HEADER DYNAMIC ĐỒNG BỘ HOME.HTML */
-        .main-header { background-size: 400% 400%; animation: gradientGIF 12s ease infinite; }
-        body.theme-xanh-ios .main-header { background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d); border-bottom: 2px solid #032b5c; box-shadow: 0 4px 15px rgba(11, 74, 143, 0.15); }
-        body.theme-do-hanhchinh .main-header { background: linear-gradient(-45deg, #dc2626, #7f1d1d, #ef4444, #450a0a); border-bottom: 2px solid #991b1b; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.15); }
+        /* ================= HEADER GRADIENT (SÁNG/TỐI/XANH/ĐỎ) ================= */
+        body.light-theme.theme-xanh-ios .main-header { background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d); background-size: 400% 400%; animation: gradientGIF 12s ease infinite; box-shadow: 0 4px 15px rgba(11, 74, 143, 0.15); border-bottom: 2px solid #032b5c; }
+        
+        /* Chuyển sang dải gradient Đỏ Cờ chuẩn (#da251d) rực rỡ */
+        body.light-theme.theme-do-hanhchinh .main-header { background: linear-gradient(-45deg, #da251d, #a81c15, #ff3b33, #7a120e); background-size: 400% 400%; animation: gradientGIF 12s ease infinite; box-shadow: 0 4px 15px rgba(218, 37, 29, 0.3); border-bottom: 2px solid #a81c15; }
+        
+        /* Theme Tối chuyên dụng */
+        body.dark-theme .main-header { background: linear-gradient(-45deg, #020617, #0f172a, #082f49, #020617); background-size: 400% 400%; animation: gradientGIF 12s ease infinite; box-shadow: 0 4px 15px rgba(8, 47, 73, 0.5); border-bottom: 2px solid #082f49; }
+
         @keyframes gradientGIF { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        /* ẨN NÚT CHỌN XANH/ĐỎ KHI Ở THEME TỐI */
+        body.dark-theme .theme-selector-vertical { display: none !important; }
+
+        /* LOGO ANIMATION */
         .logo-main { animation: float 4s ease-in-out infinite; }
         @keyframes float { 0%, 100% { transform: translateY(0); filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)); } 50% { transform: translateY(-3px); filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3)); } }
 
-        /* Cấu trúc Slider hình ảnh */
-        .slider-container { position: relative; width: 100%; height: 380px; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3); }
+        /* ================= KHỐI NỀN ĐỘNG BAO BỌC CHÍNH ================= */
+        .menu-panel-wrapper { 
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
+            border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 32px; 
+            width: 100%; padding: 24px 32px 32px 32px; transition: all 0.5s ease; 
+        }
+        
+        body.light-theme.theme-xanh-ios .menu-panel-wrapper { background-color: rgba(128, 255, 232, 0.45); box-shadow: 0 20px 50px -10px rgba(12, 74, 110, 0.15); }
+        body.light-theme.theme-do-hanhchinh .menu-panel-wrapper { background-color: rgba(218, 37, 29, 0.95); box-shadow: 0 20px 50px -10px rgba(168, 28, 21, 0.4); border-color: rgba(255, 255, 255, 0.8); }
+        body.dark-theme .menu-panel-wrapper { background-color: rgba(8, 47, 73, 0.6); box-shadow: 0 20px 50px -10px rgba(8, 47, 73, 0.4); border-color: rgba(56, 189, 248, 0.2); }
+
+        /* ĐỒNG BỘ MÀU BANNER TIÊU ĐỀ */
+        .title-banner { transition: all 0.5s ease; }
+        body.light-theme.theme-xanh-ios .title-banner { background-color: #14b8a6; border-bottom-color: #0d9488; color: white; }
+        body.light-theme.theme-do-hanhchinh .title-banner { background-color: #da251d; border-bottom-color: #a81c15; color: white; }
+        body.dark-theme .title-banner { background-color: rgba(15, 23, 42, 0.7); border-bottom-color: rgba(56, 189, 248, 0.5); color: #38bdf8; backdrop-filter: blur(10px); }
+
+        /* NÚT QUAY LẠI */
+        .btn-back { display: inline-flex; align-items: center; gap: 8px; border: 1px solid; padding: 10px 20px; border-radius: 12px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; background: #ffffff; border-color: #e2e8f0; }
+        body.light-theme.theme-xanh-ios .btn-back { color: #1e3a8a; }
+        body.light-theme.theme-xanh-ios .btn-back:hover { transform: translateY(-2px); border-color: #0ea5e9; color: #0ea5e9; }
+        body.light-theme.theme-do-hanhchinh .btn-back { color: #da251d; border-color: #fca5a5; }
+        body.light-theme.theme-do-hanhchinh .btn-back:hover { transform: translateY(-2px); border-color: #da251d; color: #da251d; }
+        body.dark-theme .btn-back { background: rgba(8, 47, 73, 0.6); border-color: rgba(56, 189, 248, 0.3); color: #38bdf8; }
+        body.dark-theme .btn-back:hover { transform: translateY(-2px); border-color: #7dd3fc; background: rgba(8, 47, 73, 0.9); color: white;}
+
+        /* ================= KHỐI NỘI DUNG GLASS PANEL ================= */
+        .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; transition: all 0.3s; }
+        
+        body.light-theme .glass-panel { background: rgba(255, 255, 255, 0.95); border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 10px 30px -10px rgba(12, 74, 110, 0.1); }
+        body.light-theme.theme-do-hanhchinh .glass-panel { border-color: rgba(252, 165, 165, 0.6); }
+        
+        body.dark-theme .glass-panel { background: rgba(15, 23, 42, 0.6); border-color: rgba(56, 189, 248, 0.3); }
+
+        /* MÀU CHỮ ĐỘNG BÊN TRONG TIN TỨC */
+        .text-dynamic-title { transition: color 0.3s; }
+        .text-dynamic-body { transition: color 0.3s; }
+        .text-dynamic-label { transition: color 0.3s; }
+
+        body.light-theme.theme-xanh-ios .text-dynamic-title { color: #0f172a; }
+        body.light-theme.theme-xanh-ios .text-dynamic-body { color: #475569; }
+        body.light-theme.theme-xanh-ios .text-dynamic-label { color: #0ea5e9; }
+        
+        body.light-theme.theme-do-hanhchinh .text-dynamic-title { color: #7f1d1d; }
+        body.light-theme.theme-do-hanhchinh .text-dynamic-body { color: #991b1b; }
+        body.light-theme.theme-do-hanhchinh .text-dynamic-label { color: #da251d; }
+
+        body.dark-theme .text-dynamic-title { color: #e0f2fe; }
+        body.dark-theme .text-dynamic-body { color: #bae6fd; }
+        body.dark-theme .text-dynamic-label { color: #38bdf8; }
+
+        /* Hiệu ứng hover danh sách tin */
+        .list-item-hover { transition: background 0.3s; }
+        body.light-theme.theme-xanh-ios .list-item-hover:hover { background: rgba(14, 165, 233, 0.08); }
+        body.light-theme.theme-do-hanhchinh .list-item-hover:hover { background: rgba(218, 37, 29, 0.08); }
+        body.dark-theme .list-item-hover:hover { background: rgba(56, 189, 248, 0.1); }
+
+        /* SLIDER HÌNH ẢNH */
+        .slider-container { position: relative; width: 100%; height: 380px; border-radius: 20px; overflow: hidden; box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1); border: 1px solid rgba(0,0,0,0.05); }
+        body.dark-theme .slider-container { border-color: rgba(56, 189, 248, 0.2); }
         .slide { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; transition: opacity 0.6s ease-in-out; display: flex; align-items: center; justify-content: center; }
         .slide.active { opacity: 1; position: relative; }
         .slide img { width: 100%; height: 100%; object-fit: cover; }
 
-        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(15, 23, 42, 0.8); border: 1px solid rgba(255, 255, 255, 0.2); color: #00f0ff; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; cursor: pointer; z-index: 20; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: all 0.2s; }
-        .slider-btn:hover { background: #0ea5e9; color: white; transform: translateY(-50%) scale(1.1); }
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); border: 1px solid; width: 45px; height: 45px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: bold; cursor: pointer; z-index: 20; box-shadow: 0 4px 10px rgba(0,0,0,0.2); transition: all 0.2s; }
+        
+        body.light-theme .slider-btn { background: rgba(255, 255, 255, 0.9); border-color: #e2e8f0; color: #0f172a; }
+        body.light-theme .slider-btn:hover { background: #0ea5e9; color: white; transform: translateY(-50%) scale(1.1); }
+        
+        body.light-theme.theme-do-hanhchinh .slider-btn:hover { background: #da251d; }
+
+        body.dark-theme .slider-btn { background: rgba(15, 23, 42, 0.8); border-color: rgba(255, 255, 255, 0.2); color: #38bdf8; }
+        body.dark-theme .slider-btn:hover { background: #0ea5e9; color: white; transform: translateY(-50%) scale(1.1); }
+        
         .btn-prev { left: 20px; }
         .btn-next { right: 20px; }
 
-        /* Khung chứa Video 16:9 */
+        /* VIDEO CARDS */
         .video-card { border-radius: 20px; overflow: hidden; aspect-ratio: 16 / 9; border: 1px solid; transition: all 0.25s; }
-        .video-card:hover { transform: translateY(-2px); border-color: #3b82f6; }
+        body.light-theme .video-card { border-color: rgba(14, 165, 233, 0.2); }
+        body.light-theme.theme-do-hanhchinh .video-card { border-color: rgba(252, 165, 165, 0.8); }
+        body.dark-theme .video-card { border-color: rgba(56, 189, 248, 0.3); }
+        .video-card:hover { transform: translateY(-2px); box-shadow: 0 10px 20px -5px rgba(0,0,0,0.2); }
+        body.light-theme.theme-do-hanhchinh .video-card:hover { border-color: #da251d; }
 
-        .btn-back { display: inline-flex; align-items: center; gap: 8px; background: rgba(14, 165, 233, 0.1); border: 1px solid rgba(14, 165, 233, 0.3); color: inherit; padding: 12px 24px; border-radius: 14px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; }
-        .btn-back:hover { transform: translateY(-2px); border-color: #ef4444; background: rgba(239, 68, 68, 0.1); }
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.3); border-radius: 10px; }
+        /* SCROLLBAR */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.4); border-radius: 10px; }
+        
+        /* FOOTER */
+        body.dark-theme footer { background-color: rgba(8, 47, 73, 0.6); border-color: rgba(56, 189, 248, 0.2); color: #38bdf8; backdrop-filter: blur(10px); }
 
         @media (max-width: 1024px) {
             .header-layout { flex-direction: column !important; }
-            .theme-selector-vertical { 
-                position: relative !important; top: 0 !important; right: 0 !important; 
-                margin-top: 16px; flex-direction: row !important; space-x: 2; width: auto !important;
-            }
+            .theme-selector-vertical { position: relative !important; top: 0 !important; right: 0 !important; margin-top: 16px; flex-direction: row !important; space-x: 2; width: auto !important; }
             .theme-selector-vertical button { margin-left: 4px; margin-right: 4px; }
+            .menu-panel-wrapper { padding: 20px 20px 24px; }
         }
     </style>
 </head>
-<body class="theme-xanh-ios light-theme custom-scrollbar" id="body-context">
+<body class="theme-xanh-ios light-theme custom-scrollbar" id="dynamic-body">
 
+    <!-- HEADER ĐỒNG BỘ CHỨA IOC BINH HUNG -->
     <header class="main-header w-full py-6 px-6 md:px-12 select-none relative transition-all duration-300">
         <div class="max-w-[1550px] mx-auto flex flex-col items-center justify-center relative header-layout">
             
@@ -102,15 +146,16 @@
                     <img src="logo.png" alt="Logo" class="logo-main w-20 h-auto" onerror="this.src='logo.png'">
                 </div>
                 <div class="flex flex-col items-start justify-center space-y-2 text-left">
-                    <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-['Montserrat']">
+                    <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none m-0 p-0 drop-shadow-[0_2px_4px_rgba(12,74,110,0.5)] font-['Montserrat']">
                         IOC BINH HUNG
                     </p>
-                    <h1 class="title-main text-sm md:text-base lg:text-lg font-bold uppercase tracking-[0.08em] text-white/90 leading-tight m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">
+                    <h1 class="title-main text-sm md:text-base lg:text-lg font-bold uppercase tracking-[0.08em] text-white/90 leading-tight m-0 p-0 drop-shadow-[0_2px_4px_rgba(12,74,110,0.4)]">
                         Cổng thông tin và điều hành xã Bình Hưng, Thành phố Hồ Chí Minh
                     </h1>
                 </div>
             </div>
-            
+
+            <!-- CHUYỂN ĐỔI THEME XANH / ĐỎ -->
             <div class="theme-selector-vertical lg:absolute lg:top-0 lg:right-0 bg-white/10 backdrop-blur-md border border-white/20 p-1.5 rounded-xl flex flex-col space-y-1.5 w-[75px] z-20 shadow-inner">
                 <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md">🔵 Xanh</button>
                 <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white">🔴 Đỏ</button>
@@ -119,34 +164,42 @@
         </div>
     </header>
 
-    <div class="max-w-[1550px] w-full mx-auto px-4 md:px-6 mt-5 mb-4">
-        <div class="title-block py-4 md:py-5 px-8 text-center shadow-sm rounded-2xl border-b-4 transition-colors duration-300">
-            <h2 class="title-text font-['Montserrat'] text-xl md:text-3xl font-black uppercase tracking-wider leading-tight">
+    <div class="max-w-[1550px] w-full mx-auto px-4 md:px-6 mt-6 mb-4">
+        <div class="title-banner py-4 md:py-5 px-8 text-center shadow-lg rounded-2xl border-b-4">
+            <h2 class="font-['Montserrat'] text-xl md:text-3xl font-black uppercase tracking-wider leading-tight">
                 TRANG THÔNG TIN TUYÊN TRUYỀN
             </h2>
         </div>
     </div>
 
-    <div class="container-wrapper">
-        
-        <div class="teal-wrapper space-y-6">
+    <div class="max-w-[1550px] w-full mx-auto px-4 md:px-6 my-2 pb-12 flex flex-col flex-grow">
+
+        <article class="menu-panel-wrapper flex flex-col space-y-6">
             
-            <div class="flex flex-col sm:flex-row justify-between items-center gap-4">
-                <a href="../home.html" class="btn-back bg-white/50 backdrop-blur">⬅️ Quay lại Trang chủ</a>
-                <div class="bg-slate-900/90 border border-slate-700 p-1 rounded-xl flex items-center shadow-md backdrop-blur">
-                    <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">Sáng</button>
-                    <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">Tối</button>
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 pb-3 border-b border-white/40">
+                <!-- CỤM NÚT ĐIỀU HƯỚNG BÊN TRÁI (QUAY LẠI & SÁNG/TỐI) -->
+                <div class="flex flex-wrap items-center gap-3 w-full md:w-auto shrink-0">
+                    <a href="../home.html" class="btn-back">
+                        ⬅️ Quay lại Trang chủ
+                    </a>
+                    
+                    <div class="bg-blue-900/10 dark:bg-sky-500/10 border border-blue-200 dark:border-sky-500/20 p-1 rounded-xl flex items-center shadow-sm backdrop-blur">
+                        <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-blue-900 shadow-sm bg-white">☀️ Sáng</button>
+                        <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-500 hover:text-blue-900 dark:text-sky-200 dark:hover:text-white">🌙 Tối</button>
+                    </div>
                 </div>
             </div>
 
+            <!-- KHỐI 1: BÀI VIẾT NỔI BẬT & TIN TỨC -->
             <div class="glass-panel p-5 md:p-6">
-                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label border-l-4 border-sky-400 pl-3 mb-4">📰 Bài viết nổi bật / Tin tức tiêu điểm hành chính</h2>
+                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label border-l-4 border-sky-400 dark:border-sky-500 pl-3 mb-4">📰 Bài viết nổi bật / Tin tức tiêu điểm hành chính</h2>
                 
                 <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
                     
+                    <!-- BÀI ĐINH BÊN TRÁI -->
                     <div class="lg:col-span-6 xl:col-span-7 flex flex-col space-y-3 font-['Inter']">
-                        <a href="chi-tiet-tin.html" class="block rounded-xl overflow-hidden shadow-md aspect-video border border-slate-700/20 dark:border-slate-700/40 relative group">
-                            <img src="images/anh-tin-1.jpg" alt="Tin tức chính" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <a href="chi-tiet-tin.html" class="block rounded-xl overflow-hidden shadow-md aspect-video border border-slate-200 dark:border-slate-700/40 relative group">
+                            <img src="images/anh-tin-1.jpg" alt="Tin tức chính" class="w-full h-full object-cover group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/800x450?text=News+Banner'">
                             <span class="absolute top-3 left-3 text-[10px] font-black bg-blue-600/90 backdrop-blur text-white px-3 py-1 rounded-full uppercase shadow-md border border-white/20">Tiêu điểm</span>
                         </a>
                         
@@ -156,23 +209,26 @@
                                 <span class="text-[10px] font-medium text-dynamic-body italic">📅 25/05/2026</span>
                             </div>
                             
-                            <a href="chi-tiet-tin.html" class="text-base md:text-lg xl:text-xl font-black text-dynamic-title leading-snug hover:text-sky-500 transition decoration-sky-500 decoration-2 underline-offset-4 hover:underline">
-                                 XÃ BÌNH HƯNG TỔ CHỨC HỘI THI CHÙM ẢNH ONLINE</a>
+                            <a href="chi-tiet-tin.html" class="text-base md:text-lg xl:text-xl font-black text-dynamic-title leading-snug transition decoration-2 underline-offset-4 hover:underline">
+                                 XÃ BÌNH HƯNG TỔ CHỨC HỘI THI CHÙM ẢNH ONLINE
+                            </a>
                             
                             <p class="text-xs text-dynamic-body leading-relaxed text-justify line-clamp-3">
-                                🌻 “BÌNH HƯNG TRONG TRÁI TIM TÔI” 🌻
+                                🌻 “BÌNH HƯNG TRONG TRÁI TIM TÔI” 🌻 Cuộc thi nhằm lưu giữ và lan tỏa những khoảnh khắc đẹp nhất về con người, cảnh quan và sự phát triển không ngừng của quê hương Bình Hưng.
                             </p>
                         </div>
                     </div>
                     
+                    <!-- DANH SÁCH TIN BÊN PHẢI -->
                     <div class="lg:col-span-6 xl:col-span-5 flex flex-col h-full font-['Inter']">
-                        <h3 class="text-[11px] font-black uppercase text-dynamic-title border-b border-slate-500/30 pb-2 mb-4">Tin tức mới cập nhật</h3>
+                        <h3 class="text-[11px] font-black uppercase text-dynamic-title border-b border-slate-300 dark:border-slate-600 pb-2 mb-4">Tin tức mới cập nhật</h3>
                         
                         <div id="danh_sach_tin_tuc" class="flex flex-col space-y-3">
-                            </div>
+                            <!-- Dữ liệu JS render vào đây -->
+                        </div>
                         
-                        <div class="mt-auto pt-4 text-right">
-                            <a href="danh-sach-tin.html" class="inline-flex items-center gap-1 text-[10px] font-black uppercase text-sky-600 dark:text-sky-500 hover:text-sky-500 transition bg-sky-500/10 px-3 py-1.5 rounded-lg border border-sky-500/20 hover:border-sky-500">
+                        <div class="mt-auto pt-6 text-right">
+                            <a href="danh-sach-tin.html" class="inline-flex items-center gap-1 text-[10px] font-black uppercase text-dynamic-label transition bg-sky-500/10 px-3 py-1.5 rounded-lg border border-sky-500/20 hover:border-sky-500">
                                 Xem tất cả tin tức ❯
                             </a>
                         </div>
@@ -180,40 +236,43 @@
                 </div>
             </div>
 
+            <!-- KHỐI 2: SLIDER HÌNH ẢNH CỔ ĐỘNG -->
             <div class="glass-panel p-5 md:p-6">
-                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label border-l-4 border-sky-400 pl-3 mb-4">📸 Hình ảnh Hoạt động trực quan & Cổ động</h2>
+                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label border-l-4 border-sky-400 dark:border-sky-500 pl-3 mb-4">📸 Hình ảnh Hoạt động trực quan & Cổ động</h2>
                 <div class="slider-container">
                     <button class="slider-btn btn-prev" onclick="moveSlide(-1)">❮</button>
                     <button class="slider-btn btn-next" onclick="moveSlide(1)">❯</button>
 
-                    <div class="slide active"><img src="images/banner1.jpg" alt="Tuyên truyền 1"></div>
-                    <div class="slide"><img src="images/banner2.jpg" alt="Tuyên truyền 2"></div>
+                    <div class="slide active"><img src="images/banner1.jpg" alt="Tuyên truyền 1" onerror="this.src='https://placehold.co/1200x400?text=Banner+Co+Dong+1'"></div>
+                    <div class="slide"><img src="images/banner2.jpg" alt="Tuyên truyền 2" onerror="this.src='https://placehold.co/1200x400?text=Banner+Co+Dong+2'"></div>
                 </div>
             </div>
 
+            <!-- KHỐI 3: VIDEO TƯ LIỆU -->
             <div class="glass-panel p-5 md:p-6">
-                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label border-l-4 border-sky-400 pl-3 mb-4">🎥 Video Tư liệu / Bản tin thời sự cơ sở</h2>
+                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label border-l-4 border-sky-400 dark:border-sky-500 pl-3 mb-4">🎥 Video Tư liệu / Bản tin thời sự cơ sở</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="video-card">
-                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/G8k02HjNTcQ" title="Video tuyên truyền số 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
+                        <!-- Đổi link youtube tại src="..." -->
+                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/nptBIfy_3x4" title="Video tuyên truyền số 1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                     <div class="video-card">
-                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Video tuyên truyền số 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="w-full h-full"></iframe>
+                        <iframe width="100%" height="100%" src="https://www.youtube.com/embed/nptBIfy_3x4" title="Video tuyên truyền số 2" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
 
-        </div> </div>
+        </article>
+        
+    </div>
 
-    <footer class="w-full text-center py-6 text-dynamic-label font-bold text-[10px] uppercase tracking-[0.3em] border-t border-slate-900/10 dark:border-slate-900 bg-slate-950/5 dark:bg-slate-950/20 backdrop-blur-md mt-auto">
-        &copy; 2026 IOC Xã Bình Hưng — Hệ thống thông tin tuyên truyền và thông điệp cổ động số liên thông
+    <footer class="w-full text-center py-6 font-medium text-[11px] uppercase tracking-widest border-t bg-white shadow-sm mt-auto transition-all duration-300">
+        &copy; 2026 IOC BINH HƯNG — BẢN QUYỀN THUỘC UBND XÃ BÌNH HƯNG
     </footer>
 
     <script>
         // =========================================================
         // KHU VỰC QUẢN LÝ DỮ LIỆU TIN TỨC
-        // Muốn thêm bài viết, chỉ cần copy 1 cặp ngoặc nhọn { ... } 
-        // và thêm vào danh sách dưới đây!
         // =========================================================
         const tinTucData = [
             {
@@ -241,10 +300,10 @@
                 link: "tin-phu-4.html"
             },
             {
-                title: "Bài viết mẫu mới thêm: Xã Bình Hưng tổ chức cuộc thi thiết kế cổng thông tin điện tử xuất sắc",
+                title: "Xã Bình Hưng tổ chức cuộc thi thiết kế cổng thông tin điện tử xuất sắc",
                 date: "28/05/2026",
                 image: "images/banner2.jpg",
-                link: "tin-phu-5.html" // Bạn cần tạo file này nếu muốn link hoạt động
+                link: "tin-phu-5.html"
             }
         ];
 
@@ -255,14 +314,14 @@
             
             container.innerHTML = tinTucData.map(tin => `
                 <a href="${tin.link}" class="list-item-hover group flex gap-4 items-center p-2 -mx-2 rounded-xl transition cursor-pointer">
-                    <div class="w-24 h-16 md:w-28 md:h-20 flex-shrink-0 rounded-lg overflow-hidden border border-slate-700/20 dark:border-slate-700/40">
+                    <div class="w-24 h-16 md:w-28 md:h-20 flex-shrink-0 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700/40">
                         <img src="${tin.image}" alt="Hình bài viết" onerror="this.src='https://placehold.co/400x300?text=No+Image'" class="w-full h-full object-cover group-hover:scale-110 transition duration-300">
                     </div>
                     <div class="flex flex-col space-y-1.5">
-                        <h4 class="text-xs font-bold text-dynamic-title leading-snug group-hover:text-sky-500 transition line-clamp-2">
+                        <h4 class="text-xs font-bold text-dynamic-title leading-snug group-hover:underline transition line-clamp-2">
                             ${tin.title}
                         </h4>
-                        <span class="text-[9px] text-dynamic-label font-medium">${tin.date}</span>
+                        <span class="text-[9px] text-dynamic-body font-medium italic">📅 ${tin.date}</span>
                     </div>
                 </a>
             `).join('');
@@ -290,44 +349,41 @@
         window.moveSlide = function(direction) {
             showSlide(currentSlide + direction);
         }
-
         setInterval(() => { moveSlide(1); }, 5000);
 
-        // Cấu hình Theme Header (Xanh / Đỏ)
+        // HÀM CHUYỂN ĐỔI THEME HEADER VÀ NỀN (XANH / ĐỎ TƯƠI)
         window.switchSystemTheme = function(modeName) {
-            const body = document.getElementById('body-context');
+            const body = document.getElementById('dynamic-body');
             const btnXanh = document.getElementById('btn-theme-xanh');
             const btnDo = document.getElementById('btn-theme-do');
-            
+
             if (modeName === 'do') {
-                body.classList.remove('theme-xanh-ios');
-                body.classList.add('theme-do-hanhchinh');
+                body.classList.remove('theme-xanh-ios'); body.classList.add('theme-do-hanhchinh');
                 btnDo.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-red-600 text-white shadow-md";
                 btnXanh.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white";
             } else {
-                body.classList.remove('theme-do-hanhchinh');
-                body.classList.add('theme-xanh-ios');
+                body.classList.remove('theme-do-hanhchinh'); body.classList.add('theme-xanh-ios');
                 btnXanh.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md";
                 btnDo.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white";
             }
         }
 
-        // Engine hoán đổi giao diện Nền Trắng / Đen
+        // HÀM CHUYỂN ĐỔI THEME SÁNG / TỐI KHÔNG DÙNG MÀU ĐEN
         window.setTheme = function(themeName) {
-            const body = document.getElementById('body-context');
+            const body = document.getElementById('dynamic-body');
             const btnLight = document.getElementById('btn-theme-light');
             const btnDark = document.getElementById('btn-theme-dark');
 
             if(themeName === 'light') {
                 body.classList.remove('dark-theme');
                 body.classList.add('light-theme');
-                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-blue-900 text-sky-200 shadow-md border border-blue-700";
-                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-400 hover:text-blue-900";
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-sm border border-blue-200";
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-500 hover:text-blue-900 dark:text-sky-200 dark:hover:text-white";
             } else {
                 body.classList.remove('light-theme');
                 body.classList.add('dark-theme');
-                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-sky-700 text-white shadow-md border border-sky-500";
-                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-400 hover:text-sky-400";
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-sky-600 text-white shadow-sm border border-sky-500";
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-sky-400 hover:text-sky-300";
             }
         }
 
