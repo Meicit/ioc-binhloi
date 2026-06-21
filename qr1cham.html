@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1 Chạm Kết Nối - Xã Bình Hưng</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    
+    <style>
+        body { 
+            font-family: 'Inter', 'Be Vietnam Pro', sans-serif; 
+            margin: 0; padding: 0; min-height: 100vh; 
+            background: linear-gradient(135deg, #10213f 0%, #081226 100%);
+            color: #e0f2fe; 
+            display: flex; flex-direction: column; align-items: center; 
+            position: relative; overflow-x: hidden;
+        }
+
+        /* LƯỚI NỀN CÔNG NGHỆ (Grid Pattern) */
+        .bg-grid {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background-image: 
+                linear-gradient(rgba(56, 189, 248, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(56, 189, 248, 0.05) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 0; pointer-events: none;
+        }
+
+        /* HIỆU ỨNG GLOW LOGO */
+        .glow-circle {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            border-radius: 50%; border: 1px solid rgba(56, 189, 248, 0.3);
+            box-shadow: 0 0 30px rgba(56, 189, 248, 0.2), inset 0 0 20px rgba(56, 189, 248, 0.1);
+            animation: pulse-ring 4s infinite alternate; pointer-events: none;
+        }
+        .glow-circle-1 { width: 110px; height: 110px; }
+        .glow-circle-2 { width: 140px; height: 140px; animation-delay: -1s; border: 1px dashed rgba(56, 189, 248, 0.2); }
+        .glow-circle-3 { width: 180px; height: 180px; animation-delay: -2s; border: 1px solid rgba(56, 189, 248, 0.1); }
+        
+        @keyframes pulse-ring { 
+            0% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.5; } 
+            100% { transform: translate(-50%, -50%) scale(1.05); opacity: 1; } 
+        }
+
+        /* KHUNG CHỨA GIAO DIỆN MOBILE APP */
+        .app-container {
+            width: 100%; max-width: 480px; z-index: 10;
+            display: flex; flex-direction: column; padding: 24px 20px;
+        }
+
+        /* NÚT BẤM NEON */
+        .neon-btn {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            width: 100%; padding: 18px 20px; border-radius: 16px;
+            background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(10px);
+            text-align: center; transition: all 0.3s ease; cursor: pointer; text-decoration: none;
+        }
+        .neon-btn:hover { transform: translateY(-3px); background: rgba(30, 41, 59, 0.8); }
+        
+        .neon-btn h3 { font-size: 15px; font-weight: 800; text-transform: uppercase; margin-bottom: 4px; display: flex; align-items: center; gap: 8px; }
+        .neon-btn p { font-size: 12px; color: #94a3b8; font-weight: 500; }
+
+        .border-pink { border: 1.5px solid #d946ef; box-shadow: 0 0 12px rgba(217, 70, 239, 0.25); color: #fdf4ff; }
+        .border-pink:hover { box-shadow: 0 0 20px rgba(217, 70, 239, 0.4); }
+        
+        .border-green { border: 1.5px solid #10b981; box-shadow: 0 0 12px rgba(16, 185, 129, 0.25); color: #ecfdf5; }
+        .border-green:hover { box-shadow: 0 0 20px rgba(16, 185, 129, 0.4); }
+        
+        .border-yellow { border: 1.5px solid #f59e0b; box-shadow: 0 0 12px rgba(245, 158, 11, 0.25); color: #fffbeb; }
+        .border-yellow:hover { box-shadow: 0 0 20px rgba(245, 158, 11, 0.4); }
+        
+        .border-blue { border: 1.5px solid #3b82f6; box-shadow: 0 0 12px rgba(59, 130, 246, 0.25); color: #eff6ff; }
+        .border-blue:hover { box-shadow: 0 0 20px rgba(59, 130, 246, 0.4); }
+
+        .border-cyan { border: 1.5px solid #06b6d4; box-shadow: 0 0 12px rgba(6, 182, 212, 0.25); color: #ecfeff; }
+        .border-cyan:hover { box-shadow: 0 0 20px rgba(6, 182, 212, 0.4); }
+
+        /* MODAL CHỌN LỰA TRỢ LÝ AI */
+        .modal-overlay { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(15, 23, 42, 0.6); backdrop-filter: blur(15px); -webkit-backdrop-filter: blur(15px); 
+            display: flex; align-items: center; justify-content: center; z-index: 1000; opacity: 0; pointer-events: none; 
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        .modal-overlay.open { opacity: 1; pointer-events: auto; }
+        .modal-card { 
+            background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border-radius: 24px; width: 100%; max-width: 480px; padding: 30px; 
+            transform: scale(0.95) translateY(10px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
+        }
+        .modal-overlay.open .modal-card { transform: scale(1) translateY(0); }
+        .modal-btn-cancel { background: rgba(8, 47, 73, 0.6); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
+        .modal-btn-cancel:hover { background: rgba(12, 74, 110, 0.8); color: #e0f2fe; }
+    </style>
+</head>
+<body>
+
+    <div class="bg-grid"></div>
+
+    <div class="app-container">
+        
+        <div class="relative flex flex-col items-center mt-6 mb-8 text-center">
+            <div class="relative mb-6">
+                <div class="glow-circle glow-circle-1"></div>
+                <div class="glow-circle glow-circle-2"></div>
+                <div class="glow-circle glow-circle-3"></div>
+                <img src="logo.png" alt="Logo" class="w-[85px] h-auto relative z-10" onerror="this.src='https://placehold.co/100x100/transparent/white?text=LOGO'">
+            </div>
+            <h1 class="text-xl md:text-2xl font-black text-sky-100 uppercase tracking-widest font-['Montserrat'] drop-shadow-md">
+                1 Chạm Kết Nối Xã Bình Hưng
+            </h1>
+            <p class="text-[13px] font-semibold text-sky-300 mt-2 tracking-wide drop-shadow-sm">
+                QR 1 chạm: Kết nối chính quyền – Người dân – Công nghệ số
+            </p>
+        </div>
+
+        <div class="bg-white/5 backdrop-blur-md border border-white/10 rounded-2xl py-3 px-4 text-center mb-8 flex flex-col items-center shadow-lg">
+            <div id="live-time" class="text-lg font-black text-white tracking-widest font-mono">--:--:-- | --/--/----</div>
+            <div class="text-[11px] text-slate-400 font-medium mt-0.5">Cảm ơn bạn đã sử dụng dịch vụ</div>
+        </div>
+
+        <div class="flex flex-col space-y-4">
+            
+            <div onclick="openAIModal()" class="neon-btn border-pink">
+                <h3><span class="text-xl">🤖</span> Trợ Lý Ảo</h3>
+                <p>Giải đáp 24/7</p>
+            </div>
+
+            <a href="phan-anh/dieu-phoi.html" class="neon-btn border-green">
+                <h3><span class="text-xl">📩</span> Phản Ánh Kiến Nghị</h3>
+                <p>Tiếp nhận & xử lý</p>
+            </a>
+
+            <a href="tuyen-truyen/tuyen-truyen.html" class="neon-btn border-yellow">
+                <h3><span class="text-xl">📢</span> Thông Tin - Tuyên Truyền</h3>
+                <p>Tin tức, Sự kiện từ địa phương</p>
+            </a>
+
+            <a href="ban-do-so.html" class="neon-btn border-blue">
+                <h3><span class="text-xl">🗺️</span> Bản Đồ Số</h3>
+                <p>Bản đồ hành chính & Quy hoạch</p>
+            </a>
+
+            <a href="home.html" class="neon-btn border-cyan">
+                <h3><span class="text-xl">🌐</span> Truy Cập Cổng Điều Hành</h3>
+                <p>Về Trang chủ Hệ thống</p>
+            </a>
+
+        </div>
+
+        <div class="mt-12 text-center text-xs font-medium text-slate-500 tracking-wider">
+            <p>&copy; Bản quyền thuộc về <span class="font-bold text-slate-300">UBND Xã Bình Hưng</span></p>
+        </div>
+
+    </div>
+
+    <div id="aiModal" class="modal-overlay">
+        <div class="modal-card">
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-sky-500/20 text-sky-400 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl border border-sky-400/30">🤖</div>
+                <h2 class="text-lg font-bold text-white tracking-tight">Chọn Trợ lý ảo AI</h2>
+                <p class="text-[11px] text-slate-400 font-medium uppercase mt-1 tracking-wider">Vui lòng chọn nền tảng bạn muốn sử dụng</p>
+            </div>
+            
+            <div class="flex flex-row items-center justify-between gap-4 mb-2">
+                <div class="w-24 h-32 shrink-0 rounded-2xl overflow-hidden shadow-md border-2 border-blue-500/50 relative flex items-center justify-center bg-transparent">
+                    <img src="binBH.png" alt="Trợ lý BIN" class="w-full h-full object-contain transition-transform duration-500 hover:scale-110">
+                </div>
+                
+                <div class="flex flex-col space-y-3 flex-grow">
+                    <button onclick="window.open('https://chat.openai.com', '_blank'); closeAIModal();" class="w-full flex items-center justify-center gap-2 bg-slate-800 border border-slate-600 rounded-xl px-3 py-3 text-sm font-bold text-slate-200 hover:border-emerald-500 hover:text-emerald-400 transition shadow-sm">
+                        <span class="text-lg">🟩</span> ChatGPT
+                    </button>
+                    <button onclick="window.open('https://gemini.google.com', '_blank'); closeAIModal();" class="w-full flex items-center justify-center gap-2 bg-slate-800 border border-slate-600 rounded-xl px-3 py-3 text-sm font-bold text-slate-200 hover:border-blue-500 hover:text-blue-400 transition shadow-sm">
+                        <span class="text-lg">✨</span> Gemini
+                    </button>
+                </div>
+
+                <div class="w-24 h-32 shrink-0 rounded-2xl overflow-hidden shadow-md border-2 border-pink-500/50 relative flex items-center justify-center bg-transparent">
+                    <img src="hunBH.png" alt="Trợ lý HUN" class="w-full h-full object-contain transition-transform duration-500 hover:scale-110">
+                </div>
+            </div>
+            
+            <div class="pt-5 mt-2">
+                <button type="button" onclick="closeAIModal()" class="modal-btn-cancel w-full py-3 rounded-xl font-semibold text-xs uppercase tracking-wider transition">
+                    Đóng
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cập nhật đồng hồ Live
+        function updateTime() {
+            const now = new Date();
+            
+            // Format thời gian: HH:MM:SS
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            // Format ngày: DD/MM/YYYY
+            const day = String(now.getDate()).padStart(2, '0');
+            const month = String(now.getMonth() + 1).padStart(2, '0');
+            const year = now.getFullYear();
+
+            document.getElementById('live-time').innerText = `${hours}:${minutes}:${seconds} | ${day}/${month}/${year}`;
+        }
+        setInterval(updateTime, 1000);
+        updateTime(); // Khởi chạy ngay
+
+        // Điều khiển AI Modal
+        function openAIModal() {
+            document.getElementById('aiModal').classList.add('open');
+        }
+        function closeAIModal() {
+            document.getElementById('aiModal').classList.remove('open');
+        }
+    </script>
+</body>
+</html>
