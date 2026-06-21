@@ -3,461 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ thống Tiếp nhận Phản ánh Dân cư - Xã Bình Hưng</title>
+    <title>Gửi Phản Ánh - Xã Bình Hưng</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', 'Be Vietnam Pro', sans-serif; margin: 0; padding: 0; min-height: 100vh; background-color: #f8fafc; color: #0f172a; display: flex; flex-direction: column; transition: background 0.4s ease, color 0.4s ease; }
+        body { font-family: 'Inter', 'Be Vietnam Pro', sans-serif; margin: 0; padding: 0; min-height: 100vh; background-color: #f8fafc; color: #0f172a; display: flex; flex-direction: column; transition: background 0.4s ease; }
         body.theme-xanh-ios .main-header { background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d); background-size: 400% 400%; animation: gradientGIF 12s ease infinite; box-shadow: 0 4px 15px rgba(11, 74, 143, 0.15); border-bottom: 2px solid #032b5c; }
-        body.theme-do-hanhchinh .main-header { background: linear-gradient(-45deg, #dc2626, #7f1d1d, #ef4444, #450a0a); background-size: 400% 400%; animation: gradientGIF 12s ease infinite; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.15); border-bottom: 2px solid #991b1b; }
+        body.theme-do-hanhchinh .main-header { background: linear-gradient(-45deg, #dc2626, #7f1d1d, #ef4444, #450a0a); background-size: 400% 400%; animation: gradientGIF 12s ease infinite; border-bottom: 2px solid #991b1b; }
         @keyframes gradientGIF { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .menu-panel-wrapper { background-color: rgba(128, 255, 232, 0.45); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 40px; box-shadow: 0 20px 50px -10px rgba(12, 74, 110, 0.15); width: 100%; }
-        .logo-main { animation: float 4s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0); filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)); } 50% { transform: translateY(-3px); filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3)); } }
-        @media (max-width: 1024px) { .header-layout { flex-direction: column !important; } .theme-selector-vertical { position: relative !important; top: 0 !important; right: 0 !important; margin-top: 16px; flex-direction: row !important; space-x: 2; width: auto !important; } }
-        
-        /* SCROLLBAR RIÊNG CHO KHỐI CÁN BỘ */
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.3); border-radius: 10px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(14, 165, 233, 0.6); }
+        .menu-panel-wrapper { background-color: rgba(128, 255, 232, 0.45); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 40px; box-shadow: 0 20px 50px -10px rgba(12, 74, 110, 0.15); }
     </style>
 </head>
-<body class="theme-xanh-ios custom-scrollbar" id="dynamic-body">
+<body class="theme-xanh-ios" id="dynamic-body">
 
     <header class="main-header w-full py-6 px-6 md:px-12 select-none relative transition-all duration-300">
-        <div class="max-w-[1550px] mx-auto flex flex-col items-center justify-center relative header-layout">
+        <div class="max-w-[1550px] mx-auto flex flex-col md:flex-row items-center justify-between relative header-layout">
             <div class="flex flex-row items-center space-x-6 w-auto">
-                <div class="flex-shrink-0"><img src="../logo.png" alt="Logo" class="logo-main w-20 h-auto" onerror="this.src='logo.png'"></div>
+                <div class="flex-shrink-0"><img src="../logo.png" alt="Logo" class="w-20 h-auto"></div>
                 <div class="flex flex-col items-start justify-center space-y-2 text-left">
-                    <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-['Montserrat']">IOC BINH HUNG</p>
-                    <h1 class="title-main text-sm md:text-base lg:text-lg font-bold uppercase tracking-[0.08em] text-white/90 leading-tight m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">Cổng thông tin và điều hành xã Bình Hưng, Thành phố Hồ Chí Minh</h1>
+                    <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-['Montserrat']">IOC BINH HUNG</p>
+                    <h1 class="title-main text-sm md:text-base lg:text-lg font-bold uppercase tracking-[0.08em] text-white/90 leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">Cổng thông tin và điều hành xã Bình Hưng</h1>
                 </div>
-            </div>
-            <div class="theme-selector-vertical lg:absolute lg:top-0 lg:right-0 bg-white/10 backdrop-blur-md border border-white/20 p-1.5 rounded-xl flex flex-col space-y-1.5 w-[75px] z-20 shadow-inner">
-                <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md">🔵 Xanh</button>
-                <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white">🔴 Đỏ</button>
             </div>
         </div>
     </header>
 
-    <div class="max-w-[1550px] w-full mx-auto px-4 md:px-6 mt-6">
-        <div class="py-4 md:py-5 px-8 text-center shadow-lg rounded-2xl bg-sky-500 border-b-4 border-sky-600">
-            <h2 class="font-['Montserrat'] text-xl md:text-3xl font-black text-white uppercase tracking-wider leading-tight">
-                PHẢN ÁNH TRỰC TUYẾN
-            </h2>
-        </div>
-    </div>
-
-    <div class="max-w-[1550px] w-full mx-auto px-4 md:px-6 my-6 flex flex-col items-start space-y-4 flex-grow mb-12">
-        <div class="menu-panel-wrapper p-6 md:p-8 lg:p-10 space-y-6">
+    <div class="max-w-[1000px] w-full mx-auto px-4 md:px-6 my-8 flex-grow">
+        <div class="menu-panel-wrapper p-6 md:p-10 space-y-6">
             
-            <!-- THANH ĐIỀU HƯỚNG TRÊN -->
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 w-full">
-                <a href="../home.html" class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-sm transition-all duration-300 hover:-translate-y-0.5 shrink-0">
-                    ⬅️ Quay lại Trang chủ
+                <a href="dieu-phoi.html" class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-sm transition-all duration-300 hover:-translate-y-0.5 shrink-0">
+                    ⬅️ Quay lại
                 </a>
-
-                <div class="flex gap-2 bg-white/40 backdrop-blur p-1.5 rounded-xl border border-white/50 shadow-sm w-full md:w-auto overflow-x-auto">
-                    <a href="phan-anh.html" class="bg-blue-700 text-white px-6 py-2.5 rounded-lg text-xs font-bold uppercase shadow-md transition-all hover:bg-blue-800 whitespace-nowrap">
-                        ✍️ Tạo phản ánh
-                    </a>
-                    <a href="lookup.html" class="bg-white/80 text-slate-700 hover:text-blue-700 hover:bg-white px-6 py-2.5 rounded-lg text-xs font-bold uppercase transition-all shadow-sm whitespace-nowrap">
-                        🔍 Tra cứu tiến độ
-                    </a>
-                </div>
+                <a href="lookup.html" class="bg-white/80 text-slate-700 hover:text-blue-700 hover:bg-white px-6 py-2.5 rounded-xl border border-white shadow-sm text-xs font-bold uppercase transition-all whitespace-nowrap">
+                    🔍 Tra cứu tiến độ
+                </a>
             </div>
 
-            <!-- CHIA BỐ CỤC LƯỚI 2 CỘT CHO FORM VÀ DANH SÁCH -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 w-full">
-                
-                <!-- CỘT 1: FORM PHẢN ÁNH -->
-                <div class="lg:col-span-5 bg-white/90 backdrop-blur-xl border border-white rounded-3xl p-6 md:p-8 shadow-lg w-full h-fit">
-                    <div class="border-b border-slate-200/60 pb-4 mb-6">
-                        <h2 class="text-lg font-black text-slate-900 uppercase tracking-wide">Gửi phản ánh - kiến nghị</h2>
-                        <p class="text-[11px] font-medium text-slate-500 mt-1">Ý kiến và hình ảnh sẽ được lưu ngầm trực tiếp trên CSDL hệ thống.</p>
-                    </div>
-
-                    <form id="complaintForm" class="space-y-4">
-                        <div>
-                            <label class="text-xs font-bold text-slate-700 block mb-1.5">Họ và tên công dân <span class="text-red-500">*</span></label>
-                            <input type="text" id="fullname" required placeholder="Nguyễn Văn A" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs font-bold text-slate-900 outline-none focus:border-blue-700 focus:bg-white focus:ring-2 focus:ring-blue-700/20 transition">
-                        </div>
-                        <div>
-                            <label class="text-xs font-bold text-slate-700 block mb-1.5">Số định danh CCCD (12 số) <span class="text-red-500">*</span></label>
-                            <input type="text" id="cccd" required placeholder="079xxxxxxxx" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs font-bold text-slate-900 outline-none focus:border-blue-700 focus:bg-white focus:ring-2 focus:ring-blue-700/20 transition">
-                        </div>
-                        <div>
-                            <label class="text-xs font-bold text-slate-700 block mb-1.5">Địa chỉ Email liên hệ <span class="text-red-500">*</span></label>
-                            <input type="email" id="email" required placeholder="name@tphcm.gov.vn" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs font-bold text-slate-900 outline-none focus:border-blue-700 focus:bg-white focus:ring-2 focus:ring-blue-700/20 transition">
-                        </div>
-                        <div>
-                            <label class="text-xs font-bold text-slate-700 block mb-1.5">Nội dung sự việc cần phản ánh <span class="text-red-500">*</span></label>
-                            <textarea id="content" rows="4" required placeholder="Vui lòng mô tả rõ địa điểm, hiện trạng sự việc..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-xs font-bold text-slate-900 outline-none focus:border-blue-700 focus:bg-white focus:ring-2 focus:ring-blue-700/20 transition leading-relaxed"></textarea>
-                        </div>
-                        <div>
-                            <label class="text-xs font-bold text-slate-700 block mb-1.5">Hình ảnh hiện trường đính kèm</label>
-                            <input type="file" id="imageFile" accept="image/*" class="w-full text-[11px] text-slate-500 file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-[11px] file:font-black file:uppercase file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition cursor-pointer">
-                        </div>
-                        <div class="pt-2">
-                            <button type="submit" id="submitBtn" class="w-full bg-blue-800 hover:bg-blue-900 text-white font-extrabold text-xs uppercase tracking-wider py-3.5 rounded-xl shadow-md transition flex items-center justify-center gap-2">
-                                <span>Xác nhận gửi phản ánh</span> 🚀
-                            </button>
-                        </div>
-                    </form>
+            <div class="bg-white/95 backdrop-blur-xl border border-white rounded-3xl p-6 md:p-8 shadow-lg w-full">
+                <div class="border-b border-slate-200/60 pb-4 mb-6 text-center">
+                    <h2 class="text-xl md:text-2xl font-black text-blue-900 uppercase tracking-wide">Gửi phản ánh trực tuyến</h2>
+                    <p class="text-xs font-medium text-slate-500 mt-2">Dữ liệu sẽ được mã hóa và gửi đến cơ quan quản lý nhà nước Xã Bình Hưng.</p>
                 </div>
 
-                <!-- CỘT 2: DANH SÁCH CÁN BỘ PHỤ TRÁCH LĨNH VỰC -->
-                <div class="lg:col-span-7 bg-white/90 backdrop-blur-xl border border-white rounded-3xl p-6 md:p-8 shadow-lg w-full flex flex-col h-full">
-                    <div class="border-b border-slate-200/60 pb-4 mb-4 flex-shrink-0">
-                        <h2 class="text-lg md:text-xl font-black text-slate-900 uppercase tracking-wide">Cán bộ phụ trách theo lĩnh vực</h2>
-                        <p class="text-xs font-medium text-slate-500 mt-1">Thông tin liên lạc với Cán bộ Chuyên viên để được hỗ trợ trực tiếp.</p>
+                <form id="complaintForm" class="space-y-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="text-xs font-bold text-slate-700 block mb-2">Họ và tên công dân <span class="text-red-500">*</span></label>
+                            <input type="text" id="fullname" required placeholder="Nguyễn Văn A" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10 transition">
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-slate-700 block mb-2">Số định danh CCCD <span class="text-red-500">*</span></label>
+                            <input type="text" id="cccd" required placeholder="079xxxxxxxx" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10 transition">
+                        </div>
                     </div>
-
-                    <!-- Khu vực có thể cuộn (Scrollable Area) -->
-                    <div class="overflow-y-auto pr-2 custom-scrollbar flex-grow max-h-[600px] space-y-6 pb-2">
-                        
-                        <!-- Lĩnh vực 1 -->
-                        <div>
-                            <h4 class="text-[11px] font-black text-blue-800 bg-blue-50 py-1.5 px-3 rounded-lg inline-block uppercase tracking-wider mb-2.5 shadow-sm border border-blue-100">Thủ tục hành chính</h4>
-                            <div class="space-y-2.5">
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Bà Trần Thúy Trân</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Giám đốc Trung tâm phục vụ hành chính công</p>
-                                    </div>
-                                    <a href="tel:0913147287" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 0913.147.287
-                                    </a>
-                                </div>
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Bà Nguyễn Thị Hậu</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Chuyên viên</p>
-                                    </div>
-                                    <a href="tel:0784832781" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 0784.832.781
-                                    </a>
-                                </div>
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Bà Nguyễn Thị Ngọc Hương</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Chuyên viên</p>
-                                    </div>
-                                    <a href="tel:0938387256" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 0938.387.256
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Lĩnh vực 2 -->
-                        <div>
-                            <h4 class="text-[11px] font-black text-blue-800 bg-blue-50 py-1.5 px-3 rounded-lg inline-block uppercase tracking-wider mb-2.5 shadow-sm border border-blue-100">Quy hoạch xây dựng</h4>
-                            <div class="space-y-2.5">
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Bà Nguyễn Thị Hoài Thanh</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Chuyên viên</p>
-                                    </div>
-                                    <a href="tel:0908082320" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 0908.082.320
-                                    </a>
-                                </div>
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Ông Nguyễn Thanh Điền</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Chuyên viên</p>
-                                    </div>
-                                    <a href="tel:0769725726" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 0769.725.726
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Lĩnh vực 3 -->
-                        <div>
-                            <h4 class="text-[11px] font-black text-blue-800 bg-blue-50 py-1.5 px-3 rounded-lg inline-block uppercase tracking-wider mb-2.5 shadow-sm border border-blue-100">Môi Trường</h4>
-                            <div class="space-y-2.5">
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Ông Đoàn Thanh Vũ</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Chuyên viên</p>
-                                    </div>
-                                    <a href="tel:0919666424" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 0919.666.424
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Lĩnh vực 4 -->
-                        <div>
-                            <h4 class="text-[11px] font-black text-blue-800 bg-blue-50 py-1.5 px-3 rounded-lg inline-block uppercase tracking-wider mb-2.5 shadow-sm border border-blue-100">Kinh tế, Công Thương</h4>
-                            <div class="space-y-2.5">
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Ông Phạm Trường Nhật</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Chuyên viên</p>
-                                    </div>
-                                    <a href="tel:0908007620" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 0908.007.620
-                                    </a>
-                                </div>
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Bà Nguyễn Thanh Thảo Uyên</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Chuyên viên</p>
-                                    </div>
-                                    <a href="tel:0939681889" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 0939.681.889
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Lĩnh vực 5 -->
-                        <div>
-                            <h4 class="text-[11px] font-black text-blue-800 bg-blue-50 py-1.5 px-3 rounded-lg inline-block uppercase tracking-wider mb-2.5 shadow-sm border border-blue-100">Giảm Nghèo</h4>
-                            <div class="space-y-2.5">
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Bà Lê Thị Linh Trang</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Chuyên viên</p>
-                                    </div>
-                                    <a href="tel:0908409595" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 0908.409.595
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Lĩnh vực 6 -->
-                        <div>
-                            <h4 class="text-[11px] font-black text-blue-800 bg-blue-50 py-1.5 px-3 rounded-lg inline-block uppercase tracking-wider mb-2.5 shadow-sm border border-blue-100">Hạ tầng kĩ thuật</h4>
-                            <div class="space-y-2.5">
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Ông Đặng Huỳnh Sĩ Trọng</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Chuyên viên</p>
-                                    </div>
-                                    <a href="tel:0931578579" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 0931.578.579
-                                    </a>
-                                </div>
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Ông Trịnh Tuấn Phong</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Chuyên viên</p>
-                                    </div>
-                                    <a href="tel:0918851079" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 0918.851.079
-                                    </a>
-                                </div>
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Ông Lê Tấn Nhật</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Chuyên viên</p>
-                                    </div>
-                                    <a href="tel:0902271310" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 0902.271.310
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Lĩnh vực 7 -->
-                        <div>
-                            <h4 class="text-[11px] font-black text-blue-800 bg-blue-50 py-1.5 px-3 rounded-lg inline-block uppercase tracking-wider mb-2.5 shadow-sm border border-blue-100">Trật Tự Xây dựng</h4>
-                            <div class="space-y-2.5">
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Ông Đoàn Duy Phương</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Chuyên viên</p>
-                                    </div>
-                                    <a href="tel:0908030072" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 0908.030.072
-                                    </a>
-                                </div>
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Ông Nguyễn Trung Hiếu</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Chuyên viên</p>
-                                    </div>
-                                    <a href="tel:0938485804" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 0938.485.804
-                                    </a>
-                                </div>
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Ông Nguyễn Kiến Tín</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Cán sự</p>
-                                    </div>
-                                    <a href="tel:0932128127" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 0932.128.127
-                                    </a>
-                                </div>
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Ông Trần Minh Khang</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Cán sự</p>
-                                    </div>
-                                    <a href="tel:0908911391" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 0908.911.391
-                                    </a>
-                                </div>
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Ông Nguyễn Thanh Phước</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Chuyên viên</p>
-                                    </div>
-                                    <a href="tel:090748315" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 090.748.315
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Lĩnh vực 8 -->
-                        <div>
-                            <h4 class="text-[11px] font-black text-blue-800 bg-blue-50 py-1.5 px-3 rounded-lg inline-block uppercase tracking-wider mb-2.5 shadow-sm border border-blue-100">Văn hóa - Xã hội</h4>
-                            <div class="space-y-2.5">
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Ông Phạm Duy Tân</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Chuyên viên</p>
-                                    </div>
-                                    <a href="tel:0765127071" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 0765.127.071
-                                    </a>
-                                </div>
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Ông Ngô Hoàng Hiển</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Phó Trưởng phòng Phòng Văn hóa - Xã hội</p>
-                                    </div>
-                                    <a href="tel:0909261539" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 0909.261.539
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Lĩnh vực 9 -->
-                        <div>
-                            <h4 class="text-[11px] font-black text-blue-800 bg-blue-50 py-1.5 px-3 rounded-lg inline-block uppercase tracking-wider mb-2.5 shadow-sm border border-blue-100">Công tác Đảng</h4>
-                            <div class="space-y-2.5">
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Ông Trần Công Lý</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Chuyên viên Ban xây dựng Đảng</p>
-                                    </div>
-                                    <a href="tel:0907939539" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 0907.939.539
-                                    </a>
-                                </div>
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Ông Thiều Công Tài</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Chuyên viên Văn phòng Đảng ủy</p>
-                                    </div>
-                                    <a href="tel:0939566899" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 0939.566.899
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Lĩnh vực 10 -->
-                        <div>
-                            <h4 class="text-[11px] font-black text-blue-800 bg-blue-50 py-1.5 px-3 rounded-lg inline-block uppercase tracking-wider mb-2.5 shadow-sm border border-blue-100">Mặt trận và Đoàn thể</h4>
-                            <div class="space-y-2.5">
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Bà Nguyễn Ngọc Thanh</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Chuyên viên</p>
-                                    </div>
-                                    <a href="tel:0902604624" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 0902.604.624
-                                    </a>
-                                </div>
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Bà Nguyễn Thị Thu Nguyệt</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Phụ trách Hội Liên hiệp Phụ nữ</p>
-                                    </div>
-                                    <a href="tel:0908994786" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 0908.994.786
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Lĩnh vực 11 (BỔ SUNG MỚI) -->
-                        <div>
-                            <h4 class="text-[11px] font-black text-blue-800 bg-blue-50 py-1.5 px-3 rounded-lg inline-block uppercase tracking-wider mb-2.5 shadow-sm border border-blue-100 leading-relaxed">Lấn chiếm lòng lề đường, An toàn giao thông, An ninh trật tự, Phòng chống tội phạm</h4>
-                            <div class="space-y-2.5">
-                                <div class="bg-slate-50 border border-slate-100 p-3 rounded-xl flex flex-col sm:flex-row sm:items-center justify-between gap-3 hover:border-blue-200 transition">
-                                    <div>
-                                        <p class="text-[13px] font-bold text-slate-800">Công an xã Bình Hưng</p>
-                                        <p class="text-[11px] text-slate-500 font-medium mt-0.5">Trực ban / Đường dây nóng</p>
-                                    </div>
-                                    <a href="tel:02837582121" class="flex-shrink-0 bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white transition px-3 py-1.5 rounded-lg text-[11px] font-bold flex items-center justify-center gap-1.5 whitespace-nowrap">
-                                        📞 028.3758.2121
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-
+                    <div>
+                        <label class="text-xs font-bold text-slate-700 block mb-2">Địa chỉ Email <span class="text-red-500">*</span></label>
+                        <input type="email" id="email" required placeholder="name@tphcm.gov.vn" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10 transition">
                     </div>
-                </div>
-
+                    <div>
+                        <label class="text-xs font-bold text-slate-700 block mb-2">Nội dung phản ánh <span class="text-red-500">*</span></label>
+                        <textarea id="content" rows="5" required placeholder="Mô tả chi tiết..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10 transition leading-relaxed"></textarea>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-slate-700 block mb-2">Hình ảnh hiện trường đính kèm</label>
+                        <input type="file" id="imageFile" accept="image/*" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-black file:uppercase file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition cursor-pointer">
+                    </div>
+                    <div class="pt-4 max-w-sm mx-auto">
+                        <button type="submit" id="submitBtn" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-extrabold text-sm uppercase tracking-wider py-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+                            <span>Gửi phản ánh ngay</span> 🚀
+                        </button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
 
-    <div id="successModal" class="fixed inset-0 bg-slate-900/40 backdrop-blur-sm flex items-center justify-center p-4 z-50 opacity-0 pointer-events-none transition-all duration-300">
-        <div class="bg-white border border-slate-100 rounded-3xl p-6 md:p-8 max-w-md w-full shadow-2xl text-center transform scale-95 transition-all duration-300" id="modalCard">
-            <div class="w-14 h-14 bg-emerald-50 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl">✓</div>
-            <h3 class="text-base font-black text-slate-900 uppercase">Hệ thống đã tiếp nhận!</h3>
-            <p class="text-xs font-medium text-slate-400 mt-1">Đơn thư đã được ghi nhận thành công, vui lòng sao chép lại mã tra cứu:</p>
-            <div class="bg-slate-50 border border-slate-200 rounded-xl p-4 my-4">
-                <span class="text-[10px] font-bold text-slate-400 block uppercase tracking-widest mb-1">Mã tra cứu tiến độ</span>
-                <span id="trackingCodeDisplay" class="text-xl font-black text-blue-900 tracking-wider font-mono">--------</span>
-            </div>
-            <button onclick="closeModal()" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs uppercase tracking-wider py-3 rounded-xl transition shadow-sm">Đóng thông báo</button>
-        </div>
-    </div>
-
-    <footer class="mt-auto text-center py-6 text-slate-400 font-medium text-[11px] uppercase tracking-widest border-t border-slate-200 bg-white shadow-sm">
-        &copy; 2026 IOC BINH HƯNG — BẢN QUYỀN THUỘC UBND XÃ BÌNH HƯNG
-    </footer>
-
-    <script type="module" src="app.js"></script>
-    <script>
-        function closeModal() { 
-            document.getElementById('successModal').classList.add('opacity-0', 'pointer-events-none'); 
-            document.getElementById('modalCard').classList.add('scale-95'); 
-            document.getElementById('complaintForm').reset(); 
-        }
-
-        window.switchSystemTheme = function(modeName) { 
-            const body = document.getElementById('dynamic-body'); 
-            const btnXanh = document.getElementById('btn-theme-xanh'); 
-            const btnDo = document.getElementById('btn-theme-do'); 
-            
-            if (modeName === 'do') { 
-                body.classList.remove('theme-xanh-ios'); 
-                body.classList.add('theme-do-hanhchinh'); 
-                btnDo.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition bg-red-600 text-white shadow-md"; 
-                btnXanh.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition text-white/80 hover:text-white"; 
-            } else { 
-                body.classList.remove('theme-do-hanhchinh'); 
-                body.classList.add('theme-xanh-ios'); 
-                btnXanh.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition bg-blue-600 text-white shadow-md"; 
-                btnDo.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition text-white/80 hover:text-white"; 
-            } 
-        }
-    </script>
-</body>
+    </body>
 </html>
