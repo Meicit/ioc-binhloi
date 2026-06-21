@@ -39,7 +39,10 @@
         .menu-panel-wrapper { 
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
             border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 32px; 
-            width: 100%; padding: 24px 32px 32px 32px; transition: all 0.5s ease; 
+            width: 100%; 
+            /* Đã giảm khoảng cách lề trên xuống 16px thay vì 24px/32px như cũ */
+            padding: 16px 24px 24px 24px; 
+            transition: all 0.5s ease; 
         }
         
         body.light-theme.theme-xanh-ios .menu-panel-wrapper { background-color: rgba(128, 255, 232, 0.45); box-shadow: 0 20px 50px -10px rgba(12, 74, 110, 0.15); }
@@ -164,7 +167,7 @@
             .header-layout { flex-direction: column !important; }
             .theme-selector-vertical { position: relative !important; top: 0 !important; right: 0 !important; margin-top: 16px; flex-direction: row !important; space-x: 2; width: auto !important; }
             .theme-selector-vertical button { margin-left: 4px; margin-right: 4px; }
-            .menu-panel-wrapper { padding: 20px 20px 24px; }
+            .menu-panel-wrapper { padding: 16px 16px 20px; }
         }
     </style>
 </head>
@@ -206,7 +209,8 @@
 
     <div class="max-w-[1550px] w-full mx-auto px-4 md:px-6 my-2 pb-12 flex flex-col flex-grow">
 
-        <article class="menu-panel-wrapper flex flex-col space-y-6">
+        <!-- Thay vì space-y-6, dùng space-y-4 để thu hẹp khoảng cách giữa các khối -->
+        <article class="menu-panel-wrapper flex flex-col space-y-4">
             
             <div class="flex flex-row justify-between items-center gap-4 pb-3 border-b border-white/40 w-full">
                 <!-- NÚT QUAY LẠI (TRÁI) -->
@@ -272,10 +276,11 @@
             <div class="glass-panel p-5 md:p-6">
                 <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label border-l-4 border-sky-400 dark:border-sky-500 pl-3 mb-4">🎥 Video Tư liệu / Bản tin thời sự cơ sở</h2>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="video-card">
+                    <div class="video-card bg-black">
                         <iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1798753044439628%2F&show_text=false&width=560&t=0" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                     </div>
-                    <div class="video-card">
+                    <div class="video-card bg-black">
+                        <!-- Đã cập nhật link YouTube vào đây với width=100% height=100% -->
                         <iframe width="100%" height="100%" src="https://www.youtube.com/embed/Z6yl38eepN8?si=YMGMH4IEnm9soPmz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                 </div>
@@ -361,6 +366,7 @@
         // =========================================================
         // KHU VỰC QUẢN LÝ DỮ LIỆU MARQUEE (HÌNH ẢNH CỔ ĐỘNG)
         // =========================================================
+        /* Bổ sung các file ảnh bạn có trong thư mục images/co-dong/ vào mảng dưới đây */
         const listAnhCoDong = [
             "images/co-dong/co-dong-1.jpg",
             "images/co-dong/co-dong-2.jpg",
@@ -385,7 +391,8 @@
                 </div>
             `).join('');
 
-            // Nhân đôi danh sách để tạo cuộn liên tục
+            // Nhân đôi danh sách (append 2 lần) để tạo thành vòng lặp vô tận (seamless loop)
+            // Khi thanh trượt chạy đến -50%, nó sẽ có dữ liệu y hệt phần đầu
             track.innerHTML = itemsHTML + itemsHTML;
         }
 
