@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Điều phối Phản ánh - Xã Bình Hưng</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', 'Be Vietnam Pro', sans-serif; margin: 0; padding: 0; min-height: 100vh; background-color: #f8fafc; color: #0f172a; display: flex; flex-direction: column; transition: background 0.4s ease; }
+        body.theme-xanh-ios .main-header { background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d); background-size: 400% 400%; animation: gradientGIF 12s ease infinite; box-shadow: 0 4px 15px rgba(11, 74, 143, 0.15); border-bottom: 2px solid #032b5c; }
+        body.theme-do-hanhchinh .main-header { background: linear-gradient(-45deg, #dc2626, #7f1d1d, #ef4444, #450a0a); background-size: 400% 400%; animation: gradientGIF 12s ease infinite; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.15); border-bottom: 2px solid #991b1b; }
+        @keyframes gradientGIF { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .menu-panel-wrapper { background-color: rgba(128, 255, 232, 0.45); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 40px; box-shadow: 0 20px 50px -10px rgba(12, 74, 110, 0.15); width: 100%; }
+        .logo-main { animation: float 4s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)); } 50% { transform: translateY(-3px); filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3)); } }
+        
+        .action-card {
+            background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.8); border-radius: 24px;
+            padding: 32px; transition: all 0.3s ease; text-align: center;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05); cursor: pointer; text-decoration: none;
+        }
+        .action-card:hover { transform: translateY(-5px); box-shadow: 0 20px 35px -5px rgba(14,165,233,0.15); border-color: rgba(14,165,233,0.4); }
+    </style>
+</head>
+<body class="theme-xanh-ios" id="dynamic-body">
+
+    <header class="main-header w-full py-6 px-6 md:px-12 select-none relative transition-all duration-300">
+        <div class="max-w-[1550px] mx-auto flex flex-col md:flex-row items-center justify-between relative header-layout">
+            <div class="flex flex-row items-center space-x-6 w-auto">
+                <div class="flex-shrink-0"><img src="../logo.png" alt="Logo" class="logo-main w-20 h-auto" onerror="this.src='logo.png'"></div>
+                <div class="flex flex-col items-start justify-center space-y-2 text-left">
+                    <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-['Montserrat']">IOC BINH HUNG</p>
+                    <h1 class="title-main text-sm md:text-base lg:text-lg font-bold uppercase tracking-[0.08em] text-white/90 leading-tight m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">Cổng thông tin và điều hành xã Bình Hưng, Thành phố Hồ Chí Minh</h1>
+                </div>
+            </div>
+            <div class="theme-selector-vertical mt-4 md:mt-0 bg-white/10 backdrop-blur-md border border-white/20 p-1.5 rounded-xl flex flex-col md:flex-row gap-1.5 z-20 shadow-inner">
+                <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="w-[75px] text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md">🔵 Xanh</button>
+                <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="w-[75px] text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white">🔴 Đỏ</button>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-[1550px] w-full mx-auto px-4 md:px-6 mt-6">
+        <div class="py-4 md:py-5 px-8 text-center shadow-lg rounded-2xl bg-sky-500 border-b-4 border-sky-600">
+            <h2 class="font-['Montserrat'] text-xl md:text-3xl font-black text-white uppercase tracking-wider leading-tight">ĐIỀU PHỐI PHẢN ÁNH</h2>
+        </div>
+    </div>
+
+    <div class="max-w-[1000px] w-full mx-auto px-4 md:px-6 my-8 flex-grow">
+        <div class="menu-panel-wrapper p-8 md:p-12 space-y-8">
+            
+            <a href="../home.html" class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-sm transition-all duration-300 hover:-translate-y-0.5">
+                ⬅️ Quay lại Trang chủ
+            </a>
+
+            <div class="text-center mb-6">
+                <h3 class="text-2xl font-black text-slate-800 mb-2">Vui lòng chọn cổng tiếp nhận</h3>
+                <p class="text-sm font-medium text-slate-500">Mỗi hình thức sẽ được chuyển đến đúng bộ phận và chuyên viên xử lý.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                
+                <a href="phan-anh.html" class="action-card group">
+                    <div class="w-16 h-16 bg-blue-100 text-blue-600 rounded-full flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition shadow-sm">✍️</div>
+                    <h4 class="text-base font-bold text-slate-800 mb-2 uppercase">Gửi Phản Ánh Trực Tuyến</h4>
+                    <p class="text-xs text-slate-500">Gửi trực tiếp đến cơ sở dữ liệu của Cán bộ Xã Bình Hưng xử lý nhanh chóng.</p>
+                </a>
+
+                <a href="ds-can-bo.html" class="action-card group">
+                    <div class="w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition shadow-sm">👨‍💼</div>
+                    <h4 class="text-base font-bold text-slate-800 mb-2 uppercase">Danh Sách Cán Bộ Phụ Trách</h4>
+                    <p class="text-xs text-slate-500">Xem danh bạ và liên hệ trực tiếp với chuyên viên phụ trách từng lĩnh vực.</p>
+                </a>
+
+                <a href="https://1022.tphcm.gov.vn/vi/phan-anh-kien-nghi/gui-phan-anh" target="_blank" class="action-card group relative overflow-hidden border-orange-200">
+                    <div class="absolute top-0 right-0 bg-orange-500 text-white text-[10px] font-bold px-3 py-1 rounded-bl-xl shadow-sm uppercase tracking-wider">Cổng TP.HCM</div>
+                    <div class="w-16 h-16 bg-orange-100 text-orange-600 rounded-full flex items-center justify-center text-3xl mb-4 group-hover:scale-110 transition shadow-sm">🏛️</div>
+                    <h4 class="text-base font-bold text-slate-800 mb-2 uppercase">Cổng Phản Ánh 1022</h4>
+                    <p class="text-xs text-slate-500">Chuyển hướng đến hệ thống tiếp nhận sự cố hạ tầng của Thành phố Hồ Chí Minh.</p>
+                </a>
+
+            </div>
+        </div>
+    </div>
+
+    <footer class="mt-auto text-center py-6 text-slate-400 font-medium text-[11px] uppercase tracking-widest border-t border-slate-200 bg-white shadow-sm">
+        &copy; 2026 IOC BINH HƯNG — BẢN QUYỀN THUỘC UBND XÃ BÌNH HƯNG
+    </footer>
+
+    <script>
+        window.switchSystemTheme = function(modeName) { 
+            const body = document.getElementById('dynamic-body'); 
+            const btnXanh = document.getElementById('btn-theme-xanh'); 
+            const btnDo = document.getElementById('btn-theme-do'); 
+            if (modeName === 'do') { 
+                body.classList.remove('theme-xanh-ios'); body.classList.add('theme-do-hanhchinh'); 
+                btnDo.className = "w-[75px] text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition bg-red-600 text-white shadow-md"; 
+                btnXanh.className = "w-[75px] text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition text-white/80 hover:text-white"; 
+            } else { 
+                body.classList.remove('theme-do-hanhchinh'); body.classList.add('theme-xanh-ios'); 
+                btnXanh.className = "w-[75px] text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition bg-blue-600 text-white shadow-md"; 
+                btnDo.className = "w-[75px] text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition text-white/80 hover:text-white"; 
+            } 
+        }
+    </script>
+</body>
+</html>
