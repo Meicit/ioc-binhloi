@@ -35,7 +35,6 @@
             box-shadow: 0 4px 15px rgba(11, 74, 143, 0.15); border-bottom: 2px solid #032b5c;
         }
 
-        /* Chuyển sang dải gradient Đỏ Cờ chuẩn (#da251d) */
         body.light-theme.theme-do-hanhchinh .main-header {
             background: linear-gradient(-45deg, #da251d, #a81c15, #ff3b33, #7a120e);
             background-size: 400% 400%; animation: gradientGIF 12s ease infinite;
@@ -54,10 +53,8 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* Ẩn bộ chuyển đổi Xanh/Đỏ khi ở chế độ Tối */
         body.dark-theme .theme-selector-vertical { display: none !important; }
 
-        /* LOGO ANIMATION CHUYỂN ĐỘNG NHẸ */
         .logo-main { animation: float 4s ease-in-out infinite; }
         @keyframes float {
             0%, 100% { transform: translateY(0); filter: drop-shadow(0 4px 6px rgba(12, 74, 110, 0.3)); }
@@ -71,7 +68,6 @@
             padding: 16px 35px 40px 35px; width: 100%; transition: all 0.5s ease;
         }
 
-        /* ĐỒNG BỘ MÀU NỀN MENU PANEL GIỐNG MÀU HEADER */
         body.light-theme.theme-xanh-ios .menu-panel-wrapper {
             background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d);
             background-size: 400% 400%; animation: gradientGIF 12s ease infinite;
@@ -90,12 +86,8 @@
             box-shadow: 0 20px 50px -10px rgba(8, 47, 73, 0.6); border-color: rgba(56, 189, 248, 0.2); 
         }
 
-        /* GRID SYSTEM: ĐỊNH DẠNG CỘT CỐ ĐỊNH */
-        .grid-container {
-            display: grid; grid-template-columns: repeat(6, 1fr); gap: 24px; width: 100%;
-        }
+        .grid-container { display: grid; grid-template-columns: repeat(6, 1fr); gap: 24px; width: 100%; }
 
-        /* CARD STYLE: VUÔNG GỌN, CHỮ ÉP ĐÁY */
         .nav-card { 
             position: relative; background-size: cover; background-position: center; background-repeat: no-repeat;
             border-radius: 20px; aspect-ratio: 1 / 1; display: flex; flex-direction: column; justify-content: flex-end;
@@ -109,56 +101,23 @@
             z-index: 1; transition: all 0.4s ease;
         }
 
-        /* Hiệu ứng thẻ ở Theme Xanh (Light) */
-        body.light-theme.theme-xanh-ios .nav-card {
-            box-shadow: 0 2px 6px rgba(12, 74, 110, 0.04), inset 0 1px 2px rgba(255,255,255,0.8);
-        }
-        body.light-theme.theme-xanh-ios .nav-card:hover { 
-            transform: translateY(-4px); border-color: rgba(11, 74, 143, 0.35); 
-            box-shadow: 0 12px 20px -8px rgba(12, 74, 110, 0.2), 0 1px 3px rgba(12, 74, 110, 0.04);
-        }
-        body.light-theme.theme-xanh-ios .nav-card:hover::before {
-            background: linear-gradient(180deg, rgba(14, 165, 233, 0) 45%, rgba(11, 43, 91, 0.3) 70%, rgba(11, 37, 74, 0.75) 100%);
-        }
+        body.light-theme.theme-xanh-ios .nav-card { box-shadow: 0 2px 6px rgba(12, 74, 110, 0.04), inset 0 1px 2px rgba(255,255,255,0.8); }
+        body.light-theme.theme-xanh-ios .nav-card:hover { transform: translateY(-4px); border-color: rgba(11, 74, 143, 0.35); box-shadow: 0 12px 20px -8px rgba(12, 74, 110, 0.2), 0 1px 3px rgba(12, 74, 110, 0.04); }
+        body.light-theme.theme-xanh-ios .nav-card:hover::before { background: linear-gradient(180deg, rgba(14, 165, 233, 0) 45%, rgba(11, 43, 91, 0.3) 70%, rgba(11, 37, 74, 0.75) 100%); }
 
-        /* Hiệu ứng thẻ ở Theme Đỏ Cờ (Light) */
-        body.light-theme.theme-do-hanhchinh .nav-card {
-            box-shadow: 0 2px 6px rgba(218, 37, 29, 0.15), inset 0 1px 2px rgba(255,255,255,0.8);
-        }
-        body.light-theme.theme-do-hanhchinh .nav-card:hover { 
-            transform: translateY(-4px); border-color: #fca5a5; 
-            box-shadow: 0 12px 20px -8px rgba(218, 37, 29, 0.6), 0 1px 3px rgba(218, 37, 29, 0.2);
-        }
-        body.light-theme.theme-do-hanhchinh .nav-card:hover::before {
-            background: linear-gradient(180deg, rgba(218, 37, 29, 0) 45%, rgba(218, 37, 29, 0.6) 70%, rgba(168, 28, 21, 0.95) 100%);
-        }
+        body.light-theme.theme-do-hanhchinh .nav-card { box-shadow: 0 2px 6px rgba(218, 37, 29, 0.15), inset 0 1px 2px rgba(255,255,255,0.8); }
+        body.light-theme.theme-do-hanhchinh .nav-card:hover { transform: translateY(-4px); border-color: #fca5a5; box-shadow: 0 12px 20px -8px rgba(218, 37, 29, 0.6), 0 1px 3px rgba(218, 37, 29, 0.2); }
+        body.light-theme.theme-do-hanhchinh .nav-card:hover::before { background: linear-gradient(180deg, rgba(218, 37, 29, 0) 45%, rgba(218, 37, 29, 0.6) 70%, rgba(168, 28, 21, 0.95) 100%); }
 
-        /* Hiệu ứng thẻ ở Theme Tối */
-        body.dark-theme .nav-card { 
-            border-color: rgba(56, 189, 248, 0.2); background-color: rgba(15, 23, 42, 0.4); 
-            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
-        }
-        body.dark-theme .nav-card::before { 
-            background: linear-gradient(180deg, rgba(2,6,23,0) 40%, rgba(2,6,23,0.6) 75%, rgba(2,6,23,0.95) 100%); 
-        }
-        body.dark-theme .nav-card:hover { 
-            border-color: #38bdf8; transform: translateY(-4px); box-shadow: 0 12px 20px -8px rgba(0,0,0,0.5); 
-        }
-        body.dark-theme .nav-card:hover::before { 
-            background: linear-gradient(180deg, rgba(8,47,73,0) 40%, rgba(8,47,73,0.8) 75%, rgba(8,47,73,0.98) 100%); 
-        }
+        body.dark-theme .nav-card { border-color: rgba(56, 189, 248, 0.2); background-color: rgba(15, 23, 42, 0.4); box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3); }
+        body.dark-theme .nav-card::before { background: linear-gradient(180deg, rgba(2,6,23,0) 40%, rgba(2,6,23,0.6) 75%, rgba(2,6,23,0.95) 100%); }
+        body.dark-theme .nav-card:hover { border-color: #38bdf8; transform: translateY(-4px); box-shadow: 0 12px 20px -8px rgba(0,0,0,0.5); }
+        body.dark-theme .nav-card:hover::before { background: linear-gradient(180deg, rgba(8,47,73,0) 40%, rgba(8,47,73,0.8) 75%, rgba(8,47,73,0.98) 100%); }
 
-        .text-overlay {
-            width: 100%; padding-left: 12px; padding-right: 12px; padding-top: 12px; padding-bottom: 10px; 
-            position: relative; z-index: 2; text-align: center;
-        }
-        .nav-card h3 { 
-            font-size: 13px; font-weight: 700; color: #ffffff; line-height: 1.35;
-            letter-spacing: -0.1px; transition: transform 0.3s ease;
-        }
+        .text-overlay { width: 100%; padding-left: 12px; padding-right: 12px; padding-top: 12px; padding-bottom: 10px; position: relative; z-index: 2; text-align: center; }
+        .nav-card h3 { font-size: 13px; font-weight: 700; color: #ffffff; line-height: 1.35; letter-spacing: -0.1px; transition: transform 0.3s ease; }
         .nav-card:hover h3 { transform: translateY(-1px); }
 
-        /* KHỐI LIÊN HỆ ĐƠN VỊ ĐỒNG BỘ THEME */
         .contact-section { transition: all 0.5s ease; border: 1px solid rgba(255, 255, 255, 0.2); backdrop-filter: blur(10px); }
         body.light-theme.theme-xanh-ios .contact-section { background-color: rgba(255, 255, 255, 0.1); }
         body.light-theme.theme-do-hanhchinh .contact-section { background-color: rgba(255, 255, 255, 0.15); }
@@ -177,7 +136,6 @@
             transform: scale(0.95) translateY(10px); transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); 
         }
         body.light-theme .modal-card { background: rgba(255, 255, 255, 0.95); border: 1px solid rgba(255, 255, 255, 0.6); }
-        
         body.dark-theme .modal-card { background: rgba(15, 23, 42, 0.95); border: 1px solid rgba(56, 189, 248, 0.3); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); }
         body.dark-theme .modal-icon { background: rgba(8, 47, 73, 0.6); border-color: rgba(56, 189, 248, 0.3); color: #38bdf8; }
         body.dark-theme .modal-title { color: #e0f2fe; }
@@ -193,15 +151,69 @@
         body.light-theme footer { background-color: #ffffff; border-color: #e2e8f0; }
         body.dark-theme footer { background-color: rgba(8, 47, 73, 0.6); border-color: rgba(56, 189, 248, 0.2); color: #38bdf8; backdrop-filter: blur(10px); }
 
+        /* ================= HIỆU ỨNG ROBOT CHATBOT (BIN & HUN) ================= */
+        .chatbot-mascot {
+            position: fixed;
+            bottom: 20px;
+            z-index: 900; /* Nằm đè lên mọi thứ trừ Modal (1000) */
+            width: 85px;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @media (min-width: 768px) {
+            .chatbot-mascot { width: 120px; bottom: 30px; }
+        }
+
+        .chatbot-bin { left: 20px; animation: floatBot 4s ease-in-out infinite; }
+        .chatbot-hun { right: 20px; animation: floatBot 3.5s ease-in-out infinite alternate; }
+
+        /* Khi rê chuột vào: Tạm dừng bay, phóng to lên */
+        .chatbot-mascot:hover {
+            transform: scale(1.15) translateY(-5px);
+            animation-play-state: paused;
+        }
+
+        /* Sử dụng drop-shadow để bám sát viền ảnh PNG trong suốt */
+        .chatbot-mascot img {
+            width: 100%; height: auto;
+            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.35));
+        }
+
+        /* Bong bóng chat (Speech Bubble) */
+        .chat-bubble {
+            position: absolute;
+            top: -45px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 800;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+        }
+        .chatbot-bin .chat-bubble { left: 0; border-bottom-left-radius: 4px; color: #0284c7; border: 1px solid #bae6fd; }
+        .chatbot-hun .chat-bubble { right: 0; border-bottom-right-radius: 4px; color: #db2777; border: 1px solid #fbcfe8; }
+
+        .chatbot-mascot:hover .chat-bubble {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes floatBot {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
         @media (max-width: 1400px) { .grid-container { grid-template-columns: repeat(3, 1fr); gap: 18px; } }
-        
-        /* RESPONSIVE CHO KHỐI ĐIỀU HƯỚNG THEME TRÊN ĐIỆN THOẠI */
         @media (max-width: 1024px) {
             .header-layout { flex-direction: column !important; }
-            .theme-selector-vertical { 
-                position: relative !important; top: 0 !important; right: 0 !important; 
-                margin-top: 16px; flex-direction: row !important; space-x: 2; width: auto !important;
-            }
+            .theme-selector-vertical { position: relative !important; top: 0 !important; right: 0 !important; margin-top: 16px; flex-direction: row !important; space-x: 2; width: auto !important; }
             .theme-selector-vertical button { margin-left: 4px; margin-right: 4px; }
         }
         @media (max-width: 768px) { 
@@ -215,7 +227,6 @@
 
     <header class="main-header w-full py-6 px-6 md:px-12 select-none relative transition-all duration-300">
         <div class="max-w-[1550px] mx-auto flex flex-col items-center justify-center relative header-layout">
-            
             <div class="flex flex-row items-center space-x-6 w-auto">
                 <div class="flex-shrink-0">
                     <img src="logo.png" alt="Logo" class="logo-main w-20 h-auto" onerror="this.src='logo.png'">
@@ -235,11 +246,10 @@
                 <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md">🔵 Xanh</button>
                 <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white">🔴 Đỏ</button>
             </div>
-            
         </div>
     </header>
 
-    <div class="max-w-[1550px] w-full mx-auto px-6 my-8">
+    <div class="max-w-[1550px] w-full mx-auto px-6 my-8 flex-grow">
         
         <div class="menu-panel-wrapper">
             
@@ -252,98 +262,38 @@
             </div>
 
             <main class="grid-container">
+                <a href="gioithieu.html" class="nav-card" style="background-image: url('icon/gioithieu.png');"><div class="text-overlay"><h3>Giới thiệu</h3></div></a>
+                <a href="pages/tru-so-hanh-chinh.html" class="nav-card" style="background-image: url('icon/truso.png');"><div class="text-overlay"><h3>Trụ sở cơ quan hành chính</h3></div></a>
+                <div onclick="openLoginModal()" class="nav-card" style="background-image: url('icon/dashboard.png');"><div class="text-overlay"><h3>Hệ thống i-Dashboard</h3></div></div>
+                <a href="node-thong-tin-tthc/tthc.html" class="nav-card" style="background-image: url('icon/tthc.png');"><div class="text-overlay"><h3>Thông tin <br>Thủ tục hành chính</h3></div></a>        
+                <a href="ban-do-so.html" class="nav-card" style="background-image: url('icon/bandoso.png');"><div class="text-overlay"><h3>Bản đồ số xã Bình Hưng</h3></div></a>
+                <div onclick="window.open('https://xabinhhung.hcm.edu.vn/homegd1413', '_blank')" class="nav-card" style="background-image: url('icon/truonghoc.png');"><div class="text-overlay"><h3>Trang điện tử trường học</h3></div></div>
+                <div onclick="window.open('https://khohoclieusobinhhung.vstudy.edu.vn/hoc-truc-tuyen', '_blank')" class="nav-card" style="background-image: url('icon/hoclieu.png');"><div class="text-overlay"><h3>Kho học liệu số<br>giáo dục</h3></div></div>
+                <a href="ap-chungcu/hien-thi-ap-chungcu.html" class="nav-card" style="background-image: url('icon/dieuhanhap.png');"><div class="text-overlay"><h3>Ấp số - Chung cư số</h3></div></a>
+                <a href="tuyen-truyen/tuyen-truyen.html" class="nav-card" style="background-image: url('icon/tuyentruyen.png');"><div class="text-overlay"><h3>Thông tin - Tuyên truyền</h3></div></a>
+                <a href="https://www.facebook.com/p/X%C3%A3-B%C3%ACnh-H%C3%B9ng-Th%C3%A0nh-Ph%E1%BB%91-H%E1%BB%93-Ch%C3%AD-Minh-100063653432652/" target="_blank" class="nav-card" style="background-image: url('icon/fanpage.png');"><div class="text-overlay"><h3>Fanpage xã Bình Hưng</h3></div></a>
                 
-                <a href="gioithieu.html" class="nav-card" style="background-image: url('icon/gioithieu.png');">
-                    <div class="text-overlay">
-                        <h3>Giới thiệu</h3>
-                    </div>
-                </a>
-                
-                <a href="pages/tru-so-hanh-chinh.html" class="nav-card" style="background-image: url('icon/truso.png');">
-                    <div class="text-overlay">
-                        <h3>Trụ sở cơ quan hành chính</h3>
-                    </div>
-                </a>
-                
-                <div onclick="openLoginModal()" class="nav-card" style="background-image: url('icon/dashboard.png');">
-                    <div class="text-overlay">
-                        <h3>Hệ thống i-Dashboard</h3>
-                    </div>
-                </div>
-                
-                <a href="node-thong-tin-tthc/tthc.html" class="nav-card" style="background-image: url('icon/tthc.png');">
-                    <div class="text-overlay">
-                        <h3>Thông tin <br>Thủ tục hành chính</h3>
-                    </div>
-                </a>        
-                
-                <a href="ban-do-so.html" class="nav-card" style="background-image: url('icon/bandoso.png');">
-                    <div class="text-overlay">
-                        <h3>Bản đồ số xã Bình Hưng</h3>
-                    </div>
-                </a>
-                
-               <div onclick="window.open('https://xabinhhung.hcm.edu.vn/homegd1413', '_blank')" class="nav-card" style="background-image: url('icon/truonghoc.png');">
-                <div class="text-overlay">
-                <h3>Trang điện tử trường học</h3>
-                </div>
-                </div>
-                
-             <div onclick="window.open('https://khohoclieusobinhhung.vstudy.edu.vn/hoc-truc-tuyen', '_blank')" class="nav-card" style="background-image: url('icon/hoclieu.png');">
-            <div class="text-overlay">
-            <h3>Kho học liệu số<br>giáo dục</h3>
-            </div>
-            </div>
-                
-                <a href="ap-chungcu/hien-thi-ap-chungcu.html" class="nav-card" style="background-image: url('icon/dieuhanhap.png');">
-                    <div class="text-overlay">
-                        <h3>Ấp số - Chung cư số</h3>
-                    </div>
-                </a>
-
-                <a href="tuyen-truyen/tuyen-truyen.html" class="nav-card" style="background-image: url('icon/tuyentruyen.png');">
-                    <div class="text-overlay">
-                        <h3>Thông tin - Tuyên truyền</h3>
-                    </div>
-                </a>
-
-                <a href="https://www.facebook.com/p/X%C3%A3-B%C3%ACnh-H%C3%B9ng-Th%C3%A0nh-Ph%E1%BB%91-H%E1%BB%93-Ch%C3%AD-Minh-100063653432652/" target="_blank" class="nav-card" style="background-image: url('icon/fanpage.png');">
-                    <div class="text-overlay">
-                        <h3>Fanpage xã Bình Hưng</h3>
-                    </div>
-                </a>
-
+                <!-- Vẫn giữ nguyên nút này để bấm mở Modal chọn AI -->
                 <div onclick="openAIModal()" class="nav-card" style="background-image: url('icon/trolyao.png');">
                     <div class="text-overlay">
                         <h3>Trợ lý Ảo</h3>
                     </div>
                 </div>
 
-              <a href="phan-anh/phan-anh.html" class="nav-card" style="background-image: url('icon/phananh.png');">
-            <div class="text-overlay">
-            <h3>Phản ánh trực tuyến</h3>
-            </div>
-            </a>
+                <a href="phan-anh/phan-anh.html" class="nav-card" style="background-image: url('icon/phananh.png');"><div class="text-overlay"><h3>Phản ánh trực tuyến</h3></div></a>
             </main>
 
             <section class="w-full pt-6 mt-8 border-t border-white/20 flex justify-center">
-                
                 <div class="contact-section w-full max-w-5xl rounded-2xl p-6 shadow-lg text-white transition-transform duration-300 hover:scale-[1.01]">
-                    
-                    <h2 class="text-base font-black uppercase tracking-wider pb-3 border-b border-white/20 mb-5 flex items-center gap-2">
-                        🏛️ Ủy ban nhân dân xã Bình Hưng
-                    </h2>
-
+                    <h2 class="text-base font-black uppercase tracking-wider pb-3 border-b border-white/20 mb-5 flex items-center gap-2">🏛️ Ủy ban nhân dân xã Bình Hưng</h2>
                     <div class="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
-                        
                         <div class="flex flex-col justify-between h-full">
                             <div class="space-y-3 text-[11px] md:text-xs font-medium">
                                 <p class="flex items-start gap-2"><span class="flex-shrink-0 opacity-80">📍</span> <span>A10/26A đường số 10, KDC Bình Hưng, Ấp 6, Xã Bình Hưng, TP. Hồ Chí Minh</span></p>
                                 <p class="flex items-center gap-2"><span class="flex-shrink-0 opacity-80">📞</span> <span>028.3981.0015</span></p>
                                 <p class="flex items-center gap-2"><span class="flex-shrink-0 opacity-80">📧</span> <span class="break-all">binhhung@tphcm.gov.vn</span></p>
                             </div>
-                          </div>
-
+                        </div>
                         <div class="md:border-l md:border-white/20 md:pl-8 pt-4 md:pt-0 border-t border-white/20 md:border-t-0">
                             <h3 class="text-[11px] md:text-xs font-bold opacity-90 uppercase mb-3 tracking-widest">🏢 Các đơn vị trực thuộc</h3>
                             <ul class="space-y-2 text-[11px] md:text-xs font-medium pl-1 opacity-90">
@@ -356,14 +306,24 @@
                                 <li class="flex items-start gap-2"><span class="opacity-100 font-black">▪</span> <span>Trạm Y tế</span></li>
                             </ul>
                         </div>
-
                     </div>
                 </div>
-
             </section>
 
         </div>
     </div>
+
+    <!-- ================= 2 CHATBOT NẰM Ở 2 GÓC DƯỚI MÀN HÌNH ================= -->
+    <div class="chatbot-mascot chatbot-bin" onclick="openAIModal()">
+        <div class="chat-bubble">👋 Trợ lý BIN xin chào!</div>
+        <img src="binBH.png" alt="Trợ lý BIN">
+    </div>
+
+    <div class="chatbot-mascot chatbot-hun" onclick="openAIModal()">
+        <div class="chat-bubble">✨ Trợ lý HUN hỗ trợ bạn!</div>
+        <img src="hunBH.png" alt="Trợ lý HUN">
+    </div>
+
 
     <!-- MODAL ĐĂNG NHẬP -->
     <div id="loginModal" class="modal-overlay">
@@ -386,54 +346,31 @@
                         class="modal-input w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-900 outline-none transition focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-500/10">
                 </div>
                 <div class="grid grid-cols-2 gap-4 pt-4">
-                    <button type="button" onclick="closeLoginModal()" 
-                        class="modal-btn-cancel w-full bg-slate-100 text-slate-600 py-3 rounded-xl font-semibold text-xs uppercase tracking-wider transition hover:bg-slate-200">
-                        Hủy
-                    </button>
-                    <button type="submit" 
-                        class="w-full bg-gradient-to-r from-sky-600 to-sky-700 text-white py-3 rounded-xl font-semibold text-xs uppercase tracking-wider shadow-md shadow-sky-600/10 hover:opacity-95 transition">
-                        Xác nhận
-                    </button>
+                    <button type="button" onclick="closeLoginModal()" class="modal-btn-cancel w-full bg-slate-100 text-slate-600 py-3 rounded-xl font-semibold text-xs uppercase tracking-wider transition hover:bg-slate-200">Hủy</button>
+                    <button type="submit" class="w-full bg-gradient-to-r from-sky-600 to-sky-700 text-white py-3 rounded-xl font-semibold text-xs uppercase tracking-wider shadow-md shadow-sky-600/10 hover:opacity-95 transition">Xác nhận</button>
                 </div>
             </form>
         </div>
     </div>
 
-    <!-- MODAL CHỌN TRỢ LÝ ẢO AI VỚI 2 LINH VẬT 2 BÊN -->
+    <!-- MODAL CHỌN TRỢ LÝ ẢO AI -->
     <div id="aiModal" class="modal-overlay">
-        <div class="modal-card" style="max-width: 480px;">
+        <div class="modal-card">
             <div class="text-center mb-6">
                 <div class="w-12 h-12 bg-sky-50 text-sky-600 rounded-full flex items-center justify-center mx-auto mb-3 text-2xl shadow-sm border border-sky-100 modal-icon">🤖</div>
-                <h2 class="text-lg font-bold text-slate-900 tracking-tight modal-title">Chọn Trợ lý ảo AI</h2>
-                <p class="text-[11px] text-slate-400 font-medium uppercase mt-1 tracking-wider modal-subtitle">Vui lòng chọn nền tảng bạn muốn sử dụng</p>
+                <h2 class="text-lg font-bold text-slate-900 tracking-tight modal-title">Chọn Nền tảng AI</h2>
+                <p class="text-[11px] text-slate-400 font-medium uppercase mt-1 tracking-wider modal-subtitle">Bạn muốn trò chuyện với trợ lý nào?</p>
             </div>
             
-            <!-- Khu vực Flex Row: Chứa Ảnh Trái - Các nút Giữa - Ảnh Phải -->
-            <div class="flex flex-row items-center justify-between gap-4 mb-2">
-                
-                <!-- Linh vật BIN (Trái) với nền trong suốt (.png) -->
-                <div class="w-24 h-32 shrink-0 rounded-2xl overflow-hidden shadow-md border-2 border-blue-500/30 relative bg-transparent flex items-center justify-center">
-                    <img src="binBH.png" alt="Trợ lý BIN" class="w-full h-full object-contain transition-transform duration-500 hover:scale-110">
-                </div>
-                
-                <!-- Bảng chọn (Giữa) -->
-                <div class="flex flex-col space-y-3 flex-grow">
-                    <button onclick="window.open('https://chat.openai.com', '_blank'); closeAIModal();" class="w-full flex items-center justify-center gap-2 bg-white border border-slate-200 rounded-xl px-3 py-3 text-sm font-bold text-slate-700 hover:border-emerald-500 hover:text-emerald-600 transition modal-input">
-                        <span class="text-lg">🟩</span> ChatGPT
-                    </button>
-                    <button onclick="window.open('https://gemini.google.com', '_blank'); closeAIModal();" class="w-full flex items-center justify-center gap-2 bg-white border border-slate-200 rounded-xl px-3 py-3 text-sm font-bold text-slate-700 hover:border-blue-500 hover:text-blue-600 transition modal-input">
-                        <span class="text-lg">✨</span> Gemini
-                    </button>
-                </div>
-
-                <!-- Linh vật HUN (Phải) với nền trong suốt (.png) -->
-                <div class="w-24 h-32 shrink-0 rounded-2xl overflow-hidden shadow-md border-2 border-pink-500/30 relative bg-transparent flex items-center justify-center">
-                    <img src="hunBH.png" alt="Trợ lý HUN" class="w-full h-full object-contain transition-transform duration-500 hover:scale-110">
-                </div>
-
+            <div class="flex flex-col space-y-3">
+                <button onclick="window.open('https://chat.openai.com', '_blank'); closeAIModal();" class="w-full flex items-center justify-center gap-3 bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-700 hover:border-emerald-500 hover:text-emerald-600 transition modal-input shadow-sm">
+                    <span class="text-xl">🟩</span> ChatGPT
+                </button>
+                <button onclick="window.open('https://gemini.google.com', '_blank'); closeAIModal();" class="w-full flex items-center justify-center gap-3 bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-700 hover:border-blue-500 hover:text-blue-600 transition modal-input shadow-sm">
+                    <span class="text-xl">✨</span> Gemini
+                </button>
             </div>
             
-            <!-- Nút Đóng phía dưới cùng -->
             <div class="pt-5 mt-2">
                 <button type="button" onclick="closeAIModal()" class="modal-btn-cancel w-full bg-slate-100 text-slate-600 py-3 rounded-xl font-semibold text-xs uppercase tracking-wider transition hover:bg-slate-200">
                     Đóng
@@ -443,7 +380,7 @@
     </div>
 
     <!-- FOOTER -->
-    <footer class="mt-auto text-center py-6 text-slate-400 font-medium text-[11px] uppercase tracking-widest border-t transition-all duration-300">
+    <footer class="w-full text-center py-6 text-slate-400 font-medium text-[11px] uppercase tracking-widest border-t transition-all duration-300 mt-auto">
         &copy; IOC BINH HƯNG — BẢN QUYỀN THUỘC UBND XÃ BÌNH HƯNG
     </footer>
 
