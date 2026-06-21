@@ -68,7 +68,8 @@
         .menu-panel-wrapper {
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 40px;
-            padding: 35px 35px 45px 35px; width: 100%; transition: all 0.5s ease;
+            /* Đã giảm khoảng cách mép trên (padding-top) xuống 16px để sát với viền hơn */
+            padding: 16px 35px 40px 35px; width: 100%; transition: all 0.5s ease;
         }
 
         body.light-theme.theme-xanh-ios .menu-panel-wrapper {
@@ -199,7 +200,7 @@
         }
         @media (max-width: 768px) { 
             .grid-container { grid-template-columns: repeat(2, 1fr); gap: 14px; } 
-            .menu-panel-wrapper { padding: 20px 16px; border-radius: 24px; }
+            .menu-panel-wrapper { padding: 12px 16px 20px 16px; border-radius: 24px; }
             .nav-card h3 { font-size: 12px; }
         }
     </style>
@@ -223,7 +224,6 @@
                 </div>
             </div>
 
-            <!-- CHUYỂN ĐỔI THEME XANH / ĐỎ -->
             <div class="theme-selector-vertical lg:absolute lg:top-0 lg:right-0 bg-white/10 backdrop-blur-md border border-white/20 p-1.5 rounded-xl flex flex-col space-y-1.5 w-[75px] z-20 shadow-inner">
                 <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" 
                     class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md">
@@ -240,10 +240,8 @@
 
     <div class="max-w-[1550px] w-full mx-auto px-6 my-8">
         
-        <!-- Bỏ thuộc tính space-y-2 ở đây để có thể tùy chỉnh lề từng phần tử -->
         <div class="menu-panel-wrapper">
             
-            <!-- CÔNG TẮC ĐIỀU HƯỚNG SÁNG / TỐI - Thêm class mb-6 để tạo khoảng cách với grid bên dưới -->
             <div class="flex justify-end w-full mb-6">
                 <div class="bg-blue-900/10 dark:bg-sky-500/10 border border-blue-200 dark:border-sky-500/20 p-1 rounded-xl flex items-center shadow-sm backdrop-blur">
                     <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-blue-900 bg-white shadow-sm">☀️ Sáng</button>
@@ -277,7 +275,6 @@
                     </div>
                 </a>        
                 
-                <!-- ĐÃ CẬP NHẬT: Trỏ đến trang Bản đồ số vừa tạo -->
                 <a href="ban-do-so.html" class="nav-card" style="background-image: url('icon/bandoso.png');">
                     <div class="text-overlay">
                         <h3>Bản đồ số xã Bình Hưng</h3>
@@ -327,10 +324,8 @@
             </a>
             </main>
 
-            <!-- Thêm mt-8 để đẩy phần liên hệ xuống cách xa khối nút điều hướng phía trên -->
             <section class="w-full pt-6 mt-8 border-t border-white/40 flex justify-center">
                 
-                <!-- Áp dụng class .contact-section để thay đổi theo Theme -->
                 <div class="contact-section w-full max-w-5xl rounded-2xl p-6 shadow-md text-white transition-transform duration-300 hover:scale-[1.01]">
                     
                     <h2 class="text-base font-black uppercase tracking-wider pb-3 border-b border-white/30 mb-5 flex items-center gap-2">
@@ -368,7 +363,6 @@
         </div>
     </div>
 
-    <!-- MODAL ĐĂNG NHẬP -->
     <div id="loginModal" class="modal-overlay">
         <div class="modal-card">
             <div class="text-center mb-8">
@@ -402,12 +396,10 @@
         </div>
     </div>
 
-    <!-- FOOTER -->
     <footer class="mt-auto text-center py-6 text-slate-400 font-medium text-[11px] uppercase tracking-widest border-t transition-all duration-300">
         &copy; IOC BINH HƯNG — BẢN QUYỀN THUỘC UBND XÃ BÌNH HƯNG
     </footer>
 
-    <!-- SCRIPT -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
