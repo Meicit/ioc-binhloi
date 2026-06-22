@@ -47,6 +47,28 @@
         iframe { flex: 1; width: 100%; border: none; background-color: #f1f5f9; }
         #btn-unlock { cursor: pointer !important; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.15); color: white; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.3); }
         #btn-unlock:hover { background: #ef4444; color: white; border-color: transparent; transform: scale(1.02); }
+
+        /* ================= THEME ĐỎ ĐƯỢC GỌI TỪ IFRAME ================= */
+        @keyframes gradientGIF { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        
+        body.theme-do-hanhchinh .navbar { 
+            background: linear-gradient(-45deg, #da251d, #a81c15, #ff3b33, #7a120e); 
+            background-size: 400% 400%; 
+            animation: gradientGIF 12s ease infinite; 
+            border-bottom: 1px solid rgba(255,255,255,0.2); 
+        }
+        body.theme-do-hanhchinh .nav-bottom { 
+            background-color: #a81c15; 
+            box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
+        }
+        body.theme-do-hanhchinh .nav-item:hover { 
+            background: rgba(255, 255, 255, 0.2); 
+        }
+        body.theme-do-hanhchinh .nav-item.active { 
+            background: linear-gradient(145deg, #ef4444, #b91c1c); 
+            box-shadow: 0 4px 15px rgba(239, 68, 68, 0.5); 
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
     </style>
 </head>
 <body>
