@@ -15,59 +15,52 @@
         .shadow-md { box-shadow: 0 4px 6px -1px rgba(8, 47, 73, 0.15), 0 2px 4px -2px rgba(8, 47, 73, 0.1); }
         .shadow-lg { box-shadow: 0 10px 15px -3px rgba(8, 47, 73, 0.15), 0 4px 6px -4px rgba(8, 47, 73, 0.1); }
 
-        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s, color 0.3s; }
+        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background-color 0.3s ease, color 0.3s ease; }
         .container-wrapper { max-width: 1550px; margin: 0 auto 30px auto; padding: 0 24px; width: 100%; }
         .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; transition: all 0.3s; }
         .teal-wrapper { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 36px; padding: 24px; transition: all 0.4s ease; }
         @media (min-width: 768px) { .teal-wrapper { padding: 36px; } }
 
         /* ================= THEME TỐI (DARK MODE) ================= */
-        /* Mặc định ở chế độ tối, toàn bộ dùng Xanh Navy - Không cho phép đổi Xanh/Đỏ */
         body.dark-theme { background-color: #082f49; color: #f0f9ff; }
         body.dark-theme .glass-panel { background: rgba(12, 74, 110, 0.65); border-color: rgba(56, 189, 248, 0.2); }
         body.dark-theme .card-stat { background: rgba(8, 47, 73, 0.5); border-color: rgba(56, 189, 248, 0.15); }
         body.dark-theme .res-box { background: rgba(8, 47, 73, 0.6); border-color: rgba(56, 189, 248, 0.15); }
         body.dark-theme .teal-wrapper { background-color: rgba(14, 165, 233, 0.08); border: 1px solid rgba(14, 165, 233, 0.3); box-shadow: 0 20px 40px -15px rgba(8, 47, 73, 0.6); }
-        body.dark-theme .control-theme-color { display: none !important; } /* Ẩn cụm Xanh/Đỏ khi ở mode Tối */
+        body.dark-theme .control-theme-color { display: none !important; } /* Ẩn Xanh/Đỏ khi ở Tối */
 
         /* ================= THEME SÁNG (LIGHT MODE) ================= */
-        body.light-theme { background-color: #f8fafc; color: #1e3a8a; }
+        body.light-theme { background-color: #f8fafc; color: #1e3a8a; } /* NỀN TRẮNG */
         body.light-theme .glass-panel { background: rgba(255, 255, 255, 0.95); box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.15); }
         body.light-theme .res-box { background: #ffffff; }
 
         /* --- SÁNG + XANH (MẶC ĐỊNH) --- */
         body.light-theme.theme-xanh-ios { color: #1e3a8a; }
         body.light-theme.theme-xanh-ios .glass-panel { border-color: rgba(14, 165, 233, 0.2); }
-        body.light-theme.theme-xanh-ios .card-stat { background: #f0f9ff; border-color: rgba(14, 165, 233, 0.15); box-shadow: 0 4px 10px rgba(12, 74, 110, 0.05); }
-        body.light-theme.theme-xanh-ios .res-box { border-color: rgba(14, 165, 233, 0.2); }
         body.light-theme.theme-xanh-ios .teal-wrapper { background-color: rgba(14, 165, 233, 0.08); border: 1px solid rgba(14, 165, 233, 0.3); }
 
-        /* --- SÁNG + ĐỎ (ĐỎ CỜ) --- */
-        body.light-theme.theme-do-hanhchinh { color: #7f1d1d; background-color: #fff1f2; }
-        body.light-theme.theme-do-hanhchinh .glass-panel { border-color: rgba(239, 68, 68, 0.3); box-shadow: 0 20px 40px -15px rgba(127, 29, 29, 0.15); }
-        body.light-theme.theme-do-hanhchinh .card-stat { background: #fef2f2; border-color: rgba(239, 68, 68, 0.2); box-shadow: 0 4px 10px rgba(127, 29, 29, 0.05); }
-        body.light-theme.theme-do-hanhchinh .res-box { border-color: rgba(239, 68, 68, 0.3); }
-        body.light-theme.theme-do-hanhchinh .teal-wrapper { background-color: rgba(239, 68, 68, 0.08); border: 1px solid rgba(239, 68, 68, 0.3); }
+        /* --- SÁNG + ĐỎ CỜ --- */
+        /* Chỉ thay đổi Nền khối bọc ngoài, giữ nguyên nền web trắng, và giữ nguyên màu các chi tiết bên trong */
+        body.light-theme.theme-do-hanhchinh { color: #1e3a8a; } 
+        body.light-theme.theme-do-hanhchinh .teal-wrapper { 
+            background-color: #da251d; /* CHỈ NỀN KHỐI WRAPPER ĐỔI ĐỎ CỜ */
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 40px -15px rgba(218, 37, 29, 0.4);
+        }
+        body.light-theme.theme-do-hanhchinh .glass-panel { border-color: rgba(252, 165, 165, 0.8); }
 
-
-        /* MÀU CHỮ/VIỀN ĐỘNG (DYN) KẾT HỢP SÁNG/TỐI/XANH/ĐỎ */
-        /* text-dyn-muted */
+        /* MÀU CHỮ/VIỀN ĐỘNG CƠ BẢN */
         .text-dyn-muted { transition: color 0.3s; }
         body.dark-theme .text-dyn-muted { color: #7dd3fc; } 
-        body.light-theme.theme-xanh-ios .text-dyn-muted { color: #0284c7; }
-        body.light-theme.theme-do-hanhchinh .text-dyn-muted { color: #dc2626; }
+        body.light-theme .text-dyn-muted { color: #0284c7; }
 
-        /* text-dyn-bold */
         .text-dyn-bold { transition: color 0.3s; }
         body.dark-theme .text-dyn-bold { color: #e0f2fe; }
-        body.light-theme.theme-xanh-ios .text-dyn-bold { color: #1e3a8a; }
-        body.light-theme.theme-do-hanhchinh .text-dyn-bold { color: #7f1d1d; }
+        body.light-theme .text-dyn-bold { color: #1e3a8a; }
 
-        /* border-dyn */
         .border-dyn { transition: border-color 0.3s; border-style: solid; border-width: 1px; }
         body.dark-theme .border-dyn { border-color: rgba(14, 165, 233, 0.4); }
-        body.light-theme.theme-xanh-ios .border-dyn { border-color: rgba(14, 165, 233, 0.2); }
-        body.light-theme.theme-do-hanhchinh .border-dyn { border-color: rgba(239, 68, 68, 0.3); }
+        body.light-theme .border-dyn { border-color: rgba(14, 165, 233, 0.2); }
 
         /* NÚT QUAY LẠI ĐỘNG */
         .btn-back { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 14px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; border: 1px solid; }
@@ -77,8 +70,8 @@
         body.light-theme.theme-xanh-ios .btn-back { background: rgba(14, 165, 233, 0.1); border-color: rgba(14, 165, 233, 0.3); color: #1e3a8a; }
         body.light-theme.theme-xanh-ios .btn-back:hover { background: rgba(14, 165, 233, 0.2); border-color: #0ea5e9; transform: translateY(-2px); }
 
-        body.light-theme.theme-do-hanhchinh .btn-back { background: rgba(239, 68, 68, 0.1); border-color: rgba(239, 68, 68, 0.3); color: #7f1d1d; }
-        body.light-theme.theme-do-hanhchinh .btn-back:hover { background: rgba(239, 68, 68, 0.2); border-color: #ef4444; transform: translateY(-2px); }
+        body.light-theme.theme-do-hanhchinh .btn-back { background: #ffffff; border-color: #fca5a5; color: #da251d; }
+        body.light-theme.theme-do-hanhchinh .btn-back:hover { background: #fef2f2; border-color: #da251d; transform: translateY(-2px); }
 
 
         .label-text { font-size: 11px; font-weight: 900; text-transform: uppercase; letter-spacing: 0.05em; }
@@ -90,15 +83,14 @@
         .custom-scrollbar::-webkit-scrollbar { width: 6px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { border-radius: 10px; }
         body.dark-theme .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(56, 189, 248, 0.4); }
-        body.light-theme.theme-xanh-ios .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.4); }
-        body.light-theme.theme-do-hanhchinh .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(239, 68, 68, 0.4); }
+        body.light-theme .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.4); }
 
         .controls-wrapper { display: flex; gap: 12px; align-items: center; }
         .control-panel { border: 1px solid; padding: 4px; border-radius: 12px; display: flex; align-items: center; }
         
         body.dark-theme .control-panel { background: rgba(15, 23, 42, 0.5); border-color: rgba(56, 189, 248, 0.2); }
         body.light-theme.theme-xanh-ios .control-panel { background: rgba(255, 255, 255, 0.5); border-color: rgba(14, 165, 233, 0.3); }
-        body.light-theme.theme-do-hanhchinh .control-panel { background: rgba(255, 255, 255, 0.5); border-color: rgba(239, 68, 68, 0.3); }
+        body.light-theme.theme-do-hanhchinh .control-panel { background: #ffffff; border-color: rgba(252, 165, 165, 0.8); }
 
         @media (max-width: 1024px) { .controls-wrapper { flex-direction: column; align-items: flex-end; } }
         @media (max-width: 640px) { .flex-responsive { flex-direction: column; align-items: stretch; gap: 16px; } .controls-wrapper { flex-direction: row; justify-content: space-between; align-items: center; width: 100%; } }
@@ -113,6 +105,7 @@
             <div class="flex flex-row justify-between items-center flex-responsive">
                 <a href="../dashboard.html" class="btn-back">⬅️ Quay lại</a>
                 
+                <!-- BẢNG ĐIỀU KHIỂN THEME -->
                 <div class="controls-wrapper">
                     <div class="control-panel">
                         <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent">Sáng</button>
@@ -127,25 +120,25 @@
             </div>
 
             <header class="glass-panel p-5">
-                <h3 class="text-[11px] font-black uppercase mb-3 tracking-widest italic dyn-title-1 text-dyn-muted">Kết quả đánh giá Bộ chỉ số phục vụ (Theo QĐ 766/QĐ-TTg)</h3>
+                <h3 class="text-[11px] font-black uppercase mb-3 tracking-widest italic text-dyn-muted">Kết quả đánh giá Bộ chỉ số phục vụ (Theo QĐ 766/QĐ-TTg)</h3>
                 <div class="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
                     <div class="card-stat p-3 rounded-xl border">
-                        <p class="text-[10px] font-bold uppercase mb-0.5 lbl-stat text-dyn-muted">Tiến độ</p>
+                        <p class="text-[10px] font-bold uppercase mb-0.5 text-dyn-muted">Tiến độ</p>
                         <p id="score_process" class="text-xl font-black text-dyn-bold">0</p>
                     </div>
                     <div class="card-stat p-3 rounded-xl border">
-                        <p class="text-[10px] font-bold uppercase mb-0.5 lbl-stat text-dyn-muted">Trực tuyến</p>
+                        <p class="text-[10px] font-bold uppercase mb-0.5 text-dyn-muted">Trực tuyến</p>
                         <p id="score_online" class="text-xl font-black text-dyn-bold">0</p>
                     </div>
                     <div class="card-stat p-3 rounded-xl border">
-                        <p class="text-[10px] font-bold uppercase mb-0.5 lbl-stat text-dyn-muted">Hài lòng</p>
+                        <p class="text-[10px] font-bold uppercase mb-0.5 text-dyn-muted">Hài lòng</p>
                         <p id="score_satisfaction" class="text-xl font-black text-dyn-bold">0</p>
                     </div>
                     <div class="card-stat p-3 rounded-xl border">
-                        <p class="text-[10px] font-bold uppercase mb-0.5 lbl-stat text-dyn-muted">Số hóa</p>
+                        <p class="text-[10px] font-bold uppercase mb-0.5 text-dyn-muted">Số hóa</p>
                         <p id="score_digital" class="text-xl font-black text-dyn-bold">0</p>
                     </div>
-                    <div class="rounded-xl p-3 shadow-md md:col-span-1 col-span-2 transition-colors duration-300" id="box-kpi-total">
+                    <div class="rounded-xl p-3 shadow-md md:col-span-1 col-span-2 transition-colors duration-300 bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-slate-700 dark:to-slate-900" id="box-kpi-total">
                         <p class="text-[10px] font-black text-white uppercase mb-0.5">Tổng điểm KPI Xã</p>
                         <p id="score_total" class="text-xl font-black text-white">0</p>
                     </div>
@@ -154,13 +147,13 @@
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
                 <div class="lg:col-span-7 glass-panel p-5">
-                    <h2 class="text-xs font-black uppercase tracking-wider text-dyn-muted mb-3" id="lbl-chart-1">📊 Đồ thị So sánh Tiếp nhận Hồ sơ</h2>
+                    <h2 class="text-xs font-black uppercase tracking-wider text-dyn-muted mb-3">📊 Đồ thị So sánh Tiếp nhận Hồ sơ</h2>
                     <div class="w-full relative h-[260px]">
                         <canvas id="dashboardBarChart"></canvas>
                     </div>
                 </div>
                 <div class="lg:col-span-5 glass-panel p-5 flex flex-col justify-between">
-                    <h2 class="text-xs font-black uppercase tracking-wider text-dyn-muted mb-3" id="lbl-chart-2">🎯 Cơ cấu kết quả giải quyết</h2>
+                    <h2 class="text-xs font-black uppercase tracking-wider text-dyn-muted mb-3">🎯 Cơ cấu kết quả giải quyết</h2>
                     <div class="w-full relative h-[220px] flex justify-center">
                         <canvas id="dashboardPieChart"></canvas>
                     </div>
@@ -168,18 +161,19 @@
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div class="glass-panel p-5 border-t-[8px] flex flex-col justify-between space-y-4 transition-colors" id="box-thang">
+                <!-- KHỐI THÁNG -->
+                <div class="glass-panel p-5 border-t-[8px] border-blue-600 dark:border-sky-400 flex flex-col justify-between space-y-4 transition-colors">
                     <div class="flex justify-between items-end">
                         <div>
-                            <p class="label-text lbl-primary text-dyn-muted">Tiếp nhận trong tháng</p>
-                            <h2 id="month_total" class="value-big mt-1 val-primary text-dyn-bold">0</h2>
+                            <p class="label-text text-blue-500">Tiếp nhận trong tháng</p>
+                            <h2 id="month_total" class="value-big text-blue-600 mt-1">0</h2>
                         </div>
                         <p class="text-[9px] font-bold text-dyn-muted uppercase italic">Hồ sơ/Tháng</p>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
-                        <div class="card-stat p-3 rounded-xl border line-primary">
-                            <p class="text-[9px] font-bold uppercase mb-0.5 lbl-primary text-dyn-muted">Trực tuyến</p>
-                            <p id="month_online" class="text-xl font-black val-primary text-dyn-bold">0</p>
+                        <div class="card-stat p-3 rounded-xl border border-blue-500/30">
+                            <p class="text-[9px] font-bold uppercase mb-0.5 text-blue-500">Trực tuyến</p>
+                            <p id="month_online" class="text-xl font-black text-blue-600">0</p>
                         </div>
                         <div class="card-stat p-3 rounded-xl border border-dyn">
                             <p class="text-[9px] font-bold text-dyn-muted uppercase mb-0.5">Trực tiếp</p>
@@ -190,25 +184,26 @@
                         <p class="label-text text-dyn-muted mb-2 border-b border-dyn pb-1 italic">Kết quả giải quyết (Tháng)</p>
                         <div class="grid grid-cols-4 gap-2">
                             <div class="res-box text-emerald-500 border-emerald-500/30"><p class="res-label">Trước hạn</p><p id="res_before" class="res-value">0</p></div>
-                            <div class="res-box line-primary lbl-primary"><p class="res-label text-dyn-muted">Trong hạn</p><p id="res_in_time" class="res-value text-dyn-bold">0</p></div>
+                            <div class="res-box border-blue-500/30 text-blue-500"><p class="res-label text-blue-500">Trong hạn</p><p id="res_in_time" class="res-value">0</p></div>
                             <div class="res-box text-rose-500 border-rose-500/30"><p class="res-label">Trễ hạn</p><p id="res_late" class="res-value">0</p></div>
-                            <div class="res-box border-dyn bg-dyn-light"><p class="res-label text-dyn-muted">Xin lỗi</p><p id="res_sorry" class="res-value text-dyn-bold">0</p></div>
+                            <div class="res-box border-dyn bg-indigo-50 dark:bg-white/5"><p class="res-label text-dyn-muted">Xin lỗi</p><p id="res_sorry" class="res-value text-dyn-bold">0</p></div>
                         </div>
                     </div>
                 </div>
 
-                <div class="glass-panel p-5 border-t-[8px] flex flex-col justify-between space-y-4 transition-colors" id="box-luyke">
+                <!-- KHỐI LŨY KẾ -->
+                <div class="glass-panel p-5 border-t-[8px] border-emerald-600 dark:border-teal-400 flex flex-col justify-between space-y-4 transition-colors">
                     <div class="flex justify-between items-end">
                         <div>
-                            <p class="label-text lbl-secondary text-dyn-muted">Lũy kế đến ngày <span id="luy_ke_date" class="font-bold">--/--</span></p>
-                            <h2 id="total_luy_ke" class="value-big mt-1 val-secondary text-dyn-bold">0</h2>
+                            <p class="label-text text-emerald-500">Lũy kế đến ngày <span id="luy_ke_date" class="font-bold">--/--</span></p>
+                            <h2 id="total_luy_ke" class="value-big mt-1 text-emerald-600">0</h2>
                         </div>
                         <p class="text-[9px] font-bold text-dyn-muted uppercase italic">Tổng lũy kế</p>
                     </div>
                     <div class="grid grid-cols-2 gap-3">
-                        <div class="card-stat p-3 rounded-xl border line-secondary">
-                            <p class="text-[9px] font-bold uppercase mb-0.5 lbl-secondary text-dyn-muted">Trực tuyến</p>
-                            <p id="total_online" class="text-xl font-black val-secondary text-dyn-bold">0</p>
+                        <div class="card-stat p-3 rounded-xl border border-emerald-500/30">
+                            <p class="text-[9px] font-bold uppercase mb-0.5 text-emerald-500">Trực tuyến</p>
+                            <p id="total_online" class="text-xl font-black text-emerald-600">0</p>
                         </div>
                         <div class="card-stat p-3 rounded-xl border border-dyn">
                             <p class="text-[9px] font-bold text-dyn-muted uppercase mb-0.5">Trực tiếp</p>
@@ -219,30 +214,30 @@
                         <p class="label-text text-dyn-muted mb-2 border-b border-dyn pb-1 italic">Kết quả giải quyết (Lũy kế)</p>
                         <div class="grid grid-cols-4 gap-2">
                             <div class="res-box text-emerald-500 border-emerald-500/30"><p class="res-label">Trước hạn</p><p id="lk_res_before" class="res-value">0</p></div>
-                            <div class="res-box line-secondary lbl-secondary"><p class="res-label text-dyn-muted">Trong hạn</p><p id="lk_res_in_time" class="res-value text-dyn-bold">0</p></div>
+                            <div class="res-box border-blue-500/30 text-blue-500"><p class="res-label">Trong hạn</p><p id="lk_res_in_time" class="res-value">0</p></div>
                             <div class="res-box text-rose-500 border-rose-500/30"><p class="res-label">Trễ hạn</p><p id="lk_res_late" class="res-value">0</p></div>
-                            <div class="res-box border-dyn bg-dyn-light"><p class="res-label text-dyn-muted">Xin lỗi</p><p id="lk_res_sorry" class="res-value text-dyn-bold">0</p></div>
+                            <div class="res-box border-dyn bg-indigo-50 dark:bg-white/5"><p class="res-label text-dyn-muted">Xin lỗi</p><p id="lk_res_sorry" class="res-value text-dyn-bold">0</p></div>
                         </div>
                     </div>
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="glass-panel p-4 flex justify-between items-center border-l-[8px] transition-colors box-mini-1">
+                <div class="glass-panel p-4 flex justify-between items-center border-l-[8px] border-orange-500 dark:border-amber-400 transition-colors">
                     <div><p class="label-text text-dyn-muted">Mức độ hài lòng</p><p id="sat_rate" class="text-3xl font-black text-dyn-bold">0%</p></div>
                     <div class="text-right"><p class="text-[9px] font-bold text-dyn-muted uppercase">Lượt đánh giá</p><p id="sat_count" class="text-2xl font-black text-dyn-bold">0</p></div>
                 </div>
-                <div class="glass-panel p-4 flex justify-between items-center border-l-[8px] transition-colors box-mini-2">
+                <div class="glass-panel p-4 flex justify-between items-center border-l-[8px] border-indigo-500 dark:border-indigo-400 transition-colors">
                     <div><p class="label-text text-dyn-muted">Số hóa lũy kế</p><p id="total_digital" class="text-3xl font-black text-dyn-bold">0</p></div>
-                    <div class="w-12 h-12 rounded-xl flex items-center justify-center font-black text-xs border border-dyn text-dyn-bold bg-dyn-light">DIGI</div>
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center font-black text-xs border border-dyn text-dyn-bold bg-indigo-50 dark:bg-white/5">DIGI</div>
                 </div>
-                <div class="glass-panel p-4 flex justify-between items-center border-l-[8px] transition-colors box-mini-3">
+                <div class="glass-panel p-4 flex justify-between items-center border-l-[8px] border-cyan-500 dark:border-cyan-400 transition-colors">
                     <div><p class="label-text text-dyn-muted">Số hóa trong tháng</p><p id="month_digital" class="text-3xl font-black text-dyn-bold">0</p></div>
-                    <div class="w-12 h-12 rounded-xl flex items-center justify-center font-black text-xs border border-dyn text-dyn-bold bg-dyn-light">NEW</div>
+                    <div class="w-12 h-12 rounded-xl flex items-center justify-center font-black text-xs border border-dyn text-dyn-bold bg-indigo-50 dark:bg-white/5">NEW</div>
                 </div>
             </div>
 
-            <div class="glass-panel p-5 border bg-dyn-light box-ai transition-colors">
+            <div class="glass-panel p-5 border border-sky-500/20 bg-sky-50/50 dark:bg-transparent dark:border-slate-500/20 box-ai transition-colors">
                 <h2 class="text-xs font-black uppercase tracking-wider text-dyn-muted mb-3 flex items-center gap-2">💡 Trung tâm phân tích i-Dashboard & Khuyến nghị điều hành tác vụ</h2>
                 <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 font-['Inter'] text-xs leading-relaxed text-dyn-bold">
                     <div class="card-stat p-4 rounded-xl border border-dyn space-y-1">
@@ -266,7 +261,7 @@
         </div> 
     </div>
 
-    <footer class="w-full text-center py-6 font-bold text-[10px] uppercase tracking-[0.3em] border-t border-dyn bg-white/50 backdrop-blur-md ftr-dyn transition-colors text-dyn-muted dark:bg-slate-900/40">
+    <footer class="w-full text-center py-6 font-bold text-[10px] uppercase tracking-[0.3em] border-t border-dyn bg-white/50 backdrop-blur-md transition-colors text-dyn-muted dark:bg-slate-900/40">
         &copy; 2026 IOC Xã Bình Hưng — Hệ thống điều hành Dashboard
     </footer>
 
@@ -284,28 +279,20 @@
         let currentSnapshotData = {}; 
         Chart.defaults.font.family = 'Inter';
 
-        function updateCharts(d, textColor, isRedTheme, isDark) {
+        function updateCharts(d, textColor, isDark) {
             if(barChart) barChart.destroy();
             if(pieChart) pieChart.destroy();
 
-            // Nếu là nền Dark thì màu Bar chart mặc định xanh biển nhạt
-            let colorOnline = 'rgba(56, 189, 248, 0.8)'; 
-            let borderOnline = '#38bdf8';
+            // Biểu đồ Cột giữ nguyên màu Xanh nguyên bản
+            let colorOnline = 'rgba(59, 130, 246, 0.8)'; 
+            let borderOnline = '#2563eb';
             let colorOffline = 'rgba(14, 165, 233, 0.3)';
             let borderOffline = '#0ea5e9';
-            let gridColor = 'rgba(255, 255, 255, 0.1)';
+            let gridColor = 'rgba(14, 165, 233, 0.15)';
 
-            // Nếu nền Sáng và Đỏ
-            if (!isDark && isRedTheme) {
-                colorOnline = 'rgba(239, 68, 68, 0.8)'; borderOnline = '#ef4444';
-                colorOffline = 'rgba(248, 113, 113, 0.3)'; borderOffline = '#f87171';
-                gridColor = 'rgba(239, 68, 68, 0.15)';
-            } 
-            // Nếu nền Sáng và Xanh
-            else if (!isDark && !isRedTheme) {
-                colorOnline = 'rgba(59, 130, 246, 0.8)'; borderOnline = '#2563eb';
-                colorOffline = 'rgba(14, 165, 233, 0.3)'; borderOffline = '#0ea5e9';
-                gridColor = 'rgba(14, 165, 233, 0.15)';
+            if (isDark) {
+                colorOnline = 'rgba(56, 189, 248, 0.8)'; borderOnline = '#38bdf8';
+                gridColor = 'rgba(255, 255, 255, 0.1)';
             }
 
             const ctxBar = document.getElementById('dashboardBarChart').getContext('2d');
@@ -332,6 +319,7 @@
                 }
             });
 
+            // Biểu đồ Tròn
             const ctxPie = document.getElementById('dashboardPieChart').getContext('2d');
             pieChart = new Chart(ctxPie, {
                 type: 'pie',
@@ -392,70 +380,29 @@
             refreshChartColors();
         });
 
+        // Bỏ logic áp màu Đỏ cho nội dung, chỉ đổi text color theo Sáng/Tối
         function refreshChartColors() {
             const isDark = document.getElementById('body-context').classList.contains('dark-theme');
-            const isRed = document.getElementById('body-context').classList.contains('theme-do-hanhchinh');
             let textColor = '#1e3a8a'; 
-            
             if (isDark) textColor = '#e0f2fe'; 
-            else if (isRed) textColor = '#7f1d1d'; 
 
-            updateCharts(currentSnapshotData, textColor, isRed, isDark);
-            applyThemeColors(isRed, isDark);
+            updateCharts(currentSnapshotData, textColor, isDark);
+            applyThemeColors(isDark);
         }
 
-        // Logic đổi màu class CSS thủ công khi nhấn Xanh/Đỏ/Tối
-        function applyThemeColors(isRed, isDark) {
+        // JS đổi Theme nội dung CHỈ quan tâm Sáng hay Tối
+        function applyThemeColors(isDark) {
             const boxKpiTotal = document.getElementById('box-kpi-total');
-            const boxThang = document.getElementById('box-thang');
-            const boxLuyKe = document.getElementById('box-luyke');
-            const bMini1 = document.querySelector('.box-mini-1');
-            const bMini2 = document.querySelector('.box-mini-2');
-            const bMini3 = document.querySelector('.box-mini-3');
-            const boxAi = document.querySelector('.box-ai');
             const bgDynLights = document.querySelectorAll('.bg-dyn-light');
 
-            // Xóa hết class màu cũ
-            boxKpiTotal.classList.remove('from-emerald-600','to-teal-600','from-red-600','to-orange-600', 'from-slate-700', 'to-slate-900');
-            boxThang.classList.remove('border-blue-600','border-red-600','border-sky-400');
-            boxLuyKe.classList.remove('border-emerald-600','border-orange-600','border-teal-400');
-            bMini1.classList.remove('border-orange-500','border-rose-500','border-amber-400');
-            bMini2.classList.remove('border-indigo-500','border-pink-600','border-indigo-400');
-            bMini3.classList.remove('border-cyan-500','border-orange-500','border-cyan-400');
-            boxAi.classList.remove('border-sky-500/20','border-red-500/20','border-slate-500/20', 'bg-sky-50/50','bg-red-50/50','bg-transparent');
-            bgDynLights.forEach(e => e.classList.remove('bg-indigo-50', 'bg-red-50', 'bg-white/5'));
+            boxKpiTotal.classList.remove('from-emerald-600','to-teal-600', 'from-slate-700', 'to-slate-900');
+            bgDynLights.forEach(e => e.classList.remove('bg-indigo-50', 'bg-white/5'));
 
             if(isDark) {
-                // Áp dụng tông màu khi ở DARK MODE
                 boxKpiTotal.classList.add('from-slate-700', 'to-slate-900');
-                boxThang.classList.add('border-sky-400');
-                boxLuyKe.classList.add('border-teal-400');
-                bMini1.classList.add('border-amber-400');
-                bMini2.classList.add('border-indigo-400');
-                bMini3.classList.add('border-cyan-400');
-                boxAi.classList.add('border-slate-500/20', 'bg-transparent');
                 bgDynLights.forEach(e => e.classList.add('bg-white/5'));
-            } 
-            else if (isRed) {
-                // Áp dụng tông màu LIGHT + RED
-                boxKpiTotal.classList.add('from-red-600', 'to-orange-600');
-                boxThang.classList.add('border-red-600');
-                boxLuyKe.classList.add('border-orange-600');
-                bMini1.classList.add('border-rose-500');
-                bMini2.classList.add('border-pink-600');
-                bMini3.classList.add('border-orange-500');
-                boxAi.classList.add('border-red-500/20', 'bg-red-50/50');
-                bgDynLights.forEach(e => e.classList.add('bg-red-50'));
-            } 
-            else {
-                // Áp dụng tông màu LIGHT + XANH
+            } else {
                 boxKpiTotal.classList.add('from-emerald-600', 'to-teal-600');
-                boxThang.classList.add('border-blue-600');
-                boxLuyKe.classList.add('border-emerald-600');
-                bMini1.classList.add('border-orange-500');
-                bMini2.classList.add('border-indigo-500');
-                bMini3.classList.add('border-cyan-500');
-                boxAi.classList.add('border-sky-500/20', 'bg-sky-50/50');
                 bgDynLights.forEach(e => e.classList.add('bg-indigo-50'));
             }
         }
@@ -472,13 +419,14 @@
                 btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-sm border border-blue-200";
                 
                 if(body.classList.contains('theme-do-hanhchinh')) {
+                    // MÀU NÚT CỦA THEME ĐỎ (trên nền đỏ #da251d)
+                    btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-red-600 text-white shadow-sm border border-red-500";
                     btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition text-red-600 hover:text-red-800 border border-transparent";
-                    btnLight.classList.replace('text-blue-900', 'text-red-900');
-                    btnLight.classList.replace('border-blue-200', 'border-red-200');
                     
                     btnXanh.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition text-red-600 hover:text-red-800 border border-transparent";
-                    btnDo.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-red-600 text-white shadow-sm border border-red-500";
+                    btnDo.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-red-600 text-white shadow-sm border border-transparent";
                 } else {
+                    // MÀU NÚT CỦA THEME XANH MẶC ĐỊNH
                     btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition text-blue-500 hover:text-blue-800 border border-transparent";
                     
                     btnXanh.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-blue-600 text-white shadow-sm border border-blue-500";
@@ -499,7 +447,7 @@
             } else {
                 body.classList.remove('theme-do-hanhchinh'); body.classList.add('theme-xanh-ios');
             }
-            // Gọi lại setTheme light để update màu nút Xanh/Đỏ
+            // Gọi lại setTheme light để update màu nút Xanh/Đỏ khớp với background Wrapper
             setTheme('light'); 
         }
 
