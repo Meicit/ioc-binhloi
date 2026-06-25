@@ -15,75 +15,103 @@
             transition: background-color 0.4s ease, color 0.4s ease;
         }
 
-        /* ================= BASE LIGHT/DARK MẶC ĐỊNH ================= */
-        body.light-theme { background-color: #f8fafc; color: #0f172a; }
-        body.dark-theme { background-color: #0f172a; color: #f8fafc; }
-        
-        body.light-theme .content-text { color: #334155; }
-        body.dark-theme .content-text { color: #cbd5e1; }
-
         /* ================= KỸ THUẬT NỀN ĐỘNG GRADIENT (HEADER) ================= */
         body.theme-xanh .main-header {
             background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d);
             background-size: 400% 400%; animation: gradientGIF 12s ease infinite;
-            border-bottom: 2px solid #032b5c; box-shadow: 0 4px 15px rgba(11, 74, 143, 0.15);
+            border-bottom: 2px solid #032b5c; box-shadow: 0 4px 15px rgba(11, 74, 143, 0.3);
         }
         body.theme-do .main-header {
             background: linear-gradient(-45deg, #dc2626, #7f1d1d, #ef4444, #450a0a);
             background-size: 400% 400%; animation: gradientGIF 12s ease infinite;
-            border-bottom: 2px solid #991b1b; box-shadow: 0 4px 15px rgba(220, 38, 38, 0.15);
+            border-bottom: 2px solid #991b1b; box-shadow: 0 4px 15px rgba(153, 27, 27, 0.3);
         }
         @keyframes gradientGIF { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
 
-        /* ================= MA TRẬN 4 TRẠNG THÁI (MÀU CHỮ, KÍNH MỜ, ĐƯỜNG VIỀN) ================= */
+        /* ================= MA TRẬN 4 TRẠNG THÁI TỐI THƯỢNG ================= */
         .menu-panel-wrapper {
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border: 1px solid; border-radius: 40px; width: 100%; transition: all 0.5s ease;
         }
         .theme-text { transition: color 0.5s ease; }
         .border-left-theme { transition: border-color 0.5s ease; }
+        .content-text { transition: color 0.5s ease; }
 
-        /* 1. XANH + SÁNG */
-        body.light-theme.theme-xanh .menu-panel-wrapper { background: rgba(14, 165, 233, 0.05); border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 20px 50px -10px rgba(11, 74, 143, 0.1); }
+        /* TRẠNG THÁI 1: XANH + SÁNG */
+        body.light-theme.theme-xanh { background-color: #f8fafc; color: #1e3a8a; }
+        body.light-theme.theme-xanh .content-text { color: #1e40af; }
+        body.light-theme.theme-xanh .menu-panel-wrapper { background: rgba(14, 165, 233, 0.05); border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 20px 50px -10px rgba(12, 74, 110, 0.1); }
         body.light-theme.theme-xanh .theme-text { color: #0b4a8f; }
         body.light-theme.theme-xanh .border-left-theme { border-left-color: #0b4a8f; }
 
-        /* 2. XANH + TỐI */
-        body.dark-theme.theme-xanh .menu-panel-wrapper { background: rgba(14, 165, 233, 0.05); border-color: rgba(56, 189, 248, 0.2); box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.5); }
+        /* TRẠNG THÁI 2: XANH + TỐI (NO SLATE, DÙNG DEEP NAVY) */
+        body.dark-theme.theme-xanh { background-color: #082f49; color: #e0f2fe; }
+        body.dark-theme.theme-xanh .content-text { color: #bae6fd; }
+        body.dark-theme.theme-xanh .menu-panel-wrapper { background: rgba(12, 74, 110, 0.65); border-color: rgba(56, 189, 248, 0.2); box-shadow: 0 20px 50px -10px rgba(8, 47, 73, 0.5); }
         body.dark-theme.theme-xanh .theme-text { color: #38bdf8; }
         body.dark-theme.theme-xanh .border-left-theme { border-left-color: #38bdf8; }
 
-        /* 3. ĐỎ + SÁNG */
-        body.light-theme.theme-do .menu-panel-wrapper { background: rgba(225, 29, 72, 0.05); border-color: rgba(225, 29, 72, 0.2); box-shadow: 0 20px 50px -10px rgba(153, 27, 27, 0.1); }
+        /* TRẠNG THÁI 3: ĐỎ + SÁNG */
+        body.light-theme.theme-do { background-color: #fff1f2; color: #881337; }
+        body.light-theme.theme-do .content-text { color: #9f1239; }
+        body.light-theme.theme-do .menu-panel-wrapper { background: rgba(225, 29, 72, 0.05); border-color: rgba(225, 29, 72, 0.2); box-shadow: 0 20px 50px -10px rgba(136, 19, 55, 0.1); }
         body.light-theme.theme-do .theme-text { color: #be123c; }
         body.light-theme.theme-do .border-left-theme { border-left-color: #be123c; }
 
-        /* 4. ĐỎ + TỐI */
-        body.dark-theme.theme-do .menu-panel-wrapper { background: rgba(225, 29, 72, 0.05); border-color: rgba(244, 63, 94, 0.2); box-shadow: 0 20px 50px -10px rgba(0, 0, 0, 0.5); }
+        /* TRẠNG THÁI 4: ĐỎ + TỐI (NO BLACK, DÙNG DEEP RUBY) */
+        body.dark-theme.theme-do { background-color: #4c0519; color: #ffe4e6; }
+        body.dark-theme.theme-do .content-text { color: #fecdd3; }
+        body.dark-theme.theme-do .menu-panel-wrapper { background: rgba(136, 19, 55, 0.65); border-color: rgba(244, 63, 94, 0.2); box-shadow: 0 20px 50px -10px rgba(76, 5, 25, 0.5); }
         body.dark-theme.theme-do .theme-text { color: #fb7185; }
         body.dark-theme.theme-do .border-left-theme { border-left-color: #fb7185; }
 
-        /* ================= HIỆU ỨNG NÚT QUAY LẠI ================= */
+        /* ================= BỘ ĐIỀU KHIỂN & NÚT BẤM ================= */
         .btn-back-container { position: relative; display: inline-block; }
         .btn-back-interactive {
             display: inline-flex; align-items: center; gap: 8px;
-            padding: 8px 16px; border-radius: 12px; font-weight: 700; font-size: 12px;
+            padding: 10px 20px; border-radius: 12px; font-weight: 800; font-size: 12px;
             text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid;
             transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1); backdrop-filter: blur(10px);
         }
-        
-        body.light-theme .btn-back-interactive { background: rgba(255,255,255,0.8); color: #334155; border-color: #cbd5e1; }
-        body.dark-theme .btn-back-interactive { background: rgba(30,41,59,0.5); color: #cbd5e1; border-color: #475569; }
+        .btn-back-container:hover .btn-back-interactive { transform: translate(-4px, -4px); }
 
-        /* Hover Nút Xanh */
-        body.theme-xanh .btn-back-container:hover .btn-back-interactive { transform: translate(-4px, -4px); }
+        .theme-switcher-panel { padding: 4px; border-radius: 12px; display: flex; align-items: center; backdrop-filter: blur(10px); border: 1px solid; transition: all 0.3s; }
+        .btn-view-mode { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 800; text-transform: uppercase; padding: 6px 12px; border-radius: 8px; transition: all 0.3s; border: 1px solid transparent; }
+
+        /* Phối màu Nút & Control - XANH SÁNG */
+        body.light-theme.theme-xanh .btn-back-interactive { background: rgba(14, 165, 233, 0.1); color: #1e3a8a; border-color: rgba(14, 165, 233, 0.3); }
         body.light-theme.theme-xanh .btn-back-container:hover .btn-back-interactive { border-color: #0b4a8f; color: #0b4a8f; box-shadow: 4px 4px 10px rgba(11, 74, 143, 0.15); }
-        body.dark-theme.theme-xanh .btn-back-container:hover .btn-back-interactive { border-color: #38bdf8; color: #38bdf8; box-shadow: 4px 4px 10px rgba(56, 189, 248, 0.15); }
+        body.light-theme.theme-xanh .theme-switcher-panel { background: rgba(14, 165, 233, 0.1); border-color: rgba(14, 165, 233, 0.2); }
+        body.light-theme.theme-xanh .btn-view-mode.active { background: #0b4a8f; color: #fff; box-shadow: 0 4px 6px rgba(11, 74, 143, 0.2); }
+        body.light-theme.theme-xanh .btn-view-mode:not(.active) { color: #1e3a8a; }
 
-        /* Hover Nút Đỏ */
-        body.theme-do .btn-back-container:hover .btn-back-interactive { transform: translate(-4px, -4px); }
+        /* Phối màu Nút & Control - XANH TỐI */
+        body.dark-theme.theme-xanh .btn-back-interactive { background: rgba(12, 74, 110, 0.5); color: #bae6fd; border-color: rgba(56, 189, 248, 0.3); }
+        body.dark-theme.theme-xanh .btn-back-container:hover .btn-back-interactive { border-color: #38bdf8; color: #38bdf8; box-shadow: 4px 4px 10px rgba(56, 189, 248, 0.2); }
+        body.dark-theme.theme-xanh .theme-switcher-panel { background: rgba(12, 74, 110, 0.5); border-color: rgba(56, 189, 248, 0.2); }
+        body.dark-theme.theme-xanh .btn-view-mode.active { background: #0ea5e9; color: #fff; box-shadow: 0 4px 6px rgba(14, 165, 233, 0.2); }
+        body.dark-theme.theme-xanh .btn-view-mode:not(.active) { color: #bae6fd; }
+
+        /* Phối màu Nút & Control - ĐỎ SÁNG */
+        body.light-theme.theme-do .btn-back-interactive { background: rgba(225, 29, 72, 0.1); color: #881337; border-color: rgba(225, 29, 72, 0.3); }
         body.light-theme.theme-do .btn-back-container:hover .btn-back-interactive { border-color: #be123c; color: #be123c; box-shadow: 4px 4px 10px rgba(153, 27, 27, 0.15); }
-        body.dark-theme.theme-do .btn-back-container:hover .btn-back-interactive { border-color: #fb7185; color: #fb7185; box-shadow: 4px 4px 10px rgba(244, 63, 94, 0.15); }
+        body.light-theme.theme-do .theme-switcher-panel { background: rgba(225, 29, 72, 0.1); border-color: rgba(225, 29, 72, 0.2); }
+        body.light-theme.theme-do .btn-view-mode.active { background: #be123c; color: #fff; box-shadow: 0 4px 6px rgba(153, 27, 27, 0.2); }
+        body.light-theme.theme-do .btn-view-mode:not(.active) { color: #881337; }
+
+        /* Phối màu Nút & Control - ĐỎ TỐI */
+        body.dark-theme.theme-do .btn-back-interactive { background: rgba(136, 19, 55, 0.5); color: #fecdd3; border-color: rgba(244, 63, 94, 0.3); }
+        body.dark-theme.theme-do .btn-back-container:hover .btn-back-interactive { border-color: #fb7185; color: #fb7185; box-shadow: 4px 4px 10px rgba(244, 63, 94, 0.2); }
+        body.dark-theme.theme-do .theme-switcher-panel { background: rgba(136, 19, 55, 0.5); border-color: rgba(244, 63, 94, 0.2); }
+        body.dark-theme.theme-do .btn-view-mode.active { background: #f43f5e; color: #fff; box-shadow: 0 4px 6px rgba(244, 63, 94, 0.2); }
+        body.dark-theme.theme-do .btn-view-mode:not(.active) { color: #fecdd3; }
+
+        /* ================= FOOTER TỰ ĐỘNG THAY ĐỔI MÀU ================= */
+        .footer-main { text-align: center; padding: 24px; font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; border-top: 1px solid; backdrop-filter: blur(10px); transition: all 0.3s; margin-top: auto; }
+        body.light-theme.theme-xanh .footer-main { background: rgba(255,255,255,0.5); border-top-color: rgba(14, 165, 233, 0.2); color: #1e3a8a; }
+        body.dark-theme.theme-xanh .footer-main { background: rgba(8, 47, 73, 0.5); border-top-color: rgba(56, 189, 248, 0.2); color: #7dd3fc; }
+        body.light-theme.theme-do .footer-main { background: rgba(255,255,255,0.5); border-top-color: rgba(225, 29, 72, 0.2); color: #881337; }
+        body.dark-theme.theme-do .footer-main { background: rgba(76, 5, 25, 0.5); border-top-color: rgba(244, 63, 94, 0.2); color: #fda4af; }
 
         /* LOGO ANIMATION */
         .logo-main { animation: float 4s ease-in-out infinite; }
@@ -104,6 +132,7 @@
 </head>
 <body class="light-theme theme-xanh custom-scrollbar" id="dynamic-body">
 
+    <!-- HEADER -->
     <header class="main-header w-full py-6 px-6 md:px-12 select-none relative transition-all duration-300">
         <div class="max-w-[1550px] mx-auto flex flex-col items-center justify-center relative header-layout">
             
@@ -121,6 +150,7 @@
                 </div>
             </div>
 
+            <!-- Nút chọn Theme XANH/ĐỎ -->
             <div class="theme-selector-vertical lg:absolute lg:top-0 lg:right-0 bg-white/10 backdrop-blur-md border border-white/20 p-1.5 rounded-xl flex flex-col space-y-1.5 w-[75px] z-20 shadow-inner">
                 <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md">
                     🔵 Xanh
@@ -135,21 +165,22 @@
 
     <div class="max-w-[1550px] w-full mx-auto px-4 md:px-6 my-6 flex flex-col items-start">
         
+        <!-- BỘ ĐIỀU KHIỂN TOP (Nút Quay lại + Chế độ Sáng/Tối) -->
         <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6 w-full">
             <div class="btn-back-container m-0">
                 <a href="index.html" class="btn-back-interactive">⬅️ Quay lại Trang chủ</a>
             </div>
             
-            <div class="bg-slate-200/50 dark:bg-slate-800/80 border border-slate-300 dark:border-slate-700 p-1 rounded-xl flex items-center shadow-md backdrop-blur">
-                <span class="text-[10px] font-black uppercase tracking-wider px-3 text-slate-500 dark:text-slate-400">Chế độ xem:</span>
-                <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white bg-slate-700 shadow-sm">☀️ Sáng</button>
-                <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-500 hover:text-slate-600">🌙 Tối</button>
+            <div class="theme-switcher-panel">
+                <span class="text-[10px] font-black uppercase tracking-wider px-3 content-text opacity-70">Chế độ xem:</span>
+                <button onclick="setTheme('light')" id="btn-theme-light" class="btn-view-mode active">☀️ Sáng</button>
+                <button onclick="setTheme('dark')" id="btn-theme-dark" class="btn-view-mode">🌙 Tối</button>
             </div>
         </div>
 
         <article class="menu-panel-wrapper p-6 md:p-12 lg:p-16 space-y-12">
             
-            <div class="text-center md:text-left border-b border-slate-400/20 pb-6">
+            <div class="text-center md:text-left border-b border-left-theme border-opacity-30 pb-6">
                 <h1 class="theme-text text-2xl md:text-3xl lg:text-4xl font-black uppercase tracking-wide font-['Montserrat'] drop-shadow-sm">
                     Giới thiệu chung về xã Bình Hưng
                 </h1>
@@ -200,7 +231,7 @@
         </article>
     </div>
 
-    <footer class="mt-auto text-center py-6 content-text font-bold text-[11px] uppercase tracking-widest border-t border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md">
+    <footer class="footer-main">
         &copy; 2026 IOC Bình Hưng — Smart Government Solution
     </footer>
 
@@ -233,13 +264,13 @@
             if(themeName === 'light') {
                 body.classList.remove('dark-theme');
                 body.classList.add('light-theme');
-                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white bg-slate-700 shadow-sm";
-                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-500 hover:text-slate-600";
+                btnLight.classList.add('active');
+                btnDark.classList.remove('active');
             } else {
                 body.classList.remove('light-theme');
                 body.classList.add('dark-theme');
-                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white bg-slate-600 shadow-sm";
-                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-400 hover:text-slate-300";
+                btnDark.classList.add('active');
+                btnLight.classList.remove('active');
             }
         }
     </script>
