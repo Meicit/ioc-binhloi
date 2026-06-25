@@ -266,7 +266,7 @@
 
         // LẮNG NGHE DỮ LIỆU TỪ FIREBASE (Chú ý đổi tên nhánh nếu cần)
         // Vì bạn cung cấp JSON phẳng, tôi giả định bạn lưu nó vào nhánh 'thu_ngan_sach_flat'
-        onValue(ref(db, 'dashboard_binhhung/thu_ngan_sach_flat'), (snap) => {
+        onValue(ref(db, 'dashboard_binhhung/thu_ngan_sach'), (snap) => {
             const data = snap.val();
             if(!data) return;
             cachedData = data;
