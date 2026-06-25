@@ -382,11 +382,11 @@
         }
 
         // Khởi tạo listeners
-        onValue(ref(db, 'dashboard_binhhung/thu_ngan_sach_flat'), (snap) => {
+        onValue(ref(db, 'dashboard_binhhung/thu_ngan_sach'), (snap) => {
             if(snap.val()) { cachedThuData = snap.val(); processThuData(cachedThuData); }
         });
 
-        onValue(ref(db, 'dashboard_binhhung/chi_ngan_sach_flat'), (snap) => {
+        onValue(ref(db, 'dashboard_binhhung/chi_ngan_sach'), (snap) => {
             if(snap.val()) { cachedChiData = snap.val(); processChiData(cachedChiData); }
         });
 
