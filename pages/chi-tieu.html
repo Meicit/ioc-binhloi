@@ -25,7 +25,6 @@
         body.dark-theme .text-dynamic-label { color: #fcd34d; }
         body.dark-theme .glass-panel { background: rgba(12, 74, 110, 0.65); border-color: rgba(56, 189, 248, 0.2); }
         body.dark-theme .card-target-item { background: rgba(8, 47, 73, 0.5); border-color: rgba(56, 189, 248, 0.15); }
-        body.dark-theme .insight-card { background: rgba(12, 74, 110, 0.4); border-color: rgba(56, 189, 248, 0.1); }
         body.dark-theme .btn-switcher-active { background: #0284c7; color: #e0f2fe; border-color: #38bdf8; }
         body.dark-theme .kpi-box { background: linear-gradient(135deg, #0c4a6e 0%, #082f49 100%); border-color: #0284c7; }
         body.dark-theme .teal-wrapper { background-color: rgba(20, 184, 166, 0.05); border: 1px solid rgba(20, 184, 166, 0.2); box-shadow: 0 20px 40px -15px rgba(8, 47, 73, 0.6); }
@@ -35,13 +34,11 @@
             background-color: #f8fafc; /* Trắng/xám cực nhẹ */
             color: #1e3a8a; /* Xanh đậm */
         }
-        body.light-theme .text-dynamic-title { color: #0f172a; } /* Note: 0f172a is technically very dark blue slate, replaced below */
         body.light-theme .text-dynamic-title { color: #1e3a8a; } /* Đảm bảo màu Xanh đậm thuần */
         body.light-theme .text-dynamic-body { color: #1e40af; }
         body.light-theme .text-dynamic-label { color: #c2410c; }
         body.light-theme .glass-panel { background: rgba(255, 255, 255, 0.95); border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.15); }
         body.light-theme .card-target-item { background: #f0f9ff; border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 4px 12px rgba(12, 74, 110, 0.05); }
-        body.light-theme .insight-card { background: #e0f2fe; border-color: rgba(14, 165, 233, 0.15); }
         body.light-theme .btn-switcher-active { background: #1e3a8a; color: #eff6ff; border-color: #1e3a8a; box-shadow: 0 2px 8px rgba(30, 58, 138, 0.3); }
         body.light-theme .kpi-box { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); border-color: #1d4ed8; color: #ffffff; }
         body.light-theme .teal-wrapper { background-color: rgba(20, 184, 166, 0.1); border: 1px solid rgba(20, 184, 166, 0.3); box-shadow: 0 20px 40px -15px rgba(20, 184, 166, 0.25); }
@@ -75,7 +72,7 @@
             <a href="home.html" class="btn-back bg-white/50 backdrop-blur text-blue-900">⬅️ Quay lại Trang chủ</a>
             
             <div class="bg-blue-950/90 border border-blue-800 p-1 rounded-xl flex items-center shadow-md backdrop-blur">
-                       <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">
+                <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">
                     Sáng
                 </button>
                 <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">
@@ -116,35 +113,14 @@
                 </div>
             </div>
 
-            <div class="glass-panel p-6 border border-sky-500/20 bg-gradient-to-r from-blue-50 to-teal-50 dark:from-blue-950/40 dark:to-teal-900/10">
-                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label mb-3 flex items-center gap-2">💡 Trung tâm phân tích chỉ số & Khuyến nghị quyết sách điều hành</h2>
-                <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 font-['Inter'] text-xs leading-relaxed">
-                    <div class="insight-card p-4 rounded-xl border space-y-1">
-                        <h3 class="font-extrabold text-emerald-600 dark:text-emerald-400 uppercase text-[11px]">🟢 Điểm sáng kinh tế & xã hội</h3>
-                        <p class="text-dynamic-body">Các mục tiêu then chốt về <span class="font-bold text-dynamic-title">Giới thiệu việc làm</span> (Đạt 100%) và <span class="font-bold text-dynamic-title">Thu ngân sách nhà nước</span> (Đạt 69%) đang duy trì đà tăng trưởng ổn định bám sát tiến độ dự toán Đại hội giao.</p>
-                    </div>
-                    <div class="insight-card p-4 rounded-xl border space-y-1">
-                        <h3 class="font-extrabold text-rose-600 dark:text-rose-400 uppercase text-[11px]">🚨 Điểm nghẽn cần tháo gỡ</h3>
-                        <p class="text-dynamic-body">Các mục tiêu liên quan đến tốc độ tăng trưởng kinh tế địa phương, tỷ lệ đăng ký thành lập mới của hộ kinh doanh và doanh nghiệp đang ở mốc khởi tạo sơ khởi, cần rà soát đẩy nhanh giải ngân vốn đầu tư công.</p>
-                    </div>
-                    <div class="insight-card p-4 rounded-xl border space-y-1">
-                        <h3 class="font-extrabold text-sky-600 dark:text-sky-400 uppercase text-[11px]">🎯 Khuyến nghị hành động chỉ huy</h3>
-                        <p class="font-bold text-dynamic-title italic mb-1">Khuyến nghị Ban chỉ đạo Thường trực:</p>
-                        <ul class="list-disc list-inside space-y-0.5 pl-0.5 text-dynamic-body">
-                            <li>Đẩy mạnh cải cách hành chính số để tối ưu hóa tỷ lệ xử lý hồ sơ và phản ánh đúng hạn đạt mốc <span class="font-bold text-emerald-600 dark:text-emerald-400">100%</span>.</li>
-                            <li>Tập trung kiểm soát, tuần tra quản trị an ninh cơ sở bảo đảm kiềm chế kéo giảm tai nạn giao thông và cháy nổ.</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-
             <div id="target-container" class="space-y-10 pb-6">
                 <div class="text-center py-12 text-dynamic-body font-bold animate-pulse uppercase text-xs tracking-widest">
                     ⏳ Hệ thống đang tải và phân loại danh sách 30 chỉ tiêu từ Firebase Cloud...
                 </div>
             </div>
 
-        </div> </div>
+        </div> 
+    </div>
 
     <footer class="w-full text-center py-6 text-dynamic-body font-bold text-[10px] uppercase tracking-[0.3em] border-t border-blue-200 dark:border-blue-900 bg-white/50 dark:bg-blue-950/40 backdrop-blur-md mt-auto">
         &copy; 2026 IOC Xã Bình Hưng — Hệ thống Điều hành 30 Chỉ tiêu Kinh tế Xã hội Liên thông
