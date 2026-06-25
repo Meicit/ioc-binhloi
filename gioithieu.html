@@ -30,7 +30,7 @@
             border-bottom: 2px solid #032b5c; box-shadow: 0 4px 15px rgba(11, 74, 143, 0.3);
         }
         
-        /* Sáng + Đỏ (Màu Đỏ Cờ) */
+        /* Sáng + Đỏ (Màu Đỏ Cờ #da251d) */
         body.light-theme.theme-do .main-header {
             background: linear-gradient(-45deg, #da251d, #a81c15, #ff3b33, #7a120e);
             background-size: 400% 400%; animation: gradientGIF 12s ease infinite;
@@ -62,8 +62,12 @@
         body.light-theme.theme-xanh .theme-text { color: #0b4a8f; }
         body.light-theme.theme-xanh .border-left-theme { border-left-color: #0b4a8f; }
 
-        /* 2. SÁNG + ĐỎ */
-        body.light-theme.theme-do .menu-panel-wrapper { background: rgba(218, 37, 29, 0.05); border-color: rgba(218, 37, 29, 0.2); box-shadow: 0 20px 50px -10px rgba(168, 28, 21, 0.1); }
+        /* 2. SÁNG + ĐỎ (Ánh Đỏ Cờ Tươi Sáng Hơn) */
+        body.light-theme.theme-do .menu-panel-wrapper { 
+            background: rgba(218, 37, 29, 0.08); /* Tăng sắc đỏ cờ cho nền kính */
+            border-color: rgba(218, 37, 29, 0.3); /* Viền đỏ cờ rõ nét hơn */
+            box-shadow: 0 20px 50px -10px rgba(218, 37, 29, 0.15); /* Bóng đổ mang sắc đỏ cờ */
+        }
         body.light-theme.theme-do .theme-text { color: #da251d; }
         body.light-theme.theme-do .border-left-theme { border-left-color: #da251d; }
 
@@ -92,11 +96,11 @@
         body.light-theme.theme-xanh .btn-view-mode.active { background: #0b4a8f; color: #fff; box-shadow: 0 4px 6px rgba(11, 74, 143, 0.2); }
         body.light-theme.theme-xanh .btn-view-mode:not(.active) { color: #1e3a8a; }
 
-        /* Nút Sáng Đỏ */
+        /* Nút Sáng Đỏ (Sử dụng Đỏ Cờ #da251d) */
         body.light-theme.theme-do .btn-back-interactive { background: #ffffff; color: #da251d; border-color: rgba(218, 37, 29, 0.3); }
-        body.light-theme.theme-do .btn-back-container:hover .btn-back-interactive { border-color: #da251d; color: #da251d; box-shadow: 4px 4px 10px rgba(218, 37, 29, 0.15); }
+        body.light-theme.theme-do .btn-back-container:hover .btn-back-interactive { border-color: #da251d; color: #da251d; box-shadow: 4px 4px 10px rgba(218, 37, 29, 0.2); }
         body.light-theme.theme-do .theme-switcher-panel { background: #ffffff; border-color: rgba(218, 37, 29, 0.2); }
-        body.light-theme.theme-do .btn-view-mode.active { background: #da251d; color: #fff; box-shadow: 0 4px 6px rgba(218, 37, 29, 0.2); }
+        body.light-theme.theme-do .btn-view-mode.active { background: #da251d; color: #fff; box-shadow: 0 4px 6px rgba(218, 37, 29, 0.25); }
         body.light-theme.theme-do .btn-view-mode:not(.active) { color: #881337; }
 
         /* Nút Tối Đồng Nhất */
@@ -109,15 +113,16 @@
         /* ================= FOOTER TỰ ĐỘNG THAY ĐỔI MÀU ================= */
         .footer-main { text-align: center; padding: 24px; font-weight: 700; font-size: 11px; text-transform: uppercase; letter-spacing: 0.1em; border-top: 1px solid; backdrop-filter: blur(10px); transition: all 0.3s; margin-top: auto; }
         body.light-theme.theme-xanh .footer-main { background: rgba(255,255,255,0.5); border-top-color: rgba(14, 165, 233, 0.2); color: #1e3a8a; }
-        body.light-theme.theme-do .footer-main { background: rgba(255,255,255,0.5); border-top-color: rgba(218, 37, 29, 0.2); color: #a81c15; }
+        body.light-theme.theme-do .footer-main { background: rgba(255,255,255,0.5); border-top-color: rgba(218, 37, 29, 0.2); color: #da251d; }
         body.dark-theme .footer-main { background: rgba(8, 47, 73, 0.5); border-top-color: rgba(56, 189, 248, 0.2); color: #7dd3fc; }
 
         /* ================= LOGO ANIMATION (BÓNG ĐỔ THEO MÀU THEME) ================= */
         body.theme-xanh .logo-main { animation: float-xanh 4s ease-in-out infinite; }
         @keyframes float-xanh { 0%, 100% { transform: translateY(0); filter: drop-shadow(0 4px 6px rgba(8, 47, 73, 0.4)); } 50% { transform: translateY(-3px); filter: drop-shadow(0 8px 12px rgba(8, 47, 73, 0.6)); } }
         
+        /* Bóng đổ Logo Đỏ Cờ */
         body.theme-do .logo-main { animation: float-do 4s ease-in-out infinite; }
-        @keyframes float-do { 0%, 100% { transform: translateY(0); filter: drop-shadow(0 4px 6px rgba(76, 5, 25, 0.4)); } 50% { transform: translateY(-3px); filter: drop-shadow(0 8px 12px rgba(76, 5, 25, 0.6)); } }
+        @keyframes float-do { 0%, 100% { transform: translateY(0); filter: drop-shadow(0 4px 6px rgba(218, 37, 29, 0.4)); } 50% { transform: translateY(-3px); filter: drop-shadow(0 8px 12px rgba(218, 37, 29, 0.6)); } }
         
         body.dark-theme .logo-main { animation: float-dark 4s ease-in-out infinite; }
         @keyframes float-dark { 0%, 100% { transform: translateY(0); filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.5)); } 50% { transform: translateY(-3px); filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.7)); } }
@@ -152,7 +157,7 @@
                 </div>
             </div>
 
-            <!-- Nút chọn Theme XANH/ĐỎ (Sẽ tự động ẩn khi bật Dark Mode) -->
+            <!-- Nút chọn Theme XANH/ĐỎ -->
             <div class="theme-selector-vertical lg:absolute lg:top-0 lg:right-0 bg-white/10 backdrop-blur-md border border-white/20 p-1.5 rounded-xl flex flex-col space-y-1.5 w-[75px] z-20 shadow-inner">
                 <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md border border-blue-500/50">
                     🔵 Xanh
@@ -238,7 +243,7 @@
     </footer>
 
     <script>
-        // LOGIC CHUYỂN ĐỔI THEME (XANH / ĐỎ)
+        // LOGIC CHUYỂN ĐỔI THEME (XANH / ĐỎ CỜ)
         window.switchSystemTheme = function(modeName) {
             const body = document.getElementById('dynamic-body');
             const btnXanh = document.getElementById('btn-theme-xanh');
@@ -247,7 +252,7 @@
             if (modeName === 'do') {
                 body.classList.remove('theme-xanh');
                 body.classList.add('theme-do');
-                btnDo.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-[#da251d] text-white shadow-md border border-red-500/50";
+                btnDo.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-[#da251d] text-white shadow-md border border-[#a81c15]";
                 btnXanh.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white border border-transparent";
             } else {
                 body.classList.remove('theme-do');
