@@ -21,10 +21,9 @@
         body.dark-theme .text-dynamic-body { color: #bae6fd; }
         body.dark-theme .text-dynamic-label { color: #fcd34d; }
         body.dark-theme .glass-panel { background: rgba(12, 74, 110, 0.65); border-color: rgba(56, 189, 248, 0.2); }
-        body.dark-theme .card-target-item { background: rgba(8, 47, 73, 0.5); border-color: rgba(56, 189, 248, 0.15); }
-        body.dark-theme .btn-switcher-active { background: #0284c7; color: #e0f2fe; border-color: #38bdf8; }
+        body.dark-theme .card-target-item { background: rgba(8, 47, 73, 0.6); border-color: rgba(56, 189, 248, 0.15); }
         body.dark-theme .kpi-box { background: linear-gradient(135deg, #0c4a6e 0%, #082f49 100%); border-color: #0284c7; }
-        body.dark-theme .teal-wrapper { background-color: rgba(20, 184, 166, 0.05); border: 1px solid rgba(20, 184, 166, 0.2); box-shadow: 0 20px 40px -15px rgba(8, 47, 73, 0.6); }
+        body.dark-theme .teal-wrapper { background-color: rgba(14, 165, 233, 0.08); border: 1px solid rgba(14, 165, 233, 0.3); box-shadow: 0 20px 40px -15px rgba(8, 47, 73, 0.6); }
         body.dark-theme .control-theme-color { display: none !important; }
 
         /* CSS CHO NỀN SÁNG (LIGHT THEME) - KHÔNG DÙNG MÀU ĐEN */
@@ -34,7 +33,6 @@
         body.light-theme .text-dynamic-label { color: #c2410c; }
         body.light-theme .glass-panel { background: rgba(255, 255, 255, 0.95); border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.15); }
         body.light-theme .card-target-item { background: #ffffff; border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 4px 12px rgba(12, 74, 110, 0.05); }
-        body.light-theme .btn-switcher-active { background: #1e3a8a; color: #eff6ff; border-color: #1e3a8a; box-shadow: 0 2px 8px rgba(30, 58, 138, 0.3); }
         body.light-theme .kpi-box { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); border-color: #1d4ed8; color: #ffffff; }
         body.light-theme .teal-wrapper { background-color: rgba(20, 184, 166, 0.1); border: 1px solid rgba(20, 184, 166, 0.3); box-shadow: 0 20px 40px -15px rgba(20, 184, 166, 0.25); }
 
@@ -85,7 +83,6 @@
 
         body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s, color 0.3s; }
         .container-wrapper { max-width: 1550px; margin: 30px auto; padding: 0 24px; width: 100%; }
-        .chart-container { position: relative; height: 280px; width: 100%; }
         
         .card-target-item { border: 1px solid; transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1); }
         .card-target-item:hover { transform: translateY(-3px); border-color: #2563eb; box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.25); }
@@ -96,25 +93,26 @@
 </head>
 <body class="theme-xanh-ios light-theme custom-scrollbar" id="body-context">
 
-    <div class="container-wrapper space-y-6 mt-8">
+    <div class="container-wrapper mt-8">
         
-        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 flex-responsive">
-            <a href="../dashboard.html" class="btn-back bg-white/50 backdrop-blur text-blue-900">⬅️ Quay lại Trang chủ</a>
-            
-            <div class="controls-wrapper">
-                <div class="control-panel">
-                    <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">Sáng</button>
-                    <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">Tối</button>
-                </div>
+        <div class="teal-wrapper space-y-6">
 
-                <div class="control-panel control-theme-color">
-                    <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent">🔵 Xanh</button>
-                    <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent">🔴 Đỏ</button>
+            <!-- CỤM ĐIỀU KHIỂN ĐƯỢC ĐƯA VÀO TRONG TEAL-WRAPPER -->
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4 flex-responsive">
+                <a href="../dashboard.html" class="btn-back bg-white/50 backdrop-blur text-blue-900">⬅️ Quay lại Trang chủ</a>
+                
+                <div class="controls-wrapper">
+                    <div class="control-panel">
+                        <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">Sáng</button>
+                        <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">Tối</button>
+                    </div>
+
+                    <div class="control-panel control-theme-color">
+                        <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent">🔵 Xanh</button>
+                        <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent">🔴 Đỏ</button>
+                    </div>
                 </div>
             </div>
-        </div>
-
-        <div class="teal-wrapper space-y-6">
 
             <header class="glass-panel p-6 flex flex-col md:flex-row justify-between items-center gap-4">
                 <div class="text-center md:text-left">
@@ -131,23 +129,19 @@
                 </div>
             </header>
 
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <div class="lg:col-span-7 glass-panel p-5">
-                    <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">📊 Tỷ lệ hoàn thành trung bình theo từng nhóm Lĩnh vực (%)</h2>
-                    <div class="chart-container">
-                        <canvas id="barChart"></canvas>
-                    </div>
-                </div>
-                <div class="lg:col-span-5 glass-panel p-5 flex flex-col justify-between">
-                    <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">🍕 Cơ cấu phân bổ số lượng 30 Chỉ tiêu</h2>
-                    <div class="chart-container flex justify-center">
+            <!-- BIỂU ĐỒ TRÒN CĂN GIỮA -->
+            <div class="flex justify-center mt-4">
+                <div class="glass-panel p-6 flex flex-col justify-between w-full max-w-2xl">
+                    <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-4 text-center">🎯 Cơ cấu phân bổ số lượng 30 Chỉ tiêu</h2>
+                    <div class="w-full relative h-[320px] flex justify-center">
                         <canvas id="pieChart"></canvas>
                     </div>
                 </div>
             </div>
 
-            <div id="target-container" class="space-y-10 pb-6">
-                <div class="text-center py-12 text-dynamic-body font-bold animate-pulse uppercase text-xs tracking-widest">
+            <!-- DANH SÁCH 30 CHỈ TIÊU -->
+            <div id="target-container" class="space-y-6 pb-6">
+                <div class="text-center py-12 text-dynamic-body font-bold animate-pulse uppercase text-xs tracking-widest glass-panel p-6">
                     ⏳ Hệ thống đang tải và phân loại danh sách 30 chỉ tiêu từ Firebase Cloud...
                 </div>
             </div>
@@ -163,7 +157,6 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-        // Đăng ký Plugin DataLabels
         Chart.register(ChartDataLabels);
 
         const firebaseConfig = { databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app" };
@@ -180,7 +173,6 @@
 
         const colors = ["#3b82f6", "#10b981", "#f59e0b", "#8b5cf6", "#f43f5e"]; 
         
-        let barChart = null;
         let pieChart = null;
         let currentRawSnapshot = null;
         let currentTextColor = '#1e3a8a'; 
@@ -205,19 +197,16 @@
             let khStr = String(item.kh || "");
             let dgStr = String(item.danh_gia || "");
 
-            // 1. Nếu có phần trăm trực tiếp trong kết quả thực hiện (Ví dụ: đạt 85.87%)
             let pctMatch = thStr.match(/(\d+(?:\.\d+)?)%/);
             if (pctMatch) {
                 percent = parseFloat(pctMatch[1]);
             } 
             else {
-                // 2. Tính toán thuần túy
                 let khNum = parseFloat(khStr);
                 let thNum = parseFloat(thStr);
                 if (!isNaN(khNum) && !isNaN(thNum) && khNum > 0 && thNum >= 0) {
                     percent = (thNum / khNum) * 100;
                 } else {
-                    // 3. Dự đoán dựa trên Đánh giá (Vượt/Đạt -> 100%)
                     if (dgStr.toLowerCase().includes('đạt') || dgStr.toLowerCase().includes('vượt')) {
                         percent = 100;
                     }
@@ -225,8 +214,6 @@
             }
 
             if (percent > 100) percent = 100;
-            
-            // Ép kiểu float với 2 số thập phân để đảm bảo độ chính xác
             return parseFloat(percent.toFixed(2));
         }
 
@@ -245,10 +232,11 @@
             Object.keys(nhomTen).forEach((key) => {
                 if (!groups[key]) return;
 
+                // BỌC TỪNG NHÓM TRONG KHỐI GLASS-PANEL RIÊNG ĐỂ KHÔNG BỊ SÁT VIỀN
                 let groupHtml = `
-                    <div class="space-y-4 font-['Inter']">
-                        <h2 class="text-base font-black text-dynamic-title flex items-center gap-3 border-b border-dynamic-line pb-2">
-                            <span class="w-7 h-7 rounded-lg bg-blue-600 text-white font-mono flex items-center justify-center text-xs shadow-md">${key}</span>
+                    <div class="glass-panel p-6 space-y-5 font-['Inter']">
+                        <h2 class="text-sm md:text-base font-black text-dynamic-title flex items-center gap-3 border-b border-dynamic-line pb-3">
+                            <span class="w-8 h-8 rounded-xl bg-blue-600 text-white font-mono flex items-center justify-center text-xs shadow-md">${key}</span>
                             ${nhomTen[key]}
                         </h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
@@ -257,7 +245,6 @@
                 groups[key].forEach((item) => {
                     const percent = calculatePercentage(item);
 
-                    // Thiết lập màu sắc badge trạng thái
                     let statusClass = "bg-slate-100 text-slate-600 border-slate-300 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-600";
                     let dgText = item.danh_gia || "Chưa đánh giá";
                     if (dgText.toLowerCase().includes('vượt')) {
@@ -271,7 +258,7 @@
                         : '';
 
                     groupHtml += `
-                        <div class="card-target-item p-5 rounded-2xl glass-panel flex flex-col justify-between">
+                        <div class="card-target-item p-5 rounded-2xl flex flex-col justify-between">
                             
                             <div class="flex justify-between items-start mb-3">
                                 <span class="text-[9px] font-black px-2.5 py-1 ${statusClass} border rounded uppercase tracking-wider">${dgText}</span>
@@ -306,7 +293,6 @@
         }
 
         function renderChartsEngine(data, textColor) {
-            if(barChart) barChart.destroy();
             if(pieChart) pieChart.destroy();
 
             const groupStats = {};
@@ -320,62 +306,19 @@
                 }
             });
 
-            const labelsShort = ['Kinh tế', 'Văn hóa - XH', 'Môi trường - ĐT', 'Cải cách HC', 'QP - AN'];
             const labelsLong = Object.values(nhomTen);
             
-            // Xử lý đồ thị cột 2 chữ số thập phân
+            // Tính toán tổng trung bình của toàn bộ các chỉ tiêu
             const barData = Object.keys(nhomTen).map(k => {
                 return groupStats[k].count > 0 ? parseFloat((groupStats[k].totalPercent / groupStats[k].count).toFixed(2)) : 0;
             });
             const pieData = Object.keys(nhomTen).map(k => groupStats[k].count);
 
             const activeGroups = barData.filter(v => v > 0).length || 1;
-            
-            // Tính toán tổng với 2 chữ số thập phân
             const avgTotal = (barData.reduce((a, b) => a + b, 0) / activeGroups).toFixed(2);
             document.getElementById('tong_tien_do').innerText = avgTotal + "%";
 
-            // 1. Dựng Bar Chart (Hiển thị % trên cột)
-            const ctxBar = document.getElementById('barChart').getContext('2d');
-            barChart = new Chart(ctxBar, {
-                type: 'bar',
-                data: {
-                    labels: labelsShort,
-                    datasets: [{
-                        label: 'Tiến độ nhóm (%)',
-                        data: barData,
-                        backgroundColor: colors,
-                        borderRadius: 6,
-                        barThickness: 35
-                    }]
-                },
-                options: { 
-                    maintainAspectRatio: false, 
-                    plugins: { 
-                        legend: { display: false },
-                        datalabels: {
-                            color: textColor,
-                            anchor: 'end',
-                            align: 'top',
-                            font: { weight: 'bold', size: 11 },
-                            formatter: (value) => value + '%',
-                            offset: 4
-                        }
-                    },
-                    scales: {
-                        x: { grid: { display: false }, ticks: { color: textColor, font: { weight: 'bold', size: 10 } } },
-                        y: { 
-                            max: 115, 
-                            grid: { color: 'rgba(128, 128, 128, 0.15)' }, 
-                            ticks: { color: textColor, font: { size: 10, weight: 'bold' } },
-                            beginAtZero: true
-                        }
-                    },
-                    layout: { padding: { top: 20 } }
-                }
-            });
-
-            // 2. Dựng Pie Chart (Hiển thị số lượng chỉ tiêu trên bánh)
+            // Dựng Pie Chart (Hiển thị số lượng chỉ tiêu trên bánh)
             const ctxPie = document.getElementById('pieChart').getContext('2d');
             pieChart = new Chart(ctxPie, {
                 type: 'doughnut',
@@ -458,7 +401,7 @@
             setTheme('light'); 
         }
 
-        // Render dữ liệu tĩnh ngay lập tức khi mở trang
+        // Khởi chạy nền mặc định
         document.addEventListener('DOMContentLoaded', () => {
             setTheme('light');
         });
