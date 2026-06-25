@@ -22,8 +22,10 @@
         body.dark-theme .text-dynamic-label { color: #fcd34d; }
         body.dark-theme .glass-panel { background: rgba(12, 74, 110, 0.65); border-color: rgba(56, 189, 248, 0.2); }
         body.dark-theme .card-target-item { background: rgba(8, 47, 73, 0.5); border-color: rgba(56, 189, 248, 0.15); }
+        body.dark-theme .btn-switcher-active { background: #0284c7; color: #e0f2fe; border-color: #38bdf8; }
         body.dark-theme .kpi-box { background: linear-gradient(135deg, #0c4a6e 0%, #082f49 100%); border-color: #0284c7; }
         body.dark-theme .teal-wrapper { background-color: rgba(20, 184, 166, 0.05); border: 1px solid rgba(20, 184, 166, 0.2); box-shadow: 0 20px 40px -15px rgba(8, 47, 73, 0.6); }
+        body.dark-theme .control-theme-color { display: none !important; }
 
         /* CSS CHO NỀN SÁNG (LIGHT THEME) - KHÔNG DÙNG MÀU ĐEN */
         body.light-theme { background-color: #f8fafc; color: #1e3a8a; }
@@ -32,6 +34,7 @@
         body.light-theme .text-dynamic-label { color: #c2410c; }
         body.light-theme .glass-panel { background: rgba(255, 255, 255, 0.95); border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.15); }
         body.light-theme .card-target-item { background: #ffffff; border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 4px 12px rgba(12, 74, 110, 0.05); }
+        body.light-theme .btn-switcher-active { background: #1e3a8a; color: #eff6ff; border-color: #1e3a8a; box-shadow: 0 2px 8px rgba(30, 58, 138, 0.3); }
         body.light-theme .kpi-box { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); border-color: #1d4ed8; color: #ffffff; }
         body.light-theme .teal-wrapper { background-color: rgba(20, 184, 166, 0.1); border: 1px solid rgba(20, 184, 166, 0.3); box-shadow: 0 20px 40px -15px rgba(20, 184, 166, 0.25); }
 
@@ -118,6 +121,9 @@
                     <h1 class="text-xl md:text-2xl font-black uppercase tracking-wider text-dynamic-title">
                         Hệ thống 30 Chỉ tiêu Phát triển Kinh tế – Xã hội
                     </h1>
+                    <p class="text-dynamic-label font-bold text-xs uppercase tracking-[0.15em] mt-1">
+                        UBND Xã Bình Hưng — Kế hoạch hành động chỉ huy mục tiêu quyết định số 692/BC-UBND
+                    </p>
                 </div>
                 <div class="kpi-box px-6 py-3 rounded-2xl shadow-lg border text-center min-w-[160px]">
                     <span class="text-[10px] font-black uppercase block tracking-wider opacity-90">Tổng tiến độ chung</span>
@@ -390,15 +396,7 @@
                         datalabels: {
                             color: '#ffffff',
                             font: { weight: 'bold', size: 12 },
-                            formatter: (value, ctx) => {
-                                let sum = 0;
-                                let dataArr = ctx.chart.data.datasets[0].data;
-                                dataArr.map(data => { sum += data; });
-                                if (sum === 0) return "0%";
-                                // Sửa lại cho đồng bộ 2 chữ số thập phân (nếu số nguyên thì tự bo)
-                                let percentage = parseFloat((value * 100 / sum).toFixed(2)) + "%";
-                                return percentage;
-                            }
+                            formatter: (value) => value + ' Mục'
                         }
                     }
                 }
@@ -410,18 +408,29 @@
             const body = document.getElementById('body-context');
             const btnLight = document.getElementById('btn-theme-light');
             const btnDark = document.getElementById('btn-theme-dark');
+            const btnXanh = document.getElementById('btn-theme-xanh');
+            const btnDo = document.getElementById('btn-theme-do');
 
             if(themeName === 'light') {
                 body.classList.remove('dark-theme');
                 body.classList.add('light-theme');
                 btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-md border border-blue-200";
-                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition text-blue-800 hover:text-white border border-transparent";
+                
+                if(body.classList.contains('theme-do-hanhchinh')) {
+                    btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition text-white hover:text-white border border-transparent";
+                    btnXanh.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition text-white hover:text-white border border-transparent";
+                    btnDo.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-white text-red-700 shadow-sm border border-transparent";
+                } else {
+                    btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition text-blue-500 hover:text-blue-800 border border-transparent";
+                    btnXanh.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-blue-600 text-white shadow-sm border border-blue-500";
+                    btnDo.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition text-blue-500 hover:text-blue-800 border border-transparent";
+                }
                 currentTextColor = '#1e3a8a'; 
             } else {
                 body.classList.remove('light-theme');
                 body.classList.add('dark-theme');
-                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-sky-600 text-white shadow-md border border-sky-400";
-                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition text-sky-200 hover:text-white border border-transparent";
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-slate-700 text-white shadow-md border border-slate-500";
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition text-slate-300 hover:text-white border border-transparent";
                 currentTextColor = '#e0f2fe'; 
             }
 
