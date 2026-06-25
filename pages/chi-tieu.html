@@ -15,35 +15,39 @@
         .shadow-lg { box-shadow: 0 10px 15px -3px rgba(8, 47, 73, 0.15), 0 4px 6px -4px rgba(8, 47, 73, 0.1); }
 
         /* ================= QUẢN LÝ MÀU NỀN & THEME ================= */
-        /* CSS CHO NỀN TỐI (DARK THEME) - KHÔNG DÙNG MÀU ĐEN */
+        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background-color 0.3s ease, color 0.3s ease; }
+        .container-wrapper { max-width: 1550px; margin: 0 auto 30px auto; padding: 0 24px; width: 100%; }
+        .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; transition: all 0.3s; }
+        .teal-wrapper { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 36px; padding: 24px; transition: all 0.4s ease; }
+        @media (min-width: 768px) { .teal-wrapper { padding: 36px; } }
+
+        /* --- CSS CHO NỀN TỐI (DARK THEME) --- */
         body.dark-theme { background-color: #082f49; color: #e0f2fe; }
         body.dark-theme .text-dynamic-title { color: #38bdf8; }
         body.dark-theme .text-dynamic-body { color: #bae6fd; }
-        body.dark-theme .text-dynamic-label { color: #fcd34d; }
-        body.dark-theme .glass-panel { background: rgba(12, 74, 110, 0.65); border-color: rgba(56, 189, 248, 0.2); }
-        body.dark-theme .card-target-item { background: rgba(8, 47, 73, 0.5); border-color: rgba(56, 189, 248, 0.15); }
-        body.dark-theme .btn-switcher-active { background: #0284c7; color: #e0f2fe; border-color: #38bdf8; }
+        body.dark-theme .text-dynamic-label { color: #7dd3fc; }
+        body.dark-theme .glass-panel { background: rgba(12, 74, 110, 0.65); border-color: rgba(56, 189, 248, 0.2); box-shadow: 0 20px 40px -15px rgba(8, 47, 73, 0.4); }
+        body.dark-theme .bg-widget-card { background: rgba(15, 23, 42, 0.6); border-color: rgba(56, 189, 248, 0.2); }
+        body.dark-theme .bg-widget-inner { background: rgba(15, 23, 42, 0.8); border-color: rgba(56, 189, 248, 0.15); }
         body.dark-theme .kpi-box { background: linear-gradient(135deg, #0c4a6e 0%, #082f49 100%); border-color: #0284c7; }
-        body.dark-theme .teal-wrapper { background-color: rgba(20, 184, 166, 0.05); border: 1px solid rgba(20, 184, 166, 0.2); box-shadow: 0 20px 40px -15px rgba(8, 47, 73, 0.6); }
+        body.dark-theme .teal-wrapper { background-color: rgba(14, 165, 233, 0.08); border: 1px solid rgba(14, 165, 233, 0.3); box-shadow: 0 20px 40px -15px rgba(8, 47, 73, 0.6); }
         body.dark-theme .control-theme-color { display: none !important; }
 
-        /* CSS CHO NỀN SÁNG (LIGHT THEME) - KHÔNG DÙNG MÀU ĐEN */
+        /* --- CSS CHO NỀN SÁNG (LIGHT THEME) --- */
         body.light-theme { background-color: #f8fafc; color: #1e3a8a; }
-        body.light-theme .text-dynamic-title { color: #1e3a8a; } 
+        body.light-theme .text-dynamic-title { color: #0b4a8f; } 
         body.light-theme .text-dynamic-body { color: #1e40af; }
         body.light-theme .text-dynamic-label { color: #c2410c; }
         body.light-theme .glass-panel { background: rgba(255, 255, 255, 0.95); border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.15); }
-        body.light-theme .card-target-item { background: #ffffff; border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 4px 12px rgba(12, 74, 110, 0.05); }
-        body.light-theme .btn-switcher-active { background: #1e3a8a; color: #eff6ff; border-color: #1e3a8a; box-shadow: 0 2px 8px rgba(30, 58, 138, 0.3); }
-        body.light-theme .kpi-box { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); border-color: #1d4ed8; color: #ffffff; }
-        body.light-theme .teal-wrapper { background-color: rgba(20, 184, 166, 0.1); border: 1px solid rgba(20, 184, 166, 0.3); box-shadow: 0 20px 40px -15px rgba(20, 184, 166, 0.25); }
+        body.light-theme .bg-widget-card { background: #ffffff; border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 4px 12px rgba(12, 74, 110, 0.05); }
+        body.light-theme .bg-widget-inner { background: #f0f9ff; border-color: rgba(14, 165, 233, 0.1); }
+        body.light-theme .kpi-box { background: linear-gradient(135deg, #1e3a8a 0%, #0c4a6e 100%); border-color: #1d4ed8; color: #ffffff; }
+        body.light-theme .teal-wrapper { background-color: rgba(14, 165, 233, 0.08); border: 1px solid rgba(14, 165, 233, 0.3); box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.25); }
 
-        /* --- SÁNG + XANH (MẶC ĐỊNH) --- */
+        /* SUB-THEME SÁNG + XANH */
         body.light-theme.theme-xanh-ios { color: #1e3a8a; }
-        body.light-theme.theme-xanh-ios .glass-panel { border-color: rgba(14, 165, 233, 0.2); }
-        body.light-theme.theme-xanh-ios .teal-wrapper { background-color: rgba(14, 165, 233, 0.08); border: 1px solid rgba(14, 165, 233, 0.3); }
 
-        /* --- SÁNG + ĐỎ CỜ --- */
+        /* SUB-THEME SÁNG + ĐỎ CỜ */
         body.light-theme.theme-do-hanhchinh { color: #1e3a8a; } 
         body.light-theme.theme-do-hanhchinh .teal-wrapper { 
             background-color: #da251d; 
@@ -52,11 +56,7 @@
         }
         body.light-theme.theme-do-hanhchinh .glass-panel { border-color: rgba(252, 165, 165, 0.8); }
 
-        /* MÀU CHỮ/VIỀN ĐỘNG CƠ BẢN */
-        .text-dyn-muted { transition: color 0.3s; }
-        body.dark-theme .text-dyn-muted { color: #7dd3fc; } 
-        body.light-theme .text-dyn-muted { color: #0284c7; }
-
+        /* LINE & BORDERS */
         .border-dynamic-line { border-color: rgba(14, 165, 233, 0.2); transition: border-color 0.3s; }
         body.dark-theme .border-dynamic-line { border-color: rgba(56, 189, 248, 0.3); }
 
@@ -83,11 +83,8 @@
         body.light-theme.theme-xanh-ios .control-panel { background: rgba(255, 255, 255, 0.5); border-color: rgba(14, 165, 233, 0.3); }
         body.light-theme.theme-do-hanhchinh .control-panel { background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.4); }
 
-        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background 0.3s, color 0.3s; }
-        .container-wrapper { max-width: 1550px; margin: 30px auto; padding: 0 24px; width: 100%; }
-        .chart-container { position: relative; height: 320px; width: 100%; }
-        
-        .card-target-item { border: 1px solid; transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1); }
+        .chart-container { position: relative; height: 300px; width: 100%; }
+        .card-target-item { border: 2px solid; transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1); }
         .card-target-item:hover { transform: translateY(-3px); border-color: #2563eb; box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.25); }
 
         @media (max-width: 1024px) { .controls-wrapper { flex-direction: column; align-items: flex-end; } }
@@ -96,12 +93,12 @@
 </head>
 <body class="theme-xanh-ios light-theme custom-scrollbar" id="body-context">
 
-    <div class="container-wrapper space-y-6 mt-8">
+    <div class="container-wrapper mt-8">
         
         <div class="teal-wrapper space-y-6">
             
             <div class="flex flex-col sm:flex-row justify-between items-center gap-4 flex-responsive">
-                <a href="../dashboard.html" class="btn-back bg-white/50 backdrop-blur text-blue-900">⬅️ Quay lại Trang chủ</a>
+                <a href="../dashboard.html" class="btn-back bg-white/50 backdrop-blur">⬅️ Quay lại Trang chủ</a>
                 
                 <div class="controls-wrapper">
                     <div class="control-panel">
@@ -118,7 +115,7 @@
 
             <div class="glass-panel p-6 md:p-10 space-y-12">
                 
-                <header class="flex flex-col md:flex-row justify-between items-center gap-6 border-b border-dynamic-line pb-6">
+                <header class="flex flex-col md:flex-row justify-between items-center gap-6 border-b border-dynamic-line pb-8">
                     <div class="text-center md:text-left">
                         <h1 class="text-xl md:text-3xl font-black uppercase tracking-wider text-dynamic-title">
                             Hệ thống 30 Chỉ tiêu Phát triển Kinh tế – Xã hội
@@ -133,22 +130,26 @@
                     </div>
                 </header>
 
-                <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                    <div class="space-y-4">
-                        <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title text-center">📊 Tỷ lệ hoàn thành trung bình theo Lĩnh vực (%)</h2>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 border-b border-dynamic-line pb-12">
+                    <div class="lg:col-span-7 space-y-4">
+                        <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-4 flex items-center gap-2">
+                            <span class="text-xl">📊</span> Tỷ lệ hoàn thành trung bình theo Lĩnh vực (%)
+                        </h2>
                         <div class="chart-container">
                             <canvas id="barChart"></canvas>
                         </div>
                     </div>
-                    <div class="space-y-4">
-                        <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title text-center">🎯 Cơ cấu phân bổ số lượng 30 Chỉ tiêu</h2>
-                        <div class="chart-container flex justify-center">
+                    <div class="lg:col-span-5 space-y-4 flex flex-col">
+                        <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-4 flex items-center gap-2">
+                            <span class="text-xl">🎯</span> Cơ cấu phân bổ 30 Chỉ tiêu
+                        </h2>
+                        <div class="chart-container flex justify-center flex-grow">
                             <canvas id="pieChart"></canvas>
                         </div>
                     </div>
                 </div>
 
-                <div id="target-container" class="space-y-10 pt-4">
+                <div id="target-container" class="space-y-12">
                     <div class="text-center py-12 text-dynamic-body font-bold animate-pulse uppercase text-xs tracking-widest">
                         ⏳ Hệ thống đang tải và phân loại danh sách 30 chỉ tiêu từ Firebase Cloud...
                     </div>
@@ -175,8 +176,8 @@
             "I": "I. Chỉ tiêu Kinh tế (Mục 1 - 3)",
             "II": "II. Chỉ tiêu Văn hóa - Xã hội (Mục 4 - 17)",
             "III": "III. Chỉ tiêu Môi trường - Đô thị (Mục 18 - 21)",
-            "IV": "IV. Cải cách hành chính (Mục 22 - 23)",
-            "V": "V. Quốc phòng - An ninh (Mục 24 - 30)"
+            "IV": "IV. Cải cách hành chính (Mục 22 - 24)",
+            "V": "V. Quốc phòng - An ninh (Mục 25 - 30)"
         };
 
         const colors = ["#3b82f6", "#10b981", "#f59e0b", "#8b5cf6", "#f43f5e"]; 
@@ -241,12 +242,12 @@
                 if (!groups[key]) return;
 
                 let groupHtml = `
-                    <div class="space-y-5 font-['Inter']">
-                        <h2 class="text-sm md:text-base font-black text-dynamic-title flex items-center gap-3 border-b border-dynamic-line pb-3">
+                    <div class="space-y-6 font-['Inter']">
+                        <h2 class="text-sm md:text-base font-black text-dynamic-title flex items-center gap-3">
                             <span class="w-8 h-8 rounded-xl bg-blue-600 text-white font-mono flex items-center justify-center text-xs shadow-md">${key}</span>
                             ${nhomTen[key]}
                         </h2>
-                        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-5">
+                        <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
                 `;
 
                 groups[key].forEach((item) => {
@@ -255,39 +256,39 @@
                     let statusClass = "bg-slate-100 text-slate-600 border-slate-300 dark:bg-slate-800 dark:text-slate-400 dark:border-slate-600";
                     let dgText = item.danh_gia || "Chưa đánh giá";
                     if (dgText.toLowerCase().includes('vượt')) {
-                        statusClass = "bg-emerald-100 text-emerald-700 border-emerald-300 dark:bg-emerald-900/50 dark:text-emerald-400 dark:border-emerald-800";
+                        statusClass = "bg-emerald-100 text-emerald-700 border-emerald-300 dark:bg-emerald-900/60 dark:text-emerald-400 dark:border-emerald-800";
                     } else if (dgText.toLowerCase().includes('đạt')) {
-                        statusClass = "bg-blue-100 text-blue-700 border-blue-300 dark:bg-blue-900/50 dark:text-blue-400 dark:border-blue-800";
+                        statusClass = "bg-blue-100 text-blue-700 border-blue-300 dark:bg-blue-900/60 dark:text-blue-400 dark:border-blue-800";
                     }
 
                     const hienPhuongHuong = item.phuong_huong && item.phuong_huong !== "-" 
-                        ? `<span class="block text-[10.5px] text-dynamic-body font-medium mt-3 italic border-t border-dynamic-line pt-2 leading-relaxed opacity-90">📌 ${item.phuong_huong}</span>` 
+                        ? `<span class="block text-[10.5px] text-dynamic-body font-medium mt-3 italic border-t border-dynamic-line pt-3 leading-relaxed opacity-90">📌 ${item.phuong_huong}</span>` 
                         : '';
 
                     groupHtml += `
-                        <div class="card-target-item p-5 rounded-2xl flex flex-col justify-between bg-white dark:bg-slate-800/40">
+                        <div class="bg-widget-card p-5 rounded-3xl flex flex-col justify-between">
                             
-                            <div class="flex justify-between items-start mb-3">
+                            <div class="flex justify-between items-start mb-4">
                                 <span class="text-[9px] font-black px-2.5 py-1 ${statusClass} border rounded uppercase tracking-wider">${dgText}</span>
                                 <span class="text-sm font-black ${percent >= 100 ? 'text-emerald-600 dark:text-emerald-400' : 'text-sky-600 dark:text-sky-400'}">${percent}%</span>
                             </div>
                             
-                            <h4 class="text-[13px] font-bold leading-snug text-dynamic-title mb-4 flex-grow">${item.ten}</h4>
+                            <h4 class="text-[13px] font-bold leading-snug text-dynamic-title mb-5 flex-grow">${item.ten}</h4>
                             
-                            <div class="grid grid-cols-1 gap-2 text-xs bg-black/5 dark:bg-white/5 p-3 rounded-xl border border-dynamic-line">
-                                <div>
-                                    <span class="block text-[9px] text-dynamic-label font-bold uppercase tracking-wider opacity-90">🎯 Kế hoạch</span>
-                                    <span class="font-extrabold text-dynamic-title mt-0.5 block">${item.kh} <small>${item.dvt || ''}</small></span>
+                            <div class="grid grid-cols-2 gap-3 border-t border-dynamic-line pt-4">
+                                <div class="bg-widget-inner rounded-xl p-3 text-center border shadow-sm">
+                                    <span class="block text-lg font-black text-indigo-700 dark:text-indigo-400 leading-none">${item.kh}</span>
+                                    <span class="block text-[9px] font-bold mt-1 opacity-70 uppercase tracking-wide text-dynamic-body">Kế hoạch ${item.dvt ? '('+item.dvt+')' : ''}</span>
                                 </div>
-                                <div class="mt-1">
-                                    <span class="block text-[9px] text-dynamic-label font-bold uppercase tracking-wider opacity-90">📈 Thực tế</span>
-                                    <span class="font-extrabold text-sky-600 dark:text-sky-400 mt-0.5 block leading-snug">${item.th || 'Chưa có số liệu'}</span>
+                                <div class="bg-widget-inner rounded-xl p-3 text-center border shadow-sm">
+                                    <span class="block text-lg font-black text-sky-600 dark:text-sky-400 leading-none">${item.th || '-'}</span>
+                                    <span class="block text-[9px] font-bold mt-1 opacity-70 uppercase tracking-wide text-dynamic-body">Thực tế ${item.dvt ? '('+item.dvt+')' : ''}</span>
                                 </div>
                             </div>
 
                             ${hienPhuongHuong}
 
-                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden mt-4">
+                            <div class="w-full bg-slate-200 dark:bg-slate-700 h-1.5 rounded-full overflow-hidden mt-5">
                                 <div class="h-full bg-gradient-to-r from-sky-400 to-blue-600 rounded-full transition-all duration-1000 ease-out" style="width: ${percent}%"></div>
                             </div>
                         </div>
