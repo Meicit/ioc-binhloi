@@ -327,110 +327,101 @@
         }
 
         // 4. VẼ BIỂU ĐỒ TRỰC QUAN
-       function renderChartsEngine(data, textColor) {
-    if(barChartInstance) barChartInstance.destroy();
-    if(pieChartInstance) pieChartInstance.destroy();
+        function renderChartsEngine(data, textColor) {
+            if(barChartInstance) barChartInstance.destroy();
+            if(pieChartInstance) pieChartInstance.destroy();
 
-    const groupStats = {};
-    Object.keys(nhomTen).forEach(k => groupStats[k] = { totalPercent: 0, count: 0 });
-
-    data.forEach(item => {
-        if (item && item.nhom) {
-            const p = calculatePercentage(item);
-            groupStats[item.nhom].totalPercent += p;
-            groupStats[item.nhom].count += 1; // Đếm số lượng chỉ tiêu mỗi nhóm
-        }
-    });
-
-    const labelsShort = ['Kinh tế', 'Văn hóa - XH', 'Môi trường - ĐT', 'Cải cách HC', 'QP - AN'];
-    const labelsLong = Object.values(nhomTen);
-    
-    // Dữ liệu cho Bar Chart (vẫn giữ nguyên như cũ)
-    const barData = Object.keys(nhomTen).map(k => {
-        return groupStats[k].count > 0 ? parseFloat((groupStats[k].totalPercent / groupStats[k].count).toFixed(2)) : 0;
-    });
-
-    // CẬP NHẬT PIE CHART: Lấy số lượng chỉ tiêu mỗi nhóm
-    const pieData = Object.keys(nhomTen).map(k => groupStats[k].count);
-
-    const activeGroups = barData.filter(v => v > 0).length || 1;
-    const avgTotal = (barData.reduce((a, b) => a + b, 0) / activeGroups).toFixed(2);
-    document.getElementById('tong_tien_do').innerText = avgTotal + "%";
-
-    // Bar Chart
-    const ctxBar = document.getElementById('chiTieuBarChart').getContext('2d');
-    barChartInstance = new Chart(ctxBar, {
-        type: 'bar',
-        data: {
-            labels: labelsShort,
-            datasets: [{
-                label: 'Tiến độ nhóm (%)',
-                data: barData,
-                backgroundColor: colors,
-                borderRadius: 6,
-                barThickness: 35
-            }]
-        },
-        options: { 
-            maintainAspectRatio: false, 
-            plugins: { 
-                legend: { display: false },
-                datalabels: {
-                    color: textColor,
-                    anchor: 'end',
-                    align: 'top',
-                    font: { weight: 'bold', size: 11 },
-                    formatter: (value) => value + '%',
-                    offset: 4
+            // Tính dữ liệu cho biểu đồ Cột (Bar Chart) - Trung bình % theo lĩnh vực
+            const groupStats = {};
+            Object.keys(groupConfigs).forEach(k => groupStats[k] = { totalPercent: 0, count: 0 });
+            data.forEach(item => {
+                if (item && item.nhom) {
+                    const p = calculatePercentage(item);
+                    groupStats[item.nhom].totalPercent += p;
+                    groupStats[item.nhom].count += 1;
                 }
-            },
-            scales: {
-                x: { grid: { display: false }, ticks: { color: textColor, font: { weight: 'bold', size: 10 } } },
-                y: { 
-                    max: 115, 
-                    grid: { color: 'rgba(128, 128, 128, 0.15)' }, 
-                    ticks: { color: textColor, font: { size: 10, weight: 'bold' } },
-                    beginAtZero: true
-                }
-            },
-            layout: { padding: { top: 20 } }
-        }
-    });
+            });
 
-    // 2. PIE CHART MỚI: Cơ cấu theo nhóm lĩnh vực
-    const ctxPie = document.getElementById('chiTieuPieChart').getContext('2d');
-    pieChartInstance = new Chart(ctxPie, {
-        type: 'doughnut',
-        data: {
-            labels: labelsShort, // Hiển thị tên nhóm
-            datasets: [{ 
-                data: pieData, // Số lượng chỉ tiêu mỗi nhóm
-                backgroundColor: colors, 
-                borderWidth: 2,
-                borderColor: '#ffffff' 
-            }]
-        },
-        options: { 
-            maintainAspectRatio: false, 
-            cutout: '65%', 
-            layout: { padding: 10 },
-            plugins: { 
-                legend: { position: 'right', labels: { color: textColor, font: { weight: 'bold', size: 10 } } },
-                datalabels: {
-                    color: '#ffffff',
-                    font: { weight: 'bold', size: 12 },
-                    formatter: (value, ctx) => {
-                        let sum = 0;
-                        let dataArr = ctx.chart.data.datasets[0].data;
-                        dataArr.map(data => { sum += data; });
-                        let percentage = ((value * 100) / sum).toFixed(1) + "%";
-                        return value + " chỉ tiêu (" + percentage + ")";
+            const labelsShort = ['Kinh tế', 'Văn hóa - XH', 'Môi trường - ĐT', 'Cải cách HC', 'QP - AN'];
+            const barData = Object.keys(groupConfigs).map(k => {
+                return groupStats[k].count > 0 ? parseFloat((groupStats[k].totalPercent / groupStats[k].count).toFixed(2)) : 0;
+            });
+
+            // Lấy màu sắc trục tùy theo Sáng/Tối
+            const isDark = document.getElementById('body-context').classList.contains('dark-theme');
+            let gridColor = 'rgba(14, 165, 233, 0.15)';
+            if (isDark) gridColor = 'rgba(255, 255, 255, 0.1)';
+            else if (document.getElementById('body-context').classList.contains('theme-do-hanhchinh')) gridColor = 'rgba(239, 68, 68, 0.15)';
+
+            const ctxBar = document.getElementById('chiTieuBarChart').getContext('2d');
+            barChartInstance = new Chart(ctxBar, {
+                type: 'bar',
+                data: {
+                    labels: labelsShort,
+                    datasets: [{
+                        label: 'Tiến độ nhóm (%)',
+                        data: barData,
+                        backgroundColor: 'rgba(56, 189, 248, 0.85)',
+                        borderColor: '#38bdf8',
+                        borderWidth: 1,
+                        borderRadius: 4,
+                        barThickness: 35
+                    }]
+                },
+                options: { 
+                    maintainAspectRatio: false, 
+                    plugins: { 
+                        legend: { display: false },
+                        datalabels: {
+                            color: textColor, anchor: 'end', align: 'top',
+                            font: { weight: 'bold', size: 10 },
+                            formatter: (value) => value + '%', offset: 4
+                        }
+                    },
+                    scales: {
+                        x: { grid: { display: false }, ticks: { color: textColor, font: { weight: 'bold', size: 10 } } },
+                        y: { max: 120, grid: { color: gridColor }, ticks: { color: textColor, font: { size: 10, weight: 'bold' } }, beginAtZero: true }
+                    },
+                    layout: { padding: { top: 20 } }
+                }
+            });
+
+            // Tính dữ liệu cho biểu đồ Tròn (Pie Chart) - Cơ cấu Trạng thái Đánh giá
+            let dat = 0, vuot = 0, chua = 0;
+            data.forEach(item => {
+                let dg = (item.danh_gia || "Chưa").toLowerCase();
+                if(dg.includes('vượt')) vuot++; else if(dg.includes('đạt')) dat++; else chua++;
+            });
+
+            const ctxPie = document.getElementById('chiTieuPieChart').getContext('2d');
+            pieChartInstance = new Chart(ctxPie, {
+                type: 'doughnut',
+                data: {
+                    labels: ['Đạt chỉ tiêu', 'Vượt chỉ tiêu / TĐ', 'Chưa đánh giá'],
+                    datasets: [{ 
+                        data: [dat, vuot, chua], 
+                        backgroundColor: ['rgba(14, 165, 233, 0.85)', 'rgba(16, 185, 129, 0.85)', 'rgba(245, 158, 11, 0.85)'], 
+                        borderWidth: 1, borderColor: '#ffffff' 
+                    }]
+                },
+                options: { 
+                    maintainAspectRatio: false, cutout: '65%', layout: { padding: 10 },
+                    plugins: { 
+                        legend: { position: 'right', labels: { color: textColor, font: { weight: 'bold', size: 10 } } },
+                        datalabels: {
+                            color: '#ffffff', font: { weight: 'bold', size: 12 },
+                            formatter: (value, ctx) => {
+                                let sum = 0;
+                                ctx.chart.data.datasets[0].data.map(d => sum += d);
+                                if(sum === 0 || value === 0) return "";
+                                let percentage = (value * 100 / sum).toFixed(1) + "%";
+                                return value + " (" + percentage + ")";
+                            }
+                        }
                     }
                 }
-            }
+            });
         }
-    });
-}
 
         window.setTheme = function(themeName) {
             const body = document.getElementById('body-context');
