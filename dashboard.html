@@ -9,7 +9,12 @@
     
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js
+        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyCjS8jJtoV5HLcYIpVTX1zP5DbyYmXsbh4",
+            authDomain: "dashboard-demo-ce0da.firebaseapp.com",
+            databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app",
             projectId: "dashboard-demo-ce0da",
             storageBucket: "dashboard-demo-ce0da.firebasestorage.app",
             messagingSenderId: "969593884637",
@@ -20,14 +25,17 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
+        // Bức tường bảo vệ: Nếu chưa đăng nhập sẽ bị đẩy về trang chủ (index.html)
         onAuthStateChanged(auth, (user) => {
             if (!user) { window.location.href = "index.html"; }
         });
 
+        // Chức năng Đăng xuất
         window.handleLogout = function() {
             signOut(auth).then(() => { window.location.href = "index.html"; });
         }
     </script>
+
     <style>
         body { font-family: 'Montserrat', sans-serif; background-color: #f1f5f9; margin: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
         .navbar { background-color: #0b4a8f; color: white; display: flex; flex-direction: column; flex-shrink: 0; z-index: 100; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
@@ -121,6 +129,8 @@
             <a href="pages/van-hoa-xa-hoi.html" target="main-frame" class="nav-item" onclick="handleNavClick(this)">🏛️ Văn hóa - Xã hội</a>
             <a href="pages/an-ninh-trat-tu.html" target="main-frame" class="nav-item" onclick="handleNavClick(this)">🛡️ An ninh trật tự</a>
             <a href="pages/don-thu.html" target="main-frame" class="nav-item" onclick="handleNavClick(this)">📂 Đơn thư</a>
+            <a href="phan-anh/theo-doi-phan-anh.html" target="main-frame" class="nav-item" onclick="handleNavClick(this)">📊 Theo dõi phản ánh</a>
+                       
             <button onclick="openOneAIChat()" class="nav-item" style="background: rgba(14, 165, 233, 0.15); border-color: rgba(14, 165, 233, 0.4);">🤖 Trợ lý Ảo (OneAI)</button>
         </nav>
     </header>
@@ -140,10 +150,8 @@
     </div>
 
     <script>
-        // Đường dẫn tới dịch vụ Trợ lý trí tuệ nhân tạo MISA OneAI công vụ của bạn
         const ONEAI_URL = "https://iofficeapp.misa.vn/oneai/chat?sid=s4/EDD6Z94L%2Bn9uMMoAzrHwTFAPeBgV4GxXrz8kRjZWOa8QYU8GtwvpvZ2OYS//8gw%2Bs3JTB/tjYXhKRRCBdWV2GuIR8ejB64pJicU3nhRCLTfa5H6OrHzBPpWlKoauaafnZh4EskgozVqGYL7eEWYxNaKpIgCLZSdgBIzk/TiPNH0jgpm3AExXG3zuui%2BoqnjpZ8hHhneaLuROftFKx3Gr/S3IGy7sIorcp6/1s0jXGgKI8bux4TDmoc0Hc16c1ZTyduwmW8XClszrVSW7A32Pwd9gMAxKoQFS2Jd2FSBvbs%2Bjd3cdVb8bPtrL3mUEbFySNXxjiekqxP%2BilGMwd4hrOXTAFuUiGhXfsjzRTJ1FFUswegoUyH6WhZw4rRo26USRbjA5PQT/XQfyqMg6xJeZZCSjbzboUtNKkyDSTL06MME4J2jFTVT%2BluNRfi8R3CgM/L6hRnQW9/kvD%2BTBgOHGDQBvjj6gpgnC0QxzGBiook5KU/fuY9iobP3h0rmThBIZmisz9PFo2IzDHjebi9A==&lid=vi&tcode=n4qiufaz73vt&env=IOffice";
 
-        // Hàm mở hộp thoại chat MISA OneAI trong tab mới
         window.openOneAIChat = function() {
             window.open(ONEAI_URL, '_blank');
         }
@@ -153,7 +161,6 @@
             el.classList.add('active');
         }
 
-        // Đồng bộ trạng thái thời gian thực
         document.getElementById('current-time').innerText = new Date().toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
         // LẮNG NGHE TÍN HIỆU THAY ĐỔI THEME (XANH / ĐỎ) TỪ TRANG CON TRONG IFRAME TRUYỀN RA
