@@ -113,20 +113,20 @@
                             <div class="w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl shadow-inner">🏛️</div>
                         </div>
                         <div class="flex items-end gap-3 mb-6">
-                            <span class="text-5xl font-black text-blue-800 dark:text-blue-100">97</span>
+                            <span id="tc_tong" class="text-5xl font-black text-blue-800 dark:text-blue-100">97</span>
                             <span class="text-sm font-bold text-blue-600 dark:text-blue-300 mb-1">Tổ chức</span>
                         </div>
                         <div class="grid grid-cols-3 gap-2 border-t border-blue-200/60 dark:border-blue-800/60 pt-4">
                             <div class="bg-widget-inner rounded-xl p-3 text-center border shadow-sm">
-                                <span class="block text-xl font-black text-indigo-700 dark:text-indigo-300">03</span>
+                                <span id="tc_dbcs" class="block text-xl font-black text-indigo-700 dark:text-indigo-300">03</span>
                                 <span class="block text-[10px] font-bold text-blue-600 dark:text-blue-400 mt-1 uppercase">Đảng bộ CS</span>
                             </div>
                             <div class="bg-widget-inner rounded-xl p-3 text-center border shadow-sm">
-                                <span class="block text-xl font-black text-indigo-700 dark:text-indigo-300">07</span>
+                                <span id="tc_cbcs" class="block text-xl font-black text-indigo-700 dark:text-indigo-300">07</span>
                                 <span class="block text-[10px] font-bold text-blue-600 dark:text-blue-400 mt-1 uppercase">Chi bộ CS</span>
                             </div>
                             <div class="bg-widget-inner rounded-xl p-3 text-center border shadow-sm">
-                                <span class="block text-xl font-black text-indigo-700 dark:text-indigo-300">87</span>
+                                <span id="tc_cbtt" class="block text-xl font-black text-indigo-700 dark:text-indigo-300">87</span>
                                 <span class="block text-[10px] font-bold text-blue-600 dark:text-blue-400 mt-1 uppercase">Chi bộ Trực thuộc</span>
                             </div>
                         </div>
@@ -141,20 +141,20 @@
                             <div class="w-12 h-12 bg-teal-600 text-white rounded-2xl flex items-center justify-center text-2xl shadow-inner">👥</div>
                         </div>
                         <div class="flex items-end gap-3 mb-6">
-                            <span class="text-5xl font-black text-teal-800 dark:text-teal-100">1.915</span>
+                            <span id="dv_tong" class="text-5xl font-black text-teal-800 dark:text-teal-100">1.915</span>
                             <span class="text-sm font-bold text-teal-600 dark:text-teal-300 mb-1">Đồng chí</span>
                         </div>
                         <div class="grid grid-cols-3 gap-2 border-t border-teal-200/60 dark:border-teal-800/60 pt-4">
                             <div class="bg-widget-inner rounded-xl p-3 text-center border shadow-sm">
-                                <span class="block text-xl font-black text-emerald-700 dark:text-emerald-300">1.864</span>
+                                <span id="dv_ct" class="block text-xl font-black text-emerald-700 dark:text-emerald-300">1.864</span>
                                 <span class="block text-[10px] font-bold text-teal-600 dark:text-teal-400 mt-1 uppercase">Chính thức</span>
                             </div>
                             <div class="bg-widget-inner rounded-xl p-3 text-center border shadow-sm">
-                                <span class="block text-xl font-black text-emerald-700 dark:text-emerald-300">51</span>
+                                <span id="dv_db" class="block text-xl font-black text-emerald-700 dark:text-emerald-300">51</span>
                                 <span class="block text-[10px] font-bold text-teal-600 dark:text-teal-400 mt-1 uppercase">Dự bị</span>
                             </div>
                             <div class="bg-widget-inner rounded-xl p-3 text-center border shadow-sm">
-                                <span class="block text-xl font-black text-emerald-700 dark:text-emerald-300">211</span>
+                                <span id="dv_mien" class="block text-xl font-black text-emerald-700 dark:text-emerald-300">211</span>
                                 <span class="block text-[10px] font-bold text-teal-600 dark:text-teal-400 mt-1 uppercase">Miễn sinh hoạt</span>
                             </div>
                         </div>
@@ -169,35 +169,35 @@
                     <div class="bg-widget-inner rounded-2xl p-5 border shadow-sm mb-6">
                         <div class="flex justify-between items-end mb-3">
                             <div>
-                                <span class="text-3xl font-black text-indigo-700 dark:text-indigo-300">36</span>
-                                <span class="text-sm font-bold text-indigo-400">/ 56 Chỉ tiêu</span>
+                                <span id="pt_ht" class="text-3xl font-black text-indigo-700 dark:text-indigo-300">36</span>
+                                <span class="text-sm font-bold text-indigo-400">/ <span id="pt_ct">56</span> Chỉ tiêu</span>
                             </div>
-                            <span class="text-xl font-black text-rose-600 dark:text-rose-400">64.29%</span>
+                            <span id="pt_percent" class="text-xl font-black text-rose-600 dark:text-rose-400">64.29%</span>
                         </div>
                         <div class="w-full bg-slate-200 dark:bg-slate-700 h-4 rounded-full overflow-hidden">
-                            <div class="bg-gradient-to-r from-indigo-500 to-rose-500 h-full rounded-full" style="width: 64.29%"></div>
+                            <div id="pt_progress_bar" class="bg-gradient-to-r from-indigo-500 to-rose-500 h-full rounded-full" style="width: 64.29%"></div>
                         </div>
                     </div>
 
                     <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
                         <div class="bg-widget-inner p-4 rounded-2xl border text-center relative overflow-hidden">
                             <div class="absolute -right-4 -bottom-4 text-6xl opacity-10">✍️</div>
-                            <span class="block text-2xl font-black text-indigo-600 dark:text-indigo-300">79</span>
+                            <span id="pt_ll" class="block text-2xl font-black text-indigo-600 dark:text-indigo-300">79</span>
                             <span class="block text-[10px] font-bold text-indigo-800 dark:text-indigo-200 uppercase mt-1">Đang viết lý lịch</span>
                         </div>
                         <div class="bg-widget-inner p-4 rounded-2xl border text-center relative overflow-hidden">
                             <div class="absolute -right-4 -bottom-4 text-6xl opacity-10">🔍</div>
-                            <span class="block text-2xl font-black text-indigo-600 dark:text-indigo-300">26</span>
+                            <span id="pt_xm" class="block text-2xl font-black text-indigo-600 dark:text-indigo-300">26</span>
                             <span class="block text-[10px] font-bold text-indigo-800 dark:text-indigo-200 uppercase mt-1">Đang xác minh</span>
                         </div>
                         <div class="bg-widget-inner p-4 rounded-2xl border text-center relative overflow-hidden">
                             <div class="absolute -right-4 -bottom-4 text-6xl opacity-10">📑</div>
-                            <span class="block text-2xl font-black text-indigo-600 dark:text-indigo-300">10</span>
+                            <span id="pt_tc" class="block text-2xl font-black text-indigo-600 dark:text-indigo-300">10</span>
                             <span class="block text-[10px] font-bold text-indigo-800 dark:text-indigo-200 uppercase mt-1">Trình Tiêu chuẩn CT</span>
                         </div>
                         <div class="bg-widget-inner p-4 rounded-2xl border text-center relative overflow-hidden">
                             <div class="absolute -right-4 -bottom-4 text-6xl opacity-10">⚙️</div>
-                            <span class="block text-2xl font-black text-indigo-600 dark:text-indigo-300">05</span>
+                            <span id="pt_nv" class="block text-2xl font-black text-indigo-600 dark:text-indigo-300">05</span>
                             <span class="block text-[10px] font-bold text-indigo-800 dark:text-indigo-200 uppercase mt-1">Thực hiện Nghiệp vụ</span>
                         </div>
                     </div>
@@ -209,24 +209,24 @@
                         <ul class="space-y-3">
                             <li class="flex justify-between items-center bg-widget-inner p-3 rounded-xl border">
                                 <span class="text-xs font-bold text-amber-900 dark:text-amber-100">📥 Tiếp nhận chuyển đến</span>
-                                <span class="text-sm font-black text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/40 px-2 py-1 rounded-lg">+62</span>
+                                <span id="bd_tn" class="text-sm font-black text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/40 px-2 py-1 rounded-lg">+62</span>
                             </li>
                             <li class="flex justify-between items-center bg-widget-inner p-3 rounded-xl border">
                                 <span class="text-xs font-bold text-amber-900 dark:text-amber-100">📤 Chuyển sinh hoạt đi</span>
-                                <span class="text-sm font-black text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/40 px-2 py-1 rounded-lg">-19</span>
+                                <span id="bd_cd" class="text-sm font-black text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/40 px-2 py-1 rounded-lg">-19</span>
                             </li>
                             <li class="pl-4 text-[10px] font-bold text-amber-700/80 dark:text-amber-400/80 italic list-disc list-inside">13 về nơi công tác, 06 về thường trú</li>
                             <li class="flex justify-between items-center bg-widget-inner p-3 rounded-xl border mt-2">
                                 <span class="text-xs font-bold text-amber-900 dark:text-amber-100">🔄 Chuyển sinh hoạt nội bộ</span>
-                                <span class="text-sm font-black text-amber-600 dark:text-amber-400 bg-amber-100 dark:bg-amber-900/40 px-2 py-1 rounded-lg">03</span>
+                                <span id="bd_cnb" class="text-sm font-black text-amber-600 dark:text-amber-400 bg-amber-100 dark:bg-amber-900/40 px-2 py-1 rounded-lg">03</span>
                             </li>
                             <li class="flex justify-between items-center bg-widget-inner p-3 rounded-xl border">
                                 <span class="text-xs font-bold text-amber-900 dark:text-amber-100">🎓 Chuyển Đảng chính thức</span>
-                                <span class="text-sm font-black text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-900/40 px-2 py-1 rounded-lg">18</span>
+                                <span id="bd_cct" class="text-sm font-black text-sky-600 dark:text-sky-400 bg-sky-50 dark:bg-sky-900/40 px-2 py-1 rounded-lg">18</span>
                             </li>
                             <li class="flex justify-between items-center bg-widget-inner p-3 rounded-xl border">
                                 <span class="text-xs font-bold text-amber-900 dark:text-amber-100">❌ Xóa tên Đảng viên</span>
-                                <span class="text-sm font-black text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/40 px-2 py-1 rounded-lg">02</span>
+                                <span id="bd_xt" class="text-sm font-black text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-900/40 px-2 py-1 rounded-lg">02</span>
                             </li>
                         </ul>
                     </div>
@@ -235,24 +235,24 @@
                         <h3 class="text-xs font-black text-cyan-800 dark:text-cyan-300 uppercase border-b border-cyan-200/60 dark:border-cyan-800/60 pb-3 mb-4">📑 Thẩm tra & Nhận xét</h3>
                         <ul class="space-y-3">
                             <li class="bg-widget-inner p-3 rounded-xl border">
-                                <span class="block text-2xl font-black text-cyan-700 dark:text-cyan-300 mb-1">80 <span class="text-[10px] font-bold text-cyan-600/70 uppercase">Trường hợp</span></span>
+                                <span class="block text-2xl font-black text-cyan-700 dark:text-cyan-300 mb-1"><span id="tt_xvd">80</span> <span class="text-[10px] font-bold text-cyan-600/70 uppercase">Trường hợp</span></span>
                                 <span class="text-xs font-bold text-cyan-900 dark:text-cyan-100">Thẩm tra, xác minh người xin vào Đảng</span>
                             </li>
                             <li class="bg-widget-inner p-3 rounded-xl border">
-                                <span class="block text-2xl font-black text-cyan-700 dark:text-cyan-300 mb-1">47 <span class="text-[10px] font-bold text-cyan-600/70 uppercase">Trường hợp</span></span>
+                                <span class="block text-2xl font-black text-cyan-700 dark:text-cyan-300 mb-1"><span id="tt_ctcb">47</span> <span class="text-[10px] font-bold text-cyan-600/70 uppercase">Trường hợp</span></span>
                                 <span class="text-xs font-bold text-cyan-900 dark:text-cyan-100">Thẩm tra phục vụ công tác Cán bộ</span>
                             </li>
                             <li class="bg-widget-inner p-3 rounded-xl border">
-                                <span class="block text-2xl font-black text-cyan-700 dark:text-cyan-300 mb-1">65 <span class="text-[10px] font-bold text-cyan-600/70 uppercase">Trường hợp</span></span>
+                                <span class="block text-2xl font-black text-cyan-700 dark:text-cyan-300 mb-1"><span id="tt_nkd">65</span> <span class="text-[10px] font-bold text-cyan-600/70 uppercase">Trường hợp</span></span>
                                 <span class="text-xs font-bold text-cyan-900 dark:text-cyan-100">Nhận xét Đảng viên nơi khác chuyển đến</span>
                             </li>
                             <li class="flex justify-between items-center bg-widget-inner p-3 rounded-xl border">
                                 <span class="text-xs font-bold text-cyan-900 dark:text-cyan-100">Nhận xét Cấp ủy cư trú (ĐV dự bị)</span>
-                                <span class="text-sm font-black text-cyan-700 dark:text-cyan-300 bg-cyan-100 dark:bg-cyan-900/40 px-2 py-1 rounded-lg">10</span>
+                                <span id="tt_cuct" class="text-sm font-black text-cyan-700 dark:text-cyan-300 bg-cyan-100 dark:bg-cyan-900/40 px-2 py-1 rounded-lg">10</span>
                             </li>
                             <li class="flex justify-between items-center bg-widget-inner p-3 rounded-xl border">
                                 <span class="text-xs font-bold text-cyan-900 dark:text-cyan-100">Nhận xét xin vào Đảng (nơi cư trú)</span>
-                                <span class="text-sm font-black text-cyan-700 dark:text-cyan-300 bg-cyan-100 dark:bg-cyan-900/40 px-2 py-1 rounded-lg">27</span>
+                                <span id="tt_xvdct" class="text-sm font-black text-cyan-700 dark:text-cyan-300 bg-cyan-100 dark:bg-cyan-900/40 px-2 py-1 rounded-lg">27</span>
                             </li>
                         </ul>
                     </div>
@@ -262,7 +262,7 @@
                             <h3 class="text-xs font-black text-rose-800 dark:text-rose-300 uppercase border-b border-rose-200/60 dark:border-rose-800/60 pb-3 mb-4">✈️ Đảng viên đi nước ngoài</h3>
                             <div class="bg-widget-inner p-5 rounded-2xl border text-center mb-4 shadow-sm">
                                 <div class="text-5xl mb-2">🌍</div>
-                                <span class="block text-4xl font-black text-rose-600 dark:text-rose-400">43</span>
+                                <span id="nn_dpd" class="block text-4xl font-black text-rose-600 dark:text-rose-400">43</span>
                                 <span class="block text-xs font-bold text-rose-800 dark:text-rose-200 uppercase mt-2">Đã được phê duyệt đi nước ngoài</span>
                             </div>
                         </div>
@@ -270,7 +270,7 @@
                         <div class="bg-rose-600 p-5 rounded-2xl text-center shadow-md relative overflow-hidden mt-4">
                             <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diagonal-stripes.png')] opacity-20"></div>
                             <div class="relative z-10">
-                                <span class="block text-3xl font-black text-white">04</span>
+                                <span id="nn_dxm" class="block text-3xl font-black text-white">04</span>
                                 <span class="block text-xs font-bold text-rose-100 uppercase mt-2 leading-snug">Trường hợp đang được Công an Xã thẩm tra, xác minh</span>
                             </div>
                         </div>
@@ -319,11 +319,83 @@
         let cachedData = null;
         let currentLabelColor = '#1e3a8a'; 
 
-        // LẮNG NGHE DỮ LIỆU
+        // LẮNG NGHE DỮ LIỆU TỪ FIREBASE VÀ TỰ ĐỘNG ĐIỀN VÀO CÁC Ô TƯƠNG ỨNG
         onValue(dangNodeRef, (snapshot) => {
             const data = snapshot.val();
             if(!data) return;
             cachedData = data;
+
+            // Hàm định dạng thêm dấu chấm phần ngàn (VD: 1915 -> 1.915)
+            const fmt = (num) => new Intl.NumberFormat('vi-VN').format(num || 0);
+            
+            // Hàm gán dữ liệu vào ID an toàn
+            const setTxt = (id, val, prefix="") => { 
+                const el = document.getElementById(id); 
+                if(el) el.innerText = prefix + fmt(val); 
+            }
+
+            // 1. TỔ CHỨC ĐẢNG
+            if (data.to_chuc) {
+                setTxt('tc_tong', data.to_chuc.tong);
+                setTxt('tc_dbcs', data.to_chuc.dang_bo_cs);
+                setTxt('tc_cbcs', data.to_chuc.chi_bo_cs);
+                setTxt('tc_cbtt', data.to_chuc.chi_bo_truc_thuoc);
+            }
+
+            // 2. SỐ LƯỢNG ĐẢNG VIÊN
+            if (data.dang_vien) {
+                setTxt('dv_tong', data.dang_vien.tong);
+                setTxt('dv_ct', data.dang_vien.chinh_thuc);
+                setTxt('dv_db', data.dang_vien.du_bi);
+                setTxt('dv_mien', data.dang_vien.mien_sinh_hoat);
+            }
+
+            // 3. TIẾN ĐỘ PHÁT TRIỂN ĐẢNG VIÊN
+            if (data.phat_trien) {
+                setTxt('pt_ht', data.phat_trien.hien_tai);
+                setTxt('pt_ct', data.phat_trien.chi_tieu);
+                
+                // Tính phần trăm
+                let p_ht = data.phat_trien.hien_tai || 0;
+                let p_ct = data.phat_trien.chi_tieu || 1;
+                let pct = ((p_ht / p_ct) * 100).toFixed(2);
+                
+                let pctEl = document.getElementById('pt_percent');
+                if (pctEl) pctEl.innerText = pct + "%";
+                
+                let barEl = document.getElementById('pt_progress_bar');
+                if (barEl) barEl.style.width = pct + "%";
+
+                setTxt('pt_ll', data.phat_trien.dang_viet_ly_lich);
+                setTxt('pt_xm', data.phat_trien.dang_xac_minh);
+                setTxt('pt_tc', data.phat_trien.trinh_tieu_chuan);
+                setTxt('pt_nv', data.phat_trien.thuc_hien_nghiep_vu);
+            }
+
+            // 4. BIẾN ĐỘNG ĐẢNG VIÊN
+            if (data.bien_dong) {
+                setTxt('bd_tn', data.bien_dong.tiep_nhan, "+");
+                setTxt('bd_cd', data.bien_dong.chuyen_di, "-");
+                setTxt('bd_cnb', data.bien_dong.chuyen_noi_bo);
+                setTxt('bd_cct', data.bien_dong.chuyen_chinh_thuc);
+                setTxt('bd_xt', data.bien_dong.xoa_ten);
+            }
+
+            // 5. THẨM TRA & NHẬN XÉT
+            if (data.tham_tra) {
+                setTxt('tt_xvd', data.tham_tra.xin_vao_dang);
+                setTxt('tt_ctcb', data.tham_tra.cong_tac_can_bo);
+                setTxt('tt_nkd', data.tham_tra.noi_khac_den);
+                setTxt('tt_cuct', data.tham_tra.cap_uy_cu_tru);
+                setTxt('tt_xvdct', data.tham_tra.xin_vao_dang_cu_tru);
+            }
+
+            // 6. ĐẢNG VIÊN ĐI NƯỚC NGOÀI
+            if (data.di_nuoc_ngoai) {
+                setTxt('nn_dpd', data.di_nuoc_ngoai.da_phe_duyet);
+                setTxt('nn_dxm', data.di_nuoc_ngoai.dang_xac_minh);
+            }
+
             renderChartsEngine(data, currentLabelColor);
         });
 
@@ -331,8 +403,8 @@
             if(barChartInstance) barChartInstance.destroy();
             if(pieChartInstance) pieChartInstance.destroy();
 
-            const chartTargets = data.chi_tieu_co_so.map(item => item.target_val);
-            const chartCurrents = data.chi_tieu_co_so.map(item => item.current_val);
+            const chartTargets = data.chi_tieu_co_so ? data.chi_tieu_co_so.map(item => item.target_val) : [0,0,0,0,0,0];
+            const chartCurrents = data.chi_tieu_co_so ? data.chi_tieu_co_so.map(item => item.current_val) : [0,0,0,0,0,0];
 
             const isDark = document.getElementById('body-context').classList.contains('dark-theme');
             let gridColor = 'rgba(14, 165, 233, 0.15)';
@@ -382,7 +454,7 @@
 
             // PIE CHART
             const ctxPie = document.getElementById('dangPieChart').getContext('2d');
-            const pieDataObj = data.co_cau_chi_bo;
+            const pieDataObj = data.co_cau_chi_bo || { xuat_sac: 0, hoan_thanh_tot: 0, hoan_thanh_nhiem_vu: 0, khong_hoan_thanh: 0 };
             const pieDataValues = [pieDataObj.xuat_sac, pieDataObj.hoan_thanh_tot, pieDataObj.hoan_thanh_nhiem_vu, pieDataObj.khong_hoan_thanh];
             
             pieChartInstance = new Chart(ctxPie, {
