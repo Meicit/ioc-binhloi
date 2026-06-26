@@ -25,23 +25,30 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
-        // Bức tường bảo vệ: Nếu chưa đăng nhập sẽ bị đẩy về trang chủ (index.html)
         onAuthStateChanged(auth, (user) => {
             if (!user) { window.location.href = "index.html"; }
         });
 
-        // Chức năng Đăng xuất
         window.handleLogout = function() {
             signOut(auth).then(() => { window.location.href = "index.html"; });
         }
     </script>
-
     <style>
         body { font-family: 'Montserrat', sans-serif; background-color: #f1f5f9; margin: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
         .navbar { background-color: #0b4a8f; color: white; display: flex; flex-direction: column; flex-shrink: 0; z-index: 100; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
         .nav-top { display: flex; justify-content: space-between; align-items: center; padding: 10px 24px; border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
-        .nav-bottom { display: flex; align-items: center; background-color: #083a71; padding: 8px 24px; overflow-x: auto; scrollbar-width: none; gap: 12px; box-shadow: inset 0 2px 8px rgba(0,0,0,0.2); }
+        
+        /* ================= CẤU TRÚC CUỘN MENU MỚI ================= */
+        .nav-wrapper { position: relative; display: flex; align-items: center; background-color: #083a71; box-shadow: inset 0 2px 8px rgba(0,0,0,0.2); width: 100%; }
+        .nav-bottom { display: flex; align-items: center; padding: 8px 24px; overflow-x: auto; scrollbar-width: none; gap: 12px; width: 100%; scroll-behavior: smooth; }
         .nav-bottom::-webkit-scrollbar { display: none; }
+        
+        .scroll-btn { position: absolute; z-index: 20; height: 100%; padding: 0 12px; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); color: white; border: none; cursor: pointer; display: flex; items-center; justify-content: center; transition: all 0.3s ease; }
+        .scroll-btn:hover { background: rgba(0,0,0,0.7); color: #38bdf8; }
+        #btn-scroll-left { left: 0; display: none; } /* Ẩn mặc định khi ở đầu */
+        #btn-scroll-right { right: 0; }
+        /* ========================================================= */
+
         .nav-item { padding: 10px 18px; cursor: pointer; border-radius: 12px; color: #bae6fd; font-weight: 600; font-size: 13px; display: flex; align-items: center; gap: 8px; text-decoration: none; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); white-space: nowrap; background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); }
         .nav-item:hover { color: white; background: rgba(255, 255, 255, 0.15); transform: translateY(-2px); }
         .nav-item.active { color: white !important; font-weight: 800; background: linear-gradient(145deg, #0ea5e9, #0284c7); border: 1px solid rgba(255, 255, 255, 0.4); box-shadow: 0 4px 15px rgba(14, 165, 233, 0.4); transform: translateY(-3px) scale(1.05); }
@@ -60,9 +67,8 @@
             animation: gradientGIF 12s ease infinite; 
             border-bottom: 1px solid rgba(255,255,255,0.2); 
         }
-        body.theme-do-hanhchinh .nav-bottom { 
+        body.theme-do-hanhchinh .nav-wrapper { 
             background-color: #a81c15; 
-            box-shadow: inset 0 2px 8px rgba(0,0,0,0.3);
         }
         body.theme-do-hanhchinh .nav-item:hover { 
             background: rgba(255, 255, 255, 0.2); 
@@ -87,7 +93,6 @@
         .chatbot-mascot img { width: 100%; height: auto; filter: drop-shadow(0 10px 15px rgba(8, 47, 73, 0.4)); }
         body.theme-do-hanhchinh .chatbot-mascot img { filter: drop-shadow(0 10px 15px rgba(76, 5, 25, 0.4)); }
 
-        /* Bong bóng chat (Speech Bubble) */
         .chat-bubble {
             position: absolute; top: -45px; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px);
             padding: 8px 16px; border-radius: 20px; font-size: 12px; font-weight: 800; white-space: nowrap;
@@ -119,20 +124,30 @@
                 <button id="btn-unlock" type="button" onclick="handleLogout()" class="px-5 py-2 rounded-lg text-[10px] uppercase tracking-widest shadow-md font-bold">🚪 Đăng xuất hệ thống</button>
             </div>
         </div>
-        <nav class="nav-bottom" id="main-nav">
-            <a href="pages/tong-quan.html" target="main-frame" class="nav-item active" onclick="handleNavClick(this)">🏠 Thông tin chung</a>
-            <a href="pages/cong-tac-dang.html" target="main-frame" class="nav-item" onclick="handleNavClick(this)">🚩 Công tác Đảng</a>
-            <a href="pages/ho-so-hanh-chinh.html" target="main-frame" class="nav-item" onclick="handleNavClick(this)">📋 Hồ sơ hành chính</a>
-            <a href="pages/chi-tieu.html" target="main-frame" class="nav-item" onclick="handleNavClick(this)">📈 Chỉ tiêu KT-XH</a>
-            <a href="pages/dau-tu-cong.html" target="main-frame" class="nav-item" onclick="handleNavClick(this)">🏗️ Đầu tư công</a>
-            <a href="pages/thu-chi-ngan-sach.html" target="main-frame" class="nav-item" onclick="handleNavClick(this)">💰 Thu - Chi ngân sách</a>
-            <a href="pages/van-hoa-xa-hoi.html" target="main-frame" class="nav-item" onclick="handleNavClick(this)">🏛️ Văn hóa - Xã hội</a>
-            <a href="pages/an-ninh-trat-tu.html" target="main-frame" class="nav-item" onclick="handleNavClick(this)">🛡️ An ninh trật tự</a>
-            <a href="pages/don-thu.html" target="main-frame" class="nav-item" onclick="handleNavClick(this)">📂 Đơn thư</a>
-            <a href="phan-anh/theo-doi-phan-anh.html" target="main-frame" class="nav-item" onclick="handleNavClick(this)">📊 Theo dõi phản ánh</a>
-                       
-            <button onclick="openOneAIChat()" class="nav-item" style="background: rgba(14, 165, 233, 0.15); border-color: rgba(14, 165, 233, 0.4);">🤖 Trợ lý Ảo (OneAI)</button>
-        </nav>
+        
+        <div class="nav-wrapper">
+            <button id="btn-scroll-left" onclick="scrollNav(-400)" class="scroll-btn items-center justify-center">
+                <span class="font-black text-xl leading-none">❮</span>
+            </button>
+            
+            <nav class="nav-bottom" id="main-nav">
+                <a href="pages/tong-quan.html" target="main-frame" class="nav-item active" onclick="handleNavClick(this)">🏠 Thông tin chung</a>
+                <a href="pages/cong-tac-dang.html" target="main-frame" class="nav-item" onclick="handleNavClick(this)">🚩 Công tác Đảng</a>
+                <a href="pages/ho-so-hanh-chinh.html" target="main-frame" class="nav-item" onclick="handleNavClick(this)">📋 Hồ sơ hành chính</a>
+                <a href="pages/chi-tieu.html" target="main-frame" class="nav-item" onclick="handleNavClick(this)">📈 Chỉ tiêu KT-XH</a>
+                <a href="pages/dau-tu-cong.html" target="main-frame" class="nav-item" onclick="handleNavClick(this)">🏗️ Đầu tư công</a>
+                <a href="pages/thu-chi-ngan-sach.html" target="main-frame" class="nav-item" onclick="handleNavClick(this)">💰 Thu - Chi ngân sách</a>
+                <a href="pages/van-hoa-xa-hoi.html" target="main-frame" class="nav-item" onclick="handleNavClick(this)">🏛️ Văn hóa - Xã hội</a>
+                <a href="pages/an-ninh-trat-tu.html" target="main-frame" class="nav-item" onclick="handleNavClick(this)">🛡️ An ninh trật tự</a>
+                <a href="pages/don-thu.html" target="main-frame" class="nav-item" onclick="handleNavClick(this)">📂 Đơn thư</a>
+                <a href="phan-anh/theo-doi-phan-anh.html" target="main-frame" class="nav-item" onclick="handleNavClick(this)">📊 Theo dõi phản ánh</a>
+                <button onclick="openOneAIChat()" class="nav-item" style="background: rgba(14, 165, 233, 0.15); border-color: rgba(14, 165, 233, 0.4);">🤖 Trợ lý Ảo (OneAI)</button>
+            </nav>
+            
+            <button id="btn-scroll-right" onclick="scrollNav(400)" class="scroll-btn items-center justify-center">
+                <span class="font-black text-xl leading-none">❯</span>
+            </button>
+        </div>
     </header>
     
     <main class="main-wrapper">
@@ -163,7 +178,7 @@
 
         document.getElementById('current-time').innerText = new Date().toLocaleDateString('vi-VN', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
-        // LẮNG NGHE TÍN HIỆU THAY ĐỔI THEME (XANH / ĐỎ) TỪ TRANG CON TRONG IFRAME TRUYỀN RA
+        // LOGIC LẮNG NGHE TÍN HIỆU THAY ĐỔI THEME TỪ TRANG CON
         window.addEventListener('message', function(event) {
             const body = document.body;
             if (event.data === 'theme-do') {
@@ -171,6 +186,44 @@
             } else if (event.data === 'theme-xanh') {
                 body.classList.remove('theme-do-hanhchinh');
             }
+        });
+
+        // ================= LOGIC CUỘN THANH MENU =================
+        const nav = document.getElementById('main-nav');
+        const btnLeft = document.getElementById('btn-scroll-left');
+        const btnRight = document.getElementById('btn-scroll-right');
+
+        // Hàm cuộn ngang
+        window.scrollNav = function(amount) {
+            nav.scrollBy({ left: amount, behavior: 'smooth' });
+        }
+
+        // Kiểm tra vị trí cuộn để Ẩn/Hiện các nút mũi tên
+        function updateScrollButtons() {
+            // Nếu đã cuộn sát mép trái
+            if (nav.scrollLeft <= 0) {
+                btnLeft.style.display = 'none';
+            } else {
+                btnLeft.style.display = 'flex';
+            }
+            
+            // Nếu đã cuộn sát mép phải (dung sai 2px do làm tròn thập phân)
+            if (Math.ceil(nav.scrollLeft + nav.clientWidth) >= nav.scrollWidth - 2) {
+                btnRight.style.display = 'none';
+            } else {
+                btnRight.style.display = 'flex';
+            }
+        }
+
+        // Lắng nghe sự kiện khi người dùng tự lấy tay vuốt (trên điện thoại) hoặc khi bấm nút
+        nav.addEventListener('scroll', updateScrollButtons);
+        // Kiểm tra lại khi màn hình bị resize
+        window.addEventListener('resize', updateScrollButtons);
+        
+        // Chạy kiểm tra lần đầu khi tải trang xong
+        document.addEventListener('DOMContentLoaded', () => {
+            // Chờ một chút để Font/CSS tải xong đảm bảo tính toán width chính xác
+            setTimeout(updateScrollButtons, 100); 
         });
     </script>
 </body>
