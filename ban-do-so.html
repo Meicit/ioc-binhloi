@@ -145,6 +145,12 @@
 
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(148, 163, 184, 0.4); border-radius: 10px; }
+
+        @media (max-width: 1024px) {
+            .header-layout { flex-direction: column !important; }
+            .theme-selector-vertical { position: relative !important; top: 0 !important; right: 0 !important; margin-top: 16px; flex-direction: row !important; width: auto !important; }
+            .theme-selector-vertical button { margin: 0 4px; }
+        }
     </style>
 </head>
 <body class="light-theme theme-xanh custom-scrollbar" id="dynamic-body">
@@ -278,25 +284,24 @@
             }
         };
 
-        // HÀM TẢI BẢN ĐỒ DWG THÔNG QUA API SHARECAD
+        // HÀM TẢI BẢN ĐỒ DWG THÔNG QUA API SHARECAD (CẬP NHẬT TÊN MIỀN BẢO MẬT)
         window.loadDWGMap = function(fileName) {
             const iframe = document.getElementById('map-iframe');
             const alertBox = document.getElementById('dwg-alert');
             
-            // Lấy URL hiện tại của thư mục (Ví dụ: https://ten-cua-ban.github.io/thu-muc/)
+            // Lấy URL hiện tại của thư mục
             const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
             
             // Tạo đường dẫn tuyệt đối trỏ tới file DWG
-            // GIẢ ĐỊNH: Các file DWG được lưu trong thư mục "du-lieu-quy-hoach" ngang hàng với file html
             const fileUrl = baseUrl + "du-lieu-quy-hoach/" + fileName + ".dwg";
             
-            // Tạo URL gọi iframe của ShareCAD
-            const shareCadUrl = `https://sharecad.org/cadframe/load?url=${encodeURIComponent(fileUrl)}`;
+            // TẠO URL GỌI IFRAME CỦA SHARECAD (Sử dụng subdomain iframe.sharecad.org)
+            const shareCadUrl = `https://iframe.sharecad.org/cadframe/load?url=${encodeURIComponent(fileUrl)}`;
             
             // Nhúng iframe
             iframe.src = shareCadUrl;
             
-            // Xử lý cảnh báo nếu người dùng đang test bằng Localhost (ShareCAD không đọc được file nội bộ)
+            // Xử lý cảnh báo nếu người dùng đang test bằng Localhost
             const hostname = window.location.hostname;
             if(hostname === "localhost" || hostname === "127.0.0.1" || window.location.protocol === "file:") {
                 alertBox.innerHTML = `⚠️ <strong class="font-black">Lưu ý Localhost:</strong> Trình xem ShareCAD yêu cầu file .dwg phải ở trên máy chủ công khai (Public URL). Vì bạn đang chạy code offline, màn hình dưới có thể báo lỗi hoặc trắng trơn. Hãy upload lên GitHub Pages để tính năng này hoạt động bình thường!`;
