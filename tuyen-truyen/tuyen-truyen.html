@@ -40,7 +40,6 @@
             backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
             border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 32px; 
             width: 100%; 
-            /* Đã giảm khoảng cách lề trên xuống 16px thay vì 24px/32px như cũ */
             padding: 16px 24px 24px 24px; 
             transition: all 0.5s ease; 
         }
@@ -88,12 +87,6 @@
         body.dark-theme .text-dynamic-body { color: #bae6fd; }
         body.dark-theme .text-dynamic-label { color: #38bdf8; }
 
-        /* Hiệu ứng hover danh sách tin */
-        .list-item-hover { transition: background 0.3s; }
-        body.light-theme.theme-xanh-ios .list-item-hover:hover { background: rgba(14, 165, 233, 0.08); }
-        body.light-theme.theme-do-hanhchinh .list-item-hover:hover { background: rgba(218, 37, 29, 0.08); }
-        body.dark-theme .list-item-hover:hover { background: rgba(56, 189, 248, 0.1); }
-
         /* ================= HIỆU ỨNG MARQUEE CỔ ĐỘNG ================= */
         .marquee-wrapper {
             width: 100%;
@@ -106,11 +99,9 @@
         .marquee-track {
             display: inline-flex;
             width: max-content;
-            /* Điều chỉnh thời gian cuộn ở đây (30s = chậm, 15s = nhanh) */
             animation: scrollMarquee 40s linear infinite;
         }
 
-        /* Khi người dùng rê chuột vào, khung cuộn sẽ tạm dừng để dễ xem */
         .marquee-track:hover {
             animation-play-state: paused;
         }
@@ -133,7 +124,6 @@
         .marquee-item img {
             width: 100%;
             height: 100%;
-            /* Thay đổi sang contain để hiển thị 100% hình ảnh không bị cắt góc */
             object-fit: contain; 
             transition: transform 0.5s ease;
         }
@@ -142,7 +132,6 @@
             transform: scale(1.05);
         }
 
-        /* Di chuyển từ phải (0) sang trái (-50%) vì chúng ta nhân đôi dữ liệu */
         @keyframes scrollMarquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
@@ -209,7 +198,6 @@
 
     <div class="max-w-[1550px] w-full mx-auto px-4 md:px-6 my-2 pb-12 flex flex-col flex-grow">
 
-        <!-- Thay vì space-y-6, dùng space-y-4 để thu hẹp khoảng cách giữa các khối -->
         <article class="menu-panel-wrapper flex flex-col space-y-4">
             
             <div class="flex flex-row justify-between items-center gap-4 pb-3 border-b border-white/40 w-full">
@@ -233,10 +221,9 @@
                     
                     <!-- BÀI ĐINH BÊN TRÁI -->
                     <div class="lg:col-span-6 xl:col-span-7 flex flex-col space-y-3 font-['Inter']">
-                        <!-- Sử dụng object-contain và nền phụ để ảnh không bị cắt -->
                         <a href="chi-tiet-tin.html" class="block rounded-xl overflow-hidden shadow-md aspect-video border border-slate-200 dark:border-slate-700/40 relative group bg-slate-100 dark:bg-slate-800">
                             <img src="images/anh-tin-1.jpg" alt="Tin tức chính" class="w-full h-full object-contain group-hover:scale-105 transition duration-500" onerror="this.src='https://placehold.co/800x450?text=News+Banner'">
-                            <span class="absolute top-3 left-3 text-[10px] font-black bg-blue-600/90 backdrop-blur text-white px-3 py-1 rounded-full uppercase shadow-md border border-white/20">Tiêu điểm</span>
+                            <span class="absolute top-3 left-3 z-10 text-[10px] font-black bg-blue-600/90 backdrop-blur text-white px-3 py-1 rounded-full uppercase shadow-md border border-white/20">Tiêu điểm</span>
                         </a>
                         
                         <div class="flex flex-col space-y-2 mt-2">
@@ -255,19 +242,15 @@
                         </div>
                     </div>
                     
-                    <!-- DANH SÁCH TIN BÊN PHẢI -->
+                    <!-- DANH SÁCH TIN BÊN PHẢI (CHỨA IFRAME FACEBOOK) -->
                     <div class="lg:col-span-6 xl:col-span-5 flex flex-col h-full font-['Inter']">
-                        <h3 class="text-[11px] font-black uppercase text-dynamic-title border-b border-slate-300 dark:border-slate-600 pb-2 mb-4">Tin tức mới cập nhật</h3>
+                        <h3 class="text-[11px] font-black uppercase text-dynamic-title border-b border-slate-300 dark:border-slate-600 pb-2 mb-4">Tin tức mới cập nhật trên Facebook</h3>
                         
-                        <div id="danh_sach_tin_tuc" class="flex flex-col space-y-3">
+                        <!-- Vùng chứa các bài Facebook có scroll -->
+                        <div id="danh_sach_tin_tuc" class="flex flex-col space-y-4 max-h-[750px] overflow-y-auto custom-scrollbar pr-2">
                             <!-- Dữ liệu JS render vào đây -->
                         </div>
                         
-                        <div class="mt-auto pt-6 text-right">
-                            <a href="danh-sach-tin.html" class="inline-flex items-center gap-1 text-[10px] font-black uppercase text-dynamic-label transition bg-sky-500/10 px-3 py-1.5 rounded-lg border border-sky-500/20 hover:border-sky-500">
-                                Xem tất cả tin tức ❯
-                            </a>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -280,18 +263,16 @@
                         <iframe src="https://www.facebook.com/plugins/video.php?height=314&href=https%3A%2F%2Fwww.facebook.com%2Freel%2F1798753044439628%2F&show_text=false&width=560&t=0" width="100%" height="100%" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
                     </div>
                     <div class="video-card bg-black">
-                        <!-- Đã cập nhật link YouTube vào đây với width=100% height=100% -->
                         <iframe width="100%" height="100%" src="https://www.youtube.com/embed/Z6yl38eepN8?si=YMGMH4IEnm9soPmz" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                     </div>
                 </div>
             </div>
 
-            <!-- KHỐI 3: HÌNH ẢNH CỔ ĐỘNG (DẠNG MARQUEE CHẠY NGANG) -->
+            <!-- KHỐI 3: HÌNH ẢNH CỔ ĐỘNG -->
             <div class="glass-panel p-5 md:p-6 pb-2">
                 <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label border-l-4 border-sky-400 dark:border-sky-500 pl-3 mb-2">📸 Hình ảnh Hoạt động trực quan & Cổ động</h2>
                 
                 <div class="marquee-wrapper">
-                    <!-- id="marquee-track" sẽ được chèn ảnh qua JS -->
                     <div class="marquee-track" id="marquee-track"></div>
                 </div>
                 
@@ -307,38 +288,28 @@
 
     <script>
         // =========================================================
-        // KHU VỰC QUẢN LÝ DỮ LIỆU TIN TỨC
+        // KHU VỰC QUẢN LÝ DỮ LIỆU TIN TỨC FACEBOOK
         // =========================================================
         const tinTucData = [
             {
-                title: "Triển khai hệ thống thanh toán trực tuyến phí dịch vụ công tại Bộ phận Một cửa",
-                date: "24/05/2026",
-                image: "images/banner2.jpg",
-                link: "tin-phu-1.html"
+                src: "https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid07zXMVKNQg3tf7Pmq9UM1ASvQTyQsNZWmbbKZZjUFRzDA74dggQPZRtTBvdPKvppSl%26id%3D100063653432652&show_text=true&width=500",
+                height: "811"
             },
             {
-                title: "Ra quân tổng vệ sinh môi trường, phòng chống dịch bệnh sốt xuất huyết mùa mưa",
-                date: "22/05/2026",
-                image: "images/banner1.jpg",
-                link: "tin-phu-2.html"
+                src: "https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid02pSMbEAY8nRjuYcQnKbsed43eFbvwB13aMP3X1HW1qX97RjnDnfH54Mmv9LWtpxGtl%26id%3D100063653432652&show_text=true&width=500",
+                height: "703"
             },
             {
-                title: "Hội Liên hiệp Phụ nữ Xã trao tặng 50 suất học bổng cho học sinh nghèo vượt khó",
-                date: "20/05/2026",
-                image: "images/banner2.jpg",
-                link: "tin-phu-3.html"
+                src: "https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid034Xge8vyShcVf7mGGukogznsK9VmfJ8fYVK9unjg6gVyuU11sM9nQHdekTTWbNXK1l%26id%3D100063653432652&show_text=true&width=500",
+                height: "805"
             },
             {
-                title: "Cập nhật tiến độ dự án mở rộng Quốc lộ 50 đoạn qua địa bàn Xã Bình Hưng",
-                date: "18/05/2026",
-                image: "images/banner1.jpg",
-                link: "tin-phu-4.html"
+                src: "https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid0iEwsKeF6noYgddcC6XMqtT1WQ4x4k6wHASUExLvuSR79PowLoLEcoeF6VEDXrtZrl%26id%3D100063653432652&show_text=true&width=500",
+                height: "250"
             },
             {
-                title: "Xã Bình Hưng tổ chức cuộc thi thiết kế cổng thông tin điện tử xuất sắc",
-                date: "28/05/2026",
-                image: "images/banner2.jpg",
-                link: "tin-phu-5.html"
+                src: "https://www.facebook.com/plugins/post.php?href=https%3A%2F%2Fwww.facebook.com%2Fpermalink.php%3Fstory_fbid%3Dpfbid03AjAk5jpC8NCscQf6JHJAmXzEj1uRYAnaF5zLZy8y6coG2CEEV1nVteocWVjDSKMl%26id%3D100063653432652&show_text=true&width=500",
+                height: "679"
             }
         ];
 
@@ -346,27 +317,26 @@
             const container = document.getElementById('danh_sach_tin_tuc');
             if (!container) return;
             
+            // Render ra các iframe của Facebook
             container.innerHTML = tinTucData.map(tin => `
-                <a href="${tin.link}" class="list-item-hover group flex gap-4 items-center p-2 -mx-2 rounded-xl transition cursor-pointer">
-                    <!-- Thêm bg-slate-100 dark:bg-slate-800 để tạo viền khối rõ ràng, tránh viền trắng thừa khi đổi sang object-contain -->
-                    <div class="w-24 h-16 md:w-28 md:h-20 flex-shrink-0 rounded-lg overflow-hidden border border-slate-200 dark:border-slate-700/40 bg-slate-100 dark:bg-slate-800">
-                        <!-- Chuyển sang object-contain để hiển thị trọn vẹn 100% hình ảnh -->
-                        <img src="${tin.image}" alt="Hình bài viết" onerror="this.src='https://placehold.co/400x300?text=No+Image'" class="w-full h-full object-contain group-hover:scale-110 transition duration-300">
-                    </div>
-                    <div class="flex flex-col space-y-1.5">
-                        <h4 class="text-xs font-bold text-dynamic-title leading-snug group-hover:underline transition line-clamp-2">
-                            ${tin.title}
-                        </h4>
-                        <span class="text-[9px] text-dynamic-body font-medium italic">📅 ${tin.date}</span>
-                    </div>
-                </a>
+                <div class="bg-white dark:bg-slate-800 rounded-xl overflow-hidden shadow-sm border border-slate-200 dark:border-slate-700/60 w-full transition hover:shadow-md flex-shrink-0">
+                    <iframe 
+                        src="${tin.src}" 
+                        width="100%" 
+                        height="${tin.height}" 
+                        style="border:none;overflow:hidden; background: white;" 
+                        scrolling="no" 
+                        frameborder="0" 
+                        allowfullscreen="true" 
+                        allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                    </iframe>
+                </div>
             `).join('');
         }
 
         // =========================================================
         // KHU VỰC QUẢN LÝ DỮ LIỆU MARQUEE (HÌNH ẢNH CỔ ĐỘNG)
         // =========================================================
-        /* Bổ sung các file ảnh bạn có trong thư mục images/co-dong/ vào mảng dưới đây */
         const listAnhCoDong = [
             "images/co-dong/co-dong-1.jpg",
             "images/co-dong/co-dong-2.jpg",
@@ -383,16 +353,12 @@
             const track = document.getElementById('marquee-track');
             if (!track || listAnhCoDong.length === 0) return;
 
-            // Tạo các thẻ hình ảnh với nền bg-slate-100/dark:bg-slate-800
             const itemsHTML = listAnhCoDong.map(src => `
                 <div class="marquee-item bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700">
-                    <!-- Ảnh hiển thị full 100% tỷ lệ nhờ object-contain -->
                     <img src="${src}" class="w-full h-full object-contain" alt="Ảnh cổ động" onerror="this.src='https://placehold.co/800x500?text=Anh+Co+Dong'">
                 </div>
             `).join('');
 
-            // Nhân đôi danh sách (append 2 lần) để tạo thành vòng lặp vô tận (seamless loop)
-            // Khi thanh trượt chạy đến -50%, nó sẽ có dữ liệu y hệt phần đầu
             track.innerHTML = itemsHTML + itemsHTML;
         }
 
@@ -435,9 +401,9 @@
 
         // CHẠY HÀM KHI MỞ TRANG
         document.addEventListener("DOMContentLoaded", () => {
-            setTheme('light'); // Đặt nền trắng mặc định
-            renderTinTuc();    // Vẽ danh sách tin tức
-            renderMarquee();   // Chèn danh sách ảnh cổ động và kích hoạt thanh trượt
+            setTheme('light');
+            renderTinTuc();  
+            renderMarquee(); 
         });
     </script>
 </body>
