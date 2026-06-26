@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Điều phối Quản lý Dân cư - Xã Bình Hưng</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
@@ -16,7 +18,6 @@
         .btn-back:hover { transform: translateY(-2px); border-color: #ef4444; background: rgba(239, 68, 68, 0.1); color: #ef4444 !important; }
 
         /* ================= QUẢN LÝ MÀU CHỮ NỔI BẬT THEME NỘI DUNG ================= */
-        /* NỀN SÁNG (Mặc định) */
         body.light-theme { background-color: #f8fafc; color: #0b4a8f; }
         body.light-theme .text-dynamic-title { color: #031b4e !important; } 
         body.light-theme .text-dynamic-body { color: #475569 !important; }  
@@ -24,7 +25,6 @@
         body.light-theme .module-card { background: #ffffff; }
         body.light-theme .btn-back { color: #0b4a8f; }
 
-        /* NỀN TỐI */
         body.dark-theme { background-color: #0f172a; color: #38bdf8; }
         body.dark-theme .text-dynamic-title { color: #00f0ff !important; } 
         body.dark-theme .text-dynamic-body { color: #94a3b8 !important; }  
@@ -55,36 +55,33 @@
             100% { background-position: 0% 50%; }
         }
 
-        /* LOGO ANIMATION CHUYỂN ĐỘNG NHẸ */
         .logo-main { animation: float 4s ease-in-out infinite; }
         @keyframes float {
             0%, 100% { transform: translateY(0); filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)); }
             50% { transform: translateY(-3px); filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3)); }
         }
 
-        /* ANIMATION CARD ĐIỀU PHỐI */
         .module-card { transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1); cursor: pointer; border: 1px solid transparent; overflow: hidden; }
         .module-card:hover { transform: translateY(-8px); box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25); }
         
-        /* RESPONSIVE CHO KHỐI ĐIỀU HƯỚNG THEME TRÊN ĐIỆN THOẠI */
         @media (max-width: 1024px) {
-            .header-layout { flex-direction: column !important; }
+            .header-layout { flex-direction: column !important; gap: 16px; }
             .theme-selector-vertical { 
                 position: relative !important; top: 0 !important; right: 0 !important; 
-                margin-top: 16px; flex-direction: row !important; space-x: 2; width: auto !important;
+                flex-direction: row !important; gap: 8px; space-y: 0 !important; width: auto !important;
             }
-            .theme-selector-vertical button { margin-left: 4px; margin-right: 4px; }
+            .theme-selector-vertical button { width: 80px !important; }
         }
     </style>
 </head>
-<body class="theme-xanh-ios light-theme custom-scrollbar" id="dynamic-body">
+<body class="theme-xanh-ios light-theme" id="dynamic-body">
 
     <header class="main-header w-full py-6 px-6 md:px-12 select-none relative transition-all duration-300 mb-8">
-        <div class="max-w-[1550px] mx-auto flex flex-col items-center justify-center relative header-layout">
+        <div class="max-w-[1550px] mx-auto flex flex-row items-center justify-between relative header-layout">
             
             <div class="flex flex-row items-center space-x-6 w-auto">
                 <div class="flex-shrink-0">
-                    <img src="../logo.png" alt="Logo" class="logo-main w-20 h-auto" onerror="this.src='logo.png'">
+                    <img src="../logo.png" alt="Logo IOC Bình Hưng" class="logo-main w-20 h-auto" width="80" height="80" onerror="this.onerror=null; this.src='logo.png';">
                 </div>
                 <div class="flex flex-col items-start justify-center space-y-2 text-left">
                     <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-['Montserrat']">
@@ -104,41 +101,35 @@
         </div>
     </header>
 
-    <div class="container-wrapper space-y-8 flex-grow mb-12" id="body-context">
+    <main class="container-wrapper space-y-8 flex-grow mb-12" id="body-context">
         
-        <!-- ĐIỀU CHỈNH: GỘP NÚT, TIÊU ĐỀ VÀ SWITCHER VÀO CÙNG 1 HÀNG -->
-        <div class="flex flex-col md:flex-row justify-between items-center gap-6 max-w-5xl mx-auto w-full border-b border-slate-200 dark:border-slate-800 pb-6">
+        <div class="flex flex-col md:flex-row justify-between items-center gap-6 max-w-6xl mx-auto w-full border-b border-slate-200 dark:border-slate-800 pb-6">
             
-            <!-- Nút Quay Lại -->
             <div class="flex-shrink-0">
                 <a href="../home.html" class="btn-back">⬅️ Quay lại</a>
             </div>
 
-            <!-- Tiêu đề Canh Giữa -->
             <div class="text-center px-4">
                 <h2 class="text-lg md:text-2xl font-bold text-sky-500 uppercase tracking-[0.2em] mb-1">Quản lý Hành chính</h2>
-                <h3 class="text-lg md:text-2xl font-bold text-sky-500 uppercase tracking-[0.2em] mb-1">ẤP SỐ - CHUNG CƯ SỐ
-                </h3>
+                <h3 class="text-lg md:text-2xl font-bold text-sky-500 uppercase tracking-[0.2em] mb-1">ẤP SỐ - CHUNG CƯ SỐ</h3>
             </div>
 
-            <!-- Nút Chọn Sáng/Tối -->
-            <div class="flex-shrink-0 bg-blue-500 border border-blue-500 p-1 rounded-xl flex items-center shadow-md backdrop-blur">
-                <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">Sáng</button>
-                <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">Tối</button>
+            <div class="flex-shrink-0 bg-blue-500/10 dark:bg-slate-800 border border-blue-500/30 p-1 rounded-xl flex items-center shadow-md backdrop-blur">
+                <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent">Sáng</button>
+                <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent">Tối</button>
             </div>
         </div>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto items-stretch">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto items-stretch">
             
             <div onclick="window.location.href='ap-so.html'" class="glass-panel module-card group hover:border-emerald-500 h-full flex flex-col">
-                
                 <div class="h-28 sm:h-32 bg-emerald-600/10 dark:bg-emerald-900/40 flex items-center justify-center relative border-b border-emerald-500/20 shrink-0">
                     <div class="text-[50px] sm:text-[55px] group-hover:scale-110 transition-transform duration-500 z-10 drop-shadow-md">🏘️</div>
                     <div class="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent"></div>
                 </div>
                 
-                <div class="p-6 md:p-8 text-center md:text-left flex flex-col flex-grow">
-                    <h3 class="text-lg sm:text-xl font-black text-dynamic-title mb-3 uppercase tracking-wide group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
+                <div class="p-6 text-center md:text-left flex flex-col flex-grow">
+                    <h3 class="text-lg font-black text-dynamic-title mb-3 uppercase tracking-wide group-hover:text-emerald-600 dark:group-hover:text-emerald-400 transition-colors">
                         Điều hành Ấp Số
                     </h3>
                     <p class="text-sm text-dynamic-body leading-relaxed mb-6 flex-grow">
@@ -153,14 +144,13 @@
             </div>
 
             <div onclick="window.location.href='chung-cu-so.html'" class="glass-panel module-card group hover:border-sky-500 h-full flex flex-col">
-                
                 <div class="h-28 sm:h-32 bg-sky-600/10 dark:bg-sky-900/40 flex items-center justify-center relative border-b border-sky-500/20 shrink-0">
                     <div class="text-[50px] sm:text-[55px] group-hover:scale-110 transition-transform duration-500 z-10 drop-shadow-md">🏢</div>
                     <div class="absolute inset-0 bg-gradient-to-br from-sky-500/10 to-transparent"></div>
                 </div>
                 
-                <div class="p-6 md:p-8 text-center md:text-left flex flex-col flex-grow">
-                    <h3 class="text-lg sm:text-xl font-black text-dynamic-title mb-3 uppercase tracking-wide group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
+                <div class="p-6 text-center md:text-left flex flex-col flex-grow">
+                    <h3 class="text-lg font-black text-dynamic-title mb-3 uppercase tracking-wide group-hover:text-sky-600 dark:group-hover:text-sky-400 transition-colors">
                         Quản lý Chung cư Số
                     </h3>
                     <p class="text-sm text-dynamic-body leading-relaxed mb-6 flex-grow">
@@ -174,8 +164,29 @@
                 </div>
             </div>
 
+            <div onclick="window.open('phuong-an-39-ap.pdf', '_blank')" class="glass-panel module-card group hover:border-orange-500 h-full flex flex-col">
+                <div class="h-28 sm:h-32 bg-orange-600/10 dark:bg-orange-900/40 flex items-center justify-center relative border-b border-orange-500/20 shrink-0">
+                    <div class="text-[50px] sm:text-[55px] group-hover:scale-110 transition-transform duration-500 z-10 drop-shadow-md">🗺️</div>
+                    <div class="absolute inset-0 bg-gradient-to-br from-orange-500/10 to-transparent"></div>
+                </div>
+                
+                <div class="p-6 text-center md:text-left flex flex-col flex-grow">
+                    <h3 class="text-lg font-black text-dynamic-title mb-3 uppercase tracking-wide group-hover:text-orange-600 dark:group-hover:text-orange-400 transition-colors">
+                        Ranh 39 Ấp
+                    </h3>
+                    <p class="text-sm text-dynamic-body leading-relaxed mb-6 flex-grow">
+                        Tra cứu sơ đồ ranh giới hành chính, phương án sắp xếp và phân chia các đơn vị ấp mới trên địa bàn xã Bình Hưng.
+                    </p>
+                    <div class="mt-auto md:text-left text-center">
+                        <span class="inline-flex items-center gap-2 bg-orange-100 dark:bg-orange-900/50 text-orange-700 dark:text-orange-300 font-bold px-5 py-2.5 rounded-xl text-xs uppercase tracking-wider group-hover:bg-orange-600 group-hover:text-white transition-all shadow-sm">
+                            XEM FILE PDF <span>➔</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </div>
+    </main>
 
     <footer class="mt-auto text-center py-6 text-slate-400 font-medium text-[11px] uppercase tracking-widest border-t border-slate-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 shadow-sm w-full">
         &copy; 2026 IOC BINH HƯNG — BẢN QUYỀN THUỘC UBND XÃ BÌNH HƯNG
@@ -192,7 +203,7 @@
                 body.classList.remove('dark-theme'); 
                 body.classList.add('light-theme');
                 btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-blue-900 text-sky-200 shadow-md border border-blue-700";
-                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-400 hover:text-blue-900";
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-400 hover:text-blue-900 dark:hover:text-sky-400";
             } else {
                 body.classList.remove('light-theme'); 
                 body.classList.add('dark-theme');
@@ -217,7 +228,7 @@
             }
         }
 
-        // Đặt chế độ Sáng làm mặc định khi mở trang
+        // Khởi tạo trạng thái mặc định khi tải trang hoàn tất
         document.addEventListener('DOMContentLoaded', () => {
             setTheme('light');
         });
