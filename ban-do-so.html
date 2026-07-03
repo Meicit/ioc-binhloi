@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bản đồ số - Xã Bình Hưng</title>
+    <title>Cổng thông tin - Xã Bình Hưng</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
     
@@ -55,14 +55,13 @@
         body.light-theme.theme-do .title-banner { background-color: #da251d; border-bottom-color: #a81c15; color: white; }
         body.dark-theme .title-banner { background-color: rgba(15, 23, 42, 0.7); border-bottom-color: rgba(56, 189, 248, 0.5); color: #38bdf8; backdrop-filter: blur(10px); }
 
-        /* ================= KHUNG HIỂN THỊ BẢN ĐỒ ================= */
-        .content-viewer-container { width: 100%; height: 700px; border-radius: 20px; overflow: hidden; box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08); border: 1px solid; transition: all 0.3s; position: relative; }
-        body.light-theme.theme-xanh .content-viewer-container { background: #ffffff; border-color: rgba(14, 165, 233, 0.2); }
-        body.light-theme.theme-do .content-viewer-container { background: #ffffff; border-color: rgba(218, 37, 29, 0.2); }
-        body.dark-theme .content-viewer-container { background: rgba(15, 23, 42, 0.6); border-color: rgba(56, 189, 248, 0.3); }
-
-        /* ================= NÚT CHUYỂN BẢN ĐỒ (TABS) ================= */
-        .tab-btn { border: 1px solid; font-weight: 800; font-size: 0.75rem; text-transform: uppercase; padding: 12px 24px; border-radius: 12px; transition: all 0.2s; white-space: nowrap; cursor: pointer; }
+        /* ================= NÚT THÔNG TIN / MENU (TABS) ================= */
+        .tab-btn { 
+            border: 1px solid; font-weight: 800; font-size: 0.8rem; text-transform: uppercase; 
+            padding: 16px 20px; border-radius: 12px; transition: all 0.2s; 
+            cursor: pointer; width: 100%; text-align: left;
+            display: flex; align-items: center; justify-content: space-between;
+        }
         
         body.light-theme.theme-xanh .tab-btn { background: #ffffff; border-color: #e2e8f0; color: #1e3a8a; }
         body.light-theme.theme-xanh .tab-btn.active { background: #0b4a8f; color: white; border-color: #0b4a8f; }
@@ -73,7 +72,7 @@
 
         /* ================= DROPDOWN MENU TÙY CHỈNH ================= */
         .dropdown-menu {
-            position: absolute; top: 110%; left: 0; z-index: 50; min-width: 380px;
+            position: absolute; top: 110%; left: 0; z-index: 50; width: 100%; min-width: 300px;
             border-radius: 12px; padding: 8px 0; border: 1px solid;
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
             backdrop-filter: blur(20px); transition: all 0.2s ease-in-out;
@@ -82,7 +81,7 @@
         .dropdown-wrapper.open .dropdown-menu { transform: scale(1); opacity: 1; pointer-events: auto; }
 
         .dropdown-item {
-            display: block; width: 100%; text-align: left; padding: 10px 20px;
+            display: block; width: 100%; text-align: left; padding: 12px 20px;
             font-size: 0.8rem; font-weight: 700; transition: all 0.2s; cursor: pointer;
         }
 
@@ -155,7 +154,6 @@
 </head>
 <body class="light-theme theme-xanh custom-scrollbar" id="dynamic-body">
 
-    <!-- HEADER -->
     <header class="main-header w-full py-6 px-6 md:px-12 select-none relative transition-all duration-300">
         <div class="max-w-[1550px] mx-auto flex flex-col md:flex-row items-center justify-between relative header-layout">
             
@@ -173,7 +171,6 @@
                 </div>
             </div>
 
-            <!-- Nút chọn Theme XANH/ĐỎ -->
             <div class="theme-selector-vertical lg:absolute lg:top-0 lg:right-0 bg-white/10 backdrop-blur-md border border-white/20 p-1.5 rounded-xl flex flex-row lg:flex-col space-x-2 lg:space-x-0 lg:space-y-1.5 w-auto lg:w-[75px] z-20 shadow-inner mt-4 lg:mt-0">
                 <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="w-full text-center text-[10px] font-extrabold uppercase px-4 lg:px-0 py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md border border-blue-500/50">
                     🔵 Xanh
@@ -196,10 +193,9 @@
 
     <div class="max-w-[1550px] w-full mx-auto px-4 md:px-6 my-2 pb-12 flex flex-col flex-grow">
 
-        <article class="menu-panel-wrapper flex flex-col space-y-4">
+        <article class="menu-panel-wrapper flex flex-col space-y-6">
             
             <div class="flex flex-col md:flex-row justify-between items-center gap-4 pb-4 border-b border-opacity-30 border-current">
-                <!-- NÚT QUAY LẠI & SÁNG/TỐI -->
                 <div class="flex flex-wrap items-center gap-3 w-full md:w-auto shrink-0">
                     <div class="btn-back-container m-0">
                         <a href="index.html" class="btn-back-interactive">⬅️ Quay lại</a>
@@ -213,18 +209,19 @@
                 </div>
             </div>
 
-            <!-- TABS MENU -->
-            <div class="flex flex-row gap-3 overflow-x-visible pb-2 custom-scrollbar items-center">
-                <button onclick="changeMap('ranh-ap', this)" class="tab-btn active shrink-0">🗺️ Ranh 39 ấp xã Bình Hưng</button>
-                <button onclick="window.open('https://thongtinquyhoach.hochiminhcity.gov.vn', '_blank')" class="tab-btn shrink-0 opacity-80 hover:opacity-100">🔍 Tra cứu thông tin quy hoạch ↗</button>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4 w-full lg:w-1/2">
+                <button onclick="changeMap('ranh-ap', this)" class="tab-btn active">
+                    <span>🗺️ Ranh 39 ấp xã Bình Hưng</span>
+                </button>
+                <button onclick="window.open('https://thongtinquyhoach.hochiminhcity.gov.vn', '_blank')" class="tab-btn opacity-80 hover:opacity-100">
+                    <span>🔍 Tra cứu thông tin quy hoạch ↗</span>
+                </button>
                 
-                <!-- DROPDOWN BẢN ĐỒ QUY HOẠCH (SHARECAD API) -->
-                <div class="relative dropdown-wrapper shrink-0" id="dwg-dropdown">
-                    <button onclick="toggleDropdown()" class="tab-btn w-full flex items-center justify-between gap-2 border-dashed">
+                <div class="relative dropdown-wrapper w-full" id="dwg-dropdown">
+                    <button onclick="toggleDropdown()" class="tab-btn border-dashed">
                         <span>📐 Bản đồ Quy hoạch (DWG)</span>
                         <span class="text-[10px]">▼</span>
                     </button>
-                    <!-- Danh sách file DWG -->
                     <div class="dropdown-menu">
                         <button onclick="loadDWGMap('04. QH TMB SDD (1)')" class="dropdown-item">1. 04. QH TMB SDD (1)</button>
                         <button onclick="loadDWGMap('04. QH TMB SDD')" class="dropdown-item">2. 04. QH TMB SDD</button>
@@ -238,22 +235,12 @@
                 </div>
             </div>
             
-            <!-- KHUNG HIỂN THỊ BẢN ĐỒ -->
-            <div class="content-viewer-container flex flex-col items-center justify-center relative bg-slate-100 dark:bg-slate-900">
-                <!-- KHUNG CẢNH BÁO TỪ SHARECAD -->
-                <div id="dwg-alert" class="hidden absolute top-4 left-1/2 -translate-x-1/2 w-11/12 md:w-3/4 p-4 rounded-xl bg-amber-100 border border-amber-400 text-amber-800 shadow-lg z-10 text-center font-medium text-sm transition-opacity duration-500">
-                    <!-- Message sẽ được render qua JS -->
-                </div>
-                
-                <iframe id="map-iframe" src="https://www.google.com/maps/d/embed?mid=1r3Pu1JREpzimi67036GbAuFPN23knQA&ehbc=2E312F" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
-            </div>
-            
         </article>
         
     </div>
 
     <footer class="footer-main">
-        &copy; 2026 IOC BINH HƯNG — BẢN QUYỀN THUỘC UBND XÃ BÌNH HƯNG
+        © 2026 IOC BINH HƯNG — BẢN QUYỀN THUỘC UBND XÃ BÌNH HƯNG
     </footer>
 
     <script>
@@ -271,55 +258,21 @@
             }
         });
 
-        // HÀM CHUYỂN ĐỔI BẢN ĐỒ RANH ẤP (GOOGLE MAPS)
+        // XỬ LÝ ACTIVE NÚT RANH ẤP (Đã bỏ kết xuất map)
         window.changeMap = function(type, buttonElement) {
-            const iframe = document.getElementById('map-iframe');
-            document.getElementById('dwg-alert').classList.add('hidden'); 
-            
             if (type === 'ranh-ap') {
-                iframe.src = "https://www.google.com/maps/d/embed?mid=1r3Pu1JREpzimi67036GbAuFPN23knQA&ehbc=2E312F";
-                
                 document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
                 buttonElement.classList.add('active');
             }
         };
 
-        // HÀM TẢI BẢN ĐỒ DWG THÔNG QUA API SHARECAD (CẬP NHẬT TÊN MIỀN BẢO MẬT)
+        // XỬ LÝ ACTIVE NÚT DROPDOWN DWG (Đã bỏ kết xuất map)
         window.loadDWGMap = function(fileName) {
-            const iframe = document.getElementById('map-iframe');
-            const alertBox = document.getElementById('dwg-alert');
-            
-            // Lấy URL hiện tại của thư mục
-            const baseUrl = window.location.href.substring(0, window.location.href.lastIndexOf('/') + 1);
-            
-            // Tạo đường dẫn tuyệt đối trỏ tới file DWG
-            const fileUrl = baseUrl + "du-lieu-quy-hoach/" + fileName + ".dwg";
-            
-            // TẠO URL GỌI IFRAME CỦA SHARECAD (Sử dụng subdomain iframe.sharecad.org)
-            const shareCadUrl = `https://iframe.sharecad.org/cadframe/load?url=${encodeURIComponent(fileUrl)}`;
-            
-            // Nhúng iframe
-            iframe.src = shareCadUrl;
-            
-            // Xử lý cảnh báo nếu người dùng đang test bằng Localhost
-            const hostname = window.location.hostname;
-            if(hostname === "localhost" || hostname === "127.0.0.1" || window.location.protocol === "file:") {
-                alertBox.innerHTML = `⚠️ <strong class="font-black">Lưu ý Localhost:</strong> Trình xem ShareCAD yêu cầu file .dwg phải ở trên máy chủ công khai (Public URL). Vì bạn đang chạy code offline, màn hình dưới có thể báo lỗi hoặc trắng trơn. Hãy upload lên GitHub Pages để tính năng này hoạt động bình thường!`;
-                alertBox.classList.remove('hidden');
-            } else {
-                alertBox.innerHTML = `⏳ Đang kết nối tới máy chủ ShareCAD để tải và kết xuất bản đồ <strong>${fileName}.dwg</strong>. Vui lòng đợi trong giây lát...`;
-                alertBox.classList.remove('hidden');
-                
-                // Tự động mờ thông báo sau 8 giây
-                setTimeout(() => { 
-                    alertBox.classList.add('hidden'); 
-                }, 8000);
-            }
-            
-            // Thay đổi giao diện nút
             document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-            document.querySelector('#dwg-dropdown > button').classList.add('active');
-            document.querySelector('#dwg-dropdown > button span:first-child').innerText = `📐 ${fileName}`;
+            
+            const dropdownBtn = document.querySelector('#dwg-dropdown > button');
+            dropdownBtn.classList.add('active');
+            dropdownBtn.querySelector('span:first-child').innerText = `📐 ${fileName}`;
             
             // Đóng menu thả xuống
             document.getElementById('dwg-dropdown').classList.remove('open');
