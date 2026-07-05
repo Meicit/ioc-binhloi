@@ -147,20 +147,22 @@
 
         <article class="menu-panel-wrapper flex flex-col space-y-4">
             
-            <div class="flex flex-col md:flex-row justify-between items-center gap-4 border-b border-white/40 pb-3">
-                <div class="flex flex-wrap items-center gap-3 w-full md:w-auto shrink-0">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 border-b border-slate-200/40 dark:border-slate-700/40 pb-4">
+                <div class="w-full md:w-auto flex justify-start">
                     <a href="../" class="btn-back">
-                        ⬅️ Quay lại Trang chủ
+                        ⬅️ Quay lại
                     </a>
-                    
+                </div>
+                
+                <div class="w-full md:w-auto flex justify-end">
                     <div class="bg-blue-900/10 dark:bg-sky-500/10 border border-blue-200 dark:border-sky-500/20 p-1 rounded-xl flex items-center shadow-sm backdrop-blur">
-                        <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-blue-900">☀️ Sáng</button>
-                        <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-500 hover:text-blue-900 dark:text-sky-200 dark:hover:text-white">🌙 Tối</button>
+                        <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-4 py-2 rounded-lg transition border border-transparent text-blue-900">☀️ Sáng</button>
+                        <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-4 py-2 rounded-lg transition border border-transparent text-slate-500 hover:text-blue-900 dark:text-sky-200 dark:hover:text-white">🌙 Tối</button>
                     </div>
                 </div>
             </div>
             
-            <div class="flex flex-row gap-3 overflow-x-auto pb-2 custom-scrollbar">
+            <div class="flex flex-row gap-3 overflow-x-auto pb-2 pt-2 custom-scrollbar">
                 <button onclick="changeContent('intro', '', this)" class="tab-btn shrink-0">🏛️ TT Phục vụ Hành chính công</button>
                 <button onclick="changeContent('qr-slider', '', this)" class="tab-btn shrink-0">📱 Mã QR TTHC</button>
                 <button onclick="changeContent('accordion-guide', '', this)" class="tab-btn shrink-0">📖 Hướng dẫn TTHC</button>
@@ -330,13 +332,13 @@
             if(themeName === 'light') {
                 body.classList.remove('dark-theme');
                 body.classList.add('light-theme');
-                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-sm border border-blue-200";
-                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-500 hover:text-blue-900 dark:text-sky-200 dark:hover:text-white";
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-4 py-2 rounded-lg transition bg-white text-blue-900 shadow-sm border border-blue-200";
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-4 py-2 rounded-lg transition border border-transparent text-slate-500 hover:text-blue-900 dark:text-sky-200 dark:hover:text-white";
             } else {
                 body.classList.remove('light-theme');
                 body.classList.add('dark-theme');
-                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-sky-600 text-white shadow-sm border border-sky-500";
-                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-sky-400 hover:text-sky-300";
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-4 py-2 rounded-lg transition bg-sky-600 text-white shadow-sm border border-sky-500";
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-4 py-2 rounded-lg transition border border-transparent text-sky-400 hover:text-sky-300";
             }
 
             const activeTabBtn = document.querySelector('.tab-btn.active');
@@ -349,7 +351,6 @@
             }
         }
 
-        // ĐÃ CẬP NHẬT NỘI DUNG GIỚI THIỆU TTHC MỚI TẠI ĐÂY
         function changeContent(type, sourceUrl, buttonElement) {
             const viewport = document.getElementById('viewer-viewport');
             const isDark = document.body.classList.contains('dark-theme');
