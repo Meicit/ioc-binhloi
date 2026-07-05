@@ -7,48 +7,26 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
     <style>
         /* ================= QUẢN LÝ MÀU NỀN TỔNG THỂ ================= */
-        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background-color 0.4s ease, color 0.4s ease; }
-        body.light-theme { background-color: #f8fafc; color: #334155; }
-        body.dark-theme { background-color: #082f49; color: #bae6fd; }
-
-        /* ================= KHỐI NỘI DUNG KÍNH MỜ ================= */
-        .menu-panel-wrapper { backdrop-filter: blur(20px); border-radius: 36px; padding: 24px; transition: all 0.4s ease; border: 1px solid; width: 100%; }
-        @media (min-width: 768px) { .menu-panel-wrapper { padding: 36px; } }
+        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background-color 0.3s ease, color 0.3s ease; }
         
-        .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; transition: all 0.3s; }
-        .text-dynamic-title { transition: color 0.3s; }
-        .text-dynamic-body { transition: color 0.3s; }
-        .text-dynamic-label { transition: color 0.3s; }
+        .container-wrapper { max-width: 1550px; margin: 0 auto 30px auto; padding: 0 24px; width: 100%; }
+        
+        /* KHUNG NỀN CHÍNH */
+        .teal-wrapper { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 36px; padding: 24px; transition: all 0.4s ease; min-height: 80vh; }
+        @media (min-width: 768px) { .teal-wrapper { padding: 36px; } }
 
-        /* 1. SÁNG + XANH */
-        body.light-theme.theme-xanh .menu-panel-wrapper { background-color: rgba(14, 165, 233, 0.05); border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.15); }
-        body.light-theme.theme-xanh .glass-panel { background: rgba(255, 255, 255, 0.95); border-color: rgba(14, 165, 233, 0.2); box-shadow: 0 10px 30px -10px rgba(12, 74, 110, 0.1); }
-        body.light-theme.theme-xanh .kpi-box { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); border-color: #1d4ed8; color: #ffffff; }
-        body.light-theme.theme-xanh .text-dynamic-title { color: #1e3a8a; } 
-        body.light-theme.theme-xanh .text-dynamic-body { color: #1e40af; }
-        body.light-theme.theme-xanh .text-dynamic-label { color: #c2410c; }
-        body.light-theme.theme-xanh .header-row { background: linear-gradient(135deg, #0b4a8f 0%, #1e40af 100%); box-shadow: 0 4px 15px rgba(12, 74, 110, 0.15); border: none; }
-        body.light-theme.theme-xanh .row-3d { border-color: rgba(14, 165, 233, 0.2); }
-        body.light-theme.theme-xanh .row-3d:hover { border-color: #2563eb; box-shadow: 0 8px 16px -5px rgba(37, 99, 235, 0.25); }
+        /* ================= THEME TỐI (DARK MODE) ================= */
+        body.dark-theme { background-color: #082f49; color: #f0f9ff; }
+        body.dark-theme .teal-wrapper { background-color: rgba(14, 165, 233, 0.08); border: 1px solid rgba(14, 165, 233, 0.3); box-shadow: 0 20px 40px -15px rgba(8, 47, 73, 0.6); }
+        body.dark-theme .control-theme-color { display: none !important; }
 
-        /* 2. SÁNG + ĐỎ CỜ (#da251d) */
-        body.light-theme.theme-do .menu-panel-wrapper { background-color: rgba(218, 37, 29, 0.05); border-color: rgba(218, 37, 29, 0.2); box-shadow: 0 20px 40px -15px rgba(168, 28, 21, 0.15); }
-        body.light-theme.theme-do .glass-panel { background: rgba(255, 255, 255, 0.95); border-color: rgba(252, 165, 165, 0.6); box-shadow: 0 10px 30px -10px rgba(218, 37, 29, 0.1); }
-        body.light-theme.theme-do .kpi-box { background: linear-gradient(135deg, #da251d 0%, #9f1239 100%); border-color: #be123c; color: #ffffff; }
-        body.light-theme.theme-do .text-dynamic-title { color: #9f1239; } 
-        body.light-theme.theme-do .text-dynamic-body { color: #be123c; }
-        body.light-theme.theme-do .text-dynamic-label { color: #da251d; }
-        body.light-theme.theme-do .header-row { background: linear-gradient(135deg, #da251d 0%, #9f1239 100%); box-shadow: 0 4px 15px rgba(218, 37, 29, 0.2); border: none; }
-        body.light-theme.theme-do .row-3d { border-color: rgba(252, 165, 165, 0.5); }
-        body.light-theme.theme-do .row-3d:hover { border-color: #da251d; box-shadow: 0 8px 16px -5px rgba(218, 37, 29, 0.25); }
-
-        /* 3. TỐI ĐỒNG NHẤT (UNIFIED DARK MODE) */
-        body.dark-theme .menu-panel-wrapper { background-color: rgba(12, 74, 110, 0.3); border-color: rgba(56, 189, 248, 0.2); box-shadow: 0 20px 40px -15px rgba(2, 6, 23, 0.6); }
-        body.dark-theme .glass-panel { background: rgba(15, 23, 42, 0.6); border-color: rgba(56, 189, 248, 0.2); }
-        body.dark-theme .kpi-box { background: linear-gradient(135deg, #0c4a6e 0%, #082f49 100%); border-color: #0284c7; }
+        /* Khối hiển thị Kính mờ (Glass Panel) cho Dark Mode */
+        body.dark-theme .glass-panel { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(56, 189, 248, 0.2); border-radius: 24px; box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5); backdrop-filter: blur(16px); transition: all 0.3s; }
+        body.dark-theme .kpi-box { background: linear-gradient(135deg, #0c4a6e 0%, #082f49 100%); border-color: #0284c7; color: #ffffff; }
         body.dark-theme .text-dynamic-title { color: #38bdf8; }
         body.dark-theme .text-dynamic-body { color: #bae6fd; }
         body.dark-theme .text-dynamic-label { color: #fcd34d; }
@@ -56,7 +34,46 @@
         body.dark-theme .row-3d { border-color: rgba(56, 189, 248, 0.3); }
         body.dark-theme .row-3d:hover { border-color: #38bdf8; box-shadow: 0 8px 16px -5px rgba(2, 6, 23, 0.5); }
 
-        /* ================= BẢNG CHỈ TIÊU ================= */
+        /* ================= THEME SÁNG (LIGHT MODE) ================= */
+        body.light-theme { background-color: #f8fafc; color: #1e3a8a; }
+
+        /* --- SÁNG + XANH (MẶC ĐỊNH) --- */
+        body.light-theme.theme-xanh-ios { color: #1e3a8a; }
+        body.light-theme.theme-xanh-ios .teal-wrapper { background-color: rgba(14, 165, 233, 0.08); border: 1px solid rgba(14, 165, 233, 0.3); }
+        body.light-theme.theme-xanh-ios .glass-panel { background: rgba(255, 255, 255, 0.95); border: 1px solid rgba(14, 165, 233, 0.2); border-radius: 24px; box-shadow: 0 10px 30px -10px rgba(12, 74, 110, 0.1); backdrop-filter: blur(16px); transition: all 0.3s; }
+        body.light-theme.theme-xanh-ios .kpi-box { background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 100%); border-color: #1d4ed8; color: #ffffff; }
+        body.light-theme.theme-xanh-ios .text-dynamic-title { color: #1e3a8a; } 
+        body.light-theme.theme-xanh-ios .text-dynamic-body { color: #1e40af; }
+        body.light-theme.theme-xanh-ios .text-dynamic-label { color: #c2410c; }
+        body.light-theme.theme-xanh-ios .header-row { background: linear-gradient(135deg, #0b4a8f 0%, #1e40af 100%); box-shadow: 0 4px 15px rgba(12, 74, 110, 0.15); border: none; }
+        body.light-theme.theme-xanh-ios .row-3d { border-color: rgba(14, 165, 233, 0.2); }
+        body.light-theme.theme-xanh-ios .row-3d:hover { border-color: #2563eb; box-shadow: 0 8px 16px -5px rgba(37, 99, 235, 0.25); }
+
+        /* --- SÁNG + ĐỎ CỜ --- */
+        body.light-theme.theme-do-hanhchinh { color: #1e3a8a; } 
+        body.light-theme.theme-do-hanhchinh .teal-wrapper { background-color: #da251d; border: 1px solid rgba(255, 255, 255, 0.8); box-shadow: 0 20px 40px -15px rgba(218, 37, 29, 0.4); }
+        body.light-theme.theme-do-hanhchinh .glass-panel { background: rgba(255, 255, 255, 0.95); border: 1px solid rgba(252, 165, 165, 0.6); border-radius: 24px; box-shadow: 0 10px 30px -10px rgba(218, 37, 29, 0.1); backdrop-filter: blur(16px); transition: all 0.3s; }
+        body.light-theme.theme-do-hanhchinh .kpi-box { background: linear-gradient(135deg, #da251d 0%, #9f1239 100%); border-color: #be123c; color: #ffffff; }
+        body.light-theme.theme-do-hanhchinh .text-dynamic-title { color: #9f1239; } 
+        body.light-theme.theme-do-hanhchinh .text-dynamic-body { color: #be123c; }
+        body.light-theme.theme-do-hanhchinh .text-dynamic-label { color: #da251d; }
+        body.light-theme.theme-do-hanhchinh .header-row { background: linear-gradient(135deg, #da251d 0%, #9f1239 100%); box-shadow: 0 4px 15px rgba(218, 37, 29, 0.2); border: none; }
+        body.light-theme.theme-do-hanhchinh .row-3d { border-color: rgba(252, 165, 165, 0.5); }
+        body.light-theme.theme-do-hanhchinh .row-3d:hover { border-color: #da251d; box-shadow: 0 8px 16px -5px rgba(218, 37, 29, 0.25); }
+
+        /* ================= NÚT QUAY LẠI ĐỘNG ================= */
+        .btn-back { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 14px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; border: 1px solid; }
+        
+        body.dark-theme .btn-back { background: rgba(14, 165, 233, 0.1); border-color: rgba(14, 165, 233, 0.3); color: #e0f2fe; }
+        body.dark-theme .btn-back:hover { background: rgba(14, 165, 233, 0.2); border-color: #38bdf8; transform: translateY(-2px); }
+        
+        body.light-theme.theme-xanh-ios .btn-back { background: rgba(14, 165, 233, 0.1); border-color: rgba(14, 165, 233, 0.3); color: #1e3a8a; }
+        body.light-theme.theme-xanh-ios .btn-back:hover { background: rgba(14, 165, 233, 0.2); border-color: #0ea5e9; transform: translateY(-2px); }
+
+        body.light-theme.theme-do-hanhchinh .btn-back { background: #ffffff; border-color: #fca5a5; color: #da251d; }
+        body.light-theme.theme-do-hanhchinh .btn-back:hover { background: #fef2f2; border-color: #da251d; transform: translateY(-2px); }
+
+        /* ================= BẢNG CHỈ TIÊU (GRID ROW) ================= */
         .grid-row { display: flex; align-items: center; width: 100%; padding: 14px 20px; position: relative; font-family: 'Inter', sans-serif; }
         .col-stt { width: 5%; text-align: center; }
         .col-name { width: 30%; padding-left: 10px; }
@@ -71,128 +88,121 @@
         .row-3d { position: relative; border-style: solid; border-width: 1px; border-radius: 14px; overflow: hidden; transition: all 0.25s cubic-bezier(0.165, 0.84, 0.44, 1); }
         .row-3d:hover { transform: translateY(-2px); }
 
-        /* ================= BỘ ĐIỀU KHIỂN & NÚT BẤM ================= */
-        .btn-back-interactive { display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; border-radius: 12px; font-weight: 800; font-size: 12px; text-transform: uppercase; letter-spacing: 0.05em; border: 1px solid; transition: all 0.4s; backdrop-filter: blur(10px); }
-        .theme-switcher-panel { padding: 4px; border-radius: 12px; display: flex; align-items: center; backdrop-filter: blur(10px); border: 1px solid; transition: all 0.3s; }
-        .btn-view-mode { display: flex; align-items: center; gap: 6px; font-size: 11px; font-weight: 800; text-transform: uppercase; padding: 6px 12px; border-radius: 8px; transition: all 0.3s; border: 1px solid transparent; }
-
-        body.light-theme.theme-xanh .btn-back-interactive { background: #ffffff; color: #0b4a8f; border-color: rgba(14, 165, 233, 0.3); }
-        body.light-theme.theme-xanh .btn-back-interactive:hover { border-color: #0b4a8f; transform: translateY(-3px); box-shadow: 4px 4px 10px rgba(11, 74, 143, 0.15); }
-        body.light-theme.theme-xanh .theme-switcher-panel { background: #ffffff; border-color: rgba(14, 165, 233, 0.2); }
-        body.light-theme.theme-xanh .btn-view-mode.active { background: #0b4a8f; color: #fff; }
-        body.light-theme.theme-xanh .btn-view-mode:not(.active) { color: #1e3a8a; }
-
-        body.light-theme.theme-do .btn-back-interactive { background: #ffffff; color: #da251d; border-color: rgba(218, 37, 29, 0.3); }
-        body.light-theme.theme-do .btn-back-interactive:hover { border-color: #da251d; transform: translateY(-3px); box-shadow: 4px 4px 10px rgba(218, 37, 29, 0.15); }
-        body.light-theme.theme-do .theme-switcher-panel { background: #ffffff; border-color: rgba(218, 37, 29, 0.2); }
-        body.light-theme.theme-do .btn-view-mode.active { background: #da251d; color: #fff; }
-        body.light-theme.theme-do .btn-view-mode:not(.active) { color: #881337; }
-
-        body.dark-theme .btn-back-interactive { background: rgba(12, 74, 110, 0.5); color: #bae6fd; border-color: rgba(56, 189, 248, 0.3); }
-        body.dark-theme .btn-back-interactive:hover { border-color: #38bdf8; transform: translateY(-3px); color: #fff; box-shadow: 4px 4px 10px rgba(56, 189, 248, 0.2); }
-        body.dark-theme .theme-switcher-panel { background: rgba(12, 74, 110, 0.5); border-color: rgba(56, 189, 248, 0.2); }
-        body.dark-theme .btn-view-mode.active { background: #0ea5e9; color: #fff; }
-        body.dark-theme .btn-view-mode:not(.active) { color: #bae6fd; }
-
-        .container-wrapper { max-width: 1550px; margin: 30px auto; padding: 0 24px; width: 100%; flex-grow: 1; }
+        /* SCROLLBAR & CONTROLS */
         .chart-container { position: relative; height: 280px; width: 100%; }
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.4); border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { border-radius: 10px; }
+        
+        body.dark-theme .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(56, 189, 248, 0.4); }
+        body.light-theme.theme-xanh-ios .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.4); }
+        body.light-theme.theme-do-hanhchinh .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.4); }
+
+        .controls-wrapper { display: flex; gap: 12px; align-items: center; }
+        .control-panel { border: 1px solid; padding: 4px; border-radius: 12px; display: flex; align-items: center; }
+        
+        body.dark-theme .control-panel { background: rgba(15, 23, 42, 0.5); border-color: rgba(56, 189, 248, 0.2); }
+        body.light-theme.theme-xanh-ios .control-panel { background: rgba(255, 255, 255, 0.5); border-color: rgba(14, 165, 233, 0.3); }
+        body.light-theme.theme-do-hanhchinh .control-panel { background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.4); }
+
+        @media (max-width: 1024px) { .controls-wrapper { flex-direction: column; align-items: flex-end; } }
+        @media (max-width: 640px) { .flex-responsive { flex-direction: column; align-items: stretch; gap: 16px; } .controls-wrapper { flex-direction: row; justify-content: space-between; align-items: center; width: 100%; } }
     </style>
 </head>
-<body class="light-theme theme-xanh custom-scrollbar" id="body-context">
+<body class="light-theme custom-scrollbar theme-xanh-ios" id="body-context">
 
-    <div class="container-wrapper space-y-6">
-        
-        <div class="flex flex-col sm:flex-row justify-between items-center gap-4 mb-2 w-full">
-            <a href="index.html" class="btn-back-interactive">⬅️ Quay lại Trang chủ</a>
+    <div class="container-wrapper mt-8">
+        <!-- KHUNG NỀN CHÍNH -->
+        <div class="teal-wrapper space-y-8 flex flex-col">
             
-            <div class="flex items-center gap-4">
-                <div class="theme-switcher-panel">
-                    <span class="text-[10px] font-black uppercase tracking-wider px-3 opacity-70">Giao diện:</span>
-                    <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="btn-view-mode active">🔵 Xanh</button>
-                    <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="btn-view-mode">🔴 Đỏ</button>
-                </div>
-
-                <div class="theme-switcher-panel">
-                    <span class="text-[10px] font-black uppercase tracking-wider px-3 opacity-70">Chế độ xem:</span>
-                    <button onclick="setTheme('light')" id="btn-theme-light" class="btn-view-mode active">☀️ Sáng</button>
-                    <button onclick="setTheme('dark')" id="btn-theme-dark" class="btn-view-mode">🌙 Tối</button>
-                </div>
-            </div>
-        </div>
-
-        <div class="menu-panel-wrapper space-y-6">
-
-            <header class="glass-panel p-6 flex flex-col md:flex-row justify-between items-center gap-4">
-                <div class="text-center md:text-left w-full">
-                    <h1 class="text-xl md:text-2xl font-black uppercase tracking-wide text-dynamic-title font-['Montserrat']">Tiến độ thực hiện Đầu tư công năm 2026</h1>
-                    <p class="text-xs font-bold text-slate-500 dark:text-sky-300 mt-1 uppercase tracking-wider">Hệ thống giám sát dòng vốn & Tiến độ dự án</p>
-                </div>
-                <div class="kpi-box px-6 py-3 rounded-2xl shadow-lg border text-center min-w-[160px] shrink-0">
-                    <span class="text-[10px] font-black uppercase block tracking-wider opacity-90">Tổng tiến độ giải ngân</span>
-                    <span id="tong_tien_do" class="text-2xl font-black text-emerald-300 drop-shadow-sm">0%</span>
-                </div>
-            </header>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-                <div class="glass-panel p-5 border-l-4 border-sky-600 dark:border-sky-400">
-                    <p class="text-[10px] font-bold text-dynamic-label uppercase tracking-wider">Tổng số công trình / dự án</p>
-                    <h3 id="card_tong_du_an" class="text-2xl font-black text-dynamic-title mt-1">0</h3>
-                </div>
-                <div class="glass-panel p-5 border-l-4 border-indigo-500">
-                    <p class="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Tổng mức đầu tư (Tr.Đ)</p>
-                    <h3 id="card_von_giai_doan" class="text-2xl font-black text-dynamic-title mt-1">0</h3>
-                </div>
-                <div class="glass-panel p-5 border-l-4 border-blue-500">
-                    <p class="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Kế hoạch giao vốn năm (Tr.Đ)</p>
-                    <h3 id="card_von_nam" class="text-2xl font-black text-dynamic-title mt-1">0</h3>
-                </div>
-            </div>
-
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                <div class="lg:col-span-7 glass-panel p-5">
-                    <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">📊 Tiến độ giải ngân theo dự án (%)</h2>
-                    <div class="chart-container">
-                        <canvas id="investBarChart"></canvas>
+            <!-- HEADER & CÔNG CỤ ĐIỀU KHIỂN -->
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4 flex-responsive">
+                <a href="index.html" class="btn-back bg-white/50 backdrop-blur">⬅️ Quay lại Trang chủ</a>
+                
+                <div class="controls-wrapper">
+                    <!-- Nút Đổi Sáng/Tối -->
+                    <div class="control-panel">
+                        <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">Sáng</button>
+                        <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">Tối</button>
                     </div>
-                </div>
-                <div class="lg:col-span-5 glass-panel p-5 flex flex-col justify-between">
-                    <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">🍕 Cơ cấu dự án theo lĩnh vực</h2>
-                    <div class="chart-container flex justify-center">
-                        <canvas id="investPieChart"></canvas>
+
+                    <!-- Nút Đổi Xanh/Đỏ -->
+                    <div class="control-panel control-theme-color">
+                        <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent">🔵 Xanh</button>
+                        <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent">🔴 Đỏ</button>
                     </div>
                 </div>
             </div>
 
-            <div class="glass-panel p-5">
-                <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label mb-4">📝 Danh mục giám sát thi công và giải ngân chi tiết</h2>
-                <div class="w-full overflow-x-auto custom-scrollbar">
-                    <div class="min-w-[1100px]">
-                        <div class="grid-row header-row">
-                            <div class="col-stt">STT</div>
-                            <div class="col-name text-left uppercase">Tên dự án / Thông tin phê duyệt</div>
-                            <div class="col-type">Lĩnh vực</div>
-                            <div class="col-cap">Kế hoạch Vốn</div>
-                            <div class="col-invest text-sky-200">Đã giải ngân</div>
-                            <div class="col-progress text-center">Tiến độ</div>
-                            <div class="col-status">Trạng thái (Ghi chú)</div>
+            <!-- NỘI DUNG TRANG ĐẦU TƯ CÔNG -->
+            <div class="flex flex-col font-['Inter'] w-full mt-2 space-y-6 flex-grow">
+                
+                <header class="glass-panel p-6 flex flex-col md:flex-row justify-between items-center gap-4">
+                    <div class="text-center md:text-left w-full">
+                        <h1 class="text-xl md:text-2xl font-black uppercase tracking-wide text-dynamic-title font-['Montserrat']">Tiến độ thực hiện Đầu tư công năm 2026</h1>
+                        <p class="text-xs font-bold text-slate-500 dark:text-sky-300 mt-1 uppercase tracking-wider">Hệ thống giám sát dòng vốn & Tiến độ dự án</p>
+                    </div>
+                    <div class="kpi-box px-6 py-3 rounded-2xl shadow-lg border text-center min-w-[160px] shrink-0">
+                        <span class="text-[10px] font-black uppercase block tracking-wider opacity-90">Tổng tiến độ giải ngân</span>
+                        <span id="tong_tien_do" class="text-2xl font-black text-emerald-300 drop-shadow-sm">0%</span>
+                    </div>
+                </header>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    <div class="glass-panel p-5 border-l-4 border-sky-600 dark:border-sky-400">
+                        <p class="text-[10px] font-bold text-dynamic-label uppercase tracking-wider">Tổng số công trình / dự án</p>
+                        <h3 id="card_tong_du_an" class="text-2xl font-black text-dynamic-title mt-1">0</h3>
+                    </div>
+                    <div class="glass-panel p-5 border-l-4 border-indigo-500">
+                        <p class="text-[10px] font-bold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider">Tổng mức đầu tư (Tr.Đ)</p>
+                        <h3 id="card_von_giai_doan" class="text-2xl font-black text-dynamic-title mt-1">0</h3>
+                    </div>
+                    <div class="glass-panel p-5 border-l-4 border-blue-500">
+                        <p class="text-[10px] font-bold text-blue-600 dark:text-blue-400 uppercase tracking-wider">Kế hoạch giao vốn năm (Tr.Đ)</p>
+                        <h3 id="card_von_nam" class="text-2xl font-black text-dynamic-title mt-1">0</h3>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-7 glass-panel p-5">
+                        <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">📊 Tiến độ giải ngân theo dự án (%)</h2>
+                        <div class="chart-container">
+                            <canvas id="investBarChart"></canvas>
                         </div>
-
-                        <div id="project-list-container" class="text-xs font-semibold pb-4">
-                            <p class="p-4 italic text-blue-500 dark:text-blue-300 animate-pulse">Hệ thống đang đồng bộ dữ liệu từ Cơ sở dữ liệu...</p>
+                    </div>
+                    <div class="lg:col-span-5 glass-panel p-5 flex flex-col justify-between">
+                        <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-3">🍕 Cơ cấu dự án theo lĩnh vực</h2>
+                        <div class="chart-container flex justify-center">
+                            <canvas id="investPieChart"></canvas>
                         </div>
                     </div>
                 </div>
-            </div>
 
+                <div class="glass-panel p-5">
+                    <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-label mb-4">📝 Danh mục giám sát thi công và giải ngân chi tiết</h2>
+                    <div class="w-full overflow-x-auto custom-scrollbar">
+                        <div class="min-w-[1100px]">
+                            <div class="grid-row header-row">
+                                <div class="col-stt">STT</div>
+                                <div class="col-name text-left uppercase">Tên dự án / Thông tin phê duyệt</div>
+                                <div class="col-type">Lĩnh vực</div>
+                                <div class="col-cap">Kế hoạch Vốn</div>
+                                <div class="col-invest text-sky-200">Đã giải ngân</div>
+                                <div class="col-progress text-center">Tiến độ</div>
+                                <div class="col-status">Trạng thái (Ghi chú)</div>
+                            </div>
+
+                            <div id="project-list-container" class="text-xs font-semibold pb-4">
+                                <p class="p-4 italic text-blue-500 dark:text-blue-300 animate-pulse">Hệ thống đang đồng bộ dữ liệu từ Cơ sở dữ liệu...</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div> 
     </div>
 
-    <footer class="w-full text-center py-6 text-dynamic-body font-bold text-[10px] uppercase tracking-[0.3em] border-t border-blue-200 dark:border-blue-900 bg-white/50 dark:bg-slate-900/40 backdrop-blur-md mt-auto">
-        &copy; 2026 IOC Xã Bình Hưng — Hệ thống Điều hành Giải ngân Đầu tư công Liên thông
-    </footer>
-
+    <!-- SCRIPT CHUYỂN ĐỔI THEME & DATA FIREBASE -->
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
@@ -247,8 +257,8 @@
             const typeLabels = Object.keys(typeStats);
             const typeValues = Object.values(typeStats);
 
-            const isDark = document.body.classList.contains('dark-theme');
-            const isRed = document.body.classList.contains('theme-do') && !isDark;
+            const isDark = document.getElementById('body-context').classList.contains('dark-theme');
+            const isRed = document.getElementById('body-context').classList.contains('theme-do-hanhchinh') && !isDark;
 
             // Đổi màu cột biểu đồ theo theme (Đỏ Cờ / Xanh Navy)
             const barBgColor = isRed ? 'rgba(218, 37, 29, 0.85)' : 'rgba(14, 165, 233, 0.85)';
@@ -367,39 +377,41 @@
             }
         });
 
-        // HỆ THỐNG ĐỔI THEME
-        window.switchSystemTheme = function(modeName) {
-            const body = document.getElementById('body-context');
-            const btnXanh = document.getElementById('btn-theme-xanh');
-            const btnDo = document.getElementById('btn-theme-do');
-
-            if (modeName === 'do') {
-                body.classList.remove('theme-xanh'); body.classList.add('theme-do');
-                btnDo.className = "btn-view-mode active"; btnDo.innerHTML = "🔴 Đỏ";
-                btnXanh.className = "btn-view-mode"; btnXanh.innerHTML = "🔵 Xanh";
-            } else {
-                body.classList.remove('theme-do'); body.classList.add('theme-xanh');
-                btnXanh.className = "btn-view-mode active"; btnXanh.innerHTML = "🔵 Xanh";
-                btnDo.className = "btn-view-mode"; btnDo.innerHTML = "🔴 Đỏ";
-            }
-            if(window.drawChartsGlobal) window.drawChartsGlobal(); // Vẽ lại biểu đồ theo màu mới
-        }
-
+        // HỆ THỐNG ĐỔI THEME GẮN VÀO WINDOW OBJECT DO THẺ SCRIPT LÀ DẠNG MODULE
         window.setTheme = function(themeName) {
             const body = document.getElementById('body-context');
             const btnLight = document.getElementById('btn-theme-light');
             const btnDark = document.getElementById('btn-theme-dark');
 
             if(themeName === 'light') {
-                body.classList.remove('dark-theme'); body.classList.add('light-theme');
-                btnLight.classList.add('active'); btnDark.classList.remove('active');
-                currentTextColor = body.classList.contains('theme-do') ? '#9f1239' : '#1e3a8a';
+                body.classList.remove('dark-theme'); 
+                body.classList.add('light-theme');
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-sm border border-blue-200";
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition text-blue-200 hover:text-white";
+                
+                currentTextColor = body.classList.contains('theme-do-hanhchinh') ? '#9f1239' : '#1e3a8a';
             } else {
-                body.classList.remove('light-theme'); body.classList.add('dark-theme');
-                btnDark.classList.add('active'); btnLight.classList.remove('active');
+                body.classList.remove('light-theme'); 
+                body.classList.add('dark-theme');
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition bg-red-600 text-white shadow-sm";
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition text-blue-200 hover:text-white";
+                
                 currentTextColor = '#e0f2fe';
             }
             if(window.drawChartsGlobal) window.drawChartsGlobal();
+        }
+
+        window.switchSystemTheme = function(modeName) {
+            const body = document.getElementById('body-context');
+            
+            if (modeName === 'do') {
+                body.classList.remove('theme-xanh-ios'); 
+                body.classList.add('theme-do-hanhchinh');
+            } else {
+                body.classList.remove('theme-do-hanhchinh'); 
+                body.classList.add('theme-xanh-ios');
+            }
+            setTheme('light'); 
         }
 
         // Tín hiệu từ Iframe cha
@@ -408,7 +420,9 @@
             else if (event.data === 'theme-xanh') switchSystemTheme('xanh');
         });
 
-        document.addEventListener('DOMContentLoaded', () => { setTheme('light'); switchSystemTheme('xanh'); });
+        document.addEventListener('DOMContentLoaded', () => { 
+            setTheme('light'); 
+        });
     </script>
 </body>
 </html>
