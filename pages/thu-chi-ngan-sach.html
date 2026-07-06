@@ -73,7 +73,7 @@
         body.light-theme.theme-do-hanhchinh .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.4); }
 
         /* BUTTON TAB CHUYỂN ĐỔI THU/CHI */
-        .tab-btn { padding: 14px 28px; border-radius: 16px; font-weight: 900; font-size: 13px; text-transform: uppercase; transition: all 0.3s ease; border: 2px solid transparent; letter-spacing: 0.05em; margin: 0 8px; }
+        .tab-btn { padding: 14px 28px; border-radius: 16px; font-weight: 900; font-size: 13px; text-transform: uppercase; transition: all 0.3s ease; border: 2px solid transparent; letter-spacing: 0.05em; }
         .tab-btn:hover { transform: translateY(-2px); }
         
         .tab-inactive { background: rgba(148, 163, 184, 0.1); color: #64748b; border-color: rgba(148, 163, 184, 0.2); }
@@ -124,10 +124,22 @@
     <div class="container-wrapper mt-8">
         <div class="teal-wrapper space-y-8 flex flex-col">
             
-            <div class="flex flex-col sm:flex-row justify-between items-center gap-4 flex-responsive">
-                <a href="index.html" class="btn-back bg-white/50 backdrop-blur">⬅️ Quay lại Trang chủ</a>
+            <!-- HEADER CONTROLS ĐƯỢC CHUYỂN SANG BỐ CỤC 3 CỘT NGANG HÀNG -->
+            <div class="flex flex-col xl:flex-row justify-between items-center gap-4 flex-responsive mb-4">
                 
-                <div class="controls-wrapper">
+                <!-- Cột Trái: Nút Quay Lại -->
+                <div class="w-full xl:w-auto flex justify-start">
+                    <a href="index.html" class="btn-back bg-white/50 backdrop-blur">⬅️ Quay lại Trang chủ</a>
+                </div>
+                
+                <!-- Cột Giữa: Hai Nút Chuyển Tab Thu/Chi -->
+                <div class="w-full xl:w-auto flex flex-row justify-center gap-4 shrink-0">
+                    <button onclick="switchTab('thu')" id="btn-tab-thu" class="tab-btn tab-active">💰 Thu Ngân Sách</button>
+                    <button onclick="switchTab('chi')" id="btn-tab-chi" class="tab-btn tab-inactive">💸 Chi Ngân Sách</button>
+                </div>
+                
+                <!-- Cột Phải: Bộ điều khiển Sáng/Tối & Xanh/Đỏ -->
+                <div class="controls-wrapper w-full xl:w-auto flex justify-end">
                     <div class="control-panel">
                         <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">Sáng</button>
                         <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">Tối</button>
@@ -137,11 +149,7 @@
                         <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent">🔴 Đỏ</button>
                     </div>
                 </div>
-            </div>
-
-            <div class="flex flex-wrap justify-center mb-2 mt-4">
-                <button onclick="switchTab('thu')" id="btn-tab-thu" class="tab-btn tab-active">💰 Thu Ngân Sách</button>
-                <button onclick="switchTab('chi')" id="btn-tab-chi" class="tab-btn tab-inactive">💸 Chi Ngân Sách</button>
+                
             </div>
 
             <div id="tab-thu" class="tab-content flex flex-col font-['Inter'] w-full space-y-6">
