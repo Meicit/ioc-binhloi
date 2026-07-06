@@ -9,81 +9,106 @@
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels@2"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        /* ================= QUẢN LÝ MÀU NỀN TỔNG THỂ ================= */
-        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background-color 0.3s ease, color 0.3s ease; }
-        .container-wrapper { max-width: 1550px; margin: 0 auto 30px auto; padding: 0 24px; width: 100%; flex-grow: 1;}
+        /* ================= GHI ĐÈ BÓNG ĐỔ ================= */
+        .shadow-sm { box-shadow: 0 1px 2px 0 rgba(8, 47, 73, 0.1); }
+        .shadow-md { box-shadow: 0 4px 6px -1px rgba(8, 47, 73, 0.15), 0 2px 4px -2px rgba(8, 47, 73, 0.1); }
+        .shadow-lg { box-shadow: 0 10px 15px -3px rgba(8, 47, 73, 0.15), 0 4px 6px -4px rgba(8, 47, 73, 0.1); }
 
-        /* KHUNG NỀN CHÍNH */
-        .teal-wrapper { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 36px; padding: 24px; transition: all 0.4s ease; min-height: 80vh; }
+        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background-color 0.3s ease, color 0.3s ease; }
+        .container-wrapper { max-width: 1550px; margin: 0 auto 30px auto; padding: 0 24px; width: 100%; flex-grow: 1; display: flex; flex-direction: column;}
+
+        .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; transition: all 0.3s; }
+        .teal-wrapper { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 36px; padding: 24px; transition: all 0.4s ease; flex-grow: 1; display: flex; flex-direction: column; }
         @media (min-width: 768px) { .teal-wrapper { padding: 36px; } }
 
         /* ================= THEME TỐI (DARK MODE) ================= */
         body.dark-theme { background-color: #082f49; color: #f0f9ff; }
+        body.dark-theme .glass-panel { background: rgba(12, 74, 110, 0.65); border-color: rgba(56, 189, 248, 0.2); box-shadow: 0 20px 40px -15px rgba(8, 47, 73, 0.4); }
         body.dark-theme .teal-wrapper { background-color: rgba(14, 165, 233, 0.08); border: 1px solid rgba(14, 165, 233, 0.3); box-shadow: 0 20px 40px -15px rgba(8, 47, 73, 0.6); }
+        body.dark-theme .bg-widget-card { background-color: rgba(15, 23, 42, 0.6); border-color: rgba(56, 189, 248, 0.2); }
+        body.dark-theme .bg-widget-inner { background-color: rgba(15, 23, 42, 0.8); border-color: rgba(56, 189, 248, 0.15); }
         body.dark-theme .control-theme-color { display: none !important; }
-        body.dark-theme .glass-panel { background: rgba(15, 23, 42, 0.6); border: 1px solid rgba(56, 189, 248, 0.2); box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5); }
-        body.dark-theme .text-dynamic-title { color: #38bdf8; }
+        body.dark-theme .text-main-title { color: #60a5fa !important; }
         body.dark-theme .text-dynamic-body { color: #bae6fd; }
 
         /* ================= THEME SÁNG (LIGHT MODE) ================= */
-        body.light-theme { background-color: #f8fafc; color: #1e3a8a; }
-        body.light-theme .glass-panel { background: rgba(255, 255, 255, 0.95); box-shadow: 0 10px 30px -10px rgba(12, 74, 110, 0.1); }
-        
-        /* --- SÁNG + XANH (MẶC ĐỊNH) --- */
-        body.light-theme.theme-xanh-ios { color: #1e3a8a; }
-        body.light-theme.theme-xanh-ios .teal-wrapper { background-color: rgba(14, 165, 233, 0.08); border: 1px solid rgba(14, 165, 233, 0.3); }
-        body.light-theme.theme-xanh-ios .glass-panel { border-color: rgba(14, 165, 233, 0.2); }
-        body.light-theme.theme-xanh-ios .text-dynamic-title { color: #1e3a8a; } 
+        body.light-theme { background-color: #f0f4f8; color: #1e3a8a; }
+        body.light-theme .glass-panel { background: rgba(255, 255, 255, 0.95); box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.15); }
+        body.light-theme .bg-widget-card { background-color: #ffffff; }
+        body.light-theme .bg-widget-inner { background-color: #ffffff; }
+
+        /* --- SÁNG + XANH DƯƠNG ĐẬM (MẶC ĐỊNH) --- */
+        body.light-theme.theme-xanh-ios .glass-panel { border-color: rgba(12, 74, 142, 0.2); }
+        body.light-theme.theme-xanh-ios .bg-widget-card { border-color: rgba(12, 74, 142, 0.15); }
+        body.light-theme.theme-xanh-ios .bg-widget-inner { border-color: rgba(12, 74, 142, 0.08); }
+        body.light-theme.theme-xanh-ios .text-main-title { color: #0c4a8e !important; }
         body.light-theme.theme-xanh-ios .text-dynamic-body { color: #1e40af; }
+        
+        body.light-theme.theme-xanh-ios .teal-wrapper { 
+            background-color: rgba(12, 74, 142, 0.85); 
+            border: 1px solid rgba(255, 255, 255, 0.25); 
+            box-shadow: 0 20px 40px -10px rgba(12, 74, 142, 0.5); 
+        }
 
         /* --- SÁNG + ĐỎ CỜ --- */
-        body.light-theme.theme-do-hanhchinh { color: #1e3a8a; } 
-        body.light-theme.theme-do-hanhchinh .teal-wrapper { background-color: #da251d; border: 1px solid rgba(255, 255, 255, 0.8); box-shadow: 0 20px 40px -15px rgba(218, 37, 29, 0.4); }
-        body.light-theme.theme-do-hanhchinh .glass-panel { border-color: rgba(252, 165, 165, 0.6); box-shadow: 0 10px 30px -10px rgba(218, 37, 29, 0.1); }
-        body.light-theme.theme-do-hanhchinh .text-dynamic-title { color: #9f1239; } 
+        body.light-theme.theme-do-hanhchinh .glass-panel { border-color: rgba(252, 165, 165, 0.8); }
+        body.light-theme.theme-do-hanhchinh .bg-widget-card { border-color: rgba(218, 37, 29, 0.2); }
+        body.light-theme.theme-do-hanhchinh .bg-widget-inner { border-color: rgba(218, 37, 29, 0.1); }
+        body.light-theme.theme-do-hanhchinh .text-main-title { color: #da251d !important; }
         body.light-theme.theme-do-hanhchinh .text-dynamic-body { color: #be123c; }
 
-        /* CÁC PANEL & CARD DÙNG CHUNG */
-        .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border-radius: 24px; transition: all 0.3s; }
-        
+        body.light-theme.theme-do-hanhchinh .teal-wrapper { 
+            background-color: #da251d; 
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 40px -15px rgba(218, 37, 29, 0.4);
+        }
+
         /* NÚT QUAY LẠI ĐỘNG */
         .btn-back { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 14px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; border: 1px solid; }
         body.dark-theme .btn-back { background: rgba(14, 165, 233, 0.1); border-color: rgba(14, 165, 233, 0.3); color: #e0f2fe; }
         body.dark-theme .btn-back:hover { background: rgba(14, 165, 233, 0.2); border-color: #38bdf8; transform: translateY(-2px); }
-        body.light-theme.theme-xanh-ios .btn-back { background: rgba(14, 165, 233, 0.1); border-color: rgba(14, 165, 233, 0.3); color: #1e3a8a; }
-        body.light-theme.theme-xanh-ios .btn-back:hover { background: rgba(14, 165, 233, 0.2); border-color: #0ea5e9; transform: translateY(-2px); }
+        
+        body.light-theme.theme-xanh-ios .btn-back { background: #ffffff; border-color: rgba(255, 255, 255, 0.8); color: #0c4a8e; }
+        body.light-theme.theme-xanh-ios .btn-back:hover { background: #f0f4f8; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
+
         body.light-theme.theme-do-hanhchinh .btn-back { background: #ffffff; border-color: #fca5a5; color: #da251d; }
         body.light-theme.theme-do-hanhchinh .btn-back:hover { background: #fef2f2; border-color: #da251d; transform: translateY(-2px); }
 
-        /* BỘ CONTROLS NÚT CHUYỂN THEME */
-        .controls-wrapper { display: flex; gap: 12px; align-items: center; }
-        .control-panel { border: 1px solid; padding: 4px; border-radius: 12px; display: flex; align-items: center; }
-        body.dark-theme .control-panel { background: rgba(15, 23, 42, 0.5); border-color: rgba(56, 189, 248, 0.2); }
-        body.light-theme.theme-xanh-ios .control-panel { background: rgba(255, 255, 255, 0.5); border-color: rgba(14, 165, 233, 0.3); }
-        body.light-theme.theme-do-hanhchinh .control-panel { background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.4); }
-        @media (max-width: 1024px) { .controls-wrapper { flex-direction: column; align-items: flex-end; } }
-        @media (max-width: 640px) { .flex-responsive { flex-direction: column; align-items: stretch; gap: 16px; } .controls-wrapper { flex-direction: row; justify-content: space-between; align-items: center; width: 100%; } }
-
-        /* CHART & SCROLLBAR */
-        .chart-container { position: relative; height: 320px; width: 100%; }
+        /* SCROLLBAR & CONTROLS */
         .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
         .custom-scrollbar::-webkit-scrollbar-thumb { border-radius: 10px; }
         body.dark-theme .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(56, 189, 248, 0.4); }
-        body.light-theme.theme-xanh-ios .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.4); }
-        body.light-theme.theme-do-hanhchinh .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.4); }
+        body.light-theme.theme-xanh-ios .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(12, 74, 142, 0.4); }
+        body.light-theme.theme-do-hanhchinh .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(218, 37, 29, 0.4); }
+
+        .controls-wrapper { display: flex; gap: 12px; align-items: center; }
+        .control-panel { border: 1px solid; padding: 4px; border-radius: 12px; display: flex; align-items: center; }
+        
+        body.dark-theme .control-panel { background: rgba(15, 23, 42, 0.5); border-color: rgba(56, 189, 248, 0.2); }
+        body.light-theme.theme-xanh-ios .control-panel { background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.2); }
+        body.light-theme.theme-do-hanhchinh .control-panel { background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.4); }
+
+        body.light-theme.theme-xanh-ios .control-panel button.text-blue-900 { color: #0c4a8e !important; }
+        body.light-theme.theme-xanh-ios .control-panel button.text-blue-800 { color: #ffffff !important; opacity: 0.8; }
+        body.light-theme.theme-xanh-ios .control-panel button.text-blue-800:hover { opacity: 1; }
+        body.light-theme.theme-xanh-ios .control-panel button.border-transparent { color: #ffffff; font-weight: 700; opacity: 0.9; }
+        body.light-theme.theme-xanh-ios .control-panel button.border-transparent:hover { background: rgba(255, 255, 255, 0.1); opacity: 1; }
+
+        @media (max-width: 1024px) { .controls-wrapper { flex-direction: column; align-items: flex-end; } }
+        @media (max-width: 640px) { .flex-responsive { flex-direction: column; align-items: stretch; gap: 16px; } .controls-wrapper { flex-direction: row; justify-content: space-between; align-items: center; width: 100%; } }
 
         /* BUTTON TAB CHUYỂN ĐỔI THU/CHI */
-        .tab-btn { padding: 14px 28px; border-radius: 16px; font-weight: 900; font-size: 13px; text-transform: uppercase; transition: all 0.3s ease; border: 2px solid transparent; letter-spacing: 0.05em; }
+        .tab-btn { padding: 14px 28px; border-radius: 14px; font-weight: 900; font-size: 13px; text-transform: uppercase; transition: all 0.3s ease; border: 2px solid transparent; letter-spacing: 0.05em; display: flex; align-items: center; gap: 8px;}
         .tab-btn:hover { transform: translateY(-2px); }
         
-        .tab-inactive { background: rgba(148, 163, 184, 0.1); color: #64748b; border-color: rgba(148, 163, 184, 0.2); }
-        body.dark-theme .tab-inactive { color: #94a3b8; }
-        body.light-theme.theme-do-hanhchinh .tab-inactive { color: #fecdd3; background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3); }
-        
+        .tab-inactive { background: rgba(255, 255, 255, 0.15); color: #ffffff; border-color: rgba(255, 255, 255, 0.2); opacity: 0.8; }
+        body.dark-theme .tab-inactive { color: #94a3b8; background: rgba(15, 23, 42, 0.4); border-color: rgba(56, 189, 248, 0.2); }
+        .tab-inactive:hover { opacity: 1; background: rgba(255, 255, 255, 0.25); }
+
         /* Trạng thái Tab Active theo Theme */
-        body.light-theme.theme-xanh-ios .tab-active { background: linear-gradient(135deg, #0ea5e9 0%, #2563eb 100%); color: white; box-shadow: 0 10px 20px -5px rgba(37, 99, 235, 0.4); border-color: #3b82f6; }
-        body.light-theme.theme-do-hanhchinh .tab-active { background: #ffffff; color: #da251d; box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.2); border-color: #ffffff; }
-        body.dark-theme .tab-active { background: linear-gradient(135deg, #0284c7 0%, #1e3a8a 100%); color: white; box-shadow: 0 10px 20px -5px rgba(2, 132, 199, 0.4); border-color: #0ea5e9; }
+        body.light-theme.theme-xanh-ios .tab-active { background: #ffffff; color: #0c4a8e; box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.15); border-color: #ffffff; opacity: 1; }
+        body.light-theme.theme-do-hanhchinh .tab-active { background: #ffffff; color: #da251d; box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.2); border-color: #ffffff; opacity: 1; }
+        body.dark-theme .tab-active { background: rgba(14, 165, 233, 0.2); color: #38bdf8; box-shadow: 0 10px 20px -5px rgba(2, 132, 199, 0.4); border-color: #0ea5e9; opacity: 1; }
 
         /* CSS BẢNG DỮ LIỆU */
         .grid-table-layout { display: flex; align-items: center; width: 100%; padding: 12px 16px; font-family: 'Inter', sans-serif; }
@@ -102,11 +127,13 @@
         .table-row-main:hover { transform: translateX(4px); }
         
         /* Bảng: Màu theo cấp độ (Root, Parent, Child) */
-        body.light-theme .table-row-root { background: rgba(147, 197, 253, 0.3); border-color: rgba(147, 197, 253, 0.8); }
-        body.light-theme .table-row-parent { background: rgba(224, 242, 254, 0.4); border-color: rgba(186, 230, 253, 0.5); }
-        body.light-theme .table-row-child { background: rgba(255, 255, 255, 0.6); border-color: rgba(226, 232, 240, 0.8); }
+        body.light-theme.theme-xanh-ios .table-row-root { background: rgba(12, 74, 142, 0.1); border-color: rgba(12, 74, 142, 0.2); }
+        body.light-theme.theme-xanh-ios .table-row-parent { background: rgba(12, 74, 142, 0.05); border-color: rgba(12, 74, 142, 0.1); }
+        body.light-theme.theme-xanh-ios .table-row-child { background: #ffffff; border-color: rgba(226, 232, 240, 0.8); }
+        
         body.light-theme.theme-do-hanhchinh .table-row-root { background: rgba(254, 202, 202, 0.5); border-color: rgba(248, 113, 113, 0.8); }
         body.light-theme.theme-do-hanhchinh .table-row-parent { background: rgba(254, 226, 226, 0.5); border-color: rgba(254, 202, 202, 0.5); }
+        body.light-theme.theme-do-hanhchinh .table-row-child { background: #ffffff; border-color: rgba(226, 232, 240, 0.8); }
         
         body.dark-theme .table-row-root { background: rgba(30, 58, 138, 0.4); border-color: rgba(30, 58, 138, 0.8); }
         body.dark-theme .table-row-parent { background: rgba(12, 74, 110, 0.3); border-color: rgba(12, 74, 110, 0.6); }
@@ -114,9 +141,11 @@
 
         /* KPI Box Card */
         .kpi-box { padding: 20px; border-left-width: 4px; border-radius: 0 16px 16px 0; }
-        body.light-theme.theme-xanh-ios .kpi-box { background-color: rgba(14, 165, 233, 0.05); }
+        body.light-theme.theme-xanh-ios .kpi-box { background-color: rgba(12, 74, 142, 0.04); }
         body.light-theme.theme-do-hanhchinh .kpi-box { background-color: rgba(255, 255, 255, 0.8); box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
         body.dark-theme .kpi-box { background-color: rgba(14, 165, 233, 0.1); }
+        
+        .chart-container { position: relative; height: 320px; width: 100%; }
     </style>
 </head>
 <body class="light-theme custom-scrollbar theme-xanh-ios" id="body-context">
@@ -124,128 +153,133 @@
     <div class="container-wrapper mt-8">
         <div class="teal-wrapper space-y-8 flex flex-col">
             
-            <!-- HEADER CONTROLS ĐƯỢC CHUYỂN SANG BỐ CỤC 3 CỘT NGANG HÀNG -->
-            <div class="flex flex-col xl:flex-row justify-between items-center gap-4 flex-responsive mb-4">
+            <div class="flex flex-col xl:flex-row justify-between items-center gap-4 flex-responsive mb-2">
                 
-                <!-- Cột Trái: Nút Quay Lại -->
                 <div class="w-full xl:w-auto flex justify-start">
-                    <a href="index.html" class="btn-back bg-white/50 backdrop-blur">⬅️ Quay lại Trang chủ</a>
+                    <a href="../dashboard.html" class="btn-back">⬅️ Quay lại Trang chủ</a>
                 </div>
                 
-                <!-- Cột Giữa: Hai Nút Chuyển Tab Thu/Chi -->
                 <div class="w-full xl:w-auto flex flex-row justify-center gap-4 shrink-0">
                     <button onclick="switchTab('thu')" id="btn-tab-thu" class="tab-btn tab-active">💰 Thu Ngân Sách</button>
                     <button onclick="switchTab('chi')" id="btn-tab-chi" class="tab-btn tab-inactive">💸 Chi Ngân Sách</button>
                 </div>
                 
-                <!-- Cột Phải: Bộ điều khiển Sáng/Tối & Xanh/Đỏ -->
                 <div class="controls-wrapper w-full xl:w-auto flex justify-end">
                     <div class="control-panel">
-                        <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">Sáng</button>
-                        <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white">Tối</button>
+                        <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-sm border border-transparent">Sáng</button>
+                        <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition text-blue-800 hover:text-white border border-transparent">Tối</button>
                     </div>
+
                     <div class="control-panel control-theme-color">
-                        <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent">🔵 Xanh</button>
-                        <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent">🔴 Đỏ</button>
+                        <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="flex items-center gap-1.5 text-[11px] uppercase px-3 py-1.5 rounded-lg transition border border-transparent">🔵 Xanh</button>
+                        <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="flex items-center gap-1.5 text-[11px] uppercase px-3 py-1.5 rounded-lg transition border border-transparent">🔴 Đỏ</button>
                     </div>
                 </div>
                 
             </div>
 
-            <div id="tab-thu" class="tab-content flex flex-col font-['Inter'] w-full space-y-6">
-                <header class="glass-panel p-6">
-                    <div class="text-center md:text-left mb-6">
-                        <h1 class="text-2xl md:text-3xl font-black uppercase tracking-wider text-dynamic-title font-['Montserrat']">Phân tích Thu Ngân Sách</h1>
+            <div id="tab-thu" class="tab-content flex flex-col font-['Inter'] w-full space-y-6 flex-grow">
+                
+                <div class="bg-widget-card border-2 rounded-3xl p-6 shadow-sm hover:-translate-y-1 transition-transform duration-300">
+                    <div class="text-center md:text-left mb-6 border-b pb-4 dark:border-slate-700/50">
+                        <h1 class="text-2xl md:text-3xl font-black uppercase tracking-wider text-main-title font-['Montserrat']">Phân tích Thu Ngân Sách</h1>
                         <p class="font-bold text-xs uppercase tracking-[0.15em] mt-2 opacity-80 text-dynamic-body">UBND Xã Bình Hưng — Tình hình Thu NSNN Năm 2026</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div class="kpi-box border-sky-500">
                             <p class="text-[11px] font-black text-sky-600 dark:text-sky-400 uppercase tracking-wider">Tổng Kế Hoạch (Dự Toán)</p>
-                            <h3 id="kpi_thu_du_toan" class="text-3xl font-black text-dynamic-title mt-2">0</h3>
+                            <h3 id="kpi_thu_du_toan" class="text-3xl font-black text-main-title mt-2">0</h3>
                         </div>
                         <div class="kpi-box border-emerald-500">
                             <p class="text-[11px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Tổng Đã Thu (Thực Hiện)</p>
-                            <h3 id="kpi_thu_thuc_hien" class="text-3xl font-black text-dynamic-title mt-2">0</h3>
+                            <h3 id="kpi_thu_thuc_hien" class="text-3xl font-black text-main-title mt-2">0</h3>
                         </div>
                         <div class="kpi-box border-blue-600 flex flex-col justify-center">
                             <p class="text-[11px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-wider">Tỷ Lệ Hoàn Thành (%)</p>
-                            <h3 id="kpi_thu_ty_le" class="text-4xl font-black text-dynamic-title mt-2">0%</h3>
+                            <h3 id="kpi_thu_ty_le" class="text-4xl font-black text-main-title mt-2">0%</h3>
                         </div>
-                    </div>
-                </header>
-
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                    <div class="lg:col-span-5 glass-panel p-5">
-                        <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-4">🍕 Cơ cấu nguồn Thu (Triệu đồng)</h2>
-                        <div class="chart-container"><canvas id="thuPieChart"></canvas></div>
-                    </div>
-                    <div class="lg:col-span-7 glass-panel p-5">
-                        <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-4">📊 Tiến độ các khoản thu nội địa trọng điểm (%)</h2>
-                        <div class="chart-container"><canvas id="thuBarChart"></canvas></div>
                     </div>
                 </div>
 
-                <div class="glass-panel p-6">
-                    <h2 class="text-sm font-black uppercase tracking-wider text-dynamic-title mb-5">📋 Bảng kê chi tiết Thu Ngân Sách Nhà Nước</h2>
-                    <div class="w-full overflow-x-auto custom-scrollbar">
-                        <div class="min-w-[850px]">
-                            <div class="header-row-main grid-table-layout">
-                                <div class="w-idx">STT</div><div class="w-name">Nội dung khoản thu</div>
-                                <div class="w-plan">Dự toán (Tr.đ)</div><div class="w-exec">Thực hiện (Tr.đ)</div><div class="w-rate">Tỷ lệ (%)</div>
-                            </div>
-                            <div id="thu-table-body" class="max-h-[500px] overflow-y-auto pr-2 custom-scrollbar font-semibold">
-                                <div class="text-center py-10 animate-pulse uppercase tracking-wider text-xs">⏳ Hệ thống đang kết nối Firebase...</div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 glass-panel p-5 flex flex-col">
+                        <h2 class="text-xs font-black uppercase tracking-wider text-main-title mb-4">🍕 Cơ cấu nguồn Thu (Triệu đồng)</h2>
+                        <div class="chart-container flex-grow"><canvas id="thuPieChart"></canvas></div>
+                    </div>
+                    <div class="lg:col-span-7 glass-panel p-5 flex flex-col">
+                        <h2 class="text-xs font-black uppercase tracking-wider text-main-title mb-4">📊 Tiến độ các khoản thu nội địa trọng điểm (%)</h2>
+                        <div class="chart-container flex-grow"><canvas id="thuBarChart"></canvas></div>
+                    </div>
+                </div>
+
+                <div class="bg-widget-card border-2 rounded-3xl p-6 md:p-8 shadow-sm">
+                    <h3 class="text-sm font-black uppercase tracking-wider text-main-title mb-6 flex items-center gap-2">📋 Bảng kê chi tiết Thu Ngân Sách Nhà Nước</h3>
+                    
+                    <div class="bg-widget-inner rounded-2xl p-2 md:p-4 border shadow-sm">
+                        <div class="w-full overflow-x-auto custom-scrollbar">
+                            <div class="min-w-[850px]">
+                                <div class="header-row-main grid-table-layout">
+                                    <div class="w-idx">STT</div><div class="w-name">Nội dung khoản thu</div>
+                                    <div class="w-plan">Dự toán (Tr.đ)</div><div class="w-exec">Thực hiện (Tr.đ)</div><div class="w-rate">Tỷ lệ (%)</div>
+                                </div>
+                                <div id="thu-table-body" class="max-h-[500px] overflow-y-auto pr-2 custom-scrollbar font-semibold">
+                                    <div class="text-center py-10 animate-pulse uppercase tracking-wider text-xs">⏳ Hệ thống đang kết nối Firebase...</div>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div id="tab-chi" class="tab-content flex flex-col font-['Inter'] w-full space-y-6 hidden">
-                <header class="glass-panel p-6">
-                    <div class="text-center md:text-left mb-6">
-                        <h1 class="text-2xl md:text-3xl font-black uppercase tracking-wider text-dynamic-title font-['Montserrat']">Phân bổ Chi Ngân Sách</h1>
+            <div id="tab-chi" class="tab-content flex flex-col font-['Inter'] w-full space-y-6 hidden flex-grow">
+                
+                <div class="bg-widget-card border-2 rounded-3xl p-6 shadow-sm hover:-translate-y-1 transition-transform duration-300">
+                    <div class="text-center md:text-left mb-6 border-b pb-4 dark:border-slate-700/50">
+                        <h1 class="text-2xl md:text-3xl font-black uppercase tracking-wider text-main-title font-['Montserrat']">Phân bổ Chi Ngân Sách</h1>
                         <p class="font-bold text-xs uppercase tracking-[0.15em] mt-2 opacity-80 text-dynamic-body">UBND Xã Bình Hưng — Tình hình Chi NSNN Năm 2026</p>
                     </div>
 
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                         <div class="kpi-box border-sky-500">
                             <p class="text-[11px] font-black text-sky-600 dark:text-sky-400 uppercase tracking-wider">Tổng Kế Hoạch (Dự Toán)</p>
-                            <h3 id="kpi_chi_du_toan" class="text-3xl font-black text-dynamic-title mt-2">0</h3>
+                            <h3 id="kpi_chi_du_toan" class="text-3xl font-black text-main-title mt-2">0</h3>
                         </div>
                         <div class="kpi-box border-emerald-500">
                             <p class="text-[11px] font-black text-emerald-600 dark:text-emerald-400 uppercase tracking-wider">Tổng Đã Chi (Thực Hiện)</p>
-                            <h3 id="kpi_chi_thuc_hien" class="text-3xl font-black text-dynamic-title mt-2">0</h3>
+                            <h3 id="kpi_chi_thuc_hien" class="text-3xl font-black text-main-title mt-2">0</h3>
                         </div>
                         <div class="kpi-box border-blue-600 flex flex-col justify-center">
                             <p class="text-[11px] font-black text-blue-600 dark:text-blue-400 uppercase tracking-wider">Tỷ Lệ Giải Ngân (%)</p>
-                            <h3 id="kpi_chi_ty_le" class="text-4xl font-black text-dynamic-title mt-2">0%</h3>
+                            <h3 id="kpi_chi_ty_le" class="text-4xl font-black text-main-title mt-2">0%</h3>
                         </div>
-                    </div>
-                </header>
-
-                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
-                    <div class="lg:col-span-5 glass-panel p-5">
-                        <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-4">🍕 Cơ cấu phân bổ nguồn Chi (Triệu đồng)</h2>
-                        <div class="chart-container"><canvas id="chiPieChart"></canvas></div>
-                    </div>
-                    <div class="lg:col-span-7 glass-panel p-5">
-                        <h2 class="text-xs font-black uppercase tracking-wider text-dynamic-title mb-4">📊 Tỷ lệ giải ngân Chi Thường Xuyên (%)</h2>
-                        <div class="chart-container"><canvas id="chiBarChart"></canvas></div>
                     </div>
                 </div>
 
-                <div class="glass-panel p-6">
-                    <h2 class="text-sm font-black uppercase tracking-wider text-dynamic-title mb-5">📋 Bảng kê chi tiết Phân bổ Chi Ngân Sách</h2>
-                    <div class="w-full overflow-x-auto custom-scrollbar">
-                        <div class="min-w-[850px]">
-                            <div class="header-row-main grid-table-layout">
-                                <div class="w-idx">STT</div><div class="w-name">Nội dung nhiệm vụ chi</div>
-                                <div class="w-plan">Dự toán (Tr.đ)</div><div class="w-exec">Thực hiện (Tr.đ)</div><div class="w-rate">Tỷ lệ (%)</div>
-                            </div>
-                            <div id="chi-table-body" class="max-h-[500px] overflow-y-auto pr-2 custom-scrollbar font-semibold">
-                                <div class="text-center py-10 animate-pulse uppercase tracking-wider text-xs">⏳ Hệ thống đang kết nối Firebase...</div>
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+                    <div class="lg:col-span-5 glass-panel p-5 flex flex-col">
+                        <h2 class="text-xs font-black uppercase tracking-wider text-main-title mb-4">🍕 Cơ cấu phân bổ nguồn Chi (Triệu đồng)</h2>
+                        <div class="chart-container flex-grow"><canvas id="chiPieChart"></canvas></div>
+                    </div>
+                    <div class="lg:col-span-7 glass-panel p-5 flex flex-col">
+                        <h2 class="text-xs font-black uppercase tracking-wider text-main-title mb-4">📊 Tỷ lệ giải ngân Chi Thường Xuyên (%)</h2>
+                        <div class="chart-container flex-grow"><canvas id="chiBarChart"></canvas></div>
+                    </div>
+                </div>
+
+                <div class="bg-widget-card border-2 rounded-3xl p-6 md:p-8 shadow-sm">
+                    <h3 class="text-sm font-black uppercase tracking-wider text-main-title mb-6 flex items-center gap-2">📋 Bảng kê chi tiết Phân bổ Chi Ngân Sách</h3>
+                    
+                    <div class="bg-widget-inner rounded-2xl p-2 md:p-4 border shadow-sm">
+                        <div class="w-full overflow-x-auto custom-scrollbar">
+                            <div class="min-w-[850px]">
+                                <div class="header-row-main grid-table-layout">
+                                    <div class="w-idx">STT</div><div class="w-name">Nội dung nhiệm vụ chi</div>
+                                    <div class="w-plan">Dự toán (Tr.đ)</div><div class="w-exec">Thực hiện (Tr.đ)</div><div class="w-rate">Tỷ lệ (%)</div>
+                                </div>
+                                <div id="chi-table-body" class="max-h-[500px] overflow-y-auto pr-2 custom-scrollbar font-semibold">
+                                    <div class="text-center py-10 animate-pulse uppercase tracking-wider text-xs">⏳ Hệ thống đang kết nối Firebase...</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -254,6 +288,10 @@
 
         </div> 
     </div>
+
+    <footer class="w-full text-center py-6 text-main-title font-bold text-[10px] uppercase tracking-[0.3em] border-t border-blue-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md mt-auto transition-colors duration-300">
+        &copy; 2026 GIAO DIỆN CÓ LOGIC THEME - IOC BÌNH HƯNG
+    </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -310,10 +348,9 @@
                     nameStyle = "font-extrabold text-[12px] uppercase";
                 }
 
-                // Điều chỉnh màu text theo theme Đỏ/Xanh - Sáng/Tối
                 let sttColor = isDark ? "text-sky-400" : (isRed ? "text-red-700" : "text-sky-700");
                 let nameColor = isDark ? "text-sky-300" : (isRed ? "text-red-900" : "text-blue-900");
-                let execColor = isDark ? "text-emerald-400" : "text-emerald-700";
+                let execColor = isDark ? "text-emerald-400" : "text-emerald-600";
                 let rateColor = isDark ? "text-sky-400" : (isRed ? "text-red-600" : "text-sky-600");
 
                 if(!isRoot && !isParent) nameColor = isDark ? "text-slate-300" : "text-slate-700";
@@ -322,7 +359,7 @@
                     <div class="table-row-main ${rowStyleClass} grid-table-layout text-[12px]" style="padding-left: ${16 + padding}px">
                         <div class="w-idx font-black ${sttColor}">${item.stt || ''}</div>
                         <div class="w-name ${nameStyle} ${nameColor} truncate" title="${item.noi_dung}">${item.noi_dung}</div>
-                        <div class="w-plan font-mono ${isRoot ? 'font-bold' : ''}">${formatMoney(item.du_toan)}</div>
+                        <div class="w-plan font-mono ${isRoot ? 'font-bold text-slate-800 dark:text-slate-200' : 'text-slate-600 dark:text-slate-400'}">${formatMoney(item.du_toan)}</div>
                         <div class="w-exec font-mono ${execColor} font-bold">${formatMoney(item.thuc_hien)}</div>
                         <div class="w-rate font-black ${rateColor}">${rate}%</div>
                     </div>
@@ -336,8 +373,9 @@
             if(instanceRef) instanceRef.destroy();
             const ctx = document.getElementById(elementId).getContext('2d');
             const isDark = document.getElementById('body-context').classList.contains('dark-theme');
-            const textColor = isDark ? '#f8fafc' : '#1e293b';
-            const borderColor = isDark ? '#1e293b' : '#ffffff';
+            const isRed = document.getElementById('body-context').classList.contains('theme-do-hanhchinh') && !isDark;
+            const textColor = isDark ? '#e0f2fe' : (isRed ? '#da251d' : '#0c4a8e');
+            const borderColor = isDark ? '#0f172a' : '#ffffff';
             
             const newChart = new Chart(ctx, {
                 type: 'doughnut',
@@ -366,9 +404,9 @@
             const isDark = document.getElementById('body-context').classList.contains('dark-theme');
             const isRed = document.getElementById('body-context').classList.contains('theme-do-hanhchinh') && !isDark;
 
-            const textColor = isDark ? '#f8fafc' : '#1e293b';
-            const gridColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.05)';
-            const colorBg = isRed ? 'rgba(218, 37, 29, 0.85)' : 'rgba(56, 189, 248, 0.85)';
+            const textColor = isDark ? '#e0f2fe' : (isRed ? '#da251d' : '#0c4a8e');
+            const gridColor = isDark ? 'rgba(255,255,255,0.1)' : (isRed ? 'rgba(218, 37, 29, 0.1)' : 'rgba(12, 74, 142, 0.1)');
+            const colorBg = isRed ? 'rgba(218, 37, 29, 0.85)' : 'rgba(14, 165, 233, 0.85)';
             const colorBorder = isRed ? '#a81c15' : '#0284c7';
 
             const newChart = new Chart(ctx, {
@@ -445,16 +483,16 @@
             const btnLight = document.getElementById('btn-theme-light');
             const btnDark = document.getElementById('btn-theme-dark');
 
-            if(themeName === 'light') {
+            if (themeName === 'light') {
                 body.classList.remove('dark-theme'); 
                 body.classList.add('light-theme');
-                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white bg-slate-700 shadow-sm";
-                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-500 hover:text-slate-600";
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-sm border border-transparent";
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition text-blue-800 hover:text-white border border-transparent";
             } else {
                 body.classList.remove('light-theme'); 
                 body.classList.add('dark-theme');
-                btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white bg-slate-600 shadow-sm";
-                btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-slate-400 hover:text-slate-300";
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition bg-red-600 text-white shadow-sm border border-transparent";
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition text-blue-200 hover:text-white border border-transparent";
             }
             if (cachedThuData) processThuData(cachedThuData);
             if (cachedChiData) processChiData(cachedChiData);
