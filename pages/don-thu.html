@@ -256,7 +256,7 @@
         const db = getDatabase(initializeApp(firebaseConfig));
 
         // LƯU Ý: Vui lòng Upload file donthu.json vào đường dẫn dashboard_binhhung/don_thu trên Firebase
-        onValue(ref(db, 'dashboard_binhhung/don_thu'), (snap) => {
+        onValue(ref(db, 'dashboard_binhhung/don_thu_moi'), (snap) => {
             const d = snap.val();
             if(!d) return;
 
