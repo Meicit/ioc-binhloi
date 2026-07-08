@@ -3,231 +3,451 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Danh bạ Cán bộ - Xã Bình Hưng</title>
+    <title>Danh bạ Cán bộ - Cấu trúc Giao diện Mới</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
-        body { font-family: 'Inter', 'Be Vietnam Pro', sans-serif; margin: 0; padding: 0; min-height: 100vh; background-color: #f8fafc; color: #0f172a; display: flex; flex-direction: column; transition: background 0.4s ease; }
-        body.theme-xanh-ios .main-header { background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d); background-size: 400% 400%; animation: gradientGIF 12s ease infinite; box-shadow: 0 4px 15px rgba(11, 74, 143, 0.15); border-bottom: 2px solid #032b5c; }
-        @keyframes gradientGIF { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .menu-panel-wrapper { background-color: rgba(128, 255, 232, 0.45); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 40px; box-shadow: 0 20px 50px -10px rgba(12, 74, 110, 0.15); }
+        /* ================= GHI ĐÈ BÓNG ĐỔ (TỪ UI_UX.HTML) ================= */
+        .shadow-sm { box-shadow: 0 1px 2px 0 rgba(8, 47, 73, 0.1); }
+        .shadow-md { box-shadow: 0 4px 6px -1px rgba(8, 47, 73, 0.15), 0 2px 4px -2px rgba(8, 47, 73, 0.1); }
+        .shadow-lg { box-shadow: 0 10px 15px -3px rgba(8, 47, 73, 0.15), 0 4px 6px -4px rgba(8, 47, 73, 0.1); }
+
+        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background-color 0.3s ease, color 0.3s ease; }
+        .container-wrapper { max-width: 1550px; margin: 0 auto 30px auto; padding: 0 24px; width: 100%; display: flex; flex-direction: column; flex-grow: 1; }
         
-        /* SCROLLBAR RIÊNG CHO KHỐI CÁN BỘ */
-        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(14, 165, 233, 0.3); border-radius: 10px; }
-        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: rgba(14, 165, 233, 0.6); }
+        .glass-panel { backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; transition: all 0.3s; }
+        .teal-wrapper { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 36px; padding: 24px; transition: all 0.4s ease; display: flex; flex-direction: column; flex-grow: 1; }
+        @media (min-width: 768px) { .teal-wrapper { padding: 36px; } }
+
+        /* ================= THEME TỐI (DARK MODE) ================= */
+        body.dark-theme { background-color: #082f49; color: #f0f9ff; }
+        body.dark-theme .glass-panel { background: rgba(12, 74, 110, 0.65); border-color: rgba(56, 189, 248, 0.2); box-shadow: 0 20px 40px -15px rgba(8, 47, 73, 0.4); }
+        body.dark-theme .teal-wrapper { background-color: rgba(14, 165, 233, 0.08); border: 1px solid rgba(14, 165, 233, 0.3); box-shadow: 0 20px 40px -15px rgba(8, 47, 73, 0.6); }
+        body.dark-theme .bg-widget-card { background-color: rgba(15, 23, 42, 0.6); border-color: rgba(56, 189, 248, 0.2); }
+        body.dark-theme .bg-widget-inner { background-color: rgba(15, 23, 42, 0.8); border-color: rgba(56, 189, 248, 0.15); }
+        body.dark-theme .control-theme-color { display: none !important; } 
+        body.dark-theme .text-main-title { color: #60a5fa !important; }
+
+        /* ================= THEME SÁNG (LIGHT MODE) ================= */
+        body.light-theme { background-color: #f0f4f8; color: #1e3a8a; }
+        body.light-theme .glass-panel { background: rgba(255, 255, 255, 0.95); box-shadow: 0 20px 40px -15px rgba(12, 74, 110, 0.15); }
+        body.light-theme .bg-widget-card { background-color: #ffffff; }
+        body.light-theme .bg-widget-inner { background-color: #ffffff; }
+
+        /* --- SÁNG + XANH DƯƠNG ĐẬM (MẶC ĐỊNH) --- */
+        body.light-theme.theme-xanh-ios .glass-panel { border-color: rgba(12, 74, 142, 0.2); }
+        body.light-theme.theme-xanh-ios .bg-widget-card { border-color: rgba(12, 74, 142, 0.15); }
+        body.light-theme.theme-xanh-ios .bg-widget-inner { border-color: rgba(12, 74, 142, 0.08); }
+        body.light-theme.theme-xanh-ios .text-main-title { color: #0c4a8e !important; }
+        
+        body.light-theme.theme-xanh-ios .teal-wrapper { 
+            background-color: rgba(12, 74, 142, 0.85); 
+            border: 1px solid rgba(255, 255, 255, 0.25); 
+            box-shadow: 0 20px 40px -10px rgba(12, 74, 142, 0.5); 
+        }
+
+        /* --- SÁNG + ĐỎ CỜ --- */
+        body.light-theme.theme-do-hanhchinh .glass-panel { border-color: rgba(252, 165, 165, 0.8); }
+        body.light-theme.theme-do-hanhchinh .bg-widget-card { border-color: rgba(218, 37, 29, 0.2); }
+        body.light-theme.theme-do-hanhchinh .bg-widget-inner { border-color: rgba(218, 37, 29, 0.1); }
+        body.light-theme.theme-do-hanhchinh .text-main-title { color: #da251d !important; }
+
+        body.light-theme.theme-do-hanhchinh .teal-wrapper { 
+            background-color: #da251d; 
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 20px 40px -15px rgba(218, 37, 29, 0.4);
+        }
+
+        /* ================= HEADER GRADIENT ================= */
+        body.light-theme.theme-xanh-ios .main-header { background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d); background-size: 400% 400%; animation: gradientGIF 12s ease infinite; box-shadow: 0 4px 15px rgba(11, 74, 143, 0.15); border-bottom: 2px solid #032b5c; }
+        body.light-theme.theme-do-hanhchinh .main-header { background: linear-gradient(-45deg, #da251d, #a81c15, #ff3b33, #7a120e); background-size: 400% 400%; animation: gradientGIF 12s ease infinite; box-shadow: 0 4px 15px rgba(218, 37, 29, 0.3); border-bottom: 2px solid #a81c15; }
+        body.dark-theme .main-header { background: linear-gradient(-45deg, #020617, #0f172a, #082f49, #020617); background-size: 400% 400%; animation: gradientGIF 12s ease infinite; box-shadow: 0 4px 15px rgba(8, 47, 73, 0.5); border-bottom: 2px solid #082f49; }
+        @keyframes gradientGIF { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        .logo-main { animation: float 4s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)); } 50% { transform: translateY(-3px); filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3)); } }
+
+        /* ================= NÚT BẤM VÀ CÁC THÀNH PHẦN ================= */
+        .btn-back { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 14px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; border: 1px solid; }
+        
+        body.dark-theme .btn-back { background: rgba(14, 165, 233, 0.1); border-color: rgba(14, 165, 233, 0.3); color: #e0f2fe; }
+        body.dark-theme .btn-back:hover { background: rgba(14, 165, 233, 0.2); border-color: #38bdf8; transform: translateY(-2px); }
+        
+        body.light-theme.theme-xanh-ios .btn-back { background: #ffffff; border-color: rgba(255, 255, 255, 0.8); color: #0c4a8e; }
+        body.light-theme.theme-xanh-ios .btn-back:hover { background: #f0f4f8; transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); }
+
+        body.light-theme.theme-do-hanhchinh .btn-back { background: #ffffff; border-color: #fca5a5; color: #da251d; }
+        body.light-theme.theme-do-hanhchinh .btn-back:hover { background: #fef2f2; border-color: #da251d; transform: translateY(-2px); }
+
+        /* SCROLLBAR & CONTROLS */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { border-radius: 10px; }
+        body.dark-theme .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(56, 189, 248, 0.4); }
+        body.light-theme.theme-xanh-ios .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(12, 74, 142, 0.4); }
+        body.light-theme.theme-do-hanhchinh .custom-scrollbar::-webkit-scrollbar-thumb { background: rgba(218, 37, 29, 0.4); }
+
+        .controls-wrapper { display: flex; gap: 12px; align-items: center; }
+        .control-panel { border: 1px solid; padding: 4px; border-radius: 12px; display: flex; align-items: center; }
+        
+        body.dark-theme .control-panel { background: rgba(15, 23, 42, 0.5); border-color: rgba(56, 189, 248, 0.2); }
+        body.light-theme.theme-xanh-ios .control-panel { background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.2); }
+        body.light-theme.theme-do-hanhchinh .control-panel { background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.4); }
+
+        body.light-theme.theme-xanh-ios .control-panel button.text-blue-900 { color: #0c4a8e !important; }
+        body.light-theme.theme-xanh-ios .control-panel button.text-blue-800 { color: #ffffff !important; opacity: 0.8; }
+        body.light-theme.theme-xanh-ios .control-panel button.text-blue-800:hover { opacity: 1; }
+        body.light-theme.theme-xanh-ios .control-panel button.border-transparent { color: #ffffff; font-weight: 700; opacity: 0.9; }
+        body.light-theme.theme-xanh-ios .control-panel button.border-transparent:hover { background: rgba(255, 255, 255, 0.1); opacity: 1; }
+
+        @media (max-width: 1024px) { .controls-wrapper { flex-direction: column; align-items: flex-end; } .header-layout { flex-direction: column !important; } }
+        @media (max-width: 640px) { .flex-responsive { flex-direction: column; align-items: stretch; gap: 16px; } .controls-wrapper { flex-direction: row; justify-content: space-between; align-items: center; width: 100%; } }
     </style>
 </head>
-<body class="theme-xanh-ios custom-scrollbar" id="dynamic-body">
+<body class="light-theme custom-scrollbar theme-xanh-ios" id="body-context">
 
     <header class="main-header w-full py-6 px-6 md:px-12 select-none relative transition-all duration-300">
-        <div class="max-w-[1550px] mx-auto flex flex-col md:flex-row items-center justify-between relative header-layout">
+        <div class="max-w-[1550px] mx-auto flex flex-col items-center justify-center relative header-layout">
             <div class="flex flex-row items-center space-x-6 w-auto">
-                <div class="flex-shrink-0"><img src="../logo.png" alt="Logo" class="w-20 h-auto" onerror="this.src='logo.png'"></div>
+                <div class="flex-shrink-0">
+                    <img src="../logo.png" alt="Logo" class="logo-main w-20 h-auto" onerror="this.src='logo.png'">
+                </div>
                 <div class="flex flex-col items-start justify-center space-y-2 text-left">
-                    <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-['Montserrat']">IOC BINH HUNG</p>
-                    <h1 class="title-main text-sm md:text-base lg:text-lg font-bold uppercase tracking-[0.08em] text-white/90 leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">Cổng thông tin và điều hành xã Bình Hưng</h1>
+                    <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none m-0 p-0 drop-shadow-[0_2px_4px_rgba(12,74,110,0.5)] font-['Montserrat']">
+                        IOC BINH HUNG
+                    </p>
+                    <h1 class="title-main text-sm md:text-base lg:text-lg font-bold uppercase tracking-[0.08em] text-white/90 leading-tight m-0 p-0 drop-shadow-[0_2px_4px_rgba(12,74,110,0.4)]">
+                        Cổng thông tin và điều hành xã Bình Hưng, Thành phố Hồ Chí Minh
+                    </h1>
                 </div>
             </div>
         </div>
     </header>
 
-    <div class="max-w-[1200px] w-full mx-auto px-4 md:px-6 my-8 flex-grow">
-        <div class="menu-panel-wrapper p-6 md:p-10 space-y-6">
+    <div class="container-wrapper mt-8">
+        
+        <div class="teal-wrapper space-y-8">
             
-            <a href="dieu-phoi.html" class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-sm transition-all duration-300 hover:-translate-y-0.5 w-fit">
-                ⬅️ Quay lại
-            </a>
-
-            <div class="bg-white/95 backdrop-blur-xl border border-white rounded-3xl p-6 md:p-10 shadow-lg w-full">
-                <div class="border-b border-slate-200/60 pb-6 mb-8 text-center">
-                    <h2 class="text-xl md:text-2xl font-black text-slate-900 uppercase tracking-wide">Danh Sách Cán Bộ Phụ Trách</h2>
-                    <p class="text-sm font-medium text-slate-500 mt-2">Thông tin liên lạc theo từng lĩnh vực để được hỗ trợ trực tiếp.</p>
-                </div>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    
-                    <!-- Lĩnh vực 1 -->
-                    <div>
-                        <h4 class="text-xs font-black text-blue-800 bg-blue-50 py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-3 shadow-sm border border-blue-100">Thủ tục hành chính</h4>
-                        <div class="space-y-3">
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Bà Trần Thúy Trân</p><p class="text-[11px] text-slate-500 font-medium">Giám đốc TTHCC</p></div>
-                                <a href="tel:0913147287" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 0913.147.287</a>
-                            </div>
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Bà Nguyễn Thị Hậu</p><p class="text-[11px] text-slate-500 font-medium">Chuyên viên</p></div>
-                                <a href="tel:0784832781" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 0784.832.781</a>
-                            </div>
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Bà Nguyễn Thị Ngọc Hương</p><p class="text-[11px] text-slate-500 font-medium">Chuyên viên</p></div>
-                                <a href="tel:0938387256" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 0938.387.256</a>
-                            </div>
-                        </div>
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4 flex-responsive">
+                <a href="dieu-phoi.html" class="btn-back">⬅️ Quay lại Điều phối</a>
+                
+                <div class="controls-wrapper">
+                    <div class="control-panel">
+                        <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-sm border border-transparent">Sáng</button>
+                        <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition text-blue-800 hover:text-white border border-transparent">Tối</button>
                     </div>
 
-                    <!-- Lĩnh vực 2 -->
-                    <div>
-                        <h4 class="text-xs font-black text-blue-800 bg-blue-50 py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-3 shadow-sm border border-blue-100">Quy hoạch xây dựng</h4>
-                        <div class="space-y-3">
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Bà Nguyễn T. Hoài Thanh</p><p class="text-[11px] text-slate-500 font-medium">Chuyên viên</p></div>
-                                <a href="tel:0908082320" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 0908.082.320</a>
-                            </div>
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Ông Nguyễn Thanh Điền</p><p class="text-[11px] text-slate-500 font-medium">Chuyên viên</p></div>
-                                <a href="tel:0769725726" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 0769.725.726</a>
-                            </div>
-                        </div>
+                    <div class="control-panel control-theme-color">
+                        <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="flex items-center gap-1.5 text-[11px] uppercase px-3 py-1.5 rounded-lg transition border border-transparent">🔵 Xanh</button>
+                        <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="flex items-center gap-1.5 text-[11px] uppercase px-3 py-1.5 rounded-lg transition border border-transparent">🔴 Đỏ</button>
                     </div>
-
-                    <!-- Lĩnh vực 3 -->
-                    <div>
-                        <h4 class="text-xs font-black text-blue-800 bg-blue-50 py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-3 shadow-sm border border-blue-100">Môi Trường</h4>
-                        <div class="space-y-3">
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Ông Đoàn Thanh Vũ</p><p class="text-[11px] text-slate-500 font-medium">Chuyên viên</p></div>
-                                <a href="tel:0919666424" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 0919.666.424</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Lĩnh vực 4 -->
-                    <div>
-                        <h4 class="text-xs font-black text-blue-800 bg-blue-50 py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-3 shadow-sm border border-blue-100">Kinh tế, Công Thương</h4>
-                        <div class="space-y-3">
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Ông Phạm Trường Nhật</p><p class="text-[11px] text-slate-500 font-medium">Chuyên viên</p></div>
-                                <a href="tel:0908007620" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 0908.007.620</a>
-                            </div>
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Bà Nguyễn Thanh Thảo Uyên</p><p class="text-[11px] text-slate-500 font-medium">Chuyên viên</p></div>
-                                <a href="tel:0939681889" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 0939.681.889</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Lĩnh vực 5 -->
-                    <div>
-                        <h4 class="text-xs font-black text-blue-800 bg-blue-50 py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-3 shadow-sm border border-blue-100">Giảm Nghèo</h4>
-                        <div class="space-y-3">
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Bà Lê Thị Linh Trang</p><p class="text-[11px] text-slate-500 font-medium">Chuyên viên</p></div>
-                                <a href="tel:0908409595" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 0908.409.595</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Lĩnh vực 6 -->
-                    <div>
-                        <h4 class="text-xs font-black text-blue-800 bg-blue-50 py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-3 shadow-sm border border-blue-100">Hạ tầng kĩ thuật</h4>
-                        <div class="space-y-3">
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Ông Đặng Huỳnh Sĩ Trọng</p><p class="text-[11px] text-slate-500 font-medium">Chuyên viên</p></div>
-                                <a href="tel:0931578579" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 0931.578.579</a>
-                            </div>
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Ông Trịnh Tuấn Phong</p><p class="text-[11px] text-slate-500 font-medium">Chuyên viên</p></div>
-                                <a href="tel:0918851079" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 0918.851.079</a>
-                            </div>
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Ông Lê Tấn Nhật</p><p class="text-[11px] text-slate-500 font-medium">Chuyên viên</p></div>
-                                <a href="tel:0902271310" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 0902.271.310</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Lĩnh vực 7 -->
-                    <div>
-                        <h4 class="text-xs font-black text-blue-800 bg-blue-50 py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-3 shadow-sm border border-blue-100">Trật Tự Xây dựng</h4>
-                        <div class="space-y-3">
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Ông Đoàn Duy Phương</p><p class="text-[11px] text-slate-500 font-medium">Chuyên viên</p></div>
-                                <a href="tel:0908030072" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 0908.030.072</a>
-                            </div>
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Ông Nguyễn Trung Hiếu</p><p class="text-[11px] text-slate-500 font-medium">Chuyên viên</p></div>
-                                <a href="tel:0938485804" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 0938.485.804</a>
-                            </div>
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Ông Nguyễn Kiến Tín</p><p class="text-[11px] text-slate-500 font-medium">Cán sự</p></div>
-                                <a href="tel:0932128127" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 0932.128.127</a>
-                            </div>
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Ông Trần Minh Khang</p><p class="text-[11px] text-slate-500 font-medium">Cán sự</p></div>
-                                <a href="tel:0908911391" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 0908.911.391</a>
-                            </div>
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Ông Nguyễn Thanh Phước</p><p class="text-[11px] text-slate-500 font-medium">Chuyên viên</p></div>
-                                <a href="tel:090748315" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 090.748.315</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Lĩnh vực 8 -->
-                    <div>
-                        <h4 class="text-xs font-black text-blue-800 bg-blue-50 py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-3 shadow-sm border border-blue-100">Văn hóa - Xã hội</h4>
-                        <div class="space-y-3">
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Ông Phạm Duy Tân</p><p class="text-[11px] text-slate-500 font-medium">Chuyên viên</p></div>
-                                <a href="tel:0765127071" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 0765.127.071</a>
-                            </div>
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Ông Ngô Hoàng Hiển</p><p class="text-[11px] text-slate-500 font-medium">Phó Trưởng phòng</p></div>
-                                <a href="tel:0909261539" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 0909.261.539</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Lĩnh vực 9 -->
-                    <div>
-                        <h4 class="text-xs font-black text-blue-800 bg-blue-50 py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-3 shadow-sm border border-blue-100">Công tác Đảng</h4>
-                        <div class="space-y-3">
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Ông Trần Công Lý</p><p class="text-[11px] text-slate-500 font-medium">Chuyên viên Ban xây dựng Đảng</p></div>
-                                <a href="tel:0907939539" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 0907.939.539</a>
-                            </div>
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Ông Thiều Công Tài</p><p class="text-[11px] text-slate-500 font-medium">Chuyên viên VP Đảng ủy</p></div>
-                                <a href="tel:0939566899" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 0939.566.899</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Lĩnh vực 10 -->
-                    <div>
-                        <h4 class="text-xs font-black text-blue-800 bg-blue-50 py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-3 shadow-sm border border-blue-100">Mặt trận và Đoàn thể</h4>
-                        <div class="space-y-3">
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Bà Nguyễn Ngọc Thanh</p><p class="text-[11px] text-slate-500 font-medium">Chuyên viên</p></div>
-                                <a href="tel:0902604624" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 0902.604.624</a>
-                            </div>
-                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl flex items-center justify-between hover:border-blue-300 hover:shadow-sm transition">
-                                <div><p class="text-[14px] font-bold text-slate-800">Bà Nguyễn Thị Thu Nguyệt</p><p class="text-[11px] text-slate-500 font-medium">Phụ trách Hội LH Phụ nữ</p></div>
-                                <a href="tel:0908994786" class="bg-blue-100 text-blue-700 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap">📞 0908.994.786</a>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Lĩnh vực 11 -->
-                    <div class="md:col-span-2">
-                        <h4 class="text-xs font-black text-red-800 bg-red-50 py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-3 shadow-sm border border-red-100 leading-relaxed">Lấn chiếm lòng lề đường, An toàn giao thông, An ninh trật tự, Phòng cháy chữa cháy</h4>
-                        <div class="space-y-3">
-                            <div class="bg-red-50/50 border border-red-200 p-4 rounded-xl flex items-center justify-between hover:border-red-300 transition w-full md:w-1/2">
-                                <div><p class="text-[14px] font-bold text-slate-800">Công an xã Bình Hưng</p><p class="text-[11px] text-slate-500 font-medium">Trực ban / Đường dây nóng</p></div>
-                                <a href="tel:02837582121" class="bg-red-600 text-white px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap shadow-sm">🚨 028.3758.2121</a>
-                            </div>
-                        </div>
-                    </div>
-
                 </div>
             </div>
-        </div>
+
+            <div class="flex flex-col space-y-6 font-['Inter']">
+                
+                <div class="bg-widget-card border-2 rounded-3xl p-6 md:p-10 shadow-sm transition-all duration-300">
+                    <div class="border-b border-slate-200/60 dark:border-slate-700 pb-6 mb-8 text-center">
+                        <h2 class="text-xl md:text-2xl font-black text-main-title uppercase tracking-wide">Danh Sách Cán Bộ Phụ Trách</h2>
+                        <p class="text-sm font-medium opacity-70 mt-2">Thông tin liên lạc theo từng lĩnh vực để được hỗ trợ trực tiếp.</p>
+                    </div>
+
+                    <div class="columns-1 md:columns-2 gap-8">
+                        
+                        <div class="break-inside-avoid mb-8">
+                            <h4 class="text-xs font-black text-main-title bg-widget-inner border shadow-sm py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-4">Thủ tục hành chính</h4>
+                            <div class="space-y-3">
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Bà Trần Thúy Trân</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Giám đốc TTHCC</p>
+                                    </div>
+                                    <a href="tel:0913147287" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 0913.147.287</a>
+                                </div>
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Bà Nguyễn Thị Hậu</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Chuyên viên</p>
+                                    </div>
+                                    <a href="tel:0784832781" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 0784.832.781</a>
+                                </div>
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Bà Nguyễn Thị Ngọc Hương</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Chuyên viên</p>
+                                    </div>
+                                    <a href="tel:0938387256" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 0938.387.256</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="break-inside-avoid mb-8">
+                            <h4 class="text-xs font-black text-main-title bg-widget-inner border shadow-sm py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-4">Quy hoạch xây dựng</h4>
+                            <div class="space-y-3">
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Bà Nguyễn T. Hoài Thanh</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Chuyên viên</p>
+                                    </div>
+                                    <a href="tel:0908082320" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 0908.082.320</a>
+                                </div>
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Ông Nguyễn Thanh Điền</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Chuyên viên</p>
+                                    </div>
+                                    <a href="tel:0769725726" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 0769.725.726</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="break-inside-avoid mb-8">
+                            <h4 class="text-xs font-black text-main-title bg-widget-inner border shadow-sm py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-4">Môi Trường</h4>
+                            <div class="space-y-3">
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Ông Đoàn Thanh Vũ</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Chuyên viên</p>
+                                    </div>
+                                    <a href="tel:0919666424" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 0919.666.424</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="break-inside-avoid mb-8">
+                            <h4 class="text-xs font-black text-main-title bg-widget-inner border shadow-sm py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-4">Kinh tế, Công Thương</h4>
+                            <div class="space-y-3">
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Ông Phạm Trường Nhật</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Chuyên viên</p>
+                                    </div>
+                                    <a href="tel:0908007620" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 0908.007.620</a>
+                                </div>
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Bà Nguyễn Thanh Thảo Uyên</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Chuyên viên</p>
+                                    </div>
+                                    <a href="tel:0939681889" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 0939.681.889</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="break-inside-avoid mb-8">
+                            <h4 class="text-xs font-black text-main-title bg-widget-inner border shadow-sm py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-4">Giảm Nghèo</h4>
+                            <div class="space-y-3">
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Bà Lê Thị Linh Trang</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Chuyên viên</p>
+                                    </div>
+                                    <a href="tel:0908409595" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 0908.409.595</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="break-inside-avoid mb-8">
+                            <h4 class="text-xs font-black text-main-title bg-widget-inner border shadow-sm py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-4">Hạ tầng kĩ thuật</h4>
+                            <div class="space-y-3">
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Ông Đặng Huỳnh Sĩ Trọng</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Chuyên viên</p>
+                                    </div>
+                                    <a href="tel:0931578579" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 0931.578.579</a>
+                                </div>
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Ông Trịnh Tuấn Phong</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Chuyên viên</p>
+                                    </div>
+                                    <a href="tel:0918851079" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 0918.851.079</a>
+                                </div>
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Ông Lê Tấn Nhật</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Chuyên viên</p>
+                                    </div>
+                                    <a href="tel:0902271310" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 0902.271.310</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="break-inside-avoid mb-8">
+                            <h4 class="text-xs font-black text-main-title bg-widget-inner border shadow-sm py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-4">Trật Tự Xây dựng</h4>
+                            <div class="space-y-3">
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Ông Đoàn Duy Phương</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Chuyên viên</p>
+                                    </div>
+                                    <a href="tel:0908030072" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 0908.030.072</a>
+                                </div>
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Ông Nguyễn Trung Hiếu</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Chuyên viên</p>
+                                    </div>
+                                    <a href="tel:0938485804" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 0938.485.804</a>
+                                </div>
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Ông Nguyễn Kiến Tín</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Cán sự</p>
+                                    </div>
+                                    <a href="tel:0932128127" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 0932.128.127</a>
+                                </div>
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Ông Trần Minh Khang</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Cán sự</p>
+                                    </div>
+                                    <a href="tel:0908911391" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 0908.911.391</a>
+                                </div>
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Ông Nguyễn Thanh Phước</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Chuyên viên</p>
+                                    </div>
+                                    <a href="tel:090748315" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 090.748.315</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="break-inside-avoid mb-8">
+                            <h4 class="text-xs font-black text-main-title bg-widget-inner border shadow-sm py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-4">Văn hóa - Xã hội</h4>
+                            <div class="space-y-3">
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Ông Phạm Duy Tân</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Chuyên viên</p>
+                                    </div>
+                                    <a href="tel:0765127071" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 0765.127.071</a>
+                                </div>
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Ông Ngô Hoàng Hiển</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Phó Trưởng phòng</p>
+                                    </div>
+                                    <a href="tel:0909261539" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 0909.261.539</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="break-inside-avoid mb-8">
+                            <h4 class="text-xs font-black text-main-title bg-widget-inner border shadow-sm py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-4">Công tác Đảng</h4>
+                            <div class="space-y-3">
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Ông Trần Công Lý</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Chuyên viên Ban xây dựng Đảng</p>
+                                    </div>
+                                    <a href="tel:0907939539" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 0907.939.539</a>
+                                </div>
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Ông Thiều Công Tài</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Chuyên viên VP Đảng ủy</p>
+                                    </div>
+                                    <a href="tel:0939566899" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 0939.566.899</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="break-inside-avoid mb-8">
+                            <h4 class="text-xs font-black text-main-title bg-widget-inner border shadow-sm py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-4">Mặt trận và Đoàn thể</h4>
+                            <div class="space-y-3">
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Bà Nguyễn Ngọc Thanh</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Chuyên viên</p>
+                                    </div>
+                                    <a href="tel:0902604624" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 0902.604.624</a>
+                                </div>
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Bà Nguyễn Thị Thu Nguyệt</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Phụ trách Hội LH Phụ nữ</p>
+                                    </div>
+                                    <a href="tel:0908994786" class="bg-widget-card border shadow-sm text-main-title px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-slate-100 dark:hover:bg-slate-700 transition-colors">📞 0908.994.786</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="break-inside-avoid mb-8">
+                            <h4 class="text-xs font-black text-emerald-700 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800/50 shadow-sm py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-4">Y tế - Sức khỏe</h4>
+                            <div class="space-y-3">
+                                <div class="bg-widget-inner border p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Trạm y tế xã Bình Hưng</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Trực ban / Đường dây nóng</p>
+                                    </div>
+                                    <a href="tel:02837581063" class="bg-widget-card border border-emerald-200 dark:border-emerald-800/50 shadow-sm text-emerald-700 dark:text-emerald-400 px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap hover:bg-emerald-50 dark:hover:bg-emerald-900/30 transition-colors">📞 028.3758.1063</a>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="break-inside-avoid mb-8 [column-span:all]">
+                            <h4 class="text-xs font-black text-red-700 dark:text-red-400 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800/50 shadow-sm py-2 px-4 rounded-lg inline-block uppercase tracking-wider mb-4 leading-relaxed">Lấn chiếm lòng lề đường, An toàn giao thông, An ninh trật tự, Phòng cháy chữa cháy</h4>
+                            <div class="space-y-3">
+                                <div class="bg-red-50/50 dark:bg-red-900/10 border border-red-200 dark:border-red-800/50 p-4 rounded-xl flex items-center justify-between hover:-translate-y-1 transition-transform duration-200 shadow-sm w-full md:w-1/2">
+                                    <div>
+                                        <p class="text-[14px] font-bold text-main-title">Công an xã Bình Hưng</p>
+                                        <p class="text-[11px] opacity-70 font-medium">Trực ban / Đường dây nóng</p>
+                                    </div>
+                                    <a href="tel:02837582121" class="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg text-xs font-bold whitespace-nowrap shadow-sm transition-colors">🚨 028.3758.2121</a>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div> 
     </div>
 
-    <footer class="mt-auto text-center py-6 text-slate-400 font-medium text-[11px] uppercase tracking-widest border-t border-slate-200 bg-white shadow-sm">
-        &copy; 2026 IOC BINH HƯNG — BẢN QUYỀN THUỘC UBND XÃ BÌNH HƯNG
+    <footer class="w-full text-center py-6 text-main-title font-bold text-[10px] uppercase tracking-[0.3em] border-t border-blue-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md mt-auto transition-colors duration-300">
+        &copy; 2026 GIAO DIỆN CÓ LOGIC THEME - IOC BÌNH HƯNG
     </footer>
 
+    <script>
+        function setTheme(themeName) {
+            const body = document.getElementById('body-context');
+            const btnLight = document.getElementById('btn-theme-light');
+            const btnDark = document.getElementById('btn-theme-dark');
+
+            if (themeName === 'light') {
+                body.classList.remove('dark-theme'); 
+                body.classList.add('light-theme');
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-sm border border-transparent";
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition text-blue-800 hover:text-white border border-transparent";
+            } else {
+                body.classList.remove('light-theme'); 
+                body.classList.add('dark-theme');
+                btnDark.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition bg-red-600 text-white shadow-sm border border-transparent";
+                btnLight.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition text-blue-200 hover:text-white border border-transparent";
+            }
+        }
+
+        function switchSystemTheme(modeName) {
+            const body = document.getElementById('body-context');
+            if (modeName === 'do') {
+                body.classList.remove('theme-xanh-ios'); 
+                body.classList.add('theme-do-hanhchinh');
+            } else {
+                body.classList.remove('theme-do-hanhchinh'); 
+                body.classList.add('theme-xanh-ios');
+            }
+            // Mặc định ép về chế độ Sáng khi chuyển Chủ đề Xanh/Đỏ
+            setTheme('light'); 
+        }
+
+        // Khởi tạo trạng thái mặc định khi load trang
+        document.addEventListener('DOMContentLoaded', () => {
+            setTheme('light');
+        });
+    </script>
 </body>
 </html>
