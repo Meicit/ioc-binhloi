@@ -53,7 +53,8 @@
             100% { background-position: 0% 50%; }
         }
 
-        body.dark-theme .theme-selector-vertical { display: none !important; }
+        /* Ẩn bộ chọn theme Xanh/Đỏ khi đang ở Dark Mode */
+        body.dark-theme #theme-selector-horizontal { display: none !important; }
 
         .logo-main { animation: float 4s ease-in-out infinite; }
         @keyframes float {
@@ -217,8 +218,6 @@
         @media (max-width: 1400px) { .grid-container { grid-template-columns: repeat(3, 1fr); gap: 18px; } }
         @media (max-width: 1024px) {
             .header-layout { flex-direction: column !important; }
-            .theme-selector-vertical { position: relative !important; top: 0 !important; right: 0 !important; margin-top: 16px; flex-direction: row !important; space-x: 2; width: auto !important; }
-            .theme-selector-vertical button { margin-left: 4px; margin-right: 4px; }
         }
         @media (max-width: 768px) { 
             .grid-container { grid-template-columns: repeat(2, 1fr); gap: 14px; } 
@@ -244,11 +243,6 @@
                     </h1>
                 </div>
             </div>
-
-            <div class="theme-selector-vertical lg:absolute lg:top-0 lg:right-0 bg-white/10 backdrop-blur-md border border-white/20 p-1.5 rounded-xl flex flex-col space-y-1.5 w-[75px] z-20 shadow-inner">
-                <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md">🔵 Xanh</button>
-                <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white">🔴 Đỏ</button>
-            </div>
         </div>
     </header>
 
@@ -256,8 +250,16 @@
         
         <div class="menu-panel-wrapper">
             
-            <div class="flex justify-end w-full mb-6">
-                <div class="bg-white/10 dark:bg-sky-500/10 border border-white/20 dark:border-sky-500/20 p-1 rounded-xl flex items-center shadow-sm backdrop-blur">
+            <!-- Khu vực chứa các nút chọn Theme và Chế độ Sáng/Tối -->
+            <div class="flex justify-end w-full mb-6 gap-3">
+                <!-- Bộ chọn Theme Xanh / Đỏ -->
+                <div id="theme-selector-horizontal" class="bg-white/10 dark:bg-sky-500/10 border border-white/20 dark:border-sky-500/20 p-1 rounded-xl flex items-center shadow-sm backdrop-blur transition-all duration-300">
+                    <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-sm border border-blue-500">🔵 Xanh</button>
+                    <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all duration-300 border border-transparent text-white/80 hover:text-white">🔴 Đỏ</button>
+                </div>
+
+                <!-- Bộ chọn Chế độ Sáng / Tối -->
+                <div class="bg-white/10 dark:bg-sky-500/10 border border-white/20 dark:border-sky-500/20 p-1 rounded-xl flex items-center shadow-sm backdrop-blur transition-all duration-300">
                     <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-sm border border-blue-200">☀️ Sáng</button>
                     <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white/70 hover:text-white dark:text-sky-200 dark:hover:text-white">🌙 Tối</button>
                 </div>
@@ -407,12 +409,12 @@
 
             if (modeName === 'do') {
                 body.classList.remove('theme-xanh-ios'); body.classList.add('theme-do-hanhchinh');
-                btnDo.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-red-600 text-white shadow-md";
-                btnXanh.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white";
+                btnDo.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all duration-300 bg-red-600 text-white shadow-sm border border-red-500";
+                btnXanh.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all duration-300 border border-transparent text-white/80 hover:text-white";
             } else {
                 body.classList.remove('theme-do-hanhchinh'); body.classList.add('theme-xanh-ios');
-                btnXanh.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-md";
-                btnDo.className = "w-full text-center text-[10px] font-extrabold uppercase py-1.5 rounded-lg transition-all duration-300 text-white/80 hover:text-white";
+                btnXanh.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-sm border border-blue-500";
+                btnDo.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all duration-300 border border-transparent text-white/80 hover:text-white";
             }
         }
 
