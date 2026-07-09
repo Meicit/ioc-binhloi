@@ -119,7 +119,7 @@
                     <thead>
                         <tr class="border-b border-slate-200 text-slate-400 font-bold text-[11px] uppercase tracking-wider bg-slate-50/70">
                             <th class="py-3 px-4 w-[100px]">Mã Đơn</th>
-                            <th class="py-3 px-4 w-[180px]">Thông Tin Dân</th>
+                            <th class="py-3 px-4 w-[250px]">Thông Tin Công Dân & Nhận KQ</th>
                             <th class="py-3 px-4">Nội Dung Kiến Nghị</th>
                             <th class="py-3 px-4 w-[180px] text-center">⏱️ Hạn Xử Lý (24h)</th>
                             <th class="py-3 px-4 w-[140px] text-center">Trạng Thái</th>
@@ -185,25 +185,53 @@
                 if (item.status === "Đang xử lý") statusClass = "bg-amber-500 text-amber-950";
                 if (item.status === "Đã hoàn thành") statusClass = "bg-emerald-600";
 
+                // Xử lý Huy hiệu (Badge) Hình thức nhận kết quả
+                let receiveMethodText = "Tra cứu trực tiếp";
+                let receiveMethodColor = "bg-slate-100 text-slate-600 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700";
+                
+                if (item.receiveMethod === 'email') {
+                    receiveMethodText = "Gửi qua Email";
+                    receiveMethodColor = "bg-indigo-50 text-indigo-600 border border-indigo-200 dark:bg-indigo-900/40 dark:text-indigo-300 dark:border-indigo-800";
+                } else if (item.receiveMethod === 'paper') {
+                    receiveMethodText = "Văn bản (Bưu điện)";
+                    receiveMethodColor = "bg-rose-50 text-rose-600 border border-rose-200 dark:bg-rose-900/40 dark:text-rose-300 dark:border-rose-800";
+                }
+
                 tr.innerHTML = `
-                    <td class="py-4 px-4 font-mono font-black text-blue-600 dark:text-sky-400 tracking-wider">${item.trackingCode}</td>
-                    <td class="py-4 px-4 space-y-1">
-                        <p class="font-bold text-xs">${item.fullname}</p>
-                        <p class="text-[10px] text-slate-400 font-medium">CCCD: ${item.cccd}</p>
-                        <p class="text-[10px] text-slate-400 font-medium break-all">${item.email}</p>
+                    <td class="py-4 px-4 font-mono font-black text-blue-600 dark:text-sky-400 tracking-wider align-top">${item.trackingCode}</td>
+                    
+                    <td class="py-4 px-4 space-y-1.5 align-top">
+                        <p class="font-bold text-[13px] text-blue-900 dark:text-sky-200">${item.fullname}</p>
+                        <div class="grid grid-cols-2 gap-x-2 gap-y-1 text-[10px] text-slate-500 dark:text-slate-400">
+                            <p><span class="opacity-70">CCCD:</span> <span class="font-bold text-slate-700 dark:text-slate-300">${item.cccd}</span></p>
+                            <p><span class="opacity-70">SĐT:</span> <span class="font-bold text-slate-700 dark:text-slate-300">${item.phone || '---'}</span></p>
+                        </div>
+                        <p class="text-[10px] text-slate-500 dark:text-slate-400 truncate" title="${item.email || '---'}">
+                            📧 ${item.email || '---'}
+                        </p>
+                        ${item.address ? `<p class="text-[10px] text-slate-500 dark:text-slate-400 leading-snug break-words">📍 ${item.address}</p>` : ''}
+                        <div class="pt-1">
+                            <span class="inline-block px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider ${receiveMethodColor}">
+                                📬 ${receiveMethodText}
+                            </span>
+                        </div>
                     </td>
-                    <td class="py-4 px-4 pr-6">
+
+                    <td class="py-4 px-4 pr-6 align-top">
                         <p class="text-slate-500 text-[10px] font-medium mb-1">Gửi lúc: ${new Date(item.createdAt).toLocaleString('vi-VN')}</p>
                         <p class="text-xs font-semibold text-justify leading-relaxed">${item.content}</p>
                         ${item.imageUrl ? `<button onclick="viewBase64Image('${item.imageUrl}')" class="mt-2 text-[10px] text-sky-600 dark:text-sky-300 bg-sky-50 dark:bg-sky-900/30 px-2 py-0.5 rounded font-bold uppercase hover:underline border border-sky-100 dark:border-sky-800">👁 Xem ảnh hiện trường</button>` : ''}
                     </td>
-                    <td class="py-4 px-4 text-center font-mono font-bold" id="countdown-${item.id}">
+                    
+                    <td class="py-4 px-4 text-center font-mono font-bold align-top" id="countdown-${item.id}">
                         --:--:--
                     </td>
-                    <td class="py-4 px-4 text-center">
+                    
+                    <td class="py-4 px-4 text-center align-top">
                         <span class="px-2.5 py-1.5 rounded-md text-[10px] font-black uppercase text-white shadow-sm ${statusClass}">${item.status}</span>
                     </td>
-                    <td class="py-4 px-4 space-y-2">
+                    
+                    <td class="py-4 px-4 space-y-2 align-top">
                         <textarea id="replyInp-${item.id}" rows="2" placeholder="Nhập chỉ đạo hoặc ý kiến phản hồi công khai..." class="w-full bg-white border border-slate-200 rounded-lg p-2 text-[11px] font-medium outline-none focus:border-sky-500 transition">${item.replyContent || ''}</textarea>
                         <div class="flex gap-1.5 justify-end">
                             <button onclick="updateComplaint('${item.id}', 'Đang xử lý')" class="bg-amber-500 hover:bg-amber-600 text-white font-bold text-[10px] uppercase px-2 py-1.5 rounded shadow-sm transition">Xử lý ⚙️</button>
