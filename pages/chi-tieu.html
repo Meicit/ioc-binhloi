@@ -154,7 +154,8 @@
                     </div>
                     <div class="lg:col-span-5 glass-panel p-5 h-[380px] flex flex-col justify-between">
                         <h2 class="text-xs font-black uppercase tracking-wider text-main-title mb-3">🎯 Cơ cấu phân bổ số lượng 30 Chỉ tiêu</h2>
-                        <div class="w-full relative flex-grow flex justify-center pb-2">
+                        <!-- ĐÃ SỬA: Xóa flex justify-center và thêm min-h-[250px] -->
+                        <div class="w-full relative flex-grow min-h-[250px] pb-2">
                             <canvas id="chiTieuPieChart"></canvas>
                         </div>
                     </div>
@@ -401,7 +402,8 @@
                 options: { 
                     maintainAspectRatio: false, cutout: '65%', layout: { padding: 10 },
                     plugins: { 
-                        legend: { position: 'right', labels: { color: textColor, font: { weight: 'bold', size: 10 } } },
+                        // ĐÃ SỬA: position: 'bottom' và thêm padding để cách biểu đồ 1 chút
+                        legend: { position: 'bottom', labels: { color: textColor, font: { weight: 'bold', size: 10 }, padding: 15 } },
                         datalabels: {
                             color: '#ffffff', font: { weight: 'bold', size: 12 },
                             formatter: (value, ctx) => {
