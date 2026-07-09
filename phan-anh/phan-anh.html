@@ -158,6 +158,7 @@
                     </div>
 
                     <form id="complaintForm" class="space-y-6">
+                        <!-- HÀNG 1: Tên & CCCD -->
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div>
                                 <label class="text-xs font-bold text-main-title opacity-80 block mb-2 uppercase tracking-wider">Họ và tên công dân <span class="text-red-500">*</span></label>
@@ -170,11 +171,45 @@
                                     class="w-full bg-widget-inner border border-slate-200/60 dark:border-slate-700/60 rounded-xl px-4 py-3 text-sm font-bold text-main-title outline-none focus:ring-2 focus:ring-current transition-all shadow-sm placeholder-main-title placeholder-opacity-40">
                             </div>
                         </div>
-                        <div>
-                            <label class="text-xs font-bold text-main-title opacity-80 block mb-2 uppercase tracking-wider">Địa chỉ Email <span class="text-red-500">*</span></label>
-                            <input type="email" id="email" required placeholder="name@tphcm.gov.vn" 
-                                class="w-full bg-widget-inner border border-slate-200/60 dark:border-slate-700/60 rounded-xl px-4 py-3 text-sm font-bold text-main-title outline-none focus:ring-2 focus:ring-current transition-all shadow-sm placeholder-main-title placeholder-opacity-40">
+
+                        <!-- HÀNG 2: SĐT & Email -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="text-xs font-bold text-main-title opacity-80 block mb-2 uppercase tracking-wider">Số điện thoại <span class="text-red-500">*</span></label>
+                                <input type="tel" id="phone" required placeholder="090xxxxxxx" 
+                                    class="w-full bg-widget-inner border border-slate-200/60 dark:border-slate-700/60 rounded-xl px-4 py-3 text-sm font-bold text-main-title outline-none focus:ring-2 focus:ring-current transition-all shadow-sm placeholder-main-title placeholder-opacity-40">
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-main-title opacity-80 block mb-2 uppercase tracking-wider">
+                                    Địa chỉ Email <span id="email-star" class="text-red-500 hidden">*</span>
+                                </label>
+                                <input type="email" id="email" placeholder="name@tphcm.gov.vn" 
+                                    class="w-full bg-widget-inner border border-slate-200/60 dark:border-slate-700/60 rounded-xl px-4 py-3 text-sm font-bold text-main-title outline-none focus:ring-2 focus:ring-current transition-all shadow-sm placeholder-main-title placeholder-opacity-40">
+                            </div>
                         </div>
+
+                        <!-- HÀNG 3: ĐỊA CHỈ & HÌNH THỨC NHẬN KQ -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label class="text-xs font-bold text-main-title opacity-80 block mb-2 uppercase tracking-wider">
+                                    Địa chỉ liên hệ <span id="address-star" class="text-red-500 hidden">*</span>
+                                </label>
+                                <input type="text" id="address" placeholder="Số nhà, Tên đường, Ấp/Xã..." 
+                                    class="w-full bg-widget-inner border border-slate-200/60 dark:border-slate-700/60 rounded-xl px-4 py-3 text-sm font-bold text-main-title outline-none focus:ring-2 focus:ring-current transition-all shadow-sm placeholder-main-title placeholder-opacity-40">
+                            </div>
+                            <div>
+                                <label class="text-xs font-bold text-main-title opacity-80 block mb-2 uppercase tracking-wider">
+                                    Hình thức nhận kết quả <span class="text-red-500">*</span>
+                                </label>
+                                <select id="receiveMethod" required 
+                                    class="w-full bg-widget-inner border border-slate-200/60 dark:border-slate-700/60 rounded-xl px-4 py-3 text-sm font-bold text-main-title outline-none focus:ring-2 focus:ring-current transition-all shadow-sm cursor-pointer">
+                                    <option value="lookup" class="text-slate-900">Trực tiếp tại trang tra cứu kết quả</option>
+                                    <option value="email" class="text-slate-900">Gửi qua Email</option>
+                                    <option value="paper" class="text-slate-900">Trả bằng văn bản qua Bưu điện</option>
+                                </select>
+                            </div>
+                        </div>
+
                         <div>
                             <label class="text-xs font-bold text-main-title opacity-80 block mb-2 uppercase tracking-wider">Nội dung phản ánh <span class="text-red-500">*</span></label>
                             <textarea id="content" rows="5" required placeholder="Mô tả chi tiết..." 
@@ -202,6 +237,7 @@
     </footer>
 
     <script>
+        // ================= JS CHO CHỨC NĂNG ĐỔI THEME =================
         function setTheme(themeName) {
             const body = document.getElementById('body-context');
             const btnLight = document.getElementById('btn-theme-light');
@@ -233,9 +269,60 @@
             setTheme('light'); 
         }
 
-        // Khởi tạo trạng thái mặc định khi load trang
+        // ================= JS XỬ LÝ LOGIC KIỂM TRA FORM =================
         document.addEventListener('DOMContentLoaded', () => {
-            setTheme('light');
+            setTheme('light'); // Khởi tạo theme mặc định
+
+            const receiveMethod = document.getElementById('receiveMethod');
+            const emailInput = document.getElementById('email');
+            const addressInput = document.getElementById('address');
+            const emailStar = document.getElementById('email-star');
+            const addressStar = document.getElementById('address-star');
+            const form = document.getElementById('complaintForm');
+
+            // 1. Lắng nghe sự thay đổi của Dropdown "Hình thức nhận kết quả"
+            receiveMethod.addEventListener('change', function() {
+                // Reset trạng thái ban đầu
+                emailInput.required = false;
+                addressInput.required = false;
+                emailStar.classList.add('hidden');
+                addressStar.classList.add('hidden');
+
+                // Áp dụng luật kiểm tra tùy thuộc vào giá trị được chọn
+                if (this.value === 'email') {
+                    emailInput.required = true;
+                    emailStar.classList.remove('hidden'); // Hiển thị dấu *
+                } else if (this.value === 'paper') {
+                    addressInput.required = true;
+                    addressStar.classList.remove('hidden'); // Hiển thị dấu *
+                }
+            });
+
+            // 2. Lắng nghe hành động gửi Form để xử lý thông báo Custom (Nâng cao)
+            form.addEventListener('submit', function(e) {
+                const method = receiveMethod.value;
+                const emailVal = emailInput.value.trim();
+                const addressVal = addressInput.value.trim();
+
+                // Kiểm tra thủ công phòng trường hợp trình duyệt không hỗ trợ "required" tốt
+                if (method === 'email' && emailVal === '') {
+                    e.preventDefault();
+                    alert('Vui lòng nhập Địa chỉ Email để có thể nhận kết quả qua mail!');
+                    emailInput.focus();
+                    return;
+                }
+
+                if (method === 'paper' && addressVal === '') {
+                    e.preventDefault();
+                    alert('Vui lòng cung cấp Địa chỉ liên hệ để chúng tôi gửi văn bản kết quả!');
+                    addressInput.focus();
+                    return;
+                }
+
+                // e.preventDefault(); 
+                // Xoá comment hàm e.preventDefault() ở trên nếu bạn muốn chặn form để test.
+                // Thêm code xử lý đẩy API hoặc nộp form tại đây.
+            });
         });
     </script>
 </body>
