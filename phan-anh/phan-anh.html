@@ -205,7 +205,6 @@
                                     class="w-full bg-widget-inner border border-slate-200/60 dark:border-slate-700/60 rounded-xl px-4 py-3 text-sm font-bold text-main-title outline-none focus:ring-2 focus:ring-current transition-all shadow-sm cursor-pointer">
                                     <option value="lookup" class="text-slate-900">Trực tiếp tại trang tra cứu kết quả</option>
                                     <option value="email" class="text-slate-900">Gửi qua Email</option>
-                                    <option value="paper" class="text-slate-900">Trả bằng văn bản qua Bưu điện</option>
                                 </select>
                             </div>
                         </div>
@@ -275,8 +274,8 @@
 
             const receiveMethod = document.getElementById('receiveMethod');
             const emailInput = document.getElementById('email');
-            const addressInput = document.getElementById('address');
             const emailStar = document.getElementById('email-star');
+            const addressInput = document.getElementById('address');
             const addressStar = document.getElementById('address-star');
             const form = document.getElementById('complaintForm');
 
@@ -292,9 +291,6 @@
                 if (this.value === 'email') {
                     emailInput.required = true;
                     emailStar.classList.remove('hidden'); // Hiển thị dấu *
-                } else if (this.value === 'paper') {
-                    addressInput.required = true;
-                    addressStar.classList.remove('hidden'); // Hiển thị dấu *
                 }
             });
 
@@ -302,20 +298,12 @@
             form.addEventListener('submit', function(e) {
                 const method = receiveMethod.value;
                 const emailVal = emailInput.value.trim();
-                const addressVal = addressInput.value.trim();
 
                 // Kiểm tra thủ công phòng trường hợp trình duyệt không hỗ trợ "required" tốt
                 if (method === 'email' && emailVal === '') {
                     e.preventDefault();
                     alert('Vui lòng nhập Địa chỉ Email để có thể nhận kết quả qua mail!');
                     emailInput.focus();
-                    return;
-                }
-
-                if (method === 'paper' && addressVal === '') {
-                    e.preventDefault();
-                    alert('Vui lòng cung cấp Địa chỉ liên hệ để chúng tôi gửi văn bản kết quả!');
-                    addressInput.focus();
                     return;
                 }
 
