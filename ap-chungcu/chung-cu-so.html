@@ -19,6 +19,16 @@
         .teal-wrapper { backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); border-radius: 36px; padding: 24px; transition: all 0.4s ease; }
         @media (min-width: 768px) { .teal-wrapper { padding: 36px; } }
 
+        /* ================= HEADER GRADIENT ================= */
+        .main-header { background-size: 400% 400%; animation: gradientGIF 12s ease infinite; }
+        body.light-theme.theme-xanh-ios .main-header { background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d); border-bottom: 2px solid #032b5c; box-shadow: 0 4px 15px rgba(11, 74, 143, 0.15); }
+        body.light-theme.theme-do-hanhchinh .main-header { background: linear-gradient(-45deg, #da251d, #a81c15, #ff3b33, #7a120e); border-bottom: 2px solid #a81c15; box-shadow: 0 4px 15px rgba(218, 37, 29, 0.3); }
+        body.dark-theme .main-header { background: linear-gradient(-45deg, #020617, #0f172a, #082f49, #020617); border-bottom: 2px solid #082f49; box-shadow: 0 4px 15px rgba(8, 47, 73, 0.5); }
+        @keyframes gradientGIF { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        .logo-main { animation: float 4s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0); filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.2)); } 50% { transform: translateY(-3px); filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.3)); } }
+
         /* ================= THEME TỐI (DARK MODE) ================= */
         body.dark-theme { background-color: #082f49; color: #f0f9ff; }
         body.dark-theme .glass-panel { background: rgba(12, 74, 110, 0.65); border-color: rgba(56, 189, 248, 0.2); box-shadow: 0 20px 40px -15px rgba(8, 47, 73, 0.4); }
@@ -58,7 +68,7 @@
         }
 
         /* NÚT QUAY LẠI/HÀNH ĐỘNG ĐỘNG */
-        .btn-back { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; border-radius: 14px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; border: 1px solid; cursor: pointer; }
+        .btn-back { display: inline-flex; align-items: center; justify-content: center; gap: 8px; padding: 12px 24px; border-radius: 14px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; border: 1px solid; cursor: pointer; text-decoration: none; }
         
         body.dark-theme .btn-back { background: rgba(14, 165, 233, 0.1); border-color: rgba(14, 165, 233, 0.3); color: #e0f2fe; }
         body.dark-theme .btn-back:hover { background: rgba(14, 165, 233, 0.2); border-color: #38bdf8; transform: translateY(-2px); }
@@ -102,13 +112,29 @@
 </head>
 <body class="light-theme custom-scrollbar theme-xanh-ios" id="body-context">
 
+    <!-- HEADER MỚI BỔ SUNG -->
+    <header class="main-header w-full py-6 px-6 md:px-12 select-none relative transition-all duration-300">
+        <div class="max-w-[1550px] mx-auto flex flex-col items-center justify-center relative header-layout">
+            <div class="flex flex-row items-center space-x-6 w-auto">
+                <div class="flex-shrink-0">
+                    <img src="../logo.png" alt="Logo" class="logo-main w-20 h-auto" onerror="this.src='logo.png'">
+                </div>
+                <div class="flex flex-col items-start justify-center space-y-2 text-left">
+                    <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-['Montserrat']">IOC BINH HUNG</p>
+                    <h1 class="title-main text-sm md:text-base lg:text-lg font-bold uppercase tracking-[0.08em] text-white/90 leading-tight m-0 p-0 drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">Cổng thông tin và điều hành xã Bình Hưng, Thành phố Hồ Chí Minh</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+
     <div class="container-wrapper mt-8">
         <div class="teal-wrapper space-y-8">
             
             <!-- HEADER CONTROLS -->
             <div class="flex flex-col sm:flex-row justify-between items-center gap-4 flex-responsive">
                 <div class="flex flex-wrap gap-4">
-                    <button class="btn-back">⬅️ Quay lại</button>
+                    <!-- Đã sửa thành thẻ <a> có link hien-thi-ap-chungcu.html -->
+                    <a href="hien-thi-ap-chungcu.html" class="btn-back">⬅️ Quay lại</a>
                     <button onclick="location.reload()" class="btn-back">🔄 Tải lại trang</button>
                     <!-- Nút Xem tiến độ / Kết quả -->
                     <button onclick="toggleProgress()" id="btn-progress" class="btn-back">📊 Xem tiến độ / Kết quả</button>
