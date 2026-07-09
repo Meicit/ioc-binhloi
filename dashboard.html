@@ -25,13 +25,25 @@
         const app = initializeApp(firebaseConfig);
         const auth = getAuth(app);
 
+        // ================= ĐIỀU CHỈNH TẠI ĐÂY =================
         onAuthStateChanged(auth, (user) => {
-            if (!user) { window.location.href = "index.html"; }
+            if (!user) { 
+                // Đã comment (tắt) dòng dưới đây để không bị văng ra ngoài
+                // window.location.href = "index.html"; 
+                console.log("Đã bỏ qua yêu cầu đăng nhập, vào thẳng Dashboard.");
+            }
         });
 
+        // Điều chỉnh lại chức năng nút Đăng xuất / Trở về
         window.handleLogout = function() {
-            signOut(auth).then(() => { window.location.href = "index.html"; });
+            if (auth.currentUser) {
+                signOut(auth).then(() => { window.location.href = "index.html"; });
+            } else {
+                // Nếu chưa đăng nhập từ đầu, bấm nút này sẽ trở về trang chủ
+                window.location.href = "index.html";
+            }
         }
+        // ======================================================
     </script>
     <style>
         body { font-family: 'Montserrat', sans-serif; background-color: #f1f5f9; margin: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
@@ -121,7 +133,7 @@
                 <div class="hidden md:block text-right">
                     <div class="text-[10px] font-extrabold text-sky-100 uppercase mt-0.5 tracking-widest" id="current-time">--/--/2026</div>
                 </div>
-                <button id="btn-unlock" type="button" onclick="handleLogout()" class="px-5 py-2 rounded-lg text-[10px] uppercase tracking-widest shadow-md font-bold">🚪 Đăng xuất hệ thống</button>
+                <button id="btn-unlock" type="button" onclick="handleLogout()" class="px-5 py-2 rounded-lg text-[10px] uppercase tracking-widest shadow-md font-bold">🏠 Về trang chủ</button>
             </div>
         </div>
         
