@@ -68,7 +68,7 @@
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-3">
-                    <input type="text" id="trackingCodeInput" placeholder="Ví dụ: BH-2026-X8F9" class="flex-1 uppercase font-mono tracking-widest text-center sm:text-left bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 outline-none focus:border-blue-700 focus:bg-white focus:ring-4 focus:ring-blue-700/10 transition">
+                    <input type="text" id="trackingCodeInput" placeholder="Ví dụ: BH-2026-A1B2" class="flex-1 uppercase font-mono tracking-widest text-center sm:text-left bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 outline-none focus:border-blue-700 focus:bg-white focus:ring-4 focus:ring-blue-700/10 transition">
                     <button id="searchBtn" class="bg-blue-950 hover:bg-blue-900 text-white font-extrabold text-xs uppercase tracking-wider px-8 py-4 rounded-xl shadow-md transition flex-shrink-0">Kiểm tra hồ sơ</button>
                 </div>
 
@@ -114,7 +114,7 @@
     <script type="module">
         // 1. Import thư viện Firebase
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, query, orderByChild, equalTo, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+        import { getDatabase, ref, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
         // 2. Cấu hình Firebase
         const firebaseConfig = {
@@ -137,30 +137,28 @@
         const imgContainer = document.getElementById('imgContainer');
         const imageDisplay = document.getElementById('imageDisplay');
 
-        // Hàm ẩn/hiện lỗi
         function showError(message) {
             errorBox.textContent = message;
             errorBox.classList.remove('hidden');
             resultBox.classList.add('hidden');
         }
 
-        // Hàm format thời gian (từ ISO string sang DD/MM/YYYY HH:MM)
         function formatDateTime(isoString) {
             if (!isoString) return "--";
             const date = new Date(isoString);
             return date.toLocaleString('vi-VN', { hour: '2-digit', minute:'2-digit', day: '2-digit', month: '2-digit', year: 'numeric' });
         }
 
-        // 4. Hàm xử lý logic tìm kiếm
+        // 4. Hàm xử lý logic tìm kiếm (Đã được điều chỉnh chạy vòng lặp thủ công để chống lỗi Firebase)
         async function handleSearch() {
-            const code = trackingCodeInput.value.trim().toUpperCase(); // Bắt buộc viết hoa và xóa khoảng trắng
+            const code = trackingCodeInput.value.trim().toUpperCase(); 
             
             if (!code) {
-                showError("Vui lòng nhập mã tra cứu (VD: BH-2026-X8F9).");
+                showError("Vui lòng nhập mã tra cứu (VD: BH-2026-A1B2).");
                 return;
             }
 
-            // Hiệu ứng nút bấm khi đang tải
+            // Đổi giao diện nút khi đang tìm
             const originalBtnText = searchBtn.innerHTML;
             searchBtn.innerHTML = "ĐANG TÌM KIẾM... ⏳";
             searchBtn.disabled = true;
@@ -170,74 +168,84 @@
             resultBox.classList.add('hidden');
 
             try {
-                // Tạo câu truy vấn Firebase: Tìm thẻ con có thuộc tính 'ma_tra_cuu' bằng với giá trị người dùng nhập
+                // Lấy TOÀN BỘ dữ liệu nhánh phản ánh về (Thuật toán an toàn nhất)
                 const phanAnhRef = ref(db, 'dashboard_binhhung/phan_anh_nguoi_dan');
-                const searchQuery = query(phanAnhRef, orderByChild('ma_tra_cuu'), equalTo(code));
-                
-                const snapshot = await get(searchQuery);
+                const snapshot = await get(phanAnhRef);
 
                 if (snapshot.exists()) {
-                    // Vì snapshot trả về có thể là 1 list các node thỏa mãn, ta lấy phần tử đầu tiên
-                    const dataObj = snapshot.val();
-                    const recordKey = Object.keys(dataObj)[0];
-                    const record = dataObj[recordKey];
+                    let foundRecord = null;
 
-                    // --- BẮT ĐẦU ĐỔ DỮ LIỆU VÀO GIAO DIỆN ---
-                    nameDisplay.textContent = record.ho_ten || "Không rõ";
-                    timeDisplay.textContent = formatDateTime(record.thoi_gian_gui);
-                    contentDisplay.textContent = record.noi_dung || "--";
+                    // Lặp qua từng phản ánh để quét tìm mã trùng khớp
+                    snapshot.forEach((childSnapshot) => {
+                        const record = childSnapshot.val();
+                        if (record.ma_tra_cuu && record.ma_tra_cuu.trim().toUpperCase() === code) {
+                            foundRecord = record;
+                        }
+                    });
 
-                    // Cập nhật trạng thái và màu sắc tương ứng
-                    const status = record.trang_thai || "Chờ tiếp nhận";
-                    statusDisplay.textContent = status;
-                    statusDisplay.className = "px-3 py-1 rounded-lg uppercase tracking-wide text-[10px] text-white shadow-sm"; // Xóa class màu cũ
-                    
-                    if (status.includes("Chờ")) {
-                        statusDisplay.classList.add("bg-amber-500");
-                    } else if (status.includes("Đang")) {
-                        statusDisplay.classList.add("bg-blue-500");
+                    if (foundRecord) {
+                        // --- ĐỔ DỮ LIỆU VÀO GIAO DIỆN ---
+                        nameDisplay.textContent = foundRecord.ho_ten || "Không rõ";
+                        timeDisplay.textContent = formatDateTime(foundRecord.thoi_gian_gui);
+                        contentDisplay.textContent = foundRecord.noi_dung || "--";
+
+                        const status = foundRecord.trang_thai || "Chờ tiếp nhận";
+                        statusDisplay.textContent = status;
+                        statusDisplay.className = "px-3 py-1 rounded-lg uppercase tracking-wide text-[10px] text-white shadow-sm"; 
+                        
+                        // Đổi màu Badge theo trạng thái
+                        if (status.includes("Chờ")) {
+                            statusDisplay.classList.add("bg-amber-500");
+                        } else if (status.includes("Đang")) {
+                            statusDisplay.classList.add("bg-blue-500");
+                        } else {
+                            statusDisplay.classList.add("bg-emerald-500");
+                        }
+
+                        // Hiển thị phản hồi
+                        if (foundRecord.ket_qua_xu_ly && foundRecord.ket_qua_xu_ly.trim() !== "") {
+                            replyDisplay.textContent = foundRecord.ket_qua_xu_ly;
+                            replyDisplay.classList.remove("text-slate-500");
+                        } else {
+                            replyDisplay.textContent = "Hiện tại hồ sơ đang trong quá trình rà soát, kiểm tra hiện trường thực tế theo quy định. Kết quả xác minh sẽ được cập nhật sớm nhất.";
+                            replyDisplay.classList.add("text-slate-500");
+                        }
+
+                        // Hiển thị hình ảnh nếu có
+                        if (foundRecord.hinh_anh && foundRecord.hinh_anh.trim() !== "") {
+                            imageDisplay.src = foundRecord.hinh_anh;
+                            imgContainer.classList.remove('hidden');
+                        } else {
+                            imgContainer.classList.add('hidden');
+                            imageDisplay.src = "";
+                        }
+
+                        resultBox.classList.remove('hidden');
                     } else {
-                        statusDisplay.classList.add("bg-emerald-500");
+                        showError(`❌ Không tìm thấy hồ sơ cho mã: ${code}. Vui lòng kiểm tra lại!`);
                     }
-
-                    // Cập nhật phản hồi (Nếu chưa có, hiển thị tin nhắn chờ mặc định)
-                    if (record.ket_qua_xu_ly && record.ket_qua_xu_ly.trim() !== "") {
-                        replyDisplay.textContent = record.ket_qua_xu_ly;
-                        replyDisplay.classList.remove("text-slate-500");
-                    } else {
-                        replyDisplay.textContent = "Hiện tại hồ sơ đang trong quá trình rà soát, kiểm tra hiện trường thực tế theo quy định. Kết quả xác minh sẽ được cập nhật sớm nhất.";
-                        replyDisplay.classList.add("text-slate-500");
-                    }
-
-                    // Cập nhật hình ảnh (Nếu có thì hiện form ảnh)
-                    if (record.hinh_anh && record.hinh_anh.trim() !== "") {
-                        imageDisplay.src = record.hinh_anh;
-                        imgContainer.classList.remove('hidden');
-                    } else {
-                        imgContainer.classList.add('hidden');
-                        imageDisplay.src = "";
-                    }
-
-                    // Hiển thị khung kết quả
-                    resultBox.classList.remove('hidden');
                 } else {
-                    showError("❌ Không tìm thấy hồ sơ. Vui lòng kiểm tra lại mã tra cứu!");
+                    showError("❌ Hệ thống chưa có dữ liệu phản ánh nào.");
                 }
             } catch (error) {
-                console.error("Lỗi truy vấn:", error);
-                showError("Đã có lỗi xảy ra khi kết nối máy chủ. Vui lòng thử lại sau.");
+                console.error("Lỗi truy vấn Firebase:", error);
+                
+                // Bắt lỗi khi người dùng quên chưa bật Security Rules trên Firebase
+                if (error.message && error.message.includes("Permission denied")) {
+                    showError("⛔ Truy cập bị từ chối: Hãy vào Firebase -> Realtime Database -> Rules và đổi '.read': true");
+                } else {
+                    showError("Đã có lỗi xảy ra khi kết nối máy chủ. Vui lòng thử lại sau.");
+                }
             } finally {
-                // Trả lại trạng thái ban đầu cho nút bấm
                 searchBtn.innerHTML = originalBtnText;
                 searchBtn.disabled = false;
                 searchBtn.classList.remove('opacity-80', 'cursor-not-allowed');
             }
         }
 
-        // 5. Gắn sự kiện lắng nghe
+        // 5. Gắn sự kiện
         searchBtn.addEventListener('click', handleSearch);
 
-        // Lắng nghe sự kiện bấm phím Enter khi đang ở ô input
         trackingCodeInput.addEventListener('keypress', function (e) {
             if (e.key === 'Enter') {
                 handleSearch();
@@ -246,7 +254,6 @@
     </script>
     
     <script>
-        // JS điều khiển Theme Giao diện (Màu Xanh / Đỏ)
         window.switchSystemTheme = function(modeName) { 
             const body = document.getElementById('dynamic-body'); 
             const btnXanh = document.getElementById('btn-theme-xanh'); 
