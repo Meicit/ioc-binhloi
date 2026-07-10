@@ -64,11 +64,11 @@
             <div class="bg-white/90 backdrop-blur-xl border border-white rounded-3xl p-6 md:p-10 shadow-lg w-full">
                 <div class="border-b border-slate-200/60 pb-4 mb-6">
                     <h2 class="text-lg md:text-xl font-black text-slate-900 uppercase tracking-wide">Tra cứu kết quả giải quyết kiến nghị</h2>
-                    <p class="text-xs font-medium text-slate-500 mt-1">Nhập chính xác 8 ký tự mã tra cứu hệ thống đã cấp cho bạn khi nộp đơn thư.</p>
+                    <p class="text-xs font-medium text-slate-500 mt-1">Nhập chính xác mã tra cứu hệ thống đã cấp cho bạn khi nộp đơn thư (VD: BH-2026-XXXX).</p>
                 </div>
 
                 <div class="flex flex-col sm:flex-row gap-3">
-                    <input type="text" id="trackingCodeInput" placeholder="Ví dụ: R2P8K9XW" class="flex-1 uppercase font-mono tracking-widest text-center sm:text-left bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 outline-none focus:border-blue-700 focus:bg-white focus:ring-4 focus:ring-blue-700/10 transition">
+                    <input type="text" id="trackingCodeInput" placeholder="Ví dụ: BH-2026-X8F9" class="flex-1 uppercase font-mono tracking-widest text-center sm:text-left bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 outline-none focus:border-blue-700 focus:bg-white focus:ring-4 focus:ring-blue-700/10 transition">
                     <button id="searchBtn" class="bg-blue-950 hover:bg-blue-900 text-white font-extrabold text-xs uppercase tracking-wider px-8 py-4 rounded-xl shadow-md transition flex-shrink-0">Kiểm tra hồ sơ</button>
                 </div>
 
@@ -111,8 +111,142 @@
         &copy; 2026 IOC BINH HƯNG — BẢN QUYỀN THUỘC UBND XÃ BÌNH HƯNG
     </footer>
 
-    <script type="module" src="lookup.js"></script>
+    <script type="module">
+        // 1. Import thư viện Firebase
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getDatabase, ref, query, orderByChild, equalTo, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+        // 2. Cấu hình Firebase
+        const firebaseConfig = {
+            databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // 3. Khai báo các thành phần giao diện
+        const searchBtn = document.getElementById('searchBtn');
+        const trackingCodeInput = document.getElementById('trackingCodeInput');
+        const errorBox = document.getElementById('errorBox');
+        const resultBox = document.getElementById('resultBox');
+        
+        const statusDisplay = document.getElementById('statusDisplay');
+        const nameDisplay = document.getElementById('nameDisplay');
+        const timeDisplay = document.getElementById('timeDisplay');
+        const contentDisplay = document.getElementById('contentDisplay');
+        const replyDisplay = document.getElementById('replyDisplay');
+        const imgContainer = document.getElementById('imgContainer');
+        const imageDisplay = document.getElementById('imageDisplay');
+
+        // Hàm ẩn/hiện lỗi
+        function showError(message) {
+            errorBox.textContent = message;
+            errorBox.classList.remove('hidden');
+            resultBox.classList.add('hidden');
+        }
+
+        // Hàm format thời gian (từ ISO string sang DD/MM/YYYY HH:MM)
+        function formatDateTime(isoString) {
+            if (!isoString) return "--";
+            const date = new Date(isoString);
+            return date.toLocaleString('vi-VN', { hour: '2-digit', minute:'2-digit', day: '2-digit', month: '2-digit', year: 'numeric' });
+        }
+
+        // 4. Hàm xử lý logic tìm kiếm
+        async function handleSearch() {
+            const code = trackingCodeInput.value.trim().toUpperCase(); // Bắt buộc viết hoa và xóa khoảng trắng
+            
+            if (!code) {
+                showError("Vui lòng nhập mã tra cứu (VD: BH-2026-X8F9).");
+                return;
+            }
+
+            // Hiệu ứng nút bấm khi đang tải
+            const originalBtnText = searchBtn.innerHTML;
+            searchBtn.innerHTML = "ĐANG TÌM KIẾM... ⏳";
+            searchBtn.disabled = true;
+            searchBtn.classList.add('opacity-80', 'cursor-not-allowed');
+            
+            errorBox.classList.add('hidden');
+            resultBox.classList.add('hidden');
+
+            try {
+                // Tạo câu truy vấn Firebase: Tìm thẻ con có thuộc tính 'ma_tra_cuu' bằng với giá trị người dùng nhập
+                const phanAnhRef = ref(db, 'dashboard_binhhung/phan_anh_nguoi_dan');
+                const searchQuery = query(phanAnhRef, orderByChild('ma_tra_cuu'), equalTo(code));
+                
+                const snapshot = await get(searchQuery);
+
+                if (snapshot.exists()) {
+                    // Vì snapshot trả về có thể là 1 list các node thỏa mãn, ta lấy phần tử đầu tiên
+                    const dataObj = snapshot.val();
+                    const recordKey = Object.keys(dataObj)[0];
+                    const record = dataObj[recordKey];
+
+                    // --- BẮT ĐẦU ĐỔ DỮ LIỆU VÀO GIAO DIỆN ---
+                    nameDisplay.textContent = record.ho_ten || "Không rõ";
+                    timeDisplay.textContent = formatDateTime(record.thoi_gian_gui);
+                    contentDisplay.textContent = record.noi_dung || "--";
+
+                    // Cập nhật trạng thái và màu sắc tương ứng
+                    const status = record.trang_thai || "Chờ tiếp nhận";
+                    statusDisplay.textContent = status;
+                    statusDisplay.className = "px-3 py-1 rounded-lg uppercase tracking-wide text-[10px] text-white shadow-sm"; // Xóa class màu cũ
+                    
+                    if (status.includes("Chờ")) {
+                        statusDisplay.classList.add("bg-amber-500");
+                    } else if (status.includes("Đang")) {
+                        statusDisplay.classList.add("bg-blue-500");
+                    } else {
+                        statusDisplay.classList.add("bg-emerald-500");
+                    }
+
+                    // Cập nhật phản hồi (Nếu chưa có, hiển thị tin nhắn chờ mặc định)
+                    if (record.ket_qua_xu_ly && record.ket_qua_xu_ly.trim() !== "") {
+                        replyDisplay.textContent = record.ket_qua_xu_ly;
+                        replyDisplay.classList.remove("text-slate-500");
+                    } else {
+                        replyDisplay.textContent = "Hiện tại hồ sơ đang trong quá trình rà soát, kiểm tra hiện trường thực tế theo quy định. Kết quả xác minh sẽ được cập nhật sớm nhất.";
+                        replyDisplay.classList.add("text-slate-500");
+                    }
+
+                    // Cập nhật hình ảnh (Nếu có thì hiện form ảnh)
+                    if (record.hinh_anh && record.hinh_anh.trim() !== "") {
+                        imageDisplay.src = record.hinh_anh;
+                        imgContainer.classList.remove('hidden');
+                    } else {
+                        imgContainer.classList.add('hidden');
+                        imageDisplay.src = "";
+                    }
+
+                    // Hiển thị khung kết quả
+                    resultBox.classList.remove('hidden');
+                } else {
+                    showError("❌ Không tìm thấy hồ sơ. Vui lòng kiểm tra lại mã tra cứu!");
+                }
+            } catch (error) {
+                console.error("Lỗi truy vấn:", error);
+                showError("Đã có lỗi xảy ra khi kết nối máy chủ. Vui lòng thử lại sau.");
+            } finally {
+                // Trả lại trạng thái ban đầu cho nút bấm
+                searchBtn.innerHTML = originalBtnText;
+                searchBtn.disabled = false;
+                searchBtn.classList.remove('opacity-80', 'cursor-not-allowed');
+            }
+        }
+
+        // 5. Gắn sự kiện lắng nghe
+        searchBtn.addEventListener('click', handleSearch);
+
+        // Lắng nghe sự kiện bấm phím Enter khi đang ở ô input
+        trackingCodeInput.addEventListener('keypress', function (e) {
+            if (e.key === 'Enter') {
+                handleSearch();
+            }
+        });
+    </script>
+    
     <script>
+        // JS điều khiển Theme Giao diện (Màu Xanh / Đỏ)
         window.switchSystemTheme = function(modeName) { 
             const body = document.getElementById('dynamic-body'); 
             const btnXanh = document.getElementById('btn-theme-xanh'); 
