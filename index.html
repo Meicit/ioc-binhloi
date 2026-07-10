@@ -382,7 +382,6 @@
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        // Bổ sung thêm onAuthStateChanged vào dòng import
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
         const firebaseConfig = {
@@ -401,24 +400,15 @@
 
         // ================= LOGIC TỰ ĐỘNG BẬT MODAL (DEEP LINKING) =================
         onAuthStateChanged(auth, (user) => {
-            const targetUrl = localStorage.getItem('redirectTarget');
-            
             if (!user) {
-                // Nếu chưa đăng nhập và phát hiện có link chờ (bị đá từ trang con ra)
+                // Nếu chưa đăng nhập và phát hiện có link chờ
+                const targetUrl = localStorage.getItem('redirectTarget');
                 if (targetUrl) {
-                    // Tự động bật Modal đăng nhập
                     document.getElementById('loginModal').classList.add('open');
-                    // Tự động trỏ chuột vào ô nhập email cho tiện
                     setTimeout(() => document.getElementById('email').focus(), 300);
                 }
-            } else {
-                // Nếu đã đăng nhập (có lưu phiên bản Firebase) mà vào lại trang chủ
-                // Kiểm tra xem có đang muốn truy cập link nào không
-                if (targetUrl) {
-                    localStorage.removeItem('redirectTarget');
-                    window.location.href = targetUrl;
-                }
             }
+            // ĐÃ BỎ PHẦN XỬ LÝ CHUYỂN HƯỚNG Ở ĐÂY ĐỂ TRÁNH XUNG ĐỘT
         });
 
         // HÀM CHUYỂN ĐỔI THEME HEADER XANH / ĐỎ
@@ -469,7 +459,6 @@
         window.closeLoginModal = function() {
             document.getElementById('loginModal').classList.remove('open');
             document.getElementById('loginForm').reset();
-            // Nếu người dùng ấn "Hủy" đăng nhập, thì xóa luôn đường dẫn chờ
             localStorage.removeItem('redirectTarget');
         }
         
@@ -482,16 +471,14 @@
                 .then(() => {
                     closeLoginModal();
                     
-                    // Lấy lại đường dẫn đã lưu từ localStorage (nếu có)
+                    // Kiểm tra xem có đường dẫn chờ không
                     const targetUrl = localStorage.getItem('redirectTarget');
                     
                     if (targetUrl) {
-                        // BƯỚC NÀY SẼ CHUYỂN BẠN VÀO THẲNG TRANG THEO DÕI PHẢN ÁNH
                         localStorage.removeItem('redirectTarget');
-                        window.location.href = targetUrl;
+                        window.location.href = targetUrl; // Chuyển thẳng về link đang chờ
                     } else {
-                        // Nếu không có link chờ, vào trang Dashboard mặc định
-                        window.location.href = "dashboard.html";
+                        window.location.href = "dashboard.html"; // Mặc định vào dashboard
                     }
                 })
                 .catch(() => {
@@ -516,7 +503,6 @@
             "Nhớ quay lại IOC Binh Hung thường xuyên ạ"
         ];
 
-        // Lặp lại việc nói ngẫu nhiên mỗi 5 phút
         setInterval(() => {
             const randomPhrase = chatPhrases[Math.floor(Math.random() * chatPhrases.length)];
             const binBubble = document.querySelector('.chatbot-bin .chat-bubble');
