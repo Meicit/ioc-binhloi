@@ -459,7 +459,18 @@
             signInWithEmailAndPassword(auth, emailInp, passInp)
                 .then(() => {
                     closeLoginModal();
-                    window.location.href = "dashboard.html";
+                    
+                    // Lấy lại đường dẫn đã lưu từ localStorage (nếu có)
+                    const targetUrl = localStorage.getItem('redirectTarget');
+                    
+                    if (targetUrl) {
+                        // Nếu có link chờ (như link vào trang Theo dõi phản ánh), xóa khỏi bộ nhớ và chuyển thẳng tới link đó
+                        localStorage.removeItem('redirectTarget');
+                        window.location.href = targetUrl;
+                    } else {
+                        // Nếu không có link chờ, vào trang Dashboard mặc định
+                        window.location.href = "dashboard.html";
+                    }
                 })
                 .catch(() => {
                     alert("⚠️ Email quản trị hoặc mật mã mật khẩu điều hành không chính xác!");
@@ -501,7 +512,7 @@
                     hunBubble.classList.remove('show-bubble');
                 }, 5000);
             }
-        }, 120000); // 300,000 ms = 5 phút
+        }, 120000); // 120,000 ms = 2 phút
 
         // Khởi động trang với nền Sáng mặc định & Kích hoạt lời chào ban đầu
         document.addEventListener('DOMContentLoaded', () => {
