@@ -250,12 +250,15 @@
         
         <div class="menu-panel-wrapper">
             
+            <!-- Khu vực chứa các nút chọn Theme và Chế độ Sáng/Tối -->
             <div class="flex justify-end w-full mb-6 gap-3">
+                <!-- Bộ chọn Theme Xanh / Đỏ -->
                 <div id="theme-selector-horizontal" class="bg-white/10 dark:bg-sky-500/10 border border-white/20 dark:border-sky-500/20 p-1 rounded-xl flex items-center shadow-sm backdrop-blur transition-all duration-300">
                     <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all duration-300 bg-blue-600 text-white shadow-sm border border-blue-500">🔵 Xanh</button>
                     <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition-all duration-300 border border-transparent text-white/80 hover:text-white">🔴 Đỏ</button>
                 </div>
 
+                <!-- Bộ chọn Chế độ Sáng / Tối -->
                 <div class="bg-white/10 dark:bg-sky-500/10 border border-white/20 dark:border-sky-500/20 p-1 rounded-xl flex items-center shadow-sm backdrop-blur transition-all duration-300">
                     <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-sm border border-blue-200">☀️ Sáng</button>
                     <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white/70 hover:text-white dark:text-sky-200 dark:hover:text-white">🌙 Tối</button>
@@ -344,7 +347,8 @@
                         class="modal-input w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-900 outline-none transition focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-500/10">
                 </div>
                 <div class="grid grid-cols-2 gap-4 pt-4">
-                    <button type="button" onclick="closeLoginModal()" class="modal-btn-cancel w-full bg-slate-100 text-slate-600 py-3 rounded-xl font-semibold text-xs uppercase tracking-wider transition hover:bg-slate-200">Hủy</button>
+                    <!-- GỌI HÀM cancelLogin ĐỂ HỦY ĐĂNG NHẬP VÀ XÓA BỘ NHỚ -->
+                    <button type="button" onclick="cancelLogin()" class="modal-btn-cancel w-full bg-slate-100 text-slate-600 py-3 rounded-xl font-semibold text-xs uppercase tracking-wider transition hover:bg-slate-200">Hủy</button>
                     <button type="submit" class="w-full bg-gradient-to-r from-sky-600 to-sky-700 text-white py-3 rounded-xl font-semibold text-xs uppercase tracking-wider shadow-md shadow-sky-600/10 hover:opacity-95 transition">Xác nhận</button>
                 </div>
             </form>
@@ -380,7 +384,7 @@
         &copy; IOC BINH HƯNG — BẢN QUYỀN THUỘC UBND XÃ BÌNH HƯNG
     </footer>
 
-   <script type="module">
+    <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
@@ -408,7 +412,6 @@
                     setTimeout(() => document.getElementById('email').focus(), 300);
                 }
             }
-            // ĐÃ BỎ PHẦN XỬ LÝ CHUYỂN HƯỚNG Ở ĐÂY ĐỂ TRÁNH XUNG ĐỘT
         });
 
         // HÀM CHUYỂN ĐỔI THEME HEADER XANH / ĐỎ
@@ -447,7 +450,19 @@
             }
         }
 
-        // Modal Đăng Nhập
+        // Đóng Form đơn thuần
+        window.closeLoginModal = function() {
+            document.getElementById('loginModal').classList.remove('open');
+            document.getElementById('loginForm').reset();
+        }
+
+        // Hủy Đăng nhập do người dùng bấm
+        window.cancelLogin = function() {
+            closeLoginModal();
+            // Nếu người dùng hủy thì xóa link đi để lần sau không hiện lại
+            localStorage.removeItem('redirectTarget');
+        }
+        
         window.openLoginModal = function() {
             if (auth.currentUser) {
                 window.location.href = "dashboard.html";
@@ -455,11 +470,6 @@
                 document.getElementById('loginModal').classList.add('open');
                 document.getElementById('email').focus();
             }
-        }
-        window.closeLoginModal = function() {
-            document.getElementById('loginModal').classList.remove('open');
-            document.getElementById('loginForm').reset();
-            localStorage.removeItem('redirectTarget');
         }
         
         window.submitAuth = function(e) {
@@ -469,10 +479,10 @@
 
             signInWithEmailAndPassword(auth, emailInp, passInp)
                 .then(() => {
-                    closeLoginModal();
-                    
-                    // Kiểm tra xem có đường dẫn chờ không
+                    // Lấy link TRƯỚC KHI xử lý cái khác
                     const targetUrl = localStorage.getItem('redirectTarget');
+                    
+                    closeLoginModal();
                     
                     if (targetUrl) {
                         localStorage.removeItem('redirectTarget');
