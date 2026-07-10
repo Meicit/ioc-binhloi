@@ -52,19 +52,25 @@ document.getElementById('complaintForm').addEventListener('submit', async (e) =>
     const fullname = document.getElementById('fullname').value.trim();
     const cccd = document.getElementById('cccd').value.trim();
     const email = document.getElementById('email').value.trim();
-    
-    // 2 TRƯỜNG DỮ LIỆU MỚI THÊM
     const address = document.getElementById('address').value.trim();
+    const phone = document.getElementById('phone').value.trim(); // TRƯỜNG SỐ ĐIỆN THOẠI MỚI
     const receiveMethod = document.getElementById('receiveMethod').value.trim();
-    
     const content = document.getElementById('content').value.trim();
     const imageFile = document.getElementById('imageFile').files[0];
 
-    // Kiểm tra CCCD
+    // Kiểm tra tính hợp lệ CCCD
     const cccdRegex = /^\d{12}$/;
     if (!cccdRegex.test(cccd)) {
         alert("⚠️ Số Căn cước công dân không hợp lệ! Vui lòng nhập đúng và đủ 12 chữ số.");
         document.getElementById('cccd').focus();
+        return;
+    }
+    
+    // Kiểm tra tính hợp lệ Số điện thoại (Bắt đầu bằng số 0, dài 10 số)
+    const phoneRegex = /^(0[3|5|7|8|9])+([0-9]{8})$/;
+    if (!phoneRegex.test(phone)) {
+        alert("⚠️ Số điện thoại không hợp lệ! Vui lòng kiểm tra lại (VD: 0912345678).");
+        document.getElementById('phone').focus();
         return;
     }
 
@@ -89,14 +95,18 @@ document.getElementById('complaintForm').addEventListener('submit', async (e) =>
             fullname: fullname,
             cccd: cccd,
             email: email,
+            phone: phone,                   // Lưu Số điện thoại
             address: address,               // Lưu Địa chỉ liên hệ
             receiveMethod: receiveMethod,   // Lưu Hình thức nhận kết quả
             content: content,
-            imageUrl: finalImageData,       // Lưu chuỗi văn bản ảnh đã nén thẳng vào Firestore
+            imageUrl: finalImageData,
             status: "Đang tiếp nhận",
             replyContent: "",
             createdAt: new Date().toISOString()
         };
+
+        // In ra console để kiểm tra chắc chắn dữ liệu đã lấy đúng trước khi gửi
+        console.log("Chuẩn bị gửi dữ liệu:", complaintData);
 
         // Ghi dữ liệu vào Firestore
         await addDoc(collection(db, "complaints"), complaintData);
