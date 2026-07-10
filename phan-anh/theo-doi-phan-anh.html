@@ -106,9 +106,9 @@
         <div class="filter-panel flex flex-wrap items-center justify-between gap-4 p-4">
             <div class="flex items-center gap-2 overflow-x-auto custom-scrollbar pb-2 md:pb-0">
                 <button onclick="filterStatus('Tất cả')" class="filter-btn active">📊 Tất cả (<span id="count-all">0</span>)</button>
-                <button onclick="filterStatus('Chờ tiếp nhận')" class="filter-btn">📥 Chờ tiếp nhận (<span id="count-pending">0</span>)</button>
+                <button onclick="filterStatus('Đang tiếp nhận')" class="filter-btn">📥 Tiếp nhận (<span id="count-pending">0</span>)</button>
                 <button onclick="filterStatus('Đang xử lý')" class="filter-btn">⚙️ Đang xử lý (<span id="count-processing">0</span>)</button>
-                <button onclick="filterStatus('Đã giải quyết')" class="filter-btn">✓ Đã giải quyết (<span id="count-done">0</span>)</button>
+                <button onclick="filterStatus('Đã hoàn thành')" class="filter-btn">✓ Hoàn thành (<span id="count-done">0</span>)</button>
             </div>
             <span class="text-[11px] font-black text-rose-500 uppercase tracking-wider bg-rose-50 dark:bg-rose-900/30 px-3 py-1.5 rounded-lg border border-rose-200 dark:border-rose-800">SLA Khẩn cấp: 24 GIỜ ⏱️</span>
         </div>
@@ -119,7 +119,7 @@
                     <thead>
                         <tr class="border-b border-slate-200 text-slate-400 font-bold text-[11px] uppercase tracking-wider bg-slate-50/70">
                             <th class="py-3 px-4 w-[100px]">Mã Đơn</th>
-                            <th class="py-3 px-4 w-[250px]">Thông Tin Công Dân & Nhận KQ</th>
+                            <th class="py-3 px-4 w-[180px]">Thông Tin Dân</th>
                             <th class="py-3 px-4">Nội Dung Kiến Nghị</th>
                             <th class="py-3 px-4 w-[180px] text-center">⏱️ Hạn Xử Lý (24h)</th>
                             <th class="py-3 px-4 w-[140px] text-center">Trạng Thái</th>
@@ -127,7 +127,7 @@
                         </tr>
                     </thead>
                     <tbody id="adminTableBody" class="text-xs font-semibold text-slate-800 divide-y divide-slate-100 dark:divide-slate-700/50">
-                        <tr id="loadingRow"><td colspan="6" class="text-center py-10 text-slate-400 font-bold uppercase tracking-widest animate-pulse">Đang kết nối liên thông dữ liệu Hệ thống...</td></tr>
+                        <tr id="loadingRow"><td colspan="6" class="text-center py-10 text-slate-400 font-bold uppercase tracking-widest animate-pulse">Đang kết nối liên thông dữ liệu Firestore...</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -139,33 +139,19 @@
     </footer>
 
     <script type="module">
-        // 1. IMPORT TỪ REALTIME DATABASE THAY VÌ FIRESTORE
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getDatabase, ref, onValue, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
-
-        // 2. KHỞI TẠO FIREBASE VỚI CẤU HÌNH CỦA BẠN
-        const firebaseConfig = {
-            databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app"
-        };
-        const app = initializeApp(firebaseConfig);
-        const db = getDatabase(app);
+        import { db } from "./firebase-config.js";
+        import { collection, onSnapshot, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
         let allComplaints = [];
         let currentFilter = "Tất cả";
         const SLA_HOURS = 24;
 
-        // 3. LẤY DỮ LIỆU THỜI GIAN THỰC TỪ REALTIME DATABASE
-        const complaintsRef = ref(db, 'dashboard_binhhung/phan_anh_nguoi_dan');
-        onValue(complaintsRef, (snapshot) => {
+        onSnapshot(collection(db, "complaints"), (snapshot) => {
             allComplaints = [];
-            snapshot.forEach((childSnapshot) => {
-                // Đẩy key của node vào id để tiện cho việc update
-                allComplaints.push({ id: childSnapshot.key, ...childSnapshot.val() });
+            snapshot.forEach((doc) => {
+                allComplaints.push({ id: doc.id, ...doc.data() });
             });
-
-            // Sắp xếp mới nhất lên đầu dựa vào trường thoi_gian_gui
-            allComplaints.sort((a, b) => new Date(b.thoi_gian_gui) - new Date(a.thoi_gian_gui));
-            
+            allComplaints.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
             updateMetricsCounters();
             renderTable();
         }, (error) => {
@@ -173,20 +159,18 @@
             document.getElementById('adminTableBody').innerHTML = `<tr><td colspan="6" class="text-center py-10 text-rose-500 font-bold uppercase tracking-widest">Lỗi kết nối cơ sở dữ liệu.</td></tr>`;
         });
 
-        // 4. CẬP NHẬT CÁC BỘ ĐẾM SỐ LƯỢNG
         function updateMetricsCounters() {
             document.getElementById('count-all').innerText = allComplaints.length;
-            document.getElementById('count-pending').innerText = allComplaints.filter(c => c.trang_thai === "Chờ tiếp nhận").length;
-            document.getElementById('count-processing').innerText = allComplaints.filter(c => c.trang_thai === "Đang xử lý").length;
-            document.getElementById('count-done').innerText = allComplaints.filter(c => c.trang_thai === "Đã giải quyết").length;
+            document.getElementById('count-pending').innerText = allComplaints.filter(c => c.status === "Đang tiếp nhận").length;
+            document.getElementById('count-processing').innerText = allComplaints.filter(c => c.status === "Đang xử lý").length;
+            document.getElementById('count-done').innerText = allComplaints.filter(c => c.status === "Đã hoàn thành").length;
         }
 
-        // 5. RENDER BẢNG
         window.renderTable = function() {
             const tbody = document.getElementById('adminTableBody');
             tbody.innerHTML = "";
 
-            const filteredData = allComplaints.filter(c => currentFilter === "Tất cả" || c.trang_thai === currentFilter);
+            const filteredData = allComplaints.filter(c => currentFilter === "Tất cả" || c.status === currentFilter);
 
             if (filteredData.length === 0) {
                 tbody.innerHTML = `<tr><td colspan="6" class="text-center py-10 text-slate-400 font-bold uppercase">Không tìm thấy bản ghi phản ánh nào thuộc diện này.</td></tr>`;
@@ -197,60 +181,33 @@
                 const tr = document.createElement('tr');
                 tr.className = "hover:bg-slate-50/80 transition-colors";
                 
-                // Set màu badge Trạng thái
-                let statusClass = "bg-amber-500 text-amber-950"; // Chờ tiếp nhận
-                if (item.trang_thai === "Đang xử lý") statusClass = "bg-blue-600 text-white";
-                if (item.trang_thai === "Đã giải quyết") statusClass = "bg-emerald-600 text-white";
+                let statusClass = "bg-blue-600";
+                if (item.status === "Đang xử lý") statusClass = "bg-amber-500 text-amber-950";
+                if (item.status === "Đã hoàn thành") statusClass = "bg-emerald-600";
 
-                // Xử lý Huy hiệu Hình thức nhận kết quả
-                let receiveMethodText = "Tra cứu trực tiếp";
-                let receiveMethodColor = "bg-slate-100 text-slate-600 border border-slate-200 dark:bg-slate-800 dark:text-slate-300 dark:border-slate-700";
-                
-                if (item.hinh_thuc_nhan === 'email') {
-                    receiveMethodText = "Gửi qua Email";
-                    receiveMethodColor = "bg-indigo-50 text-indigo-600 border border-indigo-200 dark:bg-indigo-900/40 dark:text-indigo-300 dark:border-indigo-800";
-                }
-
-                // Render giao diện từng dòng
                 tr.innerHTML = `
-                    <td class="py-4 px-4 font-mono font-black text-blue-600 dark:text-sky-400 tracking-wider align-top">${item.ma_tra_cuu || '---'}</td>
-                    
-                    <td class="py-4 px-4 space-y-1.5 align-top">
-                        <p class="font-bold text-[13px] text-blue-900 dark:text-sky-200">${item.ho_ten || 'Không rõ'}</p>
-                        <div class="grid grid-cols-2 gap-x-2 gap-y-1 text-[10px] text-slate-500 dark:text-slate-400">
-                            <p><span class="opacity-70">CCCD:</span> <span class="font-bold text-slate-700 dark:text-slate-300">${item.cccd || '---'}</span></p>
-                            <p><span class="opacity-70">SĐT:</span> <span class="font-bold text-slate-700 dark:text-slate-300">${item.sdt || '---'}</span></p>
-                        </div>
-                        <p class="text-[10px] text-slate-500 dark:text-slate-400 truncate" title="${item.email || '---'}">
-                            📧 ${item.email || '---'}
-                        </p>
-                        ${item.dia_chi ? `<p class="text-[10px] text-slate-500 dark:text-slate-400 leading-snug break-words">📍 ${item.dia_chi}</p>` : ''}
-                        <div class="pt-1">
-                            <span class="inline-block px-2 py-0.5 rounded text-[9px] font-black uppercase tracking-wider ${receiveMethodColor}">
-                                📬 ${receiveMethodText}
-                            </span>
-                        </div>
+                    <td class="py-4 px-4 font-mono font-black text-blue-600 dark:text-sky-400 tracking-wider">${item.trackingCode}</td>
+                    <td class="py-4 px-4 space-y-1">
+                        <p class="font-bold text-xs">${item.fullname}</p>
+                        <p class="text-[10px] text-slate-400 font-medium">CCCD: ${item.cccd}</p>
+                        <p class="text-[10px] text-slate-400 font-medium break-all">${item.email}</p>
                     </td>
-
-                    <td class="py-4 px-4 pr-6 align-top">
-                        <p class="text-slate-500 text-[10px] font-medium mb-1">Gửi lúc: ${item.thoi_gian_gui ? new Date(item.thoi_gian_gui).toLocaleString('vi-VN') : '---'}</p>
-                        <p class="text-xs font-semibold text-justify leading-relaxed">${item.noi_dung || ''}</p>
-                        ${item.hinh_anh ? `<button onclick="viewBase64Image('${item.hinh_anh}')" class="mt-2 text-[10px] text-sky-600 dark:text-sky-300 bg-sky-50 dark:bg-sky-900/30 px-2 py-0.5 rounded font-bold uppercase hover:underline border border-sky-100 dark:border-sky-800">👁 Xem ảnh hiện trường</button>` : ''}
+                    <td class="py-4 px-4 pr-6">
+                        <p class="text-slate-500 text-[10px] font-medium mb-1">Gửi lúc: ${new Date(item.createdAt).toLocaleString('vi-VN')}</p>
+                        <p class="text-xs font-semibold text-justify leading-relaxed">${item.content}</p>
+                        ${item.imageUrl ? `<button onclick="viewBase64Image('${item.imageUrl}')" class="mt-2 text-[10px] text-sky-600 dark:text-sky-300 bg-sky-50 dark:bg-sky-900/30 px-2 py-0.5 rounded font-bold uppercase hover:underline border border-sky-100 dark:border-sky-800">👁 Xem ảnh hiện trường</button>` : ''}
                     </td>
-                    
-                    <td class="py-4 px-4 text-center font-mono font-bold align-top" id="countdown-${item.id}">
+                    <td class="py-4 px-4 text-center font-mono font-bold" id="countdown-${item.id}">
                         --:--:--
                     </td>
-                    
-                    <td class="py-4 px-4 text-center align-top">
-                        <span class="px-2.5 py-1.5 rounded-md text-[10px] font-black uppercase shadow-sm ${statusClass}">${item.trang_thai || 'Chờ tiếp nhận'}</span>
+                    <td class="py-4 px-4 text-center">
+                        <span class="px-2.5 py-1.5 rounded-md text-[10px] font-black uppercase text-white shadow-sm ${statusClass}">${item.status}</span>
                     </td>
-                    
-                    <td class="py-4 px-4 space-y-2 align-top">
-                        <textarea id="replyInp-${item.id}" rows="2" placeholder="Nhập chỉ đạo hoặc ý kiến phản hồi công khai..." class="w-full bg-white border border-slate-200 rounded-lg p-2 text-[11px] font-medium outline-none focus:border-sky-500 transition">${item.ket_qua_xu_ly || ''}</textarea>
+                    <td class="py-4 px-4 space-y-2">
+                        <textarea id="replyInp-${item.id}" rows="2" placeholder="Nhập chỉ đạo hoặc ý kiến phản hồi công khai..." class="w-full bg-white border border-slate-200 rounded-lg p-2 text-[11px] font-medium outline-none focus:border-sky-500 transition">${item.replyContent || ''}</textarea>
                         <div class="flex gap-1.5 justify-end">
-                            <button onclick="updateComplaint('${item.id}', 'Đang xử lý')" class="bg-blue-600 hover:bg-blue-700 text-white font-bold text-[10px] uppercase px-2 py-1.5 rounded shadow-sm transition">Xử lý ⚙️</button>
-                            <button onclick="updateComplaint('${item.id}', 'Đã giải quyết')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[10px] uppercase px-2 py-1.5 rounded shadow-sm transition">Duyệt xong ✓</button>
+                            <button onclick="updateComplaint('${item.id}', 'Đang xử lý')" class="bg-amber-500 hover:bg-amber-600 text-white font-bold text-[10px] uppercase px-2 py-1.5 rounded shadow-sm transition">Xử lý ⚙️</button>
+                            <button onclick="updateComplaint('${item.id}', 'Đã hoàn thành')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[10px] uppercase px-2 py-1.5 rounded shadow-sm transition">Duyệt xong ✓</button>
                         </div>
                     </td>
                 `;
@@ -259,25 +216,18 @@
             restartSlaTimer();
         }
 
-        // 6. HÀM CẬP NHẬT DỮ LIỆU LÊN FIREBASE
         window.updateComplaint = async function(id, nextStatus) {
             const replyText = document.getElementById(`replyInp-${id}`).value.trim();
             try {
-                // Trỏ đúng tới ID của node cần update
-                const docRef = ref(db, `dashboard_binhhung/phan_anh_nguoi_dan/${id}`);
-                // Cập nhật trường trạng thái và kết quả xử lý
-                await update(docRef, { 
-                    trang_thai: nextStatus, 
-                    ket_qua_xu_ly: replyText 
-                });
+                const docRef = doc(db, "complaints", id);
+                await updateDoc(docRef, { status: nextStatus, replyContent: replyText });
                 alert("🏛️ Cập nhật tiến độ xử lý và phản hồi thành công!");
             } catch (err) {
                 console.error("Lỗi điều phối hồ sơ:", err);
-                alert("❌ Thao tác thất bại. Vui lòng kiểm tra quyền truy cập.");
+                alert("❌ Thao tác thất bại. Lỗi phân quyền quản trị viên.");
             }
         }
 
-        // HÀM LỌC TRẠNG THÁI
         window.filterStatus = function(statusName) {
             currentFilter = statusName;
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
@@ -285,13 +235,11 @@
             renderTable();
         }
 
-        // HÀM XEM ẢNH BASE64
         window.viewBase64Image = function(base64Str) {
             const newTab = window.open();
             newTab.document.write(`<body style="margin:0; background:#0f172a; display:flex; justify-content:center; align-items:center;"><img src="${base64Str}" style="max-width:100%; max-height:100vh; object-contain:scale-down; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.5);" /></body>`);
         }
 
-        // HÀM TÍNH THỜI GIAN SLA
         let slaIntervalId = null;
         function restartSlaTimer() {
             if (slaIntervalId) clearInterval(slaIntervalId);
@@ -299,18 +247,11 @@
                 allComplaints.forEach(item => {
                     const el = document.getElementById(`countdown-${item.id}`);
                     if (!el) return;
-                    
-                    if (item.trang_thai === "Đã giải quyết") {
+                    if (item.status === "Đã hoàn thành") {
                         el.innerHTML = `<span class="text-emerald-600 dark:text-emerald-400 font-extrabold uppercase text-[10px] bg-emerald-50 dark:bg-emerald-900/30 px-2 py-1.5 rounded-lg border border-emerald-200 dark:border-emerald-800">Đã giải quyết</span>`;
                         return;
                     }
-
-                    if (!item.thoi_gian_gui) {
-                        el.innerHTML = "--:--:--";
-                        return;
-                    }
-
-                    const createdTime = new Date(item.thoi_gian_gui).getTime();
+                    const createdTime = new Date(item.createdAt).getTime();
                     const expireTime = createdTime + (SLA_HOURS * 60 * 60 * 1000); 
                     const currentTime = new Date().getTime();
                     const timeLeft = expireTime - currentTime;
@@ -338,7 +279,7 @@
             slaIntervalId = setInterval(updateAllSlaDisplays, 1000);
         }
 
-        // ================= LOGIC THEME =================
+        // ================= LOGIC THEME TỪ GIOITHIEU.HTML =================
         window.switchSystemTheme = function(modeName) {
             const body = document.getElementById('body-context');
             const btnXanh = document.getElementById('btn-theme-xanh');
