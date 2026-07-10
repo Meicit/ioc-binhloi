@@ -3,291 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gửi Phản Ánh - Tích hợp Firestore</title>
+    <title>Gửi Phản Ánh - Xã Bình Hưng</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800;900&family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700;800&family=Montserrat:wght@800;900&display=swap" rel="stylesheet">
     <style>
-        /* CSS Ghi đè bóng đổ và Theme (Giữ nguyên như cũ) */
-        .shadow-sm { box-shadow: 0 1px 2px 0 rgba(8, 47, 73, 0.1); }
-        .shadow-md { box-shadow: 0 4px 6px -1px rgba(8, 47, 73, 0.15), 0 2px 4px -2px rgba(8, 47, 73, 0.1); }
-        body { font-family: 'Montserrat', sans-serif; margin: 0; padding: 0; min-height: 100vh; display: flex; flex-direction: column; transition: background-color 0.3s ease, color 0.3s ease; }
-        .container-wrapper { max-width: 1550px; margin: 0 auto 30px auto; padding: 0 24px; width: 100%; display: flex; flex-direction: column; flex-grow: 1; }
-        .glass-panel { backdrop-filter: blur(16px); border: 1px solid; border-radius: 24px; transition: all 0.3s; }
-        .teal-wrapper { backdrop-filter: blur(20px); border-radius: 36px; padding: 24px; transition: all 0.4s ease; display: flex; flex-direction: column; flex-grow: 1; }
-        @media (min-width: 768px) { .teal-wrapper { padding: 36px; } }
-
-        /* THEME TỐI */
-        body.dark-theme { background-color: #082f49; color: #f0f9ff; }
-        body.dark-theme .glass-panel { background: rgba(12, 74, 110, 0.65); border-color: rgba(56, 189, 248, 0.2); }
-        body.dark-theme .teal-wrapper { background-color: rgba(14, 165, 233, 0.08); border: 1px solid rgba(14, 165, 233, 0.3); }
-        body.dark-theme .bg-widget-card { background-color: rgba(15, 23, 42, 0.6); border-color: rgba(56, 189, 248, 0.2); }
-        body.dark-theme .bg-widget-inner { background-color: rgba(15, 23, 42, 0.8); border-color: rgba(56, 189, 248, 0.15); }
-        body.dark-theme .control-theme-color { display: none !important; } 
-        body.dark-theme .text-main-title { color: #60a5fa !important; }
-
-        /* THEME SÁNG */
-        body.light-theme { background-color: #f0f4f8; color: #1e3a8a; }
-        body.light-theme .glass-panel { background: rgba(255, 255, 255, 0.95); }
-        body.light-theme .bg-widget-card { background-color: #ffffff; }
-        body.light-theme .bg-widget-inner { background-color: #ffffff; }
-
-        /* SÁNG + XANH */
-        body.light-theme.theme-xanh-ios .glass-panel { border-color: rgba(12, 74, 142, 0.2); }
-        body.light-theme.theme-xanh-ios .bg-widget-card { border-color: rgba(12, 74, 142, 0.15); }
-        body.light-theme.theme-xanh-ios .bg-widget-inner { border-color: rgba(12, 74, 142, 0.08); }
-        body.light-theme.theme-xanh-ios .text-main-title { color: #0c4a8e !important; }
-        body.light-theme.theme-xanh-ios .teal-wrapper { background-color: rgba(12, 74, 142, 0.85); border: 1px solid rgba(255, 255, 255, 0.25); }
-
-        /* SÁNG + ĐỎ */
-        body.light-theme.theme-do-hanhchinh .glass-panel { border-color: rgba(252, 165, 165, 0.8); }
-        body.light-theme.theme-do-hanhchinh .bg-widget-card { border-color: rgba(218, 37, 29, 0.2); }
-        body.light-theme.theme-do-hanhchinh .bg-widget-inner { border-color: rgba(218, 37, 29, 0.1); }
-        body.light-theme.theme-do-hanhchinh .text-main-title { color: #da251d !important; }
-        body.light-theme.theme-do-hanhchinh .teal-wrapper { background-color: #da251d; border: 1px solid rgba(255, 255, 255, 0.8); }
-
-        /* HEADER */
-        body.light-theme.theme-xanh-ios .main-header { background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d); background-size: 400% 400%; animation: gradientGIF 12s ease infinite; border-bottom: 2px solid #032b5c; }
-        body.light-theme.theme-do-hanhchinh .main-header { background: linear-gradient(-45deg, #da251d, #a81c15, #ff3b33, #7a120e); background-size: 400% 400%; animation: gradientGIF 12s ease infinite; border-bottom: 2px solid #a81c15; }
-        body.dark-theme .main-header { background: linear-gradient(-45deg, #020617, #0f172a, #082f49, #020617); background-size: 400% 400%; animation: gradientGIF 12s ease infinite; border-bottom: 2px solid #082f49; }
+        body { font-family: 'Inter', 'Be Vietnam Pro', sans-serif; margin: 0; padding: 0; min-height: 100vh; background-color: #f8fafc; color: #0f172a; display: flex; flex-direction: column; transition: background 0.4s ease; }
+        body.theme-xanh-ios .main-header { background: linear-gradient(-45deg, #0b4a8f, #05234a, #0d5cb3, #02142d); background-size: 400% 400%; animation: gradientGIF 12s ease infinite; box-shadow: 0 4px 15px rgba(11, 74, 143, 0.15); border-bottom: 2px solid #032b5c; }
+        body.theme-do-hanhchinh .main-header { background: linear-gradient(-45deg, #dc2626, #7f1d1d, #ef4444, #450a0a); background-size: 400% 400%; animation: gradientGIF 12s ease infinite; border-bottom: 2px solid #991b1b; }
         @keyframes gradientGIF { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
-        .logo-main { animation: float 4s ease-in-out infinite; }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-3px); } }
-
-        /* CONTROLS */
-        .btn-back { display: inline-flex; align-items: center; gap: 8px; padding: 12px 24px; border-radius: 14px; font-weight: 800; font-size: 12px; text-transform: uppercase; transition: all 0.3s ease; border: 1px solid; }
-        body.dark-theme .btn-back { background: rgba(14, 165, 233, 0.1); border-color: rgba(14, 165, 233, 0.3); color: #e0f2fe; }
-        body.light-theme.theme-xanh-ios .btn-back { background: #ffffff; border-color: rgba(255, 255, 255, 0.8); color: #0c4a8e; }
-        body.light-theme.theme-do-hanhchinh .btn-back { background: #ffffff; border-color: #fca5a5; color: #da251d; }
-        .controls-wrapper { display: flex; gap: 12px; align-items: center; }
-        .control-panel { border: 1px solid; padding: 4px; border-radius: 12px; display: flex; align-items: center; }
-        body.dark-theme .control-panel { background: rgba(15, 23, 42, 0.5); border-color: rgba(56, 189, 248, 0.2); }
-        body.light-theme.theme-xanh-ios .control-panel { background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.2); }
-        body.light-theme.theme-do-hanhchinh .control-panel { background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.4); }
-        body.light-theme.theme-xanh-ios .control-panel button.text-blue-900 { color: #0c4a8e !important; }
-        body.light-theme.theme-xanh-ios .control-panel button.text-blue-800 { color: #ffffff !important; opacity: 0.8; }
+        .menu-panel-wrapper { background-color: rgba(128, 255, 232, 0.45); backdrop-filter: blur(20px); border: 1px solid rgba(255, 255, 255, 0.6); border-radius: 40px; box-shadow: 0 20px 50px -10px rgba(12, 74, 110, 0.15); }
     </style>
 </head>
-<body class="light-theme custom-scrollbar theme-xanh-ios" id="body-context">
+<body class="theme-xanh-ios" id="dynamic-body">
 
     <header class="main-header w-full py-6 px-6 md:px-12 select-none relative transition-all duration-300">
-        <div class="max-w-[1550px] mx-auto flex flex-col items-center justify-center relative header-layout">
+        <div class="max-w-[1550px] mx-auto flex flex-col md:flex-row items-center justify-between relative header-layout">
             <div class="flex flex-row items-center space-x-6 w-auto">
-                <div class="flex-shrink-0">
-                    <img src="../logo.png" alt="Logo" class="logo-main w-20 h-auto" onerror="this.src='logo.png'">
-                </div>
+                <div class="flex-shrink-0"><img src="../logo.png" alt="Logo" class="w-20 h-auto"></div>
                 <div class="flex flex-col items-start justify-center space-y-2 text-left">
-                    <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none m-0 p-0 drop-shadow-md font-['Montserrat']">
-                        IOC BINH HUNG
-                    </p>
-                    <h1 class="title-main text-sm md:text-base lg:text-lg font-bold uppercase tracking-[0.08em] text-white/90 leading-tight m-0 p-0 drop-shadow-md">
-                        Cổng thông tin và điều hành xã Bình Hưng, Thành phố Hồ Chí Minh
-                    </h1>
+                    <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none drop-shadow-[0_2px_4px_rgba(0,0,0,0.3)] font-['Montserrat']">IOC BINH HUNG</p>
+                    <h1 class="title-main text-sm md:text-base lg:text-lg font-bold uppercase tracking-[0.08em] text-white/90 leading-tight drop-shadow-[0_2px_4px_rgba(0,0,0,0.2)]">Cổng thông tin và điều hành xã Bình Hưng</h1>
                 </div>
             </div>
         </div>
     </header>
 
-    <div class="container-wrapper mt-8">
-        <div class="teal-wrapper space-y-8">
-            <div class="flex flex-col sm:flex-row justify-between items-center gap-4 z-10">
-                <div class="flex flex-wrap items-center gap-3 w-full sm:w-auto">
-                    <a href="dieu-phoi.html" class="btn-back">⬅️ Quay lại</a>
-                    <a href="lookup.html" class="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl text-xs font-black uppercase tracking-wider transition-all duration-300 shadow-md bg-blue-600 text-white hover:bg-blue-700 hover:-translate-y-0.5 border border-transparent">
-                        🔍 Tra cứu tiến độ
-                    </a>
-                </div>
-                
-                <div class="controls-wrapper">
-                    <div class="control-panel">
-                        <button onclick="setTheme('light')" id="btn-theme-light" class="flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-sm border border-transparent">Sáng</button>
-                        <button onclick="setTheme('dark')" id="btn-theme-dark" class="flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition text-blue-800 hover:text-white border border-transparent">Tối</button>
-                    </div>
-
-                    <div class="control-panel control-theme-color">
-                        <button onclick="switchSystemTheme('xanh')" id="btn-theme-xanh" class="flex items-center gap-1.5 text-[11px] uppercase px-3 py-1.5 rounded-lg transition border border-transparent">🔵 Xanh</button>
-                        <button onclick="switchSystemTheme('do')" id="btn-theme-do" class="flex items-center gap-1.5 text-[11px] uppercase px-3 py-1.5 rounded-lg transition border border-transparent">🔴 Đỏ</button>
-                    </div>
-                </div>
+    <div class="max-w-[1000px] w-full mx-auto px-4 md:px-6 my-8 flex-grow">
+        <div class="menu-panel-wrapper p-6 md:p-10 space-y-6">
+            
+            <div class="flex flex-col md:flex-row justify-between items-center gap-4 w-full">
+                <a href="dieu-phoi.html" class="inline-flex items-center gap-2 bg-white hover:bg-slate-50 border border-slate-200 text-slate-700 px-5 py-2.5 rounded-xl font-bold text-xs uppercase tracking-wider shadow-sm transition-all duration-300 hover:-translate-y-0.5 shrink-0">
+                    ⬅️ Quay lại
+                </a>
+                <a href="lookup.html" class="bg-white/80 text-slate-700 hover:text-blue-700 hover:bg-white px-6 py-2.5 rounded-xl border border-white shadow-sm text-xs font-bold uppercase transition-all whitespace-nowrap">
+                    🔍 Tra cứu tiến độ
+                </a>
             </div>
 
-            <div class="flex flex-col space-y-6 font-['Inter'] items-center w-full">
-                <div class="bg-widget-card border-2 rounded-[2rem] p-6 md:p-10 shadow-sm transition-all duration-300 w-full max-w-4xl">
-                    <div class="border-b border-slate-200/60 dark:border-slate-700 pb-6 mb-8 text-center">
-                        <h2 class="text-2xl md:text-3xl font-black text-main-title uppercase tracking-wide font-['Montserrat']">Gửi phản ánh trực tuyến</h2>
-                    </div>
-
-                    <form id="complaintForm" class="space-y-6">
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="text-xs font-bold text-main-title opacity-80 block mb-2 uppercase tracking-wider">Họ và tên công dân <span class="text-red-500">*</span></label>
-                                <input type="text" id="fullname" required placeholder="Nguyễn Văn A" class="w-full bg-widget-inner border border-slate-200/60 dark:border-slate-700/60 rounded-xl px-4 py-3 text-sm font-bold text-main-title outline-none focus:ring-2 focus:ring-current transition-all shadow-sm">
-                            </div>
-                            <div>
-                                <label class="text-xs font-bold text-main-title opacity-80 block mb-2 uppercase tracking-wider">Số định danh CCCD <span class="text-red-500">*</span></label>
-                                <input type="text" id="cccd" required placeholder="079xxxxxxxx" class="w-full bg-widget-inner border border-slate-200/60 dark:border-slate-700/60 rounded-xl px-4 py-3 text-sm font-bold text-main-title outline-none focus:ring-2 focus:ring-current transition-all shadow-sm">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="text-xs font-bold text-main-title opacity-80 block mb-2 uppercase tracking-wider">Số điện thoại <span class="text-red-500">*</span></label>
-                                <input type="tel" id="phone" required placeholder="090xxxxxxx" class="w-full bg-widget-inner border border-slate-200/60 dark:border-slate-700/60 rounded-xl px-4 py-3 text-sm font-bold text-main-title outline-none focus:ring-2 focus:ring-current transition-all shadow-sm">
-                            </div>
-                            <div>
-                                <label class="text-xs font-bold text-main-title opacity-80 block mb-2 uppercase tracking-wider">Địa chỉ Email <span id="email-star" class="text-red-500 hidden">*</span></label>
-                                <input type="email" id="email" placeholder="name@tphcm.gov.vn" class="w-full bg-widget-inner border border-slate-200/60 dark:border-slate-700/60 rounded-xl px-4 py-3 text-sm font-bold text-main-title outline-none focus:ring-2 focus:ring-current transition-all shadow-sm">
-                            </div>
-                        </div>
-
-                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            <div>
-                                <label class="text-xs font-bold text-main-title opacity-80 block mb-2 uppercase tracking-wider">Địa chỉ liên hệ</label>
-                                <input type="text" id="address" placeholder="Số nhà, Tên đường, Ấp/Xã..." class="w-full bg-widget-inner border border-slate-200/60 dark:border-slate-700/60 rounded-xl px-4 py-3 text-sm font-bold text-main-title outline-none focus:ring-2 focus:ring-current transition-all shadow-sm">
-                            </div>
-                            <div>
-                                <label class="text-xs font-bold text-main-title opacity-80 block mb-2 uppercase tracking-wider">Hình thức nhận kết quả <span class="text-red-500">*</span></label>
-                                <select id="receiveMethod" required class="w-full bg-widget-inner border border-slate-200/60 dark:border-slate-700/60 rounded-xl px-4 py-3 text-sm font-bold text-main-title outline-none focus:ring-2 focus:ring-current transition-all shadow-sm cursor-pointer">
-                                    <option value="lookup" class="text-slate-900">Trực tiếp tại trang tra cứu kết quả</option>
-                                    <option value="email" class="text-slate-900">Gửi qua Email</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div>
-                            <label class="text-xs font-bold text-main-title opacity-80 block mb-2 uppercase tracking-wider">Nội dung phản ánh <span class="text-red-500">*</span></label>
-                            <textarea id="content" rows="5" required placeholder="Mô tả chi tiết..." class="w-full bg-widget-inner border border-slate-200/60 dark:border-slate-700/60 rounded-xl px-4 py-3 text-sm font-bold text-main-title outline-none focus:ring-2 focus:ring-current transition-all shadow-sm leading-relaxed"></textarea>
-                        </div>
-                        <div>
-                            <label class="text-xs font-bold text-main-title opacity-80 block mb-2 uppercase tracking-wider">Hình ảnh hiện trường đính kèm</label>
-                            <input type="file" id="imageFile" accept="image/*" class="w-full text-xs text-main-title opacity-80 file:mr-4 file:py-2.5 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-black file:uppercase file:bg-widget-inner file:text-main-title file:shadow-sm hover:file:opacity-70 transition cursor-pointer">
-                        </div>
-                        <div class="pt-6 max-w-sm mx-auto">
-                            <button type="submit" id="submitBtn" class="w-full bg-blue-600 hover:opacity-90 text-white font-extrabold text-sm uppercase tracking-wider py-4 rounded-xl shadow-md transition-all flex items-center justify-center gap-2 hover:-translate-y-1">
-                                <span>Gửi phản ánh ngay</span> 🚀
-                            </button>
-                        </div>
-                    </form>
+            <div class="bg-white/95 backdrop-blur-xl border border-white rounded-3xl p-6 md:p-8 shadow-lg w-full">
+                <div class="border-b border-slate-200/60 pb-4 mb-6 text-center">
+                    <h2 class="text-xl md:text-2xl font-black text-blue-900 uppercase tracking-wide">Gửi phản ánh trực tuyến</h2>
+                    <p class="text-xs font-medium text-slate-500 mt-2">Dữ liệu sẽ được mã hóa và gửi đến cơ quan quản lý nhà nước Xã Bình Hưng.</p>
                 </div>
+
+                <form id="complaintForm" class="space-y-5">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                        <div>
+                            <label class="text-xs font-bold text-slate-700 block mb-2">Họ và tên công dân <span class="text-red-500">*</span></label>
+                            <input type="text" id="fullname" required placeholder="Nguyễn Văn A" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10 transition">
+                        </div>
+                        <div>
+                            <label class="text-xs font-bold text-slate-700 block mb-2">Số định danh CCCD <span class="text-red-500">*</span></label>
+                            <input type="text" id="cccd" required placeholder="079xxxxxxxx" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10 transition">
+                        </div>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-slate-700 block mb-2">Địa chỉ Email <span class="text-red-500">*</span></label>
+                        <input type="email" id="email" required placeholder="name@tphcm.gov.vn" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10 transition">
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-slate-700 block mb-2">Nội dung phản ánh <span class="text-red-500">*</span></label>
+                        <textarea id="content" rows="5" required placeholder="Mô tả chi tiết..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-4 py-3 text-sm font-bold text-slate-900 outline-none focus:border-blue-500 focus:bg-white focus:ring-4 focus:ring-blue-500/10 transition leading-relaxed"></textarea>
+                    </div>
+                    <div>
+                        <label class="text-xs font-bold text-slate-700 block mb-2">Hình ảnh hiện trường đính kèm</label>
+                        <input type="file" id="imageFile" accept="image/*" class="w-full text-xs text-slate-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-black file:uppercase file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 transition cursor-pointer">
+                    </div>
+                    <div class="pt-4 max-w-sm mx-auto">
+                        <button type="submit" id="submitBtn" class="w-full bg-blue-700 hover:bg-blue-800 text-white font-extrabold text-sm uppercase tracking-wider py-4 rounded-xl shadow-lg transition flex items-center justify-center gap-2">
+                            <span>Gửi phản ánh ngay</span> 🚀
+                        </button>
+                    </div>
+                </form>
             </div>
-        </div> 
+        </div>
     </div>
 
-    <footer class="w-full text-center py-6 text-main-title font-bold text-[10px] uppercase tracking-[0.3em] border-t border-blue-200 bg-white/50 backdrop-blur-md mt-auto">
-        &copy; 2026 IOC BÌNH HƯNG
-    </footer>
-
-    <script type="module">
-        // Import cấu hình Firestore thay vì Realtime DB
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getFirestore, collection, addDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-        import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-storage.js";
-
-        // Thay bằng config thực tế của bạn
-        const firebaseConfig = {
-            databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app",
-            storageBucket: "dashboard-demo-ce0da-default-rtdb.appspot.com",
-            projectId: "dashboard-demo-ce0da" // Bắt buộc phải có projectId khi dùng Firestore
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        const storage = getStorage(app);
-
-        // LOGIC THEME
-        window.setTheme = function(themeName) {
-            const body = document.getElementById('body-context');
-            if (themeName === 'light') {
-                body.classList.remove('dark-theme'); body.classList.add('light-theme');
-            } else {
-                body.classList.remove('light-theme'); body.classList.add('dark-theme');
-            }
-        }
-        window.switchSystemTheme = function(modeName) {
-            const body = document.getElementById('body-context');
-            if (modeName === 'do') {
-                body.classList.remove('theme-xanh-ios'); body.classList.add('theme-do-hanhchinh');
-            } else {
-                body.classList.remove('theme-do-hanhchinh'); body.classList.add('theme-xanh-ios');
-            }
-            window.setTheme('light'); 
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            window.setTheme('light'); 
-
-            const receiveMethod = document.getElementById('receiveMethod');
-            const emailInput = document.getElementById('email');
-            const emailStar = document.getElementById('email-star');
-            const form = document.getElementById('complaintForm');
-            const imageInput = document.getElementById('imageFile');
-
-            receiveMethod.addEventListener('change', function() {
-                emailInput.required = (this.value === 'email');
-                if(this.value === 'email') emailStar.classList.remove('hidden');
-                else emailStar.classList.add('hidden');
-            });
-
-            form.addEventListener('submit', async function(e) {
-                e.preventDefault(); 
-
-                if (receiveMethod.value === 'email' && emailInput.value.trim() === '') {
-                    alert('Vui lòng nhập Email!');
-                    emailInput.focus();
-                    return;
-                }
-
-                const submitBtn = document.getElementById('submitBtn');
-                const originalBtnText = submitBtn.innerHTML;
-                submitBtn.innerHTML = '<span>Đang gửi...</span> ⏳';
-                submitBtn.disabled = true;
-
-                try {
-                    let imageUrlToSave = "";
-                    const file = imageInput.files[0];
-                    if (file) {
-                        if (file.size > 5 * 1024 * 1024) throw new Error("File too large");
-                        const fileName = `images_${Date.now()}_${file.name}`;
-                        const imgRef = storageRef(storage, `phan_anh_dan_cu/${fileName}`);
-                        await uploadBytes(imgRef, file);
-                        imageUrlToSave = await getDownloadURL(imgRef);
-                    }
-
-                    const trackingCode = `BH-2026-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
-
-                    // CẤU TRÚC FIRESTORE CHUẨN KHỚP VỚI TRANG ADMIN
-                    const formData = {
-                        trackingCode: trackingCode,
-                        fullname: document.getElementById('fullname').value,
-                        cccd: document.getElementById('cccd').value,
-                        phone: document.getElementById('phone').value,
-                        email: emailInput.value.trim(),
-                        address: document.getElementById('address').value,
-                        receiveMethod: receiveMethod.value,
-                        content: document.getElementById('content').value,
-                        imageUrl: imageUrlToSave,
-                        createdAt: new Date().toISOString(),
-                        status: "Đang tiếp nhận", // Khớp với filter "Đang tiếp nhận" ở trang Lãnh đạo
-                        replyContent: ""
-                    };
-
-                    // Lưu vào Firestore thay vì Realtime DB
-                    await addDoc(collection(db, "complaints"), formData);
-
-                    alert(`✅ GỬI THÀNH CÔNG!\n\nMã tra cứu của bạn là: ${trackingCode}`);
-                    form.reset();
-
-                } catch (error) {
-                    if (error.message === "File too large") alert("Ảnh phải dưới 5MB.");
-                    else {
-                        alert("❌ Đã xảy ra lỗi kết nối Firestore. Vui lòng thử lại!");
-                        console.error(error);
-                    }
-                } finally {
-                    submitBtn.innerHTML = originalBtnText;
-                    submitBtn.disabled = false;
-                }
-            });
-        });
-    </script>
-</body>
+    </body>
 </html>
