@@ -138,237 +138,191 @@
         &copy; 2026 IOC BINH HƯNG — PHÂN HỆ GIÁM SÁT CHỈ ĐẠO CỦA LÃNH ĐẠO XÃ
     </footer>
 
-    <script type="module">
-        import { db } from "./firebase-config.js";
-        import { collection, onSnapshot, doc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-        // 1. Bổ sung thêm hàm signOut vào đây
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+    <script>
+    const API_BASE = "https://xabinhhung.gov.vn/api_phananh";
+    let allComplaints = [];
+    let currentFilter = "Tất cả";
+    const SLA_HOURS = 24;
+    let slaIntervalId = null;
 
-        // Khởi tạo Auth
-        const auth = getAuth();
+    async function initData() {
+        try {
+            const response = await fetch(`${API_BASE}/admin.php`);
+            if (!response.ok) throw new Error("Lỗi API");
+            allComplaints = await response.json();
+            updateMetricsCounters();
+            renderTable();
+        } catch (error) {
+            document.getElementById('adminTableBody').innerHTML = `<tr><td colspan="6" class="text-center py-10 text-rose-500 font-bold uppercase tracking-widest">Lỗi kết nối máy chủ.</td></tr>`;
+        }
+    }
 
-        // ================= TỰ ĐỘNG XÓA TRẠNG THÁI KHI TẮT TRANG =================
-        window.addEventListener('beforeunload', function () {
-            // Ngay khi người dùng đóng trang, lệnh này sẽ đăng xuất tài khoản
-            signOut(auth);
-        });
+    function updateMetricsCounters() {
+        document.getElementById('count-all').innerText = allComplaints.length;
+        document.getElementById('count-pending').innerText = allComplaints.filter(c => c.status === "Đang tiếp nhận").length;
+        document.getElementById('count-processing').innerText = allComplaints.filter(c => c.status === "Đang xử lý").length;
+        document.getElementById('count-done').innerText = allComplaints.filter(c => c.status === "Đã hoàn thành").length;
+    }
 
-        let allComplaints = [];
-        let currentFilter = "Tất cả";
-        const SLA_HOURS = 24;
-        let slaIntervalId = null;
+    window.renderTable = function() {
+        const tbody = document.getElementById('adminTableBody');
+        tbody.innerHTML = "";
 
-        // ================= CƠ CHẾ BẢO MẬT & DEEP LINKING =================
-        onAuthStateChanged(auth, (user) => {
-            if (!user) {
-                // 1. Lưu lại đường dẫn mà người dùng đang muốn vào
-                localStorage.setItem('redirectTarget', window.location.href);
-                
-                // 2. Chuyển hướng ra trang chủ để đăng nhập 
-                window.top.location.href = "../index.html"; 
-            } else {
-                // 3. Đã đăng nhập -> Xóa link tạm và bắt đầu tải dữ liệu
-                localStorage.removeItem('redirectTarget');
-                initData();
+        const filteredData = allComplaints.filter(c => currentFilter === "Tất cả" || c.status === currentFilter);
+
+        if (filteredData.length === 0) {
+            tbody.innerHTML = `<tr><td colspan="6" class="text-center py-10 text-slate-400 font-bold uppercase">Không tìm thấy bản ghi.</td></tr>`;
+            return;
+        }
+
+        filteredData.forEach((item) => {
+            const tr = document.createElement('tr');
+            tr.className = "hover:bg-slate-50/80 transition-colors";
+            
+            let statusClass = "bg-blue-600";
+            if (item.status === "Đang xử lý") statusClass = "bg-amber-500 text-amber-950";
+            if (item.status === "Đã hoàn thành") statusClass = "bg-emerald-600";
+
+            let attachmentHtml = '';
+            if (item.imageUrl && item.imageUrl.trim() !== "") {
+                attachmentHtml = `<button onclick="viewBase64Image('${item.imageUrl}')" class="mt-2 text-[10px] text-sky-600 bg-sky-50 px-2 py-1 rounded font-bold uppercase border border-sky-100 transition">🖼️ Xem ảnh</button>`;
             }
-        });
 
-        // ================= KHỞI TẠO DỮ LIỆU TỪ FIRESTORE =================
-        function initData() {
-            onSnapshot(collection(db, "complaints"), (snapshot) => {
-                allComplaints = [];
-                snapshot.forEach((doc) => {
-                    allComplaints.push({ id: doc.id, ...doc.data() });
-                });
-                allComplaints.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-                updateMetricsCounters();
-                renderTable();
-            }, (error) => {
-                console.error("Lỗi đồng bộ Realtime Database:", error);
-                document.getElementById('adminTableBody').innerHTML = `<tr><td colspan="6" class="text-center py-10 text-rose-500 font-bold uppercase tracking-widest">Lỗi kết nối cơ sở dữ liệu.</td></tr>`;
+            const receiveMethodText = (item.receiveMethod === 'email') ? '📩 Trả qua Email' : '🌐 Tra trên Website';
+
+            tr.innerHTML = `
+                <td class="py-4 px-4 align-top font-mono font-black text-blue-600 tracking-wider">${item.trackingCode}</td>
+                <td class="py-4 px-4 align-top space-y-1.5">
+                    <p class="font-black text-sm text-indigo-700 uppercase">${item.fullname}</p>
+                    <p class="text-[11px] font-bold text-sky-700">👤 CCCD: <span class="font-medium">${item.cccd}</span></p>
+                    <p class="text-[11px] font-bold text-rose-600">📞 SĐT: <span class="font-medium">${item.phone || ''}</span></p>
+                    <p class="text-[11px] font-bold text-fuchsia-600">📧 Email: <span class="font-medium">${item.email}</span></p>
+                    <p class="text-[11px] font-bold text-emerald-700">📍 Địa chỉ: <span class="font-medium">${item.address || ''}</span></p>
+                    <div class="mt-1"><span class="inline-block text-[9px] font-black text-amber-700 bg-amber-100 px-2 py-0.5 rounded border border-amber-200 uppercase">${receiveMethodText}</span></div>
+                </td>
+                <td class="py-4 px-4 pr-6 align-top">
+                    <p class="text-slate-500 text-[10px] font-bold mb-2 uppercase">Gửi lúc: <span class="text-slate-800">${new Date(item.createdAt).toLocaleString('vi-VN')}</span></p>
+                    <p class="text-xs font-semibold text-justify leading-relaxed">${item.content}</p>
+                    ${attachmentHtml}
+                </td>
+                <td class="py-4 px-4 text-center align-top font-mono font-bold" id="countdown-${item.id}">--:--:--</td>
+                <td class="py-4 px-4 text-center align-top">
+                    <span class="px-2.5 py-1.5 rounded-md text-[10px] font-black uppercase text-white ${statusClass} block w-max mx-auto">${item.status}</span>
+                </td>
+                <td class="py-4 px-4 align-top space-y-2">
+                    <textarea id="replyInp-${item.id}" rows="3" placeholder="Nhập chỉ đạo hoặc ý kiến..." class="w-full bg-white border border-slate-200 rounded-lg p-2 text-[11px] font-medium outline-none transition">${item.replyContent || ''}</textarea>
+                    <div class="flex gap-2 justify-end">
+                        <button onclick="updateComplaint('${item.id}', 'Đang xử lý')" class="bg-amber-500 text-white font-bold text-[10px] uppercase px-3 py-2 rounded-lg transition">Xử lý ⚙️</button>
+                        <button onclick="updateComplaint('${item.id}', 'Đã hoàn thành')" class="bg-emerald-600 text-white font-bold text-[10px] uppercase px-3 py-2 rounded-lg transition">Duyệt ✓</button>
+                    </div>
+                </td>
+            `;
+            tbody.appendChild(tr);
+        });
+        restartSlaTimer();
+    }
+
+    window.updateComplaint = async function(id, nextStatus) {
+        const replyText = document.getElementById(`replyInp-${id}`).value.trim();
+        try {
+            const response = await fetch(`${API_BASE}/admin.php`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ id: id, status: nextStatus, replyContent: replyText })
             });
+            if(response.ok) {
+                alert("🏛️ Cập nhật tiến độ thành công!");
+                initData(); 
+            } else throw new Error();
+        } catch (err) {
+            alert("❌ Thao tác thất bại.");
         }
+    }
 
-        function updateMetricsCounters() {
-            document.getElementById('count-all').innerText = allComplaints.length;
-            document.getElementById('count-pending').innerText = allComplaints.filter(c => c.status === "Đang tiếp nhận").length;
-            document.getElementById('count-processing').innerText = allComplaints.filter(c => c.status === "Đang xử lý").length;
-            document.getElementById('count-done').innerText = allComplaints.filter(c => c.status === "Đã hoàn thành").length;
-        }
+    window.filterStatus = function(statusName) {
+        currentFilter = statusName;
+        document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+        renderTable();
+    }
 
-        window.renderTable = function() {
-            const tbody = document.getElementById('adminTableBody');
-            tbody.innerHTML = "";
+    window.viewBase64Image = function(imgUrl) {
+        const newTab = window.open();
+        newTab.document.write(`<body style="margin:0; background:#0f172a; display:flex; justify-content:center; align-items:center;"><img src="${imgUrl}" style="max-width:100%; max-height:100vh; object-contain:scale-down; border-radius:12px;" /></body>`);
+    }
 
-            const filteredData = allComplaints.filter(c => currentFilter === "Tất cả" || c.status === currentFilter);
+    function restartSlaTimer() {
+        if (slaIntervalId) clearInterval(slaIntervalId);
+        function updateAllSlaDisplays() {
+            allComplaints.forEach(item => {
+                const el = document.getElementById(`countdown-${item.id}`);
+                if (!el) return;
+                if (item.status === "Đã hoàn thành") {
+                    el.innerHTML = `<span class="text-emerald-600 font-extrabold uppercase text-[10px] bg-emerald-50 px-2 py-1.5 rounded-lg border border-emerald-200">Đã giải quyết</span>`;
+                    return;
+                }
+                const createdTime = new Date(item.createdAt).getTime();
+                const expireTime = createdTime + (SLA_HOURS * 60 * 60 * 1000); 
+                const currentTime = new Date().getTime();
+                const timeLeft = expireTime - currentTime;
 
-            if (filteredData.length === 0) {
-                tbody.innerHTML = `<tr><td colspan="6" class="text-center py-10 text-slate-400 font-bold uppercase">Không tìm thấy bản ghi phản ánh nào thuộc diện này.</td></tr>`;
-                return;
-            }
-
-            filteredData.forEach((item) => {
-                const tr = document.createElement('tr');
-                tr.className = "hover:bg-slate-50/80 transition-colors";
-                
-                let statusClass = "bg-blue-600";
-                if (item.status === "Đang xử lý") statusClass = "bg-amber-500 text-amber-950";
-                if (item.status === "Đã hoàn thành") statusClass = "bg-emerald-600";
-
-                let attachmentHtml = '';
-                const fileData = item.attachedFileData || item.imageUrl;
-                if (fileData) {
-                    const isImage = item.attachedFileType ? item.attachedFileType.startsWith('image/') : true;
-                    if (isImage) {
-                        attachmentHtml = `<button onclick="viewBase64Image('${fileData}')" class="mt-2 text-[10px] text-sky-600 dark:text-sky-300 bg-sky-50 dark:bg-sky-900/30 px-2 py-1 rounded font-bold uppercase hover:shadow-md border border-sky-100 dark:border-sky-800 transition">🖼️ Xem ảnh hiện trường</button>`;
-                    } else {
-                        attachmentHtml = `<a href="${fileData}" download="tai_lieu_dinh_kem_${item.trackingCode}" class="mt-2 inline-block text-[10px] text-rose-600 dark:text-rose-300 bg-rose-50 dark:bg-rose-900/30 px-2 py-1 rounded font-bold uppercase hover:shadow-md border border-rose-100 dark:border-rose-800 transition">📎 Tải tệp tài liệu</a>`;
-                    }
+                if (timeLeft <= 0) {
+                    el.innerHTML = `<span class="text-rose-600 font-extrabold uppercase text-[10px] bg-rose-50 px-2 py-1.5 rounded-lg border border-rose-200 animate-pulse">⚠️ Quá hạn</span>`;
+                    return;
                 }
 
-                const receiveMethodText = (item.receiveMethod === 'email') ? '📩 Trả qua Email' : '🌐 Tra trên Website';
+                const hours = Math.floor(timeLeft / (1000 * 60 * 60));
+                const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
+                const hStr = hours.toString().padStart(2, '0');
+                const mStr = minutes.toString().padStart(2, '0');
+                const sStr = seconds.toString().padStart(2, '0');
 
-                tr.innerHTML = `
-                    <td class="py-4 px-4 align-top font-mono font-black text-blue-600 dark:text-sky-400 tracking-wider">${item.trackingCode}</td>
-                    
-                    <td class="py-4 px-4 align-top space-y-1.5">
-                        <p class="font-black text-sm text-indigo-700 dark:text-indigo-400 uppercase tracking-wide">${item.fullname}</p>
-                        <p class="text-[11px] font-bold text-sky-700 dark:text-sky-300">👤 CCCD: <span class="font-medium text-sky-900 dark:text-sky-100">${item.cccd}</span></p>
-                        <p class="text-[11px] font-bold text-rose-600 dark:text-rose-400">📞 SĐT: <span class="font-medium text-rose-900 dark:text-rose-100">${item.phone || 'Chưa cập nhật'}</span></p>
-                        <p class="text-[11px] font-bold text-fuchsia-600 dark:text-fuchsia-400 break-all">📧 Email: <span class="font-medium text-fuchsia-900 dark:text-fuchsia-100">${item.email}</span></p>
-                        <p class="text-[11px] font-bold text-emerald-700 dark:text-emerald-400 leading-snug">📍 Địa chỉ: <span class="font-medium text-emerald-900 dark:text-emerald-100">${item.address || 'Chưa cập nhật'}</span></p>
-                        <div class="mt-1">
-                            <span class="inline-block text-[9px] font-black text-amber-700 dark:text-amber-400 bg-amber-100 dark:bg-amber-900/40 px-2 py-0.5 rounded border border-amber-200 dark:border-amber-700 uppercase tracking-wider">${receiveMethodText}</span>
-                        </div>
-                    </td>
-
-                    <td class="py-4 px-4 pr-6 align-top">
-                        <p class="text-slate-500 text-[10px] font-bold mb-2 uppercase tracking-wider">Gửi lúc: <span class="text-slate-800 dark:text-slate-200">${new Date(item.createdAt).toLocaleString('vi-VN')}</span></p>
-                        <p class="text-xs font-semibold text-justify leading-relaxed">${item.content}</p>
-                        ${attachmentHtml}
-                    </td>
-
-                    <td class="py-4 px-4 text-center align-top font-mono font-bold" id="countdown-${item.id}">
-                        --:--:--
-                    </td>
-
-                    <td class="py-4 px-4 text-center align-top">
-                        <span class="px-2.5 py-1.5 rounded-md text-[10px] font-black uppercase text-white shadow-sm ${statusClass} block w-max mx-auto">${item.status}</span>
-                    </td>
-
-                    <td class="py-4 px-4 align-top space-y-2">
-                        <textarea id="replyInp-${item.id}" rows="3" placeholder="Nhập chỉ đạo hoặc ý kiến phản hồi công khai..." class="w-full bg-white border border-slate-200 rounded-lg p-2 text-[11px] font-medium outline-none focus:border-sky-500 focus:ring-2 focus:ring-sky-500/20 transition leading-relaxed">${item.replyContent || ''}</textarea>
-                        <div class="flex gap-2 justify-end">
-                            <button onclick="updateComplaint('${item.id}', 'Đang xử lý')" class="bg-amber-500 hover:bg-amber-600 text-white font-bold text-[10px] uppercase px-3 py-2 rounded-lg shadow-sm transition">Xử lý ⚙️</button>
-                            <button onclick="updateComplaint('${item.id}', 'Đã hoàn thành')" class="bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-[10px] uppercase px-3 py-2 rounded-lg shadow-sm transition">Duyệt xong ✓</button>
-                        </div>
-                    </td>
-                `;
-                tbody.appendChild(tr);
+                if (hours < 4) {
+                    el.innerHTML = `<span class="text-amber-600 font-bold bg-amber-50 px-2 py-1 rounded border border-amber-200">${hStr}:${mStr}:${sStr}</span>`;
+                } else {
+                    el.innerHTML = `<span class="text-sky-700 font-bold bg-sky-50 px-2 py-1 rounded border border-sky-200">${hStr}:${mStr}:${sStr}</span>`;
+                }
             });
-            restartSlaTimer();
         }
+        updateAllSlaDisplays();
+        slaIntervalId = setInterval(updateAllSlaDisplays, 1000);
+    }
 
-        window.updateComplaint = async function(id, nextStatus) {
-            const replyText = document.getElementById(`replyInp-${id}`).value.trim();
-            try {
-                const docRef = doc(db, "complaints", id);
-                await updateDoc(docRef, { status: nextStatus, replyContent: replyText });
-                alert("🏛️ Cập nhật tiến độ xử lý và phản hồi thành công!");
-            } catch (err) {
-                console.error("Lỗi điều phối hồ sơ:", err);
-                alert("❌ Thao tác thất bại. Lỗi phân quyền quản trị viên.");
-            }
+    window.switchSystemTheme = function(modeName) {
+        const body = document.getElementById('body-context');
+        const btnXanh = document.getElementById('btn-theme-xanh');
+        const btnDo = document.getElementById('btn-theme-do');
+        if (modeName === 'do') {
+            body.classList.remove('theme-xanh'); body.classList.add('theme-do');
+            btnDo.className = "btn-view-mode active"; btnDo.innerHTML = "🔴 Đỏ";
+            btnXanh.className = "btn-view-mode"; btnXanh.innerHTML = "🔵 Xanh";
+        } else {
+            body.classList.remove('theme-do'); body.classList.add('theme-xanh');
+            btnXanh.className = "btn-view-mode active"; btnXanh.innerHTML = "🔵 Xanh";
+            btnDo.className = "btn-view-mode"; btnDo.innerHTML = "🔴 Đỏ";
         }
+    }
 
-        window.filterStatus = function(statusName) {
-            currentFilter = statusName;
-            document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
-            event.currentTarget.classList.add('active');
-            renderTable();
+    window.setTheme = function(themeName) {
+        const body = document.getElementById('body-context');
+        const btnLight = document.getElementById('btn-theme-light');
+        const btnDark = document.getElementById('btn-theme-dark');
+        if(themeName === 'light') {
+            body.classList.remove('dark-theme'); body.classList.add('light-theme');
+            btnLight.classList.add('active'); btnDark.classList.remove('active');
+        } else {
+            body.classList.remove('light-theme'); body.classList.add('dark-theme');
+            btnDark.classList.add('active'); btnLight.classList.remove('active');
         }
+    }
 
-        window.viewBase64Image = function(base64Str) {
-            const newTab = window.open();
-            newTab.document.write(`<body style="margin:0; background:#0f172a; display:flex; justify-content:center; align-items:center;"><img src="${base64Str}" style="max-width:100%; max-height:100vh; object-contain:scale-down; border-radius:12px; box-shadow:0 10px 30px rgba(0,0,0,0.5);" /></body>`);
-        }
+    window.addEventListener('message', function(event) {
+        if (event.data === 'theme-do') switchSystemTheme('do');
+        else if (event.data === 'theme-xanh') switchSystemTheme('xanh');
+    });
 
-        function restartSlaTimer() {
-            if (slaIntervalId) clearInterval(slaIntervalId);
-            function updateAllSlaDisplays() {
-                allComplaints.forEach(item => {
-                    const el = document.getElementById(`countdown-${item.id}`);
-                    if (!el) return;
-                    if (item.status === "Đã hoàn thành") {
-                        el.innerHTML = `<span class="text-emerald-600 dark:text-emerald-400 font-extrabold uppercase text-[10px] bg-emerald-50 dark:bg-emerald-900/30 px-2 py-1.5 rounded-lg border border-emerald-200 dark:border-emerald-800">Đã giải quyết</span>`;
-                        return;
-                    }
-                    const createdTime = new Date(item.createdAt).getTime();
-                    const expireTime = createdTime + (SLA_HOURS * 60 * 60 * 1000); 
-                    const currentTime = new Date().getTime();
-                    const timeLeft = expireTime - currentTime;
-
-                    if (timeLeft <= 0) {
-                        el.innerHTML = `<span class="text-rose-600 dark:text-rose-400 font-extrabold uppercase text-[10px] bg-rose-50 dark:bg-rose-900/30 px-2 py-1.5 rounded-lg border border-rose-200 dark:border-rose-800 animate-pulse">⚠️ Quá hạn</span>`;
-                        return;
-                    }
-
-                    const hours = Math.floor(timeLeft / (1000 * 60 * 60));
-                    const minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-                    const seconds = Math.floor((timeLeft % (1000 * 60)) / 1000);
-                    const hStr = hours.toString().padStart(2, '0');
-                    const mStr = minutes.toString().padStart(2, '0');
-                    const sStr = seconds.toString().padStart(2, '0');
-
-                    if (hours < 4) {
-                        el.innerHTML = `<span class="text-amber-600 dark:text-amber-400 font-bold bg-amber-50 dark:bg-amber-900/30 px-2 py-1 rounded border border-amber-200 dark:border-amber-800">${hStr}:${mStr}:${sStr}</span>`;
-                    } else {
-                        el.innerHTML = `<span class="text-sky-700 dark:text-sky-300 font-bold bg-sky-50 dark:bg-sky-900/30 px-2 py-1 rounded border border-sky-200 dark:border-sky-800">${hStr}:${mStr}:${sStr}</span>`;
-                    }
-                });
-            }
-            updateAllSlaDisplays();
-            slaIntervalId = setInterval(updateAllSlaDisplays, 1000);
-        }
-
-        // ================= LOGIC THEME =================
-        window.switchSystemTheme = function(modeName) {
-            const body = document.getElementById('body-context');
-            const btnXanh = document.getElementById('btn-theme-xanh');
-            const btnDo = document.getElementById('btn-theme-do');
-
-            if (modeName === 'do') {
-                body.classList.remove('theme-xanh'); body.classList.add('theme-do');
-                btnDo.className = "btn-view-mode active"; btnDo.innerHTML = "🔴 Đỏ";
-                btnXanh.className = "btn-view-mode"; btnXanh.innerHTML = "🔵 Xanh";
-            } else {
-                body.classList.remove('theme-do'); body.classList.add('theme-xanh');
-                btnXanh.className = "btn-view-mode active"; btnXanh.innerHTML = "🔵 Xanh";
-                btnDo.className = "btn-view-mode"; btnDo.innerHTML = "🔴 Đỏ";
-            }
-        }
-
-        window.setTheme = function(themeName) {
-            const body = document.getElementById('body-context');
-            const btnLight = document.getElementById('btn-theme-light');
-            const btnDark = document.getElementById('btn-theme-dark');
-
-            if(themeName === 'light') {
-                body.classList.remove('dark-theme'); body.classList.add('light-theme');
-                btnLight.classList.add('active'); btnDark.classList.remove('active');
-            } else {
-                body.classList.remove('light-theme'); body.classList.add('dark-theme');
-                btnDark.classList.add('active'); btnLight.classList.remove('active');
-            }
-        }
-
-        // LẮNG NGHE LỆNH CHUYỂN THEME TỪ DASHBOARD CHA
-        window.addEventListener('message', function(event) {
-            if (event.data === 'theme-do') switchSystemTheme('do');
-            else if (event.data === 'theme-xanh') switchSystemTheme('xanh');
-        });
-
-        document.addEventListener('DOMContentLoaded', () => { setTheme('light'); switchSystemTheme('xanh'); });
-    </script>
+    document.addEventListener('DOMContentLoaded', () => { setTheme('light'); switchSystemTheme('xanh'); initData(); });
+</script>
 </body>
 </html>
