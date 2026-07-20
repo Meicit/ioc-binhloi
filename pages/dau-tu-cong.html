@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Đầu tư công - Xã Bình Hưng</title>
+    <title>Đầu tư công - Xã Bình Lợi</title>
 
     <!-- ĐÃ THÊM: Kiểm tra session đồng bộ, không gọi Auth để tránh lag/văng iframe -->
     <script>
@@ -132,9 +132,9 @@
 
     <div class="container-wrapper mt-8">
         
-        <div class="teal-wrapper space-y-8">
+        <div class="teal-wrapper space-y-8 flex flex-col">
             
-            <div class="flex flex-col sm:flex-row justify-between items-center gap-4 flex-responsive">
+            <div class="flex flex-col sm:flex-row justify-between items-center gap-4 flex-responsive mb-2">
                 <a href="../dashboard.html" class="btn-back">⬅️ Quay lại Trang chủ</a>
                 
                 <div class="controls-wrapper">
@@ -222,7 +222,7 @@
     </div>
 
     <footer class="w-full text-center py-6 text-main-title font-bold text-[10px] uppercase tracking-[0.3em] border-t border-blue-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md mt-auto transition-colors duration-300">
-        &copy; IOC Binh Hung - Hệ thống i-Dashboard
+        &copy; IOC BÌNH LỢI - Hệ thống i-Dashboard
     </footer>
 
     <script type="module">
@@ -231,10 +231,10 @@
 
         Chart.register(ChartDataLabels);
 
-        const firebaseConfig = { databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app" };
+        const firebaseConfig = { databaseURL: "https://binhloi-ioc-default-rtdb.asia-southeast1.firebasedatabase.app" };
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
-        const dtcRef = ref(db, 'dashboard_binhhung/dau_tu_cong_chi_tiet');
+        const dtcRef = ref(db, 'dashboard_binhloi/dau_tu_cong_chi_tiet');
 
         let barChartInstance = null;
         let pieChartInstance = null;
@@ -411,13 +411,13 @@
                 body.classList.add('light-theme');
                 btnLight.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition bg-white text-blue-900 shadow-sm border border-transparent";
                 btnDark.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition text-blue-800 hover:text-white border border-transparent";
-                currentLabelColor = isRedTheme ? '#da251d' : '#0c4a8e';
+                currentTextColor = isRedTheme ? '#da251d' : '#0c4a8e';
             } else {
                 body.classList.remove('light-theme'); 
                 body.classList.add('dark-theme');
                 btnDark.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition bg-red-600 text-white shadow-sm border border-transparent";
                 btnLight.className = "flex items-center gap-1.5 text-[11px] font-bold uppercase px-3 py-1.5 rounded-lg transition text-blue-200 hover:text-white border border-transparent";
-                currentLabelColor = '#e0f2fe';
+                currentTextColor = '#e0f2fe';
             }
             
             if(window.drawChartsGlobal) window.drawChartsGlobal();
