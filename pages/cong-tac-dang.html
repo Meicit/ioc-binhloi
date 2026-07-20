@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Công tác Đảng - Xã Bình Hưng</title>
+    <title>Công tác Đảng - Xã Bình Lợi</title>
     
     <!-- ĐÃ THÊM: Kiểm tra session đồng bộ, không gọi Auth để tránh lag/văng iframe -->
     <script>
@@ -128,7 +128,7 @@
                         <div class="flex justify-between items-start mb-4">
                             <div>
                                 <h3 class="text-sm font-black text-blue-700 dark:text-blue-300 uppercase tracking-wider">Tổ chức Đảng</h3>
-                                <p class="text-[11px] font-bold text-blue-500/80 dark:text-blue-400 uppercase mt-1">Toàn Đảng bộ Xã Bình Hưng</p>
+                                <p class="text-[11px] font-bold text-blue-500/80 dark:text-blue-400 uppercase mt-1">Toàn Đảng bộ Xã Bình Lợi</p>
                             </div>
                             <div class="w-12 h-12 bg-blue-600 text-white rounded-2xl flex items-center justify-center text-2xl shadow-inner">🏛️</div>
                         </div>
@@ -301,24 +301,24 @@
     </div>
 
     <footer class="w-full text-center py-6 text-main-title font-bold text-[10px] uppercase tracking-[0.3em] border-t border-blue-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md mt-auto transition-colors duration-300">
-        &copy; 2026 IOC Xã Bình Hưng - HỆ THỐNG I-DASHBOARD
+        &copy; 2026 IOC Xã Bình Lợi - HỆ THỐNG I-DASHBOARD
     </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-        // Cấu hình Database. Bạn hãy thay đổi databaseURL nếu cần.
+        // Cấu hình Database
         const firebaseConfig = {
-            databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app"
+            databaseURL: "https://binhloi-ioc-default-rtdb.asia-southeast1.firebasedatabase.app"
         };
 
         // Khởi tạo Firebase
         const app = initializeApp(firebaseConfig);
         const db = getDatabase(app);
         
-        // Trỏ tới node 'cong_tac_dang' (Nếu node nằm trong 'dashboard_binhhung' hãy sửa thành 'dashboard_binhhung/cong_tac_dang')
-        const dangNodeRef = ref(db, 'dashboard_binhhung/cong_tac_dang');
+        // Trỏ tới node 'cong_tac_dang' của dashboard_binhloi
+        const dangNodeRef = ref(db, 'dashboard_binhloi/cong_tac_dang');
 
         // Lắng nghe dữ liệu realtime từ Firebase
         onValue(dangNodeRef, (snapshot) => {
@@ -397,7 +397,7 @@
             }
         });
 
-        // XỬ LÝ GIAO DIỆN THEME (Mã gốc giữ nguyên)
+        // XỬ LÝ GIAO DIỆN THEME
         window.setTheme = function(themeName) {
             const body = document.getElementById('body-context');
             const btnLight = document.getElementById('btn-theme-light');
