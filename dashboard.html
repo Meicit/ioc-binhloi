@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard Điều hành - UBND Xã Bình Hưng</title>
+    <title>Dashboard Điều hành - UBND Xã Bình Lợi</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
     
@@ -19,15 +19,16 @@
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
         import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
+        // ================= CẤU HÌNH FIREBASE MỚI (IOC BÌNH LỢI) =================
         const firebaseConfig = {
-            apiKey: "AIzaSyCjS8jJtoV5HLcYIpVTX1zP5DbyYmXsbh4",
-            authDomain: "dashboard-demo-ce0da.firebaseapp.com",
-            databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "dashboard-demo-ce0da",
-            storageBucket: "dashboard-demo-ce0da.firebasestorage.app",
-            messagingSenderId: "969593884637",
-            appId: "1:969593884637:web:47d4e6b03a51e7dcfbb034",
-            measurementId: "G-EVMDSWWRFG"
+            apiKey: "AIzaSyA2cNiIh-_DxvYS95roJ-_yJoKtaFf4zb8",
+            authDomain: "binhloi-ioc.firebaseapp.com",
+            databaseURL: "https://binhloi-ioc-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "binhloi-ioc",
+            storageBucket: "binhloi-ioc.firebasestorage.app",
+            messagingSenderId: "365892401408",
+            appId: "1:365892401408:web:5e311afaf71b78d1829be5",
+            measurementId: "G-M0HHEW6JXW"
         };
 
         const app = initializeApp(firebaseConfig);
@@ -128,7 +129,7 @@
                     <img src="logo.png" alt="Logo" class="h-9 w-auto object-contain">
                 </div>
                 <div>
-                    <h2 class="text-xs sm:text-sm font-[900] text-white uppercase italic leading-none">HỆ THỐNG I-DASHBOARD XÃ BÌNH HƯNG</h2>
+                    <h2 class="text-xs sm:text-sm font-[900] text-white uppercase italic leading-none">HỆ THỐNG I-DASHBOARD XÃ BÌNH LỢI</h2>
                     <div class="text-xs md:text-sm font-bold text-sky-100 uppercase mt-1.5 italic tracking-wider drop-shadow-sm">CHÍNH XÁC - KỊP THỜI - TRỰC QUAN</div>
                 </div>
             </div>
@@ -171,11 +172,13 @@
 
     <div class="chatbot-mascot chatbot-bin" onclick="openOneAIChat()">
         <div class="chat-bubble">👋 Trợ lý BIN xin chào!</div>
-        <img src="binBH.png" alt="Trợ lý BIN" onerror="this.src='https://placehold.co/125x125?text=BIN'">
+        <!-- LƯU Ý: Đổi tên file ảnh từ binBH.png sang binBL.png -->
+        <img src="binBL.png" alt="Trợ lý BIN" onerror="this.src='https://placehold.co/125x125?text=BIN'">
     </div>
     <div class="chatbot-mascot chatbot-hun" onclick="openOneAIChat()">
         <div class="chat-bubble">✨ Trợ lý HUN hỗ trợ bạn!</div>
-        <img src="hunBH.png" alt="Trợ lý HUN" onerror="this.src='https://placehold.co/125x125?text=HUN'">
+        <!-- LƯU Ý: Đổi tên file ảnh từ hunBH.png sang hunBL.png -->
+        <img src="hunBL.png" alt="Trợ lý HUN" onerror="this.src='https://placehold.co/125x125?text=HUN'">
     </div>
 
     <script>
