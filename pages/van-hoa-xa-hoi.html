@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Văn hóa Xã hội — Xã Bình Hưng</title>
+    <title>Văn hóa Xã hội — Xã Bình Lợi</title>
 
     <!-- ĐÃ THÊM: Kiểm tra session đồng bộ, không gọi Auth để tránh lag/văng iframe -->
     <script>
@@ -93,7 +93,7 @@
         body.light-theme.theme-xanh-ios .control-panel { background: rgba(255, 255, 255, 0.15); border-color: rgba(255, 255, 255, 0.2); }
         body.light-theme.theme-do-hanhchinh .control-panel { background: rgba(255, 255, 255, 0.2); border-color: rgba(255, 255, 255, 0.4); }
 
-        /* Nút con bên trong control panel của Xanh IOS */
+        /* Nút con bên trong control panel */
         body.light-theme.theme-xanh-ios .control-panel button.text-blue-900 { color: #0c4a8e !important; }
         body.light-theme.theme-xanh-ios .control-panel button.text-blue-800 { color: #ffffff !important; opacity: 0.8; }
         body.light-theme.theme-xanh-ios .control-panel button.text-blue-800:hover { opacity: 1; }
@@ -202,8 +202,37 @@
     </div>
 
     <footer class="w-full text-center py-6 text-main-title font-bold text-[10px] uppercase tracking-[0.3em] border-t border-gray-200 dark:border-slate-800 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md mt-auto transition-colors duration-300">
-        &copy; 2026 IOC Xã Bình Hưng — Hệ thống Điều hành Văn hóa Xã hội
+        &copy; 2026 IOC Xã Bình Lợi — Hệ thống Điều hành Văn hóa Xã hội
     </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
+        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
+        
+        // ================= CẤU HÌNH FIREBASE MỚI =================
+        const firebaseConfig = { 
+            apiKey: "AIzaSyA2cNiIh-_DxvYS95roJ-_yJoKtaFf4zb8",
+            authDomain: "binhloi-ioc.firebaseapp.com",
+            databaseURL: "https://binhloi-ioc-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "binhloi-ioc",
+            storageBucket: "binhloi-ioc.firebasestorage.app",
+            messagingSenderId: "365892401408",
+            appId: "1:365892401408:web:5e311afaf71b78d1829be5",
+            measurementId: "G-M0HHEW6JXW"
+        };
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+
+        // Lắng nghe dữ liệu (tạm thời ghi log và render bằng dữ liệu tĩnh do cấu trúc JSON chưa khớp với UI)
+        onValue(ref(db, 'dashboard_binhloi/van_hoa_xa_hoi'), (snap) => {
+            const data = snap.val();
+            if (data) {
+                console.log("Dữ liệu Văn hóa Xã hội từ Firebase:", data);
+                // Ghi chú: Cấu trúc Firebase hiện tại chưa khớp với giao diện chi tiết.
+                // Tạm thời vẫn sử dụng jsonData hardcode để render() tránh lỗi giao diện.
+            }
+        });
+    </script>
 
     <script>
         // Dữ liệu JSON dựa trên 4 lĩnh vực cấu trúc I, II, III, IV
