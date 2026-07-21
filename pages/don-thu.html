@@ -111,7 +111,7 @@
         <div class="teal-wrapper space-y-8">
             
             <div class="flex flex-col sm:flex-row justify-between items-center gap-4 flex-responsive">
-                <a href="index.html" class="btn-back">⬅️ Quay lại Trang chủ</a>
+                <a href="../dashboard.html" class="btn-back">⬅️ Quay lại Trang chủ</a>
                 
                 <div class="controls-wrapper">
                     <div class="control-panel">
@@ -271,23 +271,28 @@
     </div>
 
     <footer class="w-full text-center py-6 text-main-title font-bold text-[10px] uppercase tracking-[0.3em] border-t border-blue-200 dark:border-slate-700 bg-white/50 dark:bg-slate-900/50 backdrop-blur-md mt-auto transition-colors duration-300">
-        &copy; 2026 GIAO DIỆN CÓ LOGIC THEME - IOC BÌNH HƯNG
+        &copy; 2026 GIAO DIỆN CÓ LOGIC THEME - IOC BÌNH LỢI
     </footer>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/12.11.0/firebase-database.js";
         
+        // ================= CẤU HÌNH FIREBASE MỚI =================
         const firebaseConfig = { 
-            apiKey: "AIzaSyCjS8jJtoV5HLcYIpVTX1zP5DbyYmXsbh4", 
-            authDomain: "dashboard-demo-ce0da.firebaseapp.com", 
-            databaseURL: "https://dashboard-demo-ce0da-default-rtdb.asia-southeast1.firebasedatabase.app", 
-            projectId: "dashboard-demo-ce0da", 
-            appId: "1:969593884637:web:47d4e6b03a51e7dcfbb034" 
+            apiKey: "AIzaSyA2cNiIh-_DxvYS95roJ-_yJoKtaFf4zb8",
+            authDomain: "binhloi-ioc.firebaseapp.com",
+            databaseURL: "https://binhloi-ioc-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "binhloi-ioc",
+            storageBucket: "binhloi-ioc.firebasestorage.app",
+            messagingSenderId: "365892401408",
+            appId: "1:365892401408:web:5e311afaf71b78d1829be5",
+            measurementId: "G-M0HHEW6JXW"
         };
         const db = getDatabase(initializeApp(firebaseConfig));
 
-        onValue(ref(db, 'dashboard_binhhung/don_thu_moi'), (snap) => {
+        // Cập nhật đường dẫn tới nút dữ liệu của xã Bình Lợi
+        onValue(ref(db, 'dashboard_binhloi/don_thu_moi'), (snap) => {
             const d = snap.val();
             if(!d) return;
 
@@ -340,7 +345,7 @@
             validUnits.forEach((item, index) => {
                 const c = colors[index % colors.length];
                 const v = item.tong_so;
-                const name = item.don_vi.replace(' xã Bình Hưng', '').replace('Ủy ban nhân dân', 'UBND');
+                const name = item.don_vi.replace(' xã Bình Lợi', '').replace('Ủy ban nhân dân', 'UBND');
                 const p = tc.tong_so > 0 ? (v / tc.tong_so * 100) : 0;
                 
                 htmlFields += `
