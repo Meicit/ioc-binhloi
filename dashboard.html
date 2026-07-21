@@ -7,20 +7,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
     
-    <!-- KIỂM TRA THẺ THÔNG HÀNH & HÀM ĐĂNG XUẤT (ĐÃ LOẠI BỎ FIREBASE) -->
-    <script>
-        // Chặn truy cập nếu chưa đi qua cửa trang chủ
-        if (sessionStorage.getItem("isLoggedIn") !== "true") {
-            window.location.replace("index.html"); 
-        }
-
-        // Xử lý đăng xuất thủ công
-        window.handleLogout = function() {
-            sessionStorage.removeItem("isLoggedIn");
-            window.location.replace("index.html"); 
-        }
-    </script>
-
     <style>
         body { font-family: 'Montserrat', sans-serif; background-color: #f1f5f9; margin: 0; display: flex; flex-direction: column; height: 100vh; overflow: hidden; }
         .navbar { background-color: #0b4a8f; color: white; display: flex; flex-direction: column; flex-shrink: 0; z-index: 100; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); border-bottom: 1px solid rgba(255, 255, 255, 0.1); }
@@ -31,7 +17,7 @@
         .nav-bottom { display: flex; align-items: center; padding: 8px 24px; overflow-x: auto; scrollbar-width: none; gap: 12px; width: 100%; scroll-behavior: smooth; }
         .nav-bottom::-webkit-scrollbar { display: none; }
         
-        .scroll-btn { position: absolute; z-index: 20; height: 100%; padding: 0 12px; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); color: white; border: none; cursor: pointer; display: flex; items-center; justify-content: center; transition: all 0.3s ease; }
+        .scroll-btn { position: absolute; z-index: 20; height: 100%; padding: 0 12px; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); color: white; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s ease; }
         .scroll-btn:hover { background: rgba(0,0,0,0.7); color: #38bdf8; }
         #btn-scroll-left { left: 0; display: none; }
         #btn-scroll-right { right: 0; }
@@ -43,8 +29,8 @@
         .nav-item.locked { opacity: 0.3; cursor: not-allowed; filter: grayscale(1); pointer-events: none; background: transparent; }
         .main-wrapper { flex: 1; display: flex; flex-direction: column; overflow: hidden; position: relative; }
         iframe { flex: 1; width: 100%; border: none; background-color: #f1f5f9; }
-        #btn-unlock { cursor: pointer !important; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.15); color: white; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.3); }
-        #btn-unlock:hover { background: #ef4444; color: white; border-color: transparent; transform: scale(1.02); }
+        #btn-unlock { cursor: pointer !important; transition: all 0.3s ease; background: rgba(255, 255, 255, 0.15); color: white; font-weight: 700; border: 1px solid rgba(255, 255, 255, 0.3); text-decoration: none; display: flex; align-items: center; gap: 6px; }
+        #btn-unlock:hover { background: #0ea5e9; color: white; border-color: transparent; transform: scale(1.02); }
 
         /* ================= THEME ĐỎ ĐƯỢC GỌI TỪ IFRAME ================= */
         @keyframes gradientGIF { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
@@ -105,7 +91,8 @@
                 <div class="hidden md:block text-right">
                     <div class="text-[10px] font-extrabold text-sky-100 uppercase mt-0.5 tracking-widest" id="current-time">--/--/2026</div>
                 </div>
-                <button id="btn-unlock" type="button" onclick="handleLogout()" class="px-5 py-2 rounded-lg text-[10px] uppercase tracking-widest shadow-md font-bold">🚪 Đăng xuất hệ thống</button>
+                <!-- ĐÃ SỬA: Thay thế chức năng Đăng xuất thành link quay về trang chủ -->
+                <a href="index.html" id="btn-unlock" class="px-5 py-2 rounded-lg text-[10px] uppercase tracking-widest shadow-md font-bold">🏠 Về Trang chủ</a>
             </div>
         </div>
         
