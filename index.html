@@ -124,7 +124,7 @@
         body.light-theme.theme-do-hanhchinh .contact-section { background-color: rgba(255, 255, 255, 0.15); }
         body.dark-theme .contact-section { background-color: rgba(255, 255, 255, 0.05); }
 
-        /* MODAL VÀ INPUT XÁC THỰC/CHỌN LỰA */
+        /* MODAL VÀ INPUT CHỌN LỰA */
         .modal-overlay { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(15, 23, 42, 0.4); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); 
@@ -141,7 +141,6 @@
         body.dark-theme .modal-icon { background: rgba(8, 47, 73, 0.6); border-color: rgba(56, 189, 248, 0.3); color: #38bdf8; }
         body.dark-theme .modal-title { color: #e0f2fe; }
         body.dark-theme .modal-subtitle { color: #7dd3fc; }
-        body.dark-theme .modal-label { color: #bae6fd; }
         body.dark-theme .modal-input { background: rgba(8, 47, 73, 0.6); border-color: rgba(56, 189, 248, 0.3); color: #e0f2fe; }
         body.dark-theme .modal-input:hover, body.dark-theme .modal-input:focus { border-color: #38bdf8; background: rgba(12, 74, 110, 0.8); }
         body.dark-theme .modal-btn-cancel { background: rgba(8, 47, 73, 0.6); color: #38bdf8; border: 1px solid rgba(56, 189, 248, 0.3); }
@@ -236,7 +235,7 @@
                 </div>
                 <div class="flex flex-col items-start justify-center space-y-2 text-left">
                     <p class="text-white font-black tracking-[0.12em] text-xl md:text-2xl lg:text-3xl uppercase leading-none m-0 p-0 drop-shadow-[0_2px_4px_rgba(12,74,110,0.5)] font-['Montserrat']">
-                        IOC BINH LOI
+                        IOC BÌNH LỢI
                     </p>
                     <h1 class="title-main text-sm md:text-base lg:text-lg font-bold uppercase tracking-[0.08em] text-white/90 leading-tight m-0 p-0 drop-shadow-[0_2px_4px_rgba(12,74,110,0.4)]">
                         Cổng thông tin và điều hành xã Bình Lợi, Thành phố Hồ Chí Minh
@@ -268,7 +267,10 @@
             <main class="grid-container">
                 <a href="gioithieu.html" class="nav-card" style="background-image: url('icon/gioithieu.png');"><div class="text-overlay"><h3>Giới thiệu</h3></div></a>
                 <a href="pages/tru-so-hanh-chinh.html" class="nav-card" style="background-image: url('icon/truso.png');"><div class="text-overlay"><h3>Trụ sở cơ quan hành chính</h3></div></a>
-                <div onclick="openLoginModal()" class="nav-card" style="background-image: url('icon/dashboard.png');"><div class="text-overlay"><h3>Hệ thống i-Dashboard</h3></div></div>
+                
+                <!-- ĐÃ SỬA: Bypass qua trực tiếp Dashboard mà không cần Login Firebase -->
+                <div onclick="goToDashboard()" class="nav-card" style="background-image: url('icon/dashboard.png');"><div class="text-overlay"><h3>Hệ thống i-Dashboard</h3></div></div>
+                
                 <a href="node-thong-tin-tthc/tthc.html" class="nav-card" style="background-image: url('icon/tthc.png');"><div class="text-overlay"><h3>Thông tin <br>Thủ tục hành chính</h3></div></a>        
                 <a href="ban-do-so.html" class="nav-card" style="background-image: url('icon/bandoso.png');"><div class="text-overlay"><h3>Bản đồ số xã Bình Lợi</h3></div></a>
                 <div onclick="window.open('https://xabinhloi.hcm.edu.vn/homegd1413', '_blank')" class="nav-card" style="background-image: url('icon/truonghoc.png');"><div class="text-overlay"><h3>Trang điện tử trường học</h3></div></div>
@@ -318,43 +320,14 @@
 
     <div class="chatbot-mascot chatbot-bin" onclick="openAIModal()">
         <div class="chat-bubble">👋 Trợ lý BIN xin chào!</div>
-        <!-- LƯU Ý: Đổi tên file ảnh của bạn từ binBH.png sang binBL.png trong thư mục -->
-        <img src="binBL.png" alt="Trợ lý BIN">
+        <!-- LƯU Ý: Đổi tên file ảnh sang binBL.png -->
+        <img src="binBL.png" alt="Trợ lý BIN" onerror="this.src='https://placehold.co/125x125?text=BIN'">
     </div>
 
     <div class="chatbot-mascot chatbot-hun" onclick="openAIModal()">
         <div class="chat-bubble">✨ Trợ lý HUN hỗ trợ bạn!</div>
-        <!-- LƯU Ý: Đổi tên file ảnh của bạn từ hunBH.png sang hunBL.png trong thư mục -->
-        <img src="hunBL.png" alt="Trợ lý HUN">
-    </div>
-
-
-    <div id="loginModal" class="modal-overlay">
-        <div class="modal-card">
-            <div class="text-center mb-8">
-                <div class="w-12 h-12 bg-sky-50 text-sky-600 rounded-full flex items-center justify-center mx-auto mb-3 text-xl shadow-sm border border-sky-100 modal-icon">🔒</div>
-                <h2 class="text-lg font-bold text-slate-900 tracking-tight modal-title">Quyền điều hành hệ thống</h2>
-                <p class="text-[11px] text-slate-400 font-medium uppercase mt-1 tracking-wider modal-subtitle">Xác thực điện tử qua Google Firebase</p>
-            </div>
-            
-            <form id="loginForm" class="space-y-5" onsubmit="submitAuth(event)">
-                <div>
-                    <label class="text-xs font-semibold text-slate-700 block mb-2 ml-1 modal-label">Email quản trị</label>
-                    <input type="email" id="email" required placeholder="name@tphcm.gov.vn" 
-                        class="modal-input w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-900 outline-none transition focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-500/10">
-                </div>
-                <div>
-                    <label class="text-xs font-semibold text-slate-700 block mb-2 ml-1 modal-label">Mật mã bảo mật</label>
-                    <input type="password" id="password" required placeholder="••••••••" 
-                        class="modal-input w-full bg-white border border-slate-200 rounded-xl px-4 py-3 text-sm font-medium text-slate-900 outline-none transition focus:border-sky-500 focus:bg-white focus:ring-4 focus:ring-sky-500/10">
-                </div>
-                <div class="grid grid-cols-2 gap-4 pt-4">
-                    <!-- GỌI HÀM cancelLogin ĐỂ HỦY ĐĂNG NHẬP VÀ XÓA BỘ NHỚ -->
-                    <button type="button" onclick="cancelLogin()" class="modal-btn-cancel w-full bg-slate-100 text-slate-600 py-3 rounded-xl font-semibold text-xs uppercase tracking-wider transition hover:bg-slate-200">Hủy</button>
-                    <button type="submit" class="w-full bg-gradient-to-r from-sky-600 to-sky-700 text-white py-3 rounded-xl font-semibold text-xs uppercase tracking-wider shadow-md shadow-sky-600/10 hover:opacity-95 transition">Xác nhận</button>
-                </div>
-            </form>
-        </div>
+        <!-- LƯU Ý: Đổi tên file ảnh sang hunBL.png -->
+        <img src="hunBL.png" alt="Trợ lý HUN" onerror="this.src='https://placehold.co/125x125?text=HUN'">
     </div>
 
     <div id="aiModal" class="modal-overlay">
@@ -386,39 +359,19 @@
         &copy; IOC BÌNH LỢI — BẢN QUYỀN THUỘC UBND XÃ BÌNH LỢI
     </footer>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, signInWithEmailAndPassword, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-
-        // ================= CẤU HÌNH FIREBASE MỚI (IOC BÌNH LỢI) =================
-        const firebaseConfig = {
-            apiKey: "AIzaSyA2cNiIh-_DxvYS95roJ-_yJoKtaFf4zb8",
-            authDomain: "binhloi-ioc.firebaseapp.com",
-            databaseURL: "https://binhloi-ioc-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "binhloi-ioc",
-            storageBucket: "binhloi-ioc.firebasestorage.app",
-            messagingSenderId: "365892401408",
-            appId: "1:365892401408:web:5e311afaf71b78d1829be5",
-            measurementId: "G-M0HHEW6JXW"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        // ================= LOGIC TỰ ĐỘNG BẬT MODAL (DEEP LINKING) =================
-        onAuthStateChanged(auth, (user) => {
-            if (!user) {
-                // Nếu chưa đăng nhập và phát hiện có link chờ
-                const targetUrl = localStorage.getItem('redirectTarget');
-                if (targetUrl) {
-                    document.getElementById('loginModal').classList.add('open');
-                    setTimeout(() => document.getElementById('email').focus(), 300);
-                }
+    <script>
+        // ================= HÀM CHUYỂN TRANG BYPASS LOGIN =================
+        window.goToDashboard = function() {
+            sessionStorage.setItem("isLoggedIn", "true");
+            
+            const targetUrl = localStorage.getItem('redirectTarget');
+            if (targetUrl) {
+                localStorage.removeItem('redirectTarget');
+                window.location.href = targetUrl; 
             } else {
-                // ĐÃ SỬA LỖI: Cấp thẻ thông hành nếu Firebase xác nhận user đã đăng nhập từ trước
-                sessionStorage.setItem("isLoggedIn", "true");
+                window.location.href = "dashboard.html"; 
             }
-        });
+        }
 
         // HÀM CHUYỂN ĐỔI THEME HEADER XANH / ĐỎ
         window.switchSystemTheme = function(modeName) {
@@ -454,59 +407,6 @@
                 btnDark.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition bg-sky-600 text-white shadow-sm border border-sky-500";
                 btnLight.className = "flex items-center gap-1.5 text-[11px] font-extrabold uppercase px-3 py-1.5 rounded-lg transition border border-transparent text-white/70 hover:text-white";
             }
-        }
-
-        // Đóng Form đơn thuần
-        window.closeLoginModal = function() {
-            document.getElementById('loginModal').classList.remove('open');
-            document.getElementById('loginForm').reset();
-        }
-
-        // Hủy Đăng nhập do người dùng bấm
-        window.cancelLogin = function() {
-            closeLoginModal();
-            // Nếu người dùng hủy thì xóa link đi để lần sau không hiện lại
-            localStorage.removeItem('redirectTarget');
-        }
-        
-        window.openLoginModal = function() {
-            if (auth.currentUser) {
-                // ĐÃ SỬA LỖI: Cấp thẻ thông hành trước khi qua dashboard
-                sessionStorage.setItem("isLoggedIn", "true");
-                window.location.href = "dashboard.html";
-            } else {
-                document.getElementById('loginModal').classList.add('open');
-                document.getElementById('email').focus();
-            }
-        }
-        
-        window.submitAuth = function(e) {
-            e.preventDefault();
-            const emailInp = document.getElementById('email').value.trim();
-            const passInp = document.getElementById('password').value;
-
-            signInWithEmailAndPassword(auth, emailInp, passInp)
-                .then(() => {
-                    // ĐÃ SỬA LỖI: Cấp thẻ thông hành ngay khi Firebase xác thực thành công
-                    sessionStorage.setItem("isLoggedIn", "true");
-
-                    // Lấy link TRƯỚC KHI xử lý cái khác
-                    const targetUrl = localStorage.getItem('redirectTarget');
-                    
-                    closeLoginModal();
-                    
-                    if (targetUrl) {
-                        localStorage.removeItem('redirectTarget');
-                        window.location.href = targetUrl; // Chuyển thẳng về link đang chờ
-                    } else {
-                        window.location.href = "dashboard.html"; // Mặc định vào dashboard
-                    }
-                })
-                .catch(() => {
-                    alert("⚠️ Email quản trị hoặc mật mã mật khẩu điều hành không chính xác!");
-                    document.getElementById('password').value = "";
-                    document.getElementById('password').focus();
-                });
         }
 
         // Modal Chọn AI
@@ -547,6 +447,14 @@
         document.addEventListener('DOMContentLoaded', () => {
             setTheme('light');
             
+            // Xử lý deep link (nếu có redirectTarget)
+            const targetUrl = localStorage.getItem('redirectTarget');
+            if (targetUrl) {
+                sessionStorage.setItem("isLoggedIn", "true");
+                localStorage.removeItem('redirectTarget');
+                window.location.href = targetUrl;
+            }
+
             const binBubble = document.querySelector('.chatbot-bin .chat-bubble');
             const hunBubble = document.querySelector('.chatbot-hun .chat-bubble');
 
