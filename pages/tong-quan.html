@@ -43,13 +43,13 @@
             <span class="text-4xl">🏛️</span>
             <div>
                 <h1 class="text-xl font-[900] text-[#0b4a8f] uppercase tracking-wide">Hệ thống i-Dashboard Điều hành Thông minh</h1>
-                <p class="text-xs font-bold text-sky-600 uppercase mt-0.5 tracking-wider">Trung tâm giám sát dữ liệu số tập trung - UBND Xã Bình Hưng</p>
+                <p class="text-xs font-bold text-sky-600 uppercase mt-0.5 tracking-wider">Trung tâm giám sát dữ liệu số tập trung - UBND Xã Bình Lợi</p>
             </div>
         </div>
 
         <div class="space-y-4 text-justify text-sm font-semibold text-slate-600 leading-relaxed">
             <p>
-                Chào mừng Lãnh đạo xã đến  <strong class="text-[#0b4a8f]">Hệ thống i-Dashboard xã Bình Hưng, Thành phố Hồ Chí Minh</strong>. Đây là nền tảng ứng dụng chuyển đổi số góp phần thực hiện mục tiêu xây dựng Chính quyền số tại xã Bình Hưng, Thành phố Hồ Chí Minh.
+                Chào mừng Lãnh đạo xã đến  <strong class="text-[#0b4a8f]">Hệ thống i-Dashboard xã Bình Lợi, Thành phố Hồ Chí Minh</strong>. Đây là nền tảng ứng dụng chuyển đổi số góp phần thực hiện mục tiêu xây dựng Chính quyền số tại xã Bình Lợi, Thành phố Hồ Chí Minh.
             </p>
             <p>
                 Hệ thống i-Dashboard này sẽ là <strong class="text-sky-600">một kênh tổng hợp, phân tích số liệu</strong>, có nhiệm vụ liên thông, số hóa và trực quan hóa toàn bộ dữ liệu, số liệu công vụ từ các ban ngành, đoàn thể và các ấp. Hệ thống tổng hợp tự động các chỉ số báo cáo thời gian thực tạo ra cái nhìn toàn cảnh, xuyên suốt để Lãnh đạo xã kịp thời đưa ra các quyết định chỉ đạo, điều hành chính xác, khoa học và tối ưu nhất.
@@ -75,12 +75,26 @@
                 <p class="text-[11px] font-medium text-slate-500 leading-normal">Tiếp nhận thông tin trực tiếp từ Tổng đài 1022 và đơn thư nhân dân, phân loại lĩnh vực tự động để các ban ngành xử lý kịp thời.</p>
             </div>
         </div>
-
-        <div class="mt-8 pt-4 border-t border-slate-200 flex items-center gap-2 text-[11px] font-bold text-amber-600 italic">
-            <span>🛡️</span>
-            <span>Vui lòng đăng xuất sau khi kết thúc công tác điều hành.</span>
-        </div>
     </div>
 
+    <!-- Tích hợp Firebase (Modular SDK) chỉ để kết nối Cơ sở dữ liệu (Firestore) -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+        
+        const firebaseConfig = {
+            apiKey: "YOUR_API_KEY",
+            authDomain: "YOUR_PROJECT_ID.firebaseapp.com", /* Cấu hình mặc định, không ảnh hưởng nếu không dùng tính năng Auth */
+            projectId: "YOUR_PROJECT_ID",
+            storageBucket: "YOUR_PROJECT_ID.appspot.com",
+            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
+            appId: "YOUR_APP_ID"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        
+        console.log("Kết nối Firestore thành công, sẵn sàng đổ dữ liệu.");
+    </script>
 </body>
 </html>
