@@ -7,49 +7,17 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,700;1,900&display=swap" rel="stylesheet">
     
-    <!-- BƯỚC 1: Kiểm tra thẻ thông hành ngay lập tức (Chặn truy cập trực tiếp) -->
+    <!-- KIỂM TRA THẺ THÔNG HÀNH & HÀM ĐĂNG XUẤT (ĐÃ LOẠI BỎ FIREBASE) -->
     <script>
+        // Chặn truy cập nếu chưa đi qua cửa trang chủ
         if (sessionStorage.getItem("isLoggedIn") !== "true") {
-            window.location.replace("index.html"); // Đẩy về trang đăng nhập ngay lập tức
+            window.location.replace("index.html"); 
         }
-    </script>
 
-    <!-- BƯỚC 2: Khởi tạo và xác thực Firebase ngầm (Bảo vệ cấp 2) -->
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-        import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-
-        // ================= CẤU HÌNH FIREBASE MỚI (IOC BÌNH LỢI) =================
-        const firebaseConfig = {
-            apiKey: "AIzaSyA2cNiIh-_DxvYS95roJ-_yJoKtaFf4zb8",
-            authDomain: "binhloi-ioc.firebaseapp.com",
-            databaseURL: "https://binhloi-ioc-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "binhloi-ioc",
-            storageBucket: "binhloi-ioc.firebasestorage.app",
-            messagingSenderId: "365892401408",
-            appId: "1:365892401408:web:5e311afaf71b78d1829be5",
-            measurementId: "G-M0HHEW6JXW"
-        };
-
-        const app = initializeApp(firebaseConfig);
-        const auth = getAuth(app);
-
-        // Kiểm tra xem token thật của Firebase còn hạn không
-        onAuthStateChanged(auth, (user) => {
-            if (!user) { 
-                sessionStorage.removeItem("isLoggedIn");
-                window.location.replace("index.html"); 
-            } else {
-                sessionStorage.setItem("isLoggedIn", "true");
-            }
-        });
-
-        // Hàm đăng xuất
+        // Xử lý đăng xuất thủ công
         window.handleLogout = function() {
-            signOut(auth).then(() => { 
-                sessionStorage.removeItem("isLoggedIn");
-                window.location.replace("index.html"); 
-            });
+            sessionStorage.removeItem("isLoggedIn");
+            window.location.replace("index.html"); 
         }
     </script>
 
@@ -172,12 +140,10 @@
 
     <div class="chatbot-mascot chatbot-bin" onclick="openOneAIChat()">
         <div class="chat-bubble">👋 Trợ lý BIN xin chào!</div>
-        <!-- LƯU Ý: Đổi tên file ảnh từ binBH.png sang binBL.png -->
         <img src="binBL.png" alt="Trợ lý BIN" onerror="this.src='https://placehold.co/125x125?text=BIN'">
     </div>
     <div class="chatbot-mascot chatbot-hun" onclick="openOneAIChat()">
         <div class="chat-bubble">✨ Trợ lý HUN hỗ trợ bạn!</div>
-        <!-- LƯU Ý: Đổi tên file ảnh từ hunBH.png sang hunBL.png -->
         <img src="hunBL.png" alt="Trợ lý HUN" onerror="this.src='https://placehold.co/125x125?text=HUN'">
     </div>
 
